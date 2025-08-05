@@ -1,0 +1,162 @@
+.navigation-bar {
+  display: flex;
+  width: 100%;
+  height: 80px;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  border-bottom: 1px solid var(--Gray-100, #F5F5F5);
+  background: var(--Gray-50, #FAFAFA);
+  gap: 20px;
+  padding-inline: 113px;
+  padding-block: 20px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+  color: var(--Gray-600, #535862);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  /* 150% */
+  font-family: var(--montser-font);
+}
+
+.Katauro-logo {
+  margin-right: 12px;
+}
+
+.button-base.login {
+  padding: 10px 18px;
+}
+
+.footer {
+  width: 100%;
+  display: grid;
+  height: 563px;
+  background: var(--Gray-200, #E9EAEB);
+  overflow: hidden;
+}
+
+.footer-content {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(350px, 392px) minmax(0, 120px) minmax(324px, auto) minmax(0, 57px) minmax(324px, auto);
+  grid-template-rows: 330px auto;
+  padding-inline: 80px;
+  padding-block: 66px 46px;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.contact-wu {
+  gap: 20px;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.shop-info {
+  grid-column: 3;
+  grid-row: 1;
+  box-sizing: border-box;
+  padding-left: 40px;
+  position: relative;
+}
+
+.footer-content header {
+  color: var(--Gray-900, #181D27);
+  font-family: Montserrat;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+  margin-top: 24px;
+
+}
+
+.contact-text {
+  color: var(--Gray-900, #181D27);
+
+  /* Text sm/Regular */
+  font-family: var(--montser-font);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  max-width: 392px;
+}
+
+.contact-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+  height: 44px;
+  width: 100%;
+}
+
+.footer-text-green {
+  color: var(--Brand-600, #178C94);
+
+  /* Text md/Regular */
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  /* 150% */
+}
+
+.footer-text-black {
+  color: var(--Black, #000);
+
+  /* Text md/Semibold */
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  /* 150% */
+}
+
+.factory-info {
+  grid-column: 5;
+  grid-row: 1;
+  position: relative;
+  padding-left: 40px;
+  box-sizing: border-box;
+}
+
+.social-media {
+  grid-row: 2;
+  grid-column: 1/6;
+  position: relative;
+  margin-top: 64px;
+  padding-top: 32px;
+}
+
+.divider {
+  height: 1px;
+  align-self: stretch;
+  width: 100%;
+  background: var(--Gray-25, #FDFDFD);
+  position: absolute;
+  top: 0;
+}
+
+.artboard {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  flex-shrink: 0;
+}

@@ -1,0 +1,113 @@
+<div class="dashboard"
+  style="box-sizing: border-box; min-height: 100vh; padding-top: 80px; display: flex; flex-direction: column;">
+
+
+  <div class="navigation-bar">
+    <div class="nav-links">
+      <img class="Katauro-logo" src="/assets/Katauro.svg" />
+      <a>Inicio</a>
+      <a>Nuestro equipo</a>
+      <a>Luminarias</a>
+      <a>Blog</a>
+    </div>
+    <button class="button-base login">
+      <label>Iniciar sesión</label>
+    </button>
+  </div>
+  <div class="router-content" style="
+  display: flex; 
+  flex: 1; 
+  flex-direction: column; 
+  min-height: 0;
+  
+  ">
+    <router-outlet />
+  </div>
+
+  <div class="footer">
+    <div class="footer-content">
+      <div class="contact-wu">
+
+        <img style="display: block; width: 160px; height: 47px;" src="/assets/Katauro.svg" alt="Katauro Logo" />
+
+        <img style="margin-top: 12px;" src="/assets/Ideas_con_luz.svg" alt="Ideas_con_luz">
+
+        <header class="contact-header">
+          ¡Comunícate con nosotros!
+        </header>
+        <p class="contact-text">
+          Envíanos sus comentarios, preguntas o inquietudes. Estaremos encantados de atenderle y ponernos en contacto
+          con usted.
+        </p>
+        <div class="contact-info">
+          <input style="width: 100%;" class="input-base" type="text" placeholder="Escríbenos un mensaje">
+          <button style="height: 44px; width: 88px;;" class="button-base contact-button">
+            <label>Enviar</label>
+          </button>
+        </div>
+
+
+      </div>
+      <div class="shop-info">
+        <img style="position:absolute; top: 0; left: 0;" src="/assets/map-pin.svg" alt="Map-pin">
+        <header style="margin: 0;" class="shop-header">
+          Tienda
+        </header>
+        <p style="margin-top: 8px;" class="footer-text-green shop-text">
+          Mira nuestros productos disponibles.
+        </p>
+
+        <p style="margin-top: 20;" class="footer-text-black">
+          100 Smith Street Collingwood VIC 3066 AU
+        </p>
+
+        <img style="position: absolute; left: 0px; margin-top: 25px;" src="/assets/phone.svg" alt="Phone">
+
+        <header style="margin-top: 40px;" class="shop-header">
+          Teléfono
+        </header>
+        <p style="margin-top: 8px;" class="footer-text-green shop-text">
+          Lunes-Viernes de 8 am a 5 pm.
+        </p>
+        <p style="margin-top: 20px;" class="footer-text-black">
+          +1 (555) 000-0000
+        </p>
+
+      </div>
+      <div class="factory-info">
+        <img style="position: absolute; top: 0; left: 0;" src="/assets/map-pin.svg" alt="map-pin">
+        <header style="margin: 0;" class="factory-header">
+          Fábrica
+        </header>
+
+        <p style="margin-top: 8px;" class="footer-text-green factory-text">
+          Conoce más sobre nuestro proceso de producción.
+        </p>
+
+        <p style="margin-top: 20px;" class="footer-text-black">
+          100 Smith Street Collingwood VIC 3066 AU
+        </p>
+
+        <img style="position: absolute; left: 0; margin-top: 27px;" src="/assets/mail.svg" alt="mail">
+        <header style="margin-top: 40px;" class="factory-header">Gmail</header>
+        <p style="margin-top: 8px;" class="footer-text-green factory-text">
+          Escríbenos tus dudas e inquietudes.
+        </p>
+        <p style="margin-top: 20px;" class="footer-text-black">
+          hi&#64;untitledui.com
+        </p>
+      </div>
+
+      <div class="social-media">
+        <div class="divider"></div>
+        <img src="/assets/instagram.svg" alt="Instagram">
+        <img src="/assets/facebook.svg" alt="Facebook">
+        <img src="/assets/twitter.svg" alt="Twitter">
+        <img src="/assets/linkedin.svg" alt="LinkedIn">
+      </div>
+
+    </div>
+    <img class="artboard" src="/assets/Artboard_11.svg" alt="Artboard_11">
+  </div>
+
+</div>
