@@ -5,10 +5,10 @@
   <div class="navigation-bar">
     <div class="nav-links">
       <img class="Katauro-logo" src="/assets/Katauro.svg" />
-      <a>Inicio</a>
-      <a>Nuestro equipo</a>
-      <a>Luminarias</a>
-      <a>Blog</a>
+      <a (click)="router.navigate(['/dashboard/home'])" [ngClass]="{'active': isActive('/dashboard/home')}">Inicio</a>
+      <a (click)="router.navigate(['/dashboard/team'])" [ngClass]="{'active': isActive('/dashboard/team')}">Nuestro equipo</a>
+      <a (click)="router.navigate(['/dashboard/galery'])" [ngClass]="{'active': isActive('/dashboard/galery')}">Luminarias</a>
+      <a (click)="router.navigate(['/dashboard/blog'])" [ngClass]="{'active': isActive('/dashboard/blog')}">Blog</a>
     </div>
     <button class="button-base login">
       <label>Iniciar sesión</label>
@@ -102,8 +102,31 @@
         <div class="divider"></div>
         <img src="/assets/instagram.svg" alt="Instagram">
         <img src="/assets/facebook.svg" alt="Facebook">
-        <img src="/assets/twitter.svg" alt="Twitter">
-        <img src="/assets/linkedin.svg" alt="LinkedIn">
+        <img src="/assets/whatsapp.svg" alt="WhatsApp">
+
+        <a style="text-decoration: none;" href="https://wa.me/1234567890" target="_blank">
+          <label style="position: unset; left: auto;" class="footer-links cookies">
+            Cookies
+          </label>
+        </a>
+
+        <a style="text-decoration: none;" href="https://wa.me/1234567890" target="_blank">
+          <label style="position: unset; left: auto;" class="footer-links privacy">
+            Privacy
+          </label>
+        </a>
+
+        <a style="text-decoration: none;" href="https://wa.me/1234567890" target="_blank">
+          <label style="position: unset; left: auto;" class="footer-links terms">
+            Terms
+          </label>
+        </a>
+
+        <label class="footer-links copyright">
+          © 2025 Katauro. Todos los derechos reservados.
+        </label>
+
+
       </div>
 
     </div>

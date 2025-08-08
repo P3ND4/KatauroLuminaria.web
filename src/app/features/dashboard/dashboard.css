@@ -31,6 +31,26 @@
   font-family: var(--montser-font);
 }
 
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-links a.active {
+  color: #007981;
+}
+.nav-links a.active {
+  color: #007981;
+}
+.nav-links a.active {
+  color: #007981;
+}
+.nav-links a.active {
+  color: #007981;
+}
+
 .Katauro-logo {
   margin-right: 12px;
 }
@@ -45,6 +65,7 @@
   height: 563px;
   background: var(--Gray-200, #E9EAEB);
   overflow: hidden;
+  position: relative;
 }
 
 .footer-content {
@@ -139,10 +160,13 @@
 
 .social-media {
   grid-row: 2;
-  grid-column: 1/6;
+  grid-column: 1/7;
   position: relative;
   margin-top: 64px;
   padding-top: 32px;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 24px;
 }
 
 .divider {
@@ -154,8 +178,22 @@
   top: 0;
 }
 
+.footer-links {
+  color: var(--Gray-500, #717680);
+
+  /* Text md/Regular */
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  position: absolute;
+  left: 0px;
+  /* 150% */
+}
+
 .artboard {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   right: 0;
   flex-shrink: 0;

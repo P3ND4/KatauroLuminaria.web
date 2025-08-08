@@ -1,0 +1,26 @@
+<div class="our-team">
+    <header class="main-h">
+        <h1>
+            Ellos hacen la magia
+        </h1>
+        <p style="width: 700px;">
+            En Katauro somos una familia, este es el equipo encargado del diseño y producción de nuestras luminarias.
+        </p>
+    </header>
+
+    <div class="team-members">
+        <div  class="img-cont">
+            <img style="width: 100%; height: 100%;" src="/assets/team.png"/>
+        </div>
+        <div class="team-list">
+            <div *ngFor="let member of team" class="member">
+                <img style="width: 100%; height: 217px;" src="{{member.img}}" alt="{{member.name}}">
+                <div>
+                    <h3>Olivia Rhye</h3>
+                    <h4>Fundador y directivo</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
