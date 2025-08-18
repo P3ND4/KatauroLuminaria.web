@@ -1,95 +1,102 @@
-<app-corousel [data]="carousel1" />
-<div class="home-container">
+<div style="view-transition-name: home; background-color: white;">
 
-    <div class="luminarias">
-        <header style="gap: 20px; display: block;">
-            <h2>Conoce nuestras luminarias disponibles</h2>
-            <p class="header-p">Aquí podrás encontrar nuestras lámparas de techo, mesa, pared y piso disponibles.
-            </p>
-        </header>
-        <ul class="luminarias-list">
-            <li>
-                <img src="/assets/mesa.png" alt="Lámpara de mesa">
-            </li>
-            <li>
-                <img src="/assets/pared.png" alt="Lámpara de pared">
-            </li>
-            <li>
-                <img src="/assets/pie.png" alt="Lámpara de piso">
-            </li>
-            <li>
-                <img src="/assets/techo.png" alt="Lámpara de techo">
-            </li>
-        </ul>
+    <app-corousel [data]="carousel1" />
+    <div class="home-container">
+
+        <div class="luminarias">
+            <header style="gap: 20px; display: block;">
+                <h2>Conoce nuestras luminarias disponibles</h2>
+                <p class="header-p">Aquí podrás encontrar nuestras lámparas de techo, mesa, pared y piso disponibles.
+                </p>
+            </header>
+            <ul class="luminarias-list">
+                <li>
+                    <img src="/assets/mesa.png" alt="Lámpara de mesa">
+                </li>
+                <li>
+                    <img src="/assets/pared.png" alt="Lámpara de pared">
+                </li>
+                <li>
+                    <img src="/assets/pie.png" alt="Lámpara de piso">
+                </li>
+                <li>
+                    <img src="/assets/techo.png" alt="Lámpara de techo">
+                </li>
+            </ul>
+
+        </div>
+
+        <app-corousel [data]="carousel2" />
+
+        <div class="offers-grid">
+            <div *ngFor="let i of [0,1,2,3,4,5,6]">
+                <img src="{{mostRated[i]}}" />
+            </div>
+        </div>
+
+        <div class="luminarias featured">
+            <header style="gap: 20px; display: block;">
+                <h2>Luminarias destacadas</h2>
+                <p class="header-p">Aprecia nuestras lámparas de diseño propio más relevantes.</p>
+            </header>
+            <div class="featured-content">
+                <div>
+                    <img src="/assets/featured1.png" alt="">
+                </div>
+                <div>
+                    <img src="/assets/featured2.png" alt="">
+                </div>
+                <div>
+                    <img src="/assets/featured2.png" alt="">
+                </div>
+            </div>
+
+        </div>
+
 
     </div>
-
     <app-corousel [data]="carousel2" />
 
-    <div class="offers-grid">
-        <div *ngFor="let i of [0,1,2,3,4,5,6]">
-            <img src="{{mostRated[i]}}" />
-        </div>
-    </div>
+    <div
+        style="display: flex; justify-content: center; flex-direction: column; padding-inline: 80px; padding-bottom: 96px; box-sizing: border-box;">
+        <div class="recent-posts">
+            <header>
+                <h2 style="font-size: 36px; text-align: left;">Publicaciones recientes</h2>
+            </header>
+            <div class="post-container">
+                <div>
+                    <img src="/assets/Image.png" alt="">
+                    <div class="info-post">
+                        <h4>19 Ene 2025</h4>
+                        <h3>Nombre Atractivo</h3>
+                        <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur
+                            convallis
+                            risus.</p>
 
-    <div class="luminarias featured">
-        <header style="gap: 20px; display: block;">
-            <h2>Luminarias destacadas</h2>
-            <p class="header-p">Aprecia nuestras lámparas de diseño propio más relevantes.</p>
-        </header>
-        <div class="featured-content">
-            <div>
-                <img src="/assets/featured1.png" alt="">
-            </div>
-            <div>
-                <img src="/assets/featured2.png" alt="">
-            </div>
-            <div>
-                <img src="/assets/featured2.png" alt="">
-            </div>
-        </div>
-
-    </div>
-
-
-</div>
-<app-corousel [data]="carousel2" />
-
-<div style="display: flex; justify-content: center; flex-direction: column; padding-inline: 80px; padding-bottom: 96px; box-sizing: border-box;">
-    <div class="recent-posts">
-        <header>
-            <h2 style="font-size: 36px; text-align: left;">Publicaciones recientes</h2>
-        </header>
-        <div class="post-container">
-            <div>
-                <img src="/assets/Image.png" alt="">
-                <div class="info-post">
-                    <h4>19 Ene 2025</h4>
-                    <h3>Nombre Atractivo</h3>
-                    <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur convallis
-                        risus.</p>
-
+                    </div>
                 </div>
-            </div>
-            <div>
-                <img src="/assets/Image.png" alt="">
-                <div class="info-post">
-                    <h4>19 Ene 2025</h4>
-                    <h3>Nombre Atractivo</h3>
-                    <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur convallis
-                        risus.</p>
+                <div>
+                    <img src="/assets/Image.png" alt="">
+                    <div class="info-post">
+                        <h4>19 Ene 2025</h4>
+                        <h3>Nombre Atractivo</h3>
+                        <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur
+                            convallis
+                            risus.</p>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <img src="/assets/Image.png" alt="">
-                <div class="info-post">
-                    <h4>19 Ene 2025</h4>
-                    <h3>Nombre Atractivo</h3>
-                    <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur convallis
-                        risus.</p>
+                <div>
+                    <img src="/assets/Image.png" alt="">
+                    <div class="info-post">
+                        <h4>19 Ene 2025</h4>
+                        <h3>Nombre Atractivo</h3>
+                        <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur
+                            convallis
+                            risus.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
 </div>

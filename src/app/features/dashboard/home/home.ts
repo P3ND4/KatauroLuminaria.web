@@ -37,5 +37,7 @@ export class Home {
     "/assets/lampara.png",
     "/assets/lampara.png"
   ]
-
+  ngAfterViewInit() {
+    window.scrollTo(0, 0); // Scroll instantáneo al top
+  }
 }

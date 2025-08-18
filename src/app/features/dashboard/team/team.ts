@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { TeamMember } from '../../../shared/models/teamMember';
 import { CommonModule } from '@angular/common';
 
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './team.html',
   styleUrl: './team.css'
 })
-export class Team {
+export class Team implements AfterViewInit {
   team: TeamMember[] = [];
   constructor() {
     for (let index = 0; index < 15; index++) {
@@ -22,6 +22,10 @@ export class Team {
       )
 
     }
+  }
+
+  ngAfterViewInit(): void {
+    window.scrollTo(0, 0);
   }
 
 }

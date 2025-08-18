@@ -96,7 +96,7 @@
 
 .footer-content header {
   color: var(--Gray-900, #181D27);
-  font-family: Montserrat;
+  font-family: var(--montser-font);
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
@@ -130,7 +130,7 @@
   color: var(--Brand-600, #178C94);
 
   /* Text md/Regular */
-  font-family: Montserrat;
+  font-family: var(--montser-font);
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -142,7 +142,7 @@
   color: var(--Black, #000);
 
   /* Text md/Semibold */
-  font-family: Montserrat;
+  font-family: var(--montser-font);
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
@@ -182,7 +182,7 @@
   color: var(--Gray-500, #717680);
 
   /* Text md/Regular */
-  font-family: Montserrat;
+  font-family: var(--montser-font);
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

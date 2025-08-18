@@ -1,1 +1,44 @@
-<p>galery works!</p>
+<div class="galery-container">
+    <header class="galery-header">
+        <h2>Gallería</h2>
+        <h3>Nuestras luminarias</h3>
+    </header>
+    <div class="category-nav">
+        <button class="button-chips" [ngClass]="{'active': selectedCategory == 'TODAS'}"
+            (click)="onCategoryChange('TODAS')">
+            <label>TODAS</label>
+        </button>
+        <button class="button-chips" [ngClass]="{'active': selectedCategory == categories.tableLumin}"
+            (click)="onCategoryChange(categories.tableLumin)">
+            <label>LUMINARIAS DE MESA</label>
+        </button>
+        <button class="button-chips" [ngClass]="{'active': selectedCategory == categories.wallLumin}"
+            (click)="onCategoryChange(categories.wallLumin)">
+            <label>LUMINARIAS DE PARED</label>
+        </button>
+        <button class="button-chips" [ngClass]="{'active': selectedCategory == categories.footLumin}"
+            (click)="onCategoryChange(categories.footLumin)">
+            <label>LUMINARIAS DE PIE</label>
+        </button>
+        <button class="button-chips" [ngClass]="{'active': selectedCategory == categories.roofLumin}"
+            (click)="onCategoryChange(categories.roofLumin)">
+            <label>LUMINARIAS DE TECHO</label>
+        </button>
+        <button class="button-chips" [ngClass]="{'active': selectedCategory == categories.lightBulb}"
+            (click)="onCategoryChange(categories.lightBulb)">
+            <label>BOMBILLO</label>
+        </button>
+    </div>
+    <div class="galery-content">
+        @for (product of products; track $index) {
+        <div [class]="'product pos-' + ($index%8)" (click)="navigateToProduct(product.categorie, product.id)">
+            <img [src]="product.image" alt="{{ product.name }}">
+            <div class="product-info" [ngClass]="{'t1': $index % 8 in [2,3,5,6,7], 't2': $index % 8 === 4}">
+                <h3>{{product.name}}</h3>
+                <p>{{product.description}}</p>
+            </div>
+        </div>
+        }
+    </div>
+
+</div>
