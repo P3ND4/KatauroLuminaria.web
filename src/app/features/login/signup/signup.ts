@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgxMaterialIntlTelInputComponent } from 'ngx-material-intl-tel-input';
 
 @Component({
   selector: 'app-signup',
-  imports: [CommonModule, ReactiveFormsModule, NgxMaterialIntlTelInputComponent],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './signup.html',
   styleUrl: './signup.css'
 })
