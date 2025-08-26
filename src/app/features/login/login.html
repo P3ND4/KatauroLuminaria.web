@@ -1,1 +1,24 @@
-<p>login works!</p>
+<div class="main-login">
+    <div class="login-section" [ngClass]="{'register': isRegister()}">
+        <header>
+            <img src="/assets/Katauro.svg" alt="" (click)="router.navigate(['/'])">
+        </header>
+        
+        
+        <div>
+            <router-outlet></router-outlet>
+        </div>
+        
+        <footer>
+            <p>Katauro Luminarias</p>
+            <div style="display: flex; gap: 8px;">
+                <img src="/assets/mailGray.svg" alt="">
+                <a class="mail" href="mailto:katauro.luminarias@gmail.com">katauro.luminarias@gmail.com</a>
+            </div>
+        </footer>
+
+    </div>
+    <div class="img-container" [ngClass]="{'register': isRegister()}">
+        <img src="/assets/loginImage.png" alt="Katauro Logo">
+    </div>
+</div>

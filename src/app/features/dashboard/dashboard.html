@@ -12,8 +12,8 @@
         [ngClass]="{'active': isActive('/dashboard/galery')}">Luminarias</a>
       <a (click)="router.navigate(['/dashboard/blog'])" [ngClass]="{'active': isActive('/dashboard/blog')}">Blog</a>
     </div>
-    <button class="button-base login" [ngStyle]="{'display': isLogged()? 'none': 'null'}">
-      <label>Iniciar sesión</label>
+    <button class="button-base login" [ngStyle]="{'display': isLogged()? 'none': 'null'}" id="log" (click)="router.navigate(['/login/signin'])">
+      <label for="log">Iniciar sesión</label>
     </button>
     <div [ngStyle]="{'display': !isLogged()? 'none': 'null'}">
       <button class="user">

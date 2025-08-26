@@ -8,6 +8,8 @@ import { Blog } from './features/dashboard/blog/blog';
 import { Login } from './features/login/login';
 import { Prodct } from './features/dashboard/galery/prodct/prodct';
 import { Singular } from './features/dashboard/galery/prodct/singular/singular';
+import { Signin } from './features/login/signin/signin';
+import { Signup } from './features/login/signup/signup';
 
 export const routes: Routes = [
     {
@@ -27,11 +29,17 @@ export const routes: Routes = [
                             { path: ':id', component: Singular }
                         ]
                     }
-                    
+
                 ]
             },
-            { path: 'login', component: Login },
+            {
+                path: 'login', component: Login, children: [
+                    { path: 'signin', component: Signin },
+                    { path: 'signup', component: Signup }
+                ]
+            },
         ]
-    }
+    },
+    { path: '**', redirectTo: 'dashboard/home' }
 ];
 

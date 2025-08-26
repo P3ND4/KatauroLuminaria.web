@@ -2,6 +2,8 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import { provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
+import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 
 export const appConfig: ApplicationConfig = {
@@ -10,9 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideRouter(routes, withViewTransitions()),
-//    provideRouter(routes, withInMemoryScrolling({
-//      scrollPositionRestoration: 'top',       // Siempre al top
-//      anchorScrolling: 'enabled'             // Scroll hacia anclas (#algo)
-//    })),
+    provideHttpClient(), provideAnimations()
   ]
 };

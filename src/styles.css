@@ -103,7 +103,8 @@
     /* 150% */
 }
 
-.button-chips:active, .button-chips.active {
+.button-chips:active,
+.button-chips.active {
     display: flex;
     padding: 10px 18px;
     justify-content: center;
@@ -117,7 +118,8 @@
     cursor: pointer;
 }
 
-.button-chips:active label, .button-chips.active label {
+.button-chips:active label,
+.button-chips.active label {
     color: var(--Brand-700, #007981);
 
     /* Text md/Semibold */
@@ -130,29 +132,74 @@
 }
 
 @keyframes enter {
-  0% { opacity: 0; transform: translateY(100vh); }
-  100% { opacity: 1; transform: translateY(0); }
+    0% {
+        opacity: 0;
+        transform: translateY(100vh);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
 
 
 @keyframes exit {
-  0% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 1; transform: translateY(100%); }
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(100%);
+    }
 }
 
 @keyframes exitTeam {
-  0% { opacity: 1;  }
-  100% { opacity: 0; }
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 
 ::view-transition-old(home) {
-  animation: exit 1s ease forwards;
+    animation: exit 1s ease forwards;
 }
 
 ::view-transition-new(home) {
-  animation: enter 0.5s ease forwards;
+    animation: enter 0.5s ease forwards;
 }
 
+.social-button {
+    display: flex;
+    padding: 10px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid var(--Gray-300, #D5D7DA);
+    background: var(--White, #FFF);
+
+    /* Shadow/xs */
+    box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
+}
+
+.social-buttons label {
+    color: var(--Gray-700, #414651);
+
+    /* Text md/Semibold */
+    font-family: var(--montser-font);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    /* 150% */
+}
