@@ -1,10 +1,94 @@
 <div class="signup-form-container">
     <header>
-
+        <h2>Regístrate</h2>
+        <p>Déjanos tus datos y mantente al tanto de nuestras ofertas y lanzamientos.</p>
     </header>
 
     <div class="form-container">
+        <form [formGroup]="signUpForm">
+            <div class="form-pair">
+                <div class="input-container">
+                    <label class="form-label">
+                        Nombre*
+                    </label>
+                    <div class="input-content">
+                        <input type="text" formControlName="name" placeholder="Introduce tu nombre">
+                    </div>
+                </div>
+                <div class="input-container">
+                    <label class="form-label">
+                        Apellido
+                    </label>
+                    <div class="input-content">
+                        <input type="text" formControlName="lastName" placeholder="Introduce tu nombre">
+                    </div>
+                </div>
+            </div>
 
+
+            <div class="form-pair">
+                <div class="input-container">
+                    <label class="form-label">
+                        Correo electrónico*
+                    </label>
+                    <div class="input-content">
+                        <img src="/assets/mailGray.svg" />
+                        <input type="text" formControlName="email" placeholder="olivia@gmail.com">
+                    </div>
+                </div>
+                <div class="input-container">
+                    <label class="form-label">
+                        Teléfono
+                    </label>
+                    <div class="input-content">
+                        <input type="number" formControlName="phone" placeholder="Introduce tu nombre">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-pair">
+                <div class="input-container">
+                    <label class="form-label">
+                        Contraseña*
+                    </label>
+                    <div class="input-content">
+                        <input type="password" formControlName="password" placeholder="Crear una contraseña">
+                        <img src="/assets/eye.svg" />
+                    </div>
+                    <p class="form-p">
+                        Debe tener al menos 8 caracteres.
+                    </p>
+                </div>
+                <div class="input-container">
+                    <label class="form-label">
+                        <br />
+                    </label>
+                    <div class="input-content">
+                        <input type="password" formControlName="confirmPassword" placeholder="Confirma la contraseña">
+                        <img src="/assets/eye.svg" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="button-base" style="width: 100%;" (click)="onSubmit()">
+                    <label>
+                        Crear cuenta
+                    </label>
+                </button>
+
+                <button class="social-button" style="width: 100%; margin-top: 16px;">
+                    <img src="/assets/Social-icon-google.svg" alt="Google Icon">
+                    <label>Regístrate con Google</label>
+                </button>
+
+            </div>
+
+            <footer>
+                <p>¿Ya tienes una cuenta? <a class="register" (click)="router.navigate(['/login/signin'])">Inicia
+                        sesión</a></p>
+            </footer>
+        </form>
     </div>
 
 </div>

@@ -1,6 +1,105 @@
-.signup-form-container{
+.signup-form-container {
     display: flex;
     flex-direction: column;
     gap: 32px;
     width: 654px;
+}
+
+.form-pair {
+    display: flex;
+    gap: 20px;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0px;
+}
+
+header h2 {
+    color: var(--Gray-900, #181D27);
+
+    /* Display sm/Semibold */
+    font-family: var(--montser-font);
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 38px;
+    /* 126.667% */
+    margin: 0px;
+}
+
+header p {
+    color: var(--Gray-600, #535862);
+
+    /* Text md/Regular */
+    font-family: var(--montser-font);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    /* 150% */
+    margin: 0px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-container {
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-p {
+    color: var(--Gray-600, #535862);
+
+    /* Text sm/Regular */
+    font-family: var(--montser-font);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+    margin: 0px;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 32px;
+}
+
+footer p {
+    color: var(--Gray-600, #535862);
+
+    /* Text sm/Regular */
+    font-family: var(--montser-font);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+    margin: 0px;
+}
+
+footer a {
+    color: var(--Brand-700, #007981);
+
+    /* Text sm/Semibold */
+    font-family: var(--montser-font);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    /* 142.857% */
+    margin: 0px;
+    cursor: pointer;
 }
