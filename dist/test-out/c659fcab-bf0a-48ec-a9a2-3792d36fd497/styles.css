@@ -1,0 +1,100 @@
+@import "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap";
+
+/* src/styles.css */
+:root {
+  --gray-25: #FDFDFD;
+  --montser-font: "Montserrat", sans-serif;
+}
+.button-base {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 1px solid var(--Brand-600, #178C94);
+  background-color: #178C94;
+  box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
+  transition: background-color 0.5s ease;
+}
+.input-base {
+  display: flex;
+  padding: 10px 14px;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid var(--Gray-300, #D5D7DA);
+  background: var(--White, #FFF);
+  box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
+}
+.button-base label {
+  color: var(--White, #FFF);
+  font-family: var(--montser-font);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+}
+.button-base:hover {
+  border: 1px solid var(--Brand-700, #007981);
+  background: var(--Brand-700, #007981);
+  box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
+  cursor: pointer;
+}
+.button-base label:hover {
+  cursor: pointer;
+}
+.button-base:active {
+  border: 1px solid var(--Brand-600, #178C94);
+  background: var(--Brand-600, #178C94);
+  box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05), 0 0 0 4px #F4EBFF;
+}
+.button-base:disabled {
+  border: 1px solid var(--Brand-200, #C7E5E7);
+  background: var(--Brand-200, #C7E5E7);
+  box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
+}
+.button-chips {
+  display: flex;
+  padding: 10px 18px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--Gray-300, #D5D7DA);
+  background: var(--White, #FFF);
+  box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
+  transition: background 0.5s ease;
+}
+.button-chips label {
+  color: var(--Gray-700, #414651);
+  font-family: var(--montser-font);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  transition: color 0.5s ease;
+}
+.button-chips:active {
+  display: flex;
+  padding: 10px 18px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: var(--Brand-50, #F0FEFF);
+}
+.button-chips:hover,
+.button-chips label:hover {
+  cursor: pointer;
+}
+.button-chips:active label {
+  color: var(--Brand-700, #007981);
+  font-family: var(--montser-font);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+/* angular:styles/global:styles */
+/*# sourceMappingURL=styles.css.map */
