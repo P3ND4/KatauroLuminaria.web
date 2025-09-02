@@ -1,12 +1,21 @@
 export class Product {
     id!: string;
     name!: string;
-    description?: string;
+    description!: string;
+    subtitle!: string;
+    vector?: string;
+    categorie!: Categories;
+    details!: string[];
+    variants!: Variant[];
+}
+
+export class Variant {
+    id!: string;
+    name!: string;
     price!: number;
     stock!: number;
-    image?: string;
-    vector? :string;
-    categorie!: Categories;
+    image!: string;
+    images!: string[];
 }
 
 export enum Categories{

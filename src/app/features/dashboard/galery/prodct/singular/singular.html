@@ -1,9 +1,9 @@
 <div class="detail-container">
     <div class="img-container">
-        <img class="main-img" [src]="currentProduct.image" />
+        <img class="main-img" [src]="currentProduct.variants[0].price" />
         <div class="sec-img-container">
             @for (item of [1,2,3,4,5]; track $index) {
-                <img [src]="currentProduct.image" alt="sec-img">
+                <img [src]="currentProduct.variants[0].price" alt="sec-img">
             }
         </div>
     </div>
@@ -15,7 +15,7 @@
         </div>
         <div class="button-bar">
             <div class="divider"></div>
-            <p>{{currentProduct.price|currency}}</p>
+            <p>{{currentProduct.variants[0].price |currency}}</p>
             <div class="btn-section">
                 <button class="button-base" style="flex: 1;"> <label>ADQUIRIR</label></button>
                 <button class="button-chips" style="padding: 14px;"><img src="/assets/shopping-bag.svg"/></button>

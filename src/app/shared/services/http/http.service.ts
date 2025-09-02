@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HttpService {
-  apiPath = 'http://localhost:3000'
+  apiPath = 'https://api.katauro.com'
   
   constructor(private http: HttpClient){
 
@@ -20,6 +20,10 @@ export class HttpService {
 
   signIn(loginDto: LoginDto): Observable<User>{
     return this.http.post(`${this.apiPath}/auth/login`, loginDto) as Observable<User>
+  }
+
+  getProducts(){
+    return this.http.get(`${this.apiPath}/products`)
   }
 
 }

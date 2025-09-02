@@ -30,12 +30,18 @@ export class Prodct implements OnInit {
         id: `cme4vc3750000wjt8qkx5io9v${index}`,
         name: "tubo e lu fria",
         description: "un tubo que alumbra y no se calienta",
-        image: "/assets/Image.png",
-        price: 200,
         vector: index == 2 ? "/assets/bombillo.svg" : "/assets/Group.svg",
-
-        stock: 13,
-        categorie: index == 2 ? Categories.lightBulb : Categories.footLumin
+        details: [],
+        subtitle: "",
+        categorie: index == 2 ? Categories.lightBulb : Categories.footLumin,
+        variants: [{
+          name: "",
+          price: 200,
+          stock: 13,
+          image: "/assets/Image.png",
+          images: [],
+          id: ""
+        }]
       });
 
       this.selectedIndex = this.products.findIndex(product => product.id === 'cme4vc3750000wjt8qkx5io9v7');
@@ -62,7 +68,7 @@ export class Prodct implements OnInit {
   updateIndicator() {
     const elem = this.itemElems.toArray()[this.selectedIndex].nativeElement;
     this.indicatorX = elem.offsetLeft;
-    this.indicatorWidth = elem.offsetWidth; 
+    this.indicatorWidth = elem.offsetWidth;
   }
 
   scrollToSelected() {
@@ -82,7 +88,7 @@ export class Prodct implements OnInit {
     this.router.navigate([`dashboard/${categorie}`]);
   }
 
-  descoverMore(){
+  descoverMore() {
     this.router.navigate(["/dashboard/galery"]);
   }
 }

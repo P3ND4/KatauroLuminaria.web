@@ -1,5 +1,5 @@
 <div class="dashboard"
-  style="box-sizing: border-box; min-height: 100vh; padding-top: 80px; display: flex; flex-direction: column;">
+  style="box-sizing: border-box; min-height: 100svh; padding-top: 80px; display: flex; flex-direction: column;">
 
 
   <div class="navigation-bar">
@@ -50,7 +50,9 @@
           con usted.
         </p>
         <div class="contact-info">
-          <input style="width: 100%;" class="input-base" type="text" placeholder="Escríbenos un mensaje">
+          <div class="input-content">
+            <input type="text" placeholder="Escríbenos un mensaje">
+          </div>
           <button style="height: 44px; width: 88px;;" class="button-base contact-button">
             <label>Enviar</label>
           </button>
@@ -110,25 +112,15 @@
 
       <div class="social-media">
         <div class="divider"></div>
-        <img src="/assets/instagram.svg" alt="Instagram">
-        <img src="/assets/facebook.svg" alt="Facebook">
-        <img src="/assets/whatsapp.svg" alt="WhatsApp">
+        <div class="social-links">
+          <img src="/assets/whatsapp.svg" alt="WhatsApp">
+          <img src="/assets/facebook.svg" alt="Facebook">
+          <img src="/assets/instagram.svg" alt="Instagram">
+        </div>
 
-        <a style="text-decoration: none;" href="https://wa.me/1234567890" target="_blank">
-          <label style="position: unset; left: auto;" class="footer-links cookies">
-            Cookies
-          </label>
-        </a>
-
-        <a style="text-decoration: none;" href="https://wa.me/1234567890" target="_blank">
-          <label style="position: unset; left: auto;" class="footer-links privacy">
-            Privacy
-          </label>
-        </a>
-
-        <a style="text-decoration: none;" href="https://wa.me/1234567890" target="_blank">
+        <a class="terms" style="text-decoration: none;" href="https://wa.me/1234567890" target="_blank">
           <label style="position: unset; left: auto;" class="footer-links terms">
-            Terms
+            Términos y condiciones
           </label>
         </a>
 

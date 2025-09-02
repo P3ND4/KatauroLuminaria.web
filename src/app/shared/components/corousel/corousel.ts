@@ -13,7 +13,7 @@ export class Corousel implements OnInit, OnDestroy {
   carouselType?: number
   currentSlide: number = 0;
   images: string[] = [
-    '/assets/Carousel_image.png',
+    '/assets/back_image.webp',
     '/assets/Carousel_image2.png',
     '/assets/Carousel_image.png'
   ];

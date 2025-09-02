@@ -24,7 +24,7 @@
     display: flex;
     padding: 10px 14px;
     align-items: center;
-    gap: 8px;
+
     align-self: stretch;
     border-radius: 8px;
     border: 1px solid var(--Gray-300, #D5D7DA);
@@ -32,8 +32,8 @@
 
     /* Shadow/xs */
     box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
-
-
+    line-height: 24px;
+    margin: 0px;
 }
 
 .button-base label {

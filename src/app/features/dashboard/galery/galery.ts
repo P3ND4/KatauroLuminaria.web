@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Categories, Product } from '../../../shared/models/Products';
+import { Categories, Product, Variant } from '../../../shared/models/Products';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -13,9 +13,9 @@ export class Galery implements OnInit, AfterViewInit {
   products: Product[] = []; // Aquí se almacenarán los productos filtrados
   categories = Categories
   selectedCategory: Categories | 'TODAS' = 'TODAS';
-  constructor(private router: Router, private route: ActivatedRoute){
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
-  
+
   ngOnInit(): void {
     const cat = this.route.snapshot.paramMap.get('cat');
 
@@ -24,11 +24,18 @@ export class Galery implements OnInit, AfterViewInit {
         id: "cme4vc3750000wjt8qkx5io9v",
         name: "tubo e lu fria",
         description: "un tubo que alumbra y no se calienta",
-        image: "/assets/Image.png",
+        details: [],
+        subtitle: "alumbra como unyelo",
         vector: "/assets/Group.svg",
-        price: 200,
-        stock: 13,
-        categorie: index == 2? Categories.tableLumin: Categories.footLumin
+        categorie: index == 2 ? Categories.tableLumin : Categories.footLumin,
+        variants: [{
+          id: "cme4vc3750000wjt8qkx5io9v",
+          image: "/assets/Image.png",
+          images: [],
+          price: 200,
+          stock: 13,
+          name: ""
+        }]
       });
     }
   }
