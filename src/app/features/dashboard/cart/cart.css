@@ -1,0 +1,117 @@
+.cart-container {
+    display: flex;
+    justify-content: center;
+    padding: 96px 80px 32px 80px;
+    box-sizing: border-box;
+}
+
+.cart-content {
+    display: flex;
+    gap: 40px;
+    width: 1280px;
+}
+
+.payment-details {
+    flex: 1 0 0;
+}
+
+.input-container.payment {
+    width: 300px;
+}
+
+.form-pair {
+    display: flex;
+    gap: 20px;
+}
+
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.checkbox-container {
+    display: flex;
+    width: 100%;
+    gap: 8px;
+}
+
+.checkbox-container input {
+    width: auto;
+}
+
+.checkbox-container label {
+    color: var(--Gray-700, #414651);
+
+    /* Text sm/Medium */
+    font-family: var(--montser-font);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.checkbox-container p {
+    margin: 0px;
+    color: var(--Gray-600, #535862);
+
+    /* Text sm/Regular */
+    font-family: var(--montser-font);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+}
+
+.submit-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 24px 32px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background: var(--Gray-50, #FAFAFA);
+}
+
+.submit-container p {
+    color: var(--Gray-600, #535862);
+    text-align: center;
+
+    /* Text lg/Regular */
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
+    /* 155.556% */
+    margin: 0px;
+}
+
+.submit-container mark {
+    color: var(--Gray-600, #535862);
+
+    /* Text lg/Semibold */
+    font-family: var(--montser-font);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+    background-color: white;
+}
+
+.order-summary {
+    width: 620px;
+    display: flex;
+    padding: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+    height:fit-content;
+    border-radius: var(--Corner-Small, 8px);
+    border: 0.5px solid var(--Gray-500, #717680);
+}

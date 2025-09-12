@@ -101,7 +101,7 @@ h3 {
 
 .product.pos-3 {
     grid-column: 1;
-    grid-row: 3/5;
+    grid-row: 3;
 }
 
 .product.pos-4 {
@@ -116,12 +116,16 @@ h3 {
 
 .product.pos-6 {
     grid-column: 1;
-    grid-row: 5;
+    grid-row: 4;
 }
 
 .product.pos-7 {
     grid-column: 2/4;
     grid-row: 4/6;
+}
+.product.pos-8 {
+    grid-column: 1;
+    grid-row: 5;
 }
 
 .product-info {
@@ -167,4 +171,19 @@ h3 {
     line-height: 30px;
 
     margin: 0px;
+}
+
+
+@media (max-width: 800px) {
+    .galery-container {
+        padding-inline: 40px;
+        padding-block: 64px;
+    }
+
+    .galery-content {
+        display: flex;
+        flex-direction: column;
+        
+    }
+
 }

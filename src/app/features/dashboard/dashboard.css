@@ -1,6 +1,6 @@
 .navigation-bar {
   display: flex;
-  width: 100svw;
+  width: 100%;
   height: 80px;
   justify-content: space-between;
   align-items: center;
@@ -11,9 +11,47 @@
   padding-inline: 113px;
   padding-block: 20px;
   box-sizing: border-box;
+
+}
+
+.user-info {
+  gap: 12px;
+  display: flex;
+}
+.user-info.mobile{
+  width: 100%;
+}
+
+.user-name {
+  margin: 0px;
+}
+.user-email{
+  margin: 0px;
+}
+.user-data{
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+  overflow: auto;
+}
+
+.user-data::-webkit-scrollbar{
+  display: none;
+}
+
+
+.nav-container {
+  position: relative;
   position: fixed;
+  display: flex;
+  flex-direction: column;
   top: 0;
   z-index: 1000;
+  width: 100svw;
+}
+
+.manu-button {
+  cursor: pointer;
 }
 
 .nav-links {
@@ -38,6 +76,16 @@
   transition: color 0.3s ease;
 }
 
+.mobile-panel a {
+  color: var(--Gray-600, #535862);
+  font-family: var(--montser-font);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  cursor: pointer;
+}
+
 .nav-links a.active {
   color: #007981;
 }
@@ -60,6 +108,25 @@
 
 .button-base.login {
   padding: 10px 18px;
+}
+
+.mobile-panel {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  bottom: 0px;
+  background: var(--Gray-50, #FAFAFA);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 24px 16px 24px 16px;
+  gap: 32px;
+  transition: transform 0.5s ease;
+}
+
+.mobile-panel.open {
+  transform: translateY(100%);
 }
 
 .footer {
@@ -201,7 +268,8 @@
   top: -182px;
   flex-shrink: 0;
 }
-.social-links{
+
+.social-links {
   display: flex;
   gap: 24px;
   justify-content: center;
@@ -256,19 +324,22 @@
     height: 371px;
   }
 
-  .social-media{
+  .social-media {
     flex-direction: column;
     align-items: center;
     margin-top: 24px;
     padding-top: 24px;
   }
-  .terms{
+
+  .terms {
     order: 0;
   }
-  .social-links{
+
+  .social-links {
     order: 1;
   }
-  .footer-links.copyright{
+
+  .footer-links.copyright {
     order: 2;
   }
 }

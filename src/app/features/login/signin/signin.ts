@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class Signin {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, public router: Router) {
+  constructor(private loginService: AuthService, private fb: FormBuilder, public router: Router) {
     this.loginForm = this.fb.group(
       {
         email: ['', [Validators.email, Validators.required]],
@@ -25,6 +26,7 @@ export class Signin {
 
 
   onSubmit() {
-
+    this.loginService.logInUser({ id: "1", name: "Arturo", email: this.loginForm.value.email, token: "<token>" });
+    this.router.navigate(['/dashboard/home']);
   }
 }

@@ -1,0 +1,79 @@
+<div class="cart-container">
+    <div class="cart-content">
+        <div class="payment-details">
+            <h2>Detalles de facturación</h2>
+            <form class="payment-form">
+                <div class="form-pair">
+                    <div class="input-container payment">
+                        <label class="form-label">
+                            Nombre*
+                        </label>
+                        <div class="input-content">
+                            <input type="text" formControlName="name" placeholder="Introduce tu nombre">
+                        </div>
+                    </div>
+                    <div class="input-container payment">
+                        <label class="form-label">
+                            Apellido
+                        </label>
+                        <div class="input-content">
+                            <input type="text" formControlName="lastName" placeholder="Introduce tu nombre">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-pair">
+                    <div class="input-container payment">
+                        <label class="form-label">
+                            Nombre*
+                        </label>
+                        <div class="input-content">
+                            <input type="text" formControlName="name" placeholder="Introduce tu nombre">
+                        </div>
+                    </div>
+                    <div class="input-container payment">
+                        <label class="form-label">
+                            Apellido
+                        </label>
+                        <div class="input-content">
+                            <input type="text" formControlName="lastName" placeholder="Introduce tu nombre">
+                        </div>
+                    </div>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="create-account" formControlName="createAccount">
+                    <div>
+                        <label for="create-account">Envío a domicilio</label>
+                        <p>El envío solo está disponible para la provincia de La Habana.</p>
+                    </div>
+                </div>
+                <div class="submit-container">
+                    <p>Para adquirir <mark>nuestros productos</mark>, solo debe completar el <mark>formulario de solicitud</mark>. Una vez
+                        recibido el pedido, lo contactaremos a través de <mark>Whatsapp</mark> para ajustar os detalles del <mark> método de
+                        pago</mark> y le enviaremos un <mark>correo electrónico</mark> con la <mark>factura</mark> correspondiente.
+                        <br/>
+                        <br/>
+                        Su solicitud será procesada una vez confirmado el pago.
+                    </p>
+                    <button type="submit" class="button-base"><label>SOLICITAR PEDIDO</label></button>
+                </div>
+            </form>
+        </div>
+        <div class="order-summary">
+            <h2>Resumen del pedido</h2>
+            <div class="summary-content">
+                <div class="summary-item">
+                    <p>Subtotal</p>
+                    <p>$499.99</p>
+                </div>
+                <div class="summary-item">
+                    <p>Envío</p>
+                    <p>Gratis</p>
+                </div>
+                <div class="summary-item total">
+                    <p>Total</p>
+                    <p>$499.99</p>
+                </div>
+            </div>
+        </div>
+    </div>

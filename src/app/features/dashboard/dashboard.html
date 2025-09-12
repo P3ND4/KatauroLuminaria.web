@@ -1,36 +1,76 @@
 <div class="dashboard"
   style="box-sizing: border-box; min-height: 100svh; padding-top: 80px; display: flex; flex-direction: column;">
 
+  <div class="nav-container">
 
-  <div class="navigation-bar">
-    <div class="nav-links">
-      <img class="Katauro-logo" src="/assets/Katauro.svg" />
-      <a (click)="router.navigate(['/dashboard/home'])" [ngClass]="{'active': isActive('/dashboard/home')}">Inicio</a>
-      <a (click)="router.navigate(['/dashboard/team'])" [ngClass]="{'active': isActive('/dashboard/team')}">Nuestro
-        equipo</a>
-      <a (click)="router.navigate(['/dashboard/galery'])"
-        [ngClass]="{'active': isActive('/dashboard/galery')}">Luminarias</a>
-      <a (click)="router.navigate(['/dashboard/blog'])" [ngClass]="{'active': isActive('/dashboard/blog')}">Blog</a>
+    <div class="navigation-bar">
+      <div class="nav-links">
+        <img class="Katauro-logo" src="/assets/Katauro.svg" />
+
+        <a (click)="router.navigate(['/dashboard/home'])" [ngClass]="{'active': isActive('/dashboard/home')}">Inicio</a>
+        <a (click)="router.navigate(['/dashboard/team'])" [ngClass]="{'active': isActive('/dashboard/team')}">Nuestro
+          equipo</a>
+        <a (click)="router.navigate(['/dashboard/galery'])"
+          [ngClass]="{'active': isActive('/dashboard/galery')}">Luminarias</a>
+        <a (click)="router.navigate(['/dashboard/blog'])" [ngClass]="{'active': isActive('/dashboard/blog')}">Blog</a>
+      </div>
+      @if(!isMobile()){
+
+      <button class="button-base login" [ngStyle]="{'display': isLogged() || isMobile() ? 'none': 'null'}" id="log"
+        (click)="router.navigate(['/login/signin'])">
+        <label for="log">Iniciar sesión</label>
+      </button>
+      <div class="user-info" [ngStyle]="{'display': !isLogged()? 'none': 'null'}">
+        <button class="user-button">
+          <img src="" alt="">
+        </button>
+        <button class="button-chips" style="padding-inline: 10px;" (click)="router.navigate(['/dashboard/cart'])">
+          <img src="/assets/shopping-bag.svg" />
+        </button>
+      </div>
+      }
+      @else {
+      @if (!menuIsOpen) {
+      <img class="manu-button" src="/assets/menu.svg" alt="menu" (click)="toggleMenu()">
+      }
+      @else {
+      <img class="manu-button" src="/assets/menu_open.svg" (click)="toggleMenu()" />
+      }
+      }
     </div>
-    <button class="button-base login" [ngStyle]="{'display': isLogged()? 'none': 'null'}" id="log" (click)="router.navigate(['/login/signin'])">
-      <label for="log">Iniciar sesión</label>
-    </button>
-    <div [ngStyle]="{'display': !isLogged()? 'none': 'null'}">
-      <button class="user">
-        <img src="" alt="">
+    <div class="mobile-panel" [ngClass]="{'open': menuIsOpen}">
+      <a (click)="navigateMobile('/dashboard/home')" [ngClass]="{'active': isActive('/dashboard/home')}">Inicio</a>
+      <a (click)="navigateMobile('/dashboard/team')" [ngClass]="{'active': isActive('/dashboard/team')}">Nuestro
+        equipo</a>
+      <a (click)="navigateMobile('/dashboard/galery')"
+        [ngClass]="{'active': isActive('/dashboard/galery')}">Luminarias</a>
+      <a (click)="navigateMobile('/dashboard/blog')" [ngClass]="{'active': isActive('/dashboard/blog')}">Blog</a>
+      <button class="button-base login" [ngStyle]="{'display': isLogged() ? 'none': 'null'}" id="log"
+        (click)="router.navigate(['/login/signin'])">
+        <label for="log">Iniciar sesión</label>
       </button>
-      <button class="button-chips" >
-        <img src="/assets/shopping-bag.svg" />
-      </button>
+      <div class="user-info mobile" [ngStyle]="{'display': !isLogged()? 'none': 'null'}">
+        <button class="user-button">
+          <img src="" alt="">
+        </button>
+        <div class="user-data">
+          <p class="user-name">{{currentUser?.name}}</p>
+          <p class="user-email">{{currentUser?.email}}</p>
+        </div>
+        <img src="/assets/log-out.svg" />
+        <button class="button-chips" style="padding-inline: 10px;" (click)="navigateMobile('/dashboard/cart')">
+          <img src="/assets/shopping-bag.svg" />
+        </button>
+      </div>
     </div>
   </div>
+
+
   <div class="router-content" style="
   display: flex; 
   flex: 1; 
   flex-direction: column; 
-  min-height: 0;
-  
-  ">
+  min-height: 0;">
     <router-outlet />
   </div>
 

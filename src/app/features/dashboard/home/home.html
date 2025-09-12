@@ -1,36 +1,52 @@
 <div style="view-transition-name: home; background-color: white;">
-
+    @if (isChargin()) {
+    <div class="spin-container">
+        <div class="spinner"></div>
+    </div>
+    }
+    @else {
     <app-corousel [data]="carousel1" />
+    }
     <div class="home-container">
 
         <div class="luminarias">
-            <header style="gap: 20px; display: block;">
+            <header style="gap: 20px; display: block; ">
                 <h2>Conoce nuestras luminarias disponibles</h2>
                 <p class="header-p">Aquí podrás encontrar nuestras lámparas de techo, mesa, pared y piso disponibles.
                 </p>
             </header>
             <ul class="luminarias-list">
-                <li>
-                    <img src="/assets/mesa.png" alt="Lámpara de mesa">
+                <li style="position: relative;">
+                    <img src="/assets/cat_image.png" alt="Lámpara de mesa">
+                    <p class="luminaria-title">LUMINARIAS DE MESA</p>
                 </li>
-                <li>
-                    <img src="/assets/pared.png" alt="Lámpara de pared">
+                <li style="position: relative;">
+                    <img src="/assets/cat_image1.png" alt="Lámpara de pared">
+                    <p class="luminaria-title">LUMINARIAS DE PARED</p>
                 </li>
-                <li>
-                    <img src="/assets/pie.png" alt="Lámpara de piso">
+                <li style="position: relative;">
+                    <img src="/assets/cat_image2.png" alt="Lámpara de piso">
+                    <p class="luminaria-title">LUMINARIAS DE PISO</p>
                 </li>
-                <li>
-                    <img src="/assets/techo.png" alt="Lámpara de techo">
+                <li style="position: relative;">
+                    <img src="/assets/cat_image3.png" alt="Lámpara de techo">
+                    <p class="luminaria-title">LUMINARIAS DE TECHO</p>
                 </li>
             </ul>
 
         </div>
 
-        <app-corousel [data]="carousel2" />
+
+        <app-corousel [data]="carousel2" [ngStyle]="{'display': isChargin()? 'none': 'null'}"/>
         <div style="display: flex; justify-content: center;">
             <div class="offers-grid">
-                <div *ngFor="let i of [0,1,2,3,4,5,6]">
-                    <img src="{{mostRated[i]}}" />
+                <div class="offer" *ngFor="let i of [0,1,2,3,4,5,6]">
+                    <img src="{{mostRated[i].variants[0].image}}" />
+                    <div class="offer-info" [ngClass]="{'non-first': i != 0}">
+                        <h3 class="lum-name">{{mostRated[i].name}}</h3>
+                        <p class="luminaria-sub">{{ mostRated[i].subtitle }}</p>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -41,62 +57,83 @@
                 <p class="header-p">Aprecia nuestras lámparas de diseño propio más relevantes.</p>
             </header>
             <div class="featured-content">
-                <div>
-                    <img src="/assets/featured1.png" alt="">
+                <div class="featured-product">
+                    <img [src]="mostRated[0].variants[0].image" alt="">
+                    <div class="info-contet">
+                        <p class="card-info">{{mostRated[0].subtitle}}</p>
+                        <h2 class="car-text">{{mostRated[0].name}}</h2>
+                        <button class="button-chips">
+                            <label>Adquirir</label>
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <img src="/assets/featured2.png" alt="">
+                <div class="featured-product">
+                    <img [src]="mostRated[1].variants[0].image" alt="">
+                    <div class="info-contet">
+                        <p class="card-info">{{mostRated[1].subtitle}}</p>
+                        <h2 class="car-text">{{mostRated[1].name}}</h2>
+                        <button class="button-chips">
+                            <label>Adquirir</label>
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <img src="/assets/featured2.png" alt="">
+                <div class="featured-product">
+                    <img [src]="mostRated[2].variants[0].image" alt="">
+                    <div class="info-contet">
+                        <p class="card-info">{{mostRated[2].subtitle}}</p>
+                        <h2 class="car-text">{{mostRated[2].name}}</h2>
+                        <button class="button-chips">
+                            <label>Adquirir</label>
+                        </button>
+                    </div>
                 </div>
             </div>
 
         </div>
-
-
     </div>
-    <app-corousel [data]="carousel2" />
 
-    <div class="recent-posts-container">
-        <div class="recent-posts">
-            <header>
-                <h2 class="recent-posts-h2">Publicaciones recientes</h2>
-            </header>
-            <div class="post-container">
-                <div>
-                    <img src="/assets/Image.png" alt="">
-                    <div class="info-post">
-                        <h4>19 Ene 2025</h4>
-                        <h3>Nombre Atractivo</h3>
-                        <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur
-                            convallis
-                            risus.</p>
 
-                    </div>
+</div>
+<app-corousel [data]="carousel2" />
+
+<div class="recent-posts-container">
+    <div class="recent-posts">
+        <header>
+            <h2 class="recent-posts-h2">Publicaciones recientes</h2>
+        </header>
+        <div class="post-container">
+            <div>
+                <img src="/assets/Image.png" alt="">
+                <div class="info-post">
+                    <h4>19 Ene 2025</h4>
+                    <h3>Nombre Atractivo</h3>
+                    <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur
+                        convallis
+                        risus.</p>
+
                 </div>
-                <div>
-                    <img src="/assets/Image.png" alt="">
-                    <div class="info-post">
-                        <h4>19 Ene 2025</h4>
-                        <h3>Nombre Atractivo</h3>
-                        <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur
-                            convallis
-                            risus.</p>
-                    </div>
+            </div>
+            <div>
+                <img src="/assets/Image.png" alt="">
+                <div class="info-post">
+                    <h4>19 Ene 2025</h4>
+                    <h3>Nombre Atractivo</h3>
+                    <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur
+                        convallis
+                        risus.</p>
                 </div>
-                <div>
-                    <img src="/assets/Image.png" alt="">
-                    <div class="info-post">
-                        <h4>19 Ene 2025</h4>
-                        <h3>Nombre Atractivo</h3>
-                        <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur
-                            convallis
-                            risus.</p>
-                    </div>
+            </div>
+            <div>
+                <img src="/assets/Image.png" alt="">
+                <div class="info-post">
+                    <h4>19 Ene 2025</h4>
+                    <h3>Nombre Atractivo</h3>
+                    <p>Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur
+                        convallis
+                        risus.</p>
                 </div>
             </div>
         </div>
-
     </div>
+
 </div>

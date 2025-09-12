@@ -19,7 +19,7 @@ export class Galery implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const cat = this.route.snapshot.paramMap.get('cat');
 
-    for (let index = 0; index < 8; index++) {
+    for (let index = 0; index < 9; index++) {
       this.products.push({
         id: "cme4vc3750000wjt8qkx5io9v",
         name: "tubo e lu fria",

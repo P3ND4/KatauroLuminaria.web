@@ -10,6 +10,7 @@ import { Prodct } from './features/dashboard/galery/prodct/prodct';
 import { Singular } from './features/dashboard/galery/prodct/singular/singular';
 import { Signin } from './features/login/signin/signin';
 import { Signup } from './features/login/signup/signup';
+import { Cart } from './features/dashboard/cart/cart';
 
 export const routes: Routes = [
     {
@@ -20,13 +21,14 @@ export const routes: Routes = [
             {
                 path: 'dashboard', component: Dashboard,
                 children: [
-                    { path: 'home', component: Home },
-                    { path: 'team', component: Team },
-                    { path: 'galery', component: Galery },
-                    { path: 'blog', component: Blog },
+                    {path: 'cart', loadComponent: () => import('./features/dashboard/cart/cart').then(m => m.Cart)},
+                    { path: 'home', loadComponent: () => import('./features/dashboard/home/home').then(m => m.Home) },
+                    { path: 'team', loadComponent: () => import('./features/dashboard/team/team').then(m => m.Team) },
+                    { path: 'galery', loadComponent: () => import('./features/dashboard/galery/galery').then(m => m.Galery) },
+                    { path: 'blog', loadComponent: () => import('./features/dashboard/blog/blog').then(m => m.Blog) },
                     {
-                        path: ':category', component: Prodct, children: [
-                            { path: ':id', component: Singular }
+                        path: ':category', loadComponent: () => import('./features/dashboard/galery/prodct/prodct').then(m => m.Prodct), children: [
+                            { path: ':id', loadComponent: () => import('./features/dashboard/galery/prodct/singular/singular').then(m => m.Singular) }
                         ]
                     }
 
