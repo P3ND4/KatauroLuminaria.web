@@ -26,7 +26,8 @@ export class Signin {
 
 
   onSubmit() {
-    this.loginService.logInUser({ id: "1", name: "Arturo", email: this.loginForm.value.email, token: "<token>" });
+    //this.loginService.logInUser({ id: "1", name: "Arturo", lastName:"Gonzalez", email: this.loginForm.value.email, token: "<token>", cart: [] });
+    this.loginService.logUserByCredentials(this.loginForm.value.email, this.loginForm.value.password)
     this.router.navigate(['/dashboard/home']);
   }
 }

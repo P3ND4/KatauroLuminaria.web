@@ -9,21 +9,30 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
   apiPath = 'https://api.katauro.com'
-  
-  constructor(private http: HttpClient){
+
+  constructor(private http: HttpClient) {
+    this.apiPath = 'http://localhost:3000'
 
   }
 
-  signUp(createUserDto: CreateUserDto){
+  signUp(createUserDto: CreateUserDto) {
     return this.http.post(`${this.apiPath}/auth/register`, createUserDto)
   }
 
-  signIn(loginDto: LoginDto): Observable<User>{
-    return this.http.post(`${this.apiPath}/auth/login`, loginDto) as Observable<User>
+  signIn(loginDto: LoginDto) {
+    return this.http.post(`${this.apiPath}/auth/login`, loginDto, { withCredentials: true })
   }
 
-  getProducts(){
+  getProducts() {
     return this.http.get(`${this.apiPath}/products`)
+  }
+
+  logOut() {
+    return this.http.post(`${this.apiPath}/auth/logout`, { withCredentials: true })
+  }
+
+  refreshUser() {
+    return this.http.get(`${this.apiPath}/auth/me`, { withCredentials: true })
   }
 
 }

@@ -10,7 +10,10 @@ export class CartService {
 
   constructor(private http: HttpService){
     http.getProducts().subscribe({
-      next: (val)=>{ this.currentProducts = val as Product[]; },
+      next: (val)=>{ 
+        this.currentProducts = val as Product[];
+        this.currentProducts = this.currentProducts.slice(0, 5);
+       },
       error: (err) => {console.log(err); }
     });
   }

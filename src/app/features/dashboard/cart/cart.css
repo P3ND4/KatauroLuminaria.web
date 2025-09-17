@@ -5,10 +5,25 @@
     box-sizing: border-box;
 }
 
+
+
 .cart-content {
     display: flex;
     gap: 40px;
     width: 1280px;
+}
+
+.cart-content h2 {
+    color: var(--Gray-900, #181D27);
+
+    /* Display sm/Semibold */
+    font-family: var(--montser-font);
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 38px;
+    margin: 0px;
+    margin-bottom: 32px;
 }
 
 .payment-details {
@@ -111,7 +126,175 @@
     align-items: flex-start;
     gap: 16px;
     align-self: stretch;
-    height:fit-content;
+    height: fit-content;
     border-radius: var(--Corner-Small, 8px);
-    border: 0.5px solid var(--Gray-500, #717680);
+    border: 1px solid #717680;
+}
+
+.summary-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-block: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+.summary-item {
+    display: flex;
+    padding: 16px;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid var(--Gray-200, #E9EAEB);
+    background: var(--White, #FFF);
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.summary-item.selected {
+    border-radius: 8px;
+    border: 1px solid var(--Brand-300, #98CDD2);
+    background: var(--Brand-50, #F0FEFF);
+}
+
+.info-prod {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.prod-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    width: 40px;
+    text-align: center;
+    font-family: var(--montser-font);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    border-inline: 1px solid var(--Gray-300, #D5D7DA);
+    box-sizing: border-box;
+}
+
+.img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 86px;
+    width: 86px;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.img img {
+    object-fit: cover;
+    height: 100%;
+}
+
+.checkbox {
+    width: auto;
+}
+
+.prod-txt {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1 0 0;
+}
+
+.prod-txt h3 {
+    margin: 0px;
+    color: var(--Brand-700, #007981);
+
+    /* Text xl/Semibold */
+    font-family: var(--montser-font);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 30px;
+    /* 150% */
+}
+
+.prod-txt .desc {
+    margin: 0px;
+    color: var(--Brand-600, #178C94);
+
+    /* Text md/Regular */
+    font-family: var(--montser-font);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    /* 150% */
+}
+
+.prod-txt p {
+    color: var(--Gray-700, #414651);
+
+    /* Text lg/Semibold */
+    font-family: var(--montser-font);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+    /* 155.556% */
+    margin: 0px;
+}
+
+.count {
+    box-sizing: border-box;
+    display: flex;
+    height: 40px;
+    width: auto;
+    border-radius: 8px;
+    border: 1px solid var(--Gray-300, #D5D7DA);
+
+    /* Shadow/xs */
+    box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
+    overflow: hidden;
+    background-color: white;
+}
+
+.count button {
+    background: none;
+    border: none;
+    width: 40px;
+    padding: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.checkbox-circle {
+    display: flex;
+    align-items: center;
+
+}
+
+.checkbox-circle input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-circle span {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid var(--Gray-300, #D5D7DA);
+    background: var(--White, #FFF);
+}
+
+
+.checkbox-circle input[type="checkbox"]:checked + span {
+    background: var(--Brand-500, #00A3AD);
+    border: 1px solid var(--Brand-500, #00A3AD);
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='9' viewBox='0 0 12 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.6667 1L4.00004 8L1.33337 5.36364' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
 }

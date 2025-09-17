@@ -10,35 +10,44 @@ import { User } from '../../shared/models/User';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
-export class Dashboard implements OnInit{
+export class Dashboard implements OnInit {
   router: Router;
   menuIsOpen = false
   width = window.innerWidth;
-  currentUser: User | undefined = undefined;
-  constructor(router: Router, private authService: AuthService, private cartService: CartService) {
+  currentUser: User | null = null;
+  constructor(router: Router, readonly authService: AuthService, private cartService: CartService) {
     this.router = router;
-    this.currentUser = this.authService.currentUser;
+    this.authService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+    });
   }
-  ngOnInit(): void {
-
+  async ngOnInit(): Promise<void> {
+    try {
+      await this.authService.refreshUser();
+      this.authService.currentUser$.subscribe(user => {
+        this.currentUser = user;
+      });
+    } catch (error) {
+      console.error('Error refreshing user:', error);
+    }
   }
   isActive(route: string): boolean {
     const currentUrl = window.location.pathname;
     return currentUrl.includes(route);
   }
-  isLogged(){
+  isLogged() {
     return this.authService.isLogged()
   }
-  changeWidth(an: number){
+  changeWidth(an: number) {
     this.width = window.innerWidth;
   }
-  isMobile(){
+  isMobile() {
     return innerWidth < 800
   }
-  toggleMenu(){
-    this.menuIsOpen = this.menuIsOpen? false : true
+  toggleMenu() {
+    this.menuIsOpen = this.menuIsOpen ? false : true
   }
-  navigateMobile(route: string){
+  navigateMobile(route: string) {
     this.menuIsOpen = false;
     this.router.navigate([route]);
 
