@@ -13,7 +13,6 @@
     display: flex;
     flex-direction: column;
     gap: 24px
-
 }
 
 h2 {
@@ -49,7 +48,8 @@ h3 {
 .category-nav {
     display: flex;
     width: 100%;
-    height: 44px;
+    height: auto;
+    flex-wrap: wrap;
     gap: 16px;
     justify-content: center;
 }
@@ -75,13 +75,15 @@ h3 {
 }
 
 .product img {
+    min-height: 105%;
     width: 105%;
-    height: 105%;
-    transition: transform 0.5s ease;
+    position: absolute;
+    transition: width 0.5s ease, min-height 0.5s ease;
 }
 
 .product:hover img {
-    transform: scale(0.95);
+    min-height: 100%;
+    width: 100%;
 }
 
 .product.pos-0 {
@@ -122,6 +124,10 @@ h3 {
 .product.pos-7 {
     grid-column: 2/4;
     grid-row: 4/6;
+}
+.product.pos-7.small {
+    grid-column: 2;
+    grid-row: 4;
 }
 .product.pos-8 {
     grid-column: 1;
@@ -173,6 +179,70 @@ h3 {
     margin: 0px;
 }
 
+.pagination {
+    display: flex;
+    width: 1216px;
+    height: 40px;
+    margin-top: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.move {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.move label {
+    color: var(--Gray-600, #535862);
+
+    /* Text sm/Semibold */
+    font-family: var(--montser-font);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    cursor: pointer;
+    /* 142.857% */
+}
+.pages{
+    display: flex;
+}
+
+.page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 12px;
+}
+
+.page label {
+    color: var(--Gray-500, #717680);
+    text-align: center;
+
+    /* Text sm/Medium */
+    font-family: var(--montser-font);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+}
+
+.page.active {
+    background: #F0FEFF;
+}
+
+.page.active label {
+    color: var(--Brand-900, #175659);
+}
+
 
 @media (max-width: 800px) {
     .galery-container {
@@ -183,7 +253,7 @@ h3 {
     .galery-content {
         display: flex;
         flex-direction: column;
-        
+
     }
 
 }

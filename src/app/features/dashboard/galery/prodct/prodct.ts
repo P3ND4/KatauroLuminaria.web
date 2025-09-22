@@ -2,6 +2,7 @@ import { Component, ElementRef, NgZone, OnInit, QueryList, ViewChildren } from '
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Categories, Product } from '../../../../shared/models/Products';
 import { CommonModule } from '@angular/common';
+import { HttpService } from '../../../../shared/services/http/http.service';
 
 @Component({
   selector: 'app-prodct',
@@ -19,34 +20,44 @@ export class Prodct implements OnInit {
   indicatorWidth = 0;
   @ViewChildren('itemElem') itemElems!: QueryList<ElementRef>;
 
-  constructor(private route: ActivatedRoute, private router: Router, private zone: NgZone) { }
+  constructor(private route: ActivatedRoute, private router: Router, private zone: NgZone, private http: HttpService) { }
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('category');
     this.currentCategory = param ? param as Categories : Categories.tableLumin;
+    this.http.getProducts().subscribe({
+      next: (val) => {
+        this.products = val as Product[]
+      },
+      error: (err) => {
+        console.log(err);
+        for (let index = 0; index < 8; index++) {
+          this.products.push({
+            id: `cme4vc3750000wjt8qkx5io9v${index}`,
+            name: "tubo e lu fria",
+            description: "un tubo que alumbra y no se calienta",
+            vector: index == 2 ? "/assets/bombillo.svg" : "/assets/Group.svg",
+            details: [],
+            subtitle: "",
+            categorie: index == 2 ? Categories.lightBulb : Categories.footLumin,
+            variants: [{
+              name: "",
+              price: 200,
+              stock: 13,
+              image: "/assets/Image.png",
+              images: [],
+              id: ""
+            }]
+          });
 
-    for (let index = 0; index < 8; index++) {
-      this.products.push({
-        id: `cme4vc3750000wjt8qkx5io9v${index}`,
-        name: "tubo e lu fria",
-        description: "un tubo que alumbra y no se calienta",
-        vector: index == 2 ? "/assets/bombillo.svg" : "/assets/Group.svg",
-        details: [],
-        subtitle: "",
-        categorie: index == 2 ? Categories.lightBulb : Categories.footLumin,
-        variants: [{
-          name: "",
-          price: 200,
-          stock: 13,
-          image: "/assets/Image.png",
-          images: [],
-          id: ""
-        }]
-      });
+          this.selectedIndex = this.products.findIndex(product => product.id === 'cme4vc3750000wjt8qkx5io9v7');
 
-      this.selectedIndex = this.products.findIndex(product => product.id === 'cme4vc3750000wjt8qkx5io9v7');
+        }
+      }
 
-    }
+    })
+
+
 
   }
 

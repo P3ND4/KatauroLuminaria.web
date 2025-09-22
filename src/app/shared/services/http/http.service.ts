@@ -23,12 +23,23 @@ export class HttpService {
     return this.http.post(`${this.apiPath}/auth/login`, loginDto, { withCredentials: true })
   }
 
-  getProducts() {
+  getProducts(page?: number) {
+    if(page){
+      return this.http.get(`${this.apiPath}/products?page=${page}`)
+    }
     return this.http.get(`${this.apiPath}/products`)
   }
 
   logOut() {
     return this.http.post(`${this.apiPath}/auth/logout`, { withCredentials: true })
+  }
+
+  getProductById(id: string) {
+    return this.http.get(`${this.apiPath}/products/${id}`)
+  }
+
+  getPages() {
+    return this.http.get(`${this.apiPath}/products/pages`)
   }
 
   refreshUser() {
