@@ -71,7 +71,8 @@ export class Galery implements OnInit, AfterViewInit {
             details: [],
             subtitle: "alumbra como unyelo",
             vector: "/assets/Group.svg",
-            categorie: index == 2 ? Categories.tableLumin : Categories.footLumin,
+            finish: [],
+            category: index == 2 ? {id: 'awds', nombre: Categories.tableLumin} : { id: 'asdwasd', nombre: Categories.footLumin},
             variants: [{
               id: "cme4vc3750000wjt8qkx5io9v",
               image: "/assets/Image.png",
@@ -96,7 +97,7 @@ export class Galery implements OnInit, AfterViewInit {
   }
 
   navigateToProduct(productCategory: Categories, productId: string) {
-    this.router.navigate(['/dashboard', productCategory, productId]);
+    this.router.navigate(['/dashboard', productCategory , productId], {queryParams: {index: productId}});
   }
 
 

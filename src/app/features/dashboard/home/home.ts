@@ -42,7 +42,8 @@ export class Home implements OnInit, AfterViewInit {
         details: [],
         subtitle: "alumbra como unyelo",
         vector: "/assets/Group.svg",
-        categorie: index == 2 ? Categories.tableLumin : Categories.footLumin,
+        finish: [],
+        category: index == 2 ? { id: 'as', nombre: Categories.tableLumin } : { id: 'asd', nombre: Categories.footLumin },
         variants: [{
           id: "cme4vc3750000wjt8qkx5io9v",
           image: "/assets/cat_image.png",
@@ -64,12 +65,13 @@ export class Home implements OnInit, AfterViewInit {
         for (let index = 0; index < 8; index++) {
           this.mostRated.push({
             id: "cme4vc3750000wjt8qkx5io9v",
+            finish: [],
             name: "tubo e lu fria",
             description: "un tubo que alumbra y no se calienta",
             details: [],
             subtitle: "alumbra como unyelo",
             vector: "/assets/Group.svg",
-            categorie: index == 2 ? Categories.tableLumin : Categories.footLumin,
+            category: index == 2 ? { id: 'as', nombre: Categories.tableLumin } : { id: 'asd', nombre: Categories.footLumin },
             variants: [{
               id: "cme4vc3750000wjt8qkx5io9v",
               image: "/assets/cat_image.png",
@@ -87,12 +89,13 @@ export class Home implements OnInit, AfterViewInit {
         for (let index = 0; index < 8; index++) {
           this.mostRated.push({
             id: "cme4vc3750000wjt8qkx5io9v",
+            finish: [],
             name: "tubo e lu fria",
             description: "un tubo que alumbra y no se calienta",
             details: [],
             subtitle: "alumbra como unyelo",
             vector: "/assets/Group.svg",
-            categorie: index == 2 ? Categories.tableLumin : Categories.footLumin,
+            category: index == 2 ? { id: 'as', nombre: Categories.tableLumin } : { id: 'asd', nombre: Categories.footLumin },
             variants: [{
               id: "cme4vc3750000wjt8qkx5io9v",
               image: "/assets/cat_image.png",

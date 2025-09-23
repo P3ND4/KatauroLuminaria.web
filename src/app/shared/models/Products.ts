@@ -4,9 +4,22 @@ export class Product {
     description!: string;
     subtitle!: string;
     vector?: string;
-    categorie!: Categories;
-    details!: string[];
+    category!: CatModel;
+    details!: detail[];
     variants!: Variant[];
+    finish!: Finish[];
+}
+
+
+export class Finish {
+    id!: string
+    productId!: string
+    text!: string
+}
+export class detail {
+    id!: string
+    idProd!: string
+    text!: string
 }
 
 export class Variant {
@@ -18,7 +31,12 @@ export class Variant {
     images!: string[];
 }
 
-export enum Categories{
+export class CatModel {
+    id!: string;
+    nombre!: Categories
+}
+
+export enum Categories {
     tableLumin = "Luminarias de mesa",
     wallLumin = "Luminarias de pared",
     footLumin = "Luminarias de pie",

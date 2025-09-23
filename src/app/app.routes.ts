@@ -35,9 +35,9 @@ export const routes: Routes = [
                 ]
             },
             {
-                path: 'login', component: Login, children: [
-                    { path: 'signin', component: Signin },
-                    { path: 'signup', component: Signup }
+                path: 'login', loadComponent: ()=> import('./features/login/login').then((m)=>m.Login), children: [
+                    { path: 'signin', loadComponent: () => import('./features/login/signin/signin').then((m)=>m.Signin) },
+                    { path: 'signup', loadComponent: () => import('./features/login/signup/signup').then((m)=>m.Signup)}
                 ]
             },
         ]

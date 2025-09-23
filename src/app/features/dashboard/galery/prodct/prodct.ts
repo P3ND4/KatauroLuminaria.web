@@ -18,6 +18,7 @@ export class Prodct implements OnInit {
   selectedIndex = 0;
   indicatorX = 0;
   indicatorWidth = 0;
+
   @ViewChildren('itemElem') itemElems!: QueryList<ElementRef>;
 
   constructor(private route: ActivatedRoute, private router: Router, private zone: NgZone, private http: HttpService) { }
@@ -25,9 +26,13 @@ export class Prodct implements OnInit {
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('category');
     this.currentCategory = param ? param as Categories : Categories.tableLumin;
+    
     this.http.getProducts().subscribe({
       next: (val) => {
         this.products = val as Product[]
+        this.products = this.products.filter((prod)=> prod.variants? prod.variants.length>0: false)
+        const index = this.route.snapshot.queryParamMap.get('index');
+        this.selectedIndex = index? this.products.findIndex((prod)=> prod.id == index): 0;
       },
       error: (err) => {
         console.log(err);
@@ -38,8 +43,9 @@ export class Prodct implements OnInit {
             description: "un tubo que alumbra y no se calienta",
             vector: index == 2 ? "/assets/bombillo.svg" : "/assets/Group.svg",
             details: [],
+            finish: [],
             subtitle: "",
-            categorie: index == 2 ? Categories.lightBulb : Categories.footLumin,
+            category: index == 2 ?{id: 'asds', nombre: Categories.lightBulb} : { id:'as', nombre:Categories.footLumin},
             variants: [{
               name: "",
               price: 200,
@@ -49,9 +55,8 @@ export class Prodct implements OnInit {
               id: ""
             }]
           });
-
           this.selectedIndex = this.products.findIndex(product => product.id === 'cme4vc3750000wjt8qkx5io9v7');
-
+          
         }
       }
 

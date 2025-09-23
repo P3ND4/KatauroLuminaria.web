@@ -1,24 +1,39 @@
 <div class="detail-container">
     <div class="img-container">
-        <img class="main-img" [src]="currentProduct.variants[0].price" />
+        <img class="main-img" [src]="currentProduct!.variants[0].image" />
         <div class="sec-img-container">
             @for (item of [1,2,3,4,5]; track $index) {
-                <img [src]="currentProduct.variants[0].price" alt="sec-img">
+            <img [src]="currentProduct?.variants?.[0]?.price" alt="sec-img">
             }
         </div>
     </div>
     <div class="detail-content">
         <div class="details">
-            <h2>{{currentProduct.name}}</h2>
-            <h4>{{currentProduct.description}}</h4>
-            <p>{{currentProduct.description}}</p>
+            <h2>{{currentProduct?.name}}</h2>
+            <h4>{{currentProduct?.subtitle}}</h4>
+            <p>{{currentProduct?.description}}</p>
+            <div class="finishing-electric">
+                <div class="finishing">
+                    <h3>Terminaciones</h3>
+                    @for (item of currentProduct?.finish; track $index) {
+                    <p>{{item.text}}</p>
+                    }
+                </div>
+                <div class="electric">
+                    <h3>Sistema eléctrico</h3>
+
+                    @for (item of currentProduct?.details; track $index) {
+                    <p>{{item.text}}</p>
+                    }
+                </div>
+            </div>
         </div>
         <div class="button-bar">
             <div class="divider"></div>
-            <p>{{currentProduct.variants[0].price |currency}}</p>
+            <p>{{ (currentProduct!.variants.length > 0 ? currentProduct!.variants[0].price : 0 ) | currency }}</p>
             <div class="btn-section">
                 <button class="button-base" style="flex: 1;"> <label>ADQUIRIR</label></button>
-                <button class="button-chips" style="padding: 14px;"><img src="/assets/shopping-bag.svg"/></button>
+                <button class="button-chips" style="padding: 14px;"><img src="/assets/shopping-bag.svg" /></button>
             </div>
         </div>
     </div>
