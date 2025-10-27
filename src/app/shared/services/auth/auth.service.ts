@@ -23,21 +23,14 @@ export class AuthService {
 
   }
   logUserByCredentials(email: string, password: string) {
-    this.http.signIn({ email, password }).subscribe({
-      next: (val) => {
-        this.refreshUser().finally(() => {
-          console.log(this.currentUser$)
-          console.log(this.currentUser$)
-        })
-      },
-      error: (err) => { console.log(err) }
-    })
+    return this.http.signIn({ email, password });
   }
 
   logOutUser() {  
     this.http.logOut().subscribe(
       {
         next: (val) => {
+          console.log(val)
           this._currentUser.next(null);
           this.refreshUser()
         },
@@ -49,6 +42,7 @@ export class AuthService {
   }
 
   async refreshUser(): Promise<void> {
+    this.userChecked = false;
     this.http.refreshUser().subscribe(
       {
         next: (val) => {

@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, RouterLinkWithHref, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { CartService } from '../../shared/services/cart/cart.service';
 import { User } from '../../shared/models/User';
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, CommonModule, RouterLinkWithHref, RouterLinkActive],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -15,7 +15,7 @@ export class Dashboard implements OnInit {
   menuIsOpen = false
   width = window.innerWidth;
   currentUser: User | null = null;
-  constructor(router: Router, readonly authService: AuthService, private cartService: CartService) {
+  constructor(router: Router, readonly authService: AuthService, readonly cartService: CartService) {
     this.router = router;
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
@@ -26,10 +26,12 @@ export class Dashboard implements OnInit {
       await this.authService.refreshUser();
       this.authService.currentUser$.subscribe(user => {
         this.currentUser = user;
+        if (this.currentUser) this.cartService.loadCart()
       });
     } catch (error) {
       console.error('Error refreshing user:', error);
     }
+    
   }
   isActive(route: string): boolean {
     const currentUrl = window.location.pathname;
@@ -50,6 +52,10 @@ export class Dashboard implements OnInit {
   navigateMobile(route: string) {
     this.menuIsOpen = false;
     this.router.navigate([route]);
+
+  }
+  logout(){
+    this.authService.logOutUser();
 
   }
 

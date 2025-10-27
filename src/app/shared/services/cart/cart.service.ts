@@ -1,39 +1,61 @@
-import { Injectable } from '@angular/core';
-import { Product } from '../../models/Products';
+import { Injectable, signal } from '@angular/core';
+import { Product, Variant } from '../../models/Products';
 import { HttpService } from '../http/http.service';
+import { AuthService } from '../auth/auth.service';
+import { User } from '../../models/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  currentProducts: Product[] = []
+  public currentProducts = signal<Variant[]>([]);
+  public isCharged = false;
 
-  constructor(private http: HttpService){
-    http.getProducts().subscribe({
-      next: (val)=>{ 
-        this.currentProducts = val as Product[];
-        this.currentProducts = this.currentProducts.slice(0, 5);
-       },
-      error: (err) => {console.log(err); }
-    });
+
+  constructor(private http: HttpService, private authService: AuthService) {
   }
 
-  addToCart(product: Product){
-    this.currentProducts.push(product);
+
+
+  addToCart(userId: string, productId: string) {
+    return this.http.addToCart(userId, productId);
   }
-  addProductsToCart(products: Product[]){
-    this.currentProducts.concat(products);
+  addProductsToCart(products: string[]) {
+
+  }
+  async loadCart(): Promise<void> {
+    this.authService.currentUser$.subscribe(
+      {
+        next: val => {
+          if (val) {
+            this.currentProducts.set(((val as User).cart as { product: Variant }[]).map(x => x.product))
+            console.log(this.currentProducts);
+          }
+        },
+        error: err => console.error(err)
+
+      }
+    )
   }
 
-  deleteFromCart(id: string){
-    const index = this.currentProducts.findIndex((prod) => prod.id == id);
-    this.currentProducts.splice(index);
-  }
-  deleteSelectedFromCart(prodsId: string[]){
-    this.currentProducts = this.currentProducts.filter((prod)=> !prodsId.find((id)=> prod.id == id))
+  loadCartFromBackend(id: string) {
+    this.http.getUserById(id).subscribe(
+      {
+        next: val => this.currentProducts.set(((val as User).cart as { product: Variant }[]).map(x => x.product)),
+        error: err=> console.log(err)
+      }
+    )
   }
 
-  restoreCart(){
-    this.currentProducts = [];
+  deleteFromCart(id: string) {
+    //const index = this.currentProducts.findIndex((prod) => prod.id == id);
+    //this.currentProducts.splice(index);
+  }
+  deleteSelectedFromCart(prodsId: string[]) {
+    //this.currentProducts = this.currentProducts.filter((prod) => !prodsId.find((id) => prod.id == id))
+  }
+
+  restoreCart() {
+    //this.currentProducts = [];
   }
 }

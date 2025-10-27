@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Categories, Product } from '../../../../shared/models/Products';
 import { CommonModule } from '@angular/common';
 import { HttpService } from '../../../../shared/services/http/http.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-prodct',
@@ -14,8 +15,8 @@ export class Prodct implements OnInit {
   currentCategory: Categories = Categories.tableLumin;
   categories = Categories;
   products: Product[] = []
-
-  selectedIndex = 0;
+  ParamsSubscription: Subscription | undefined;
+  selectedIndex = -1;
   indicatorX = 0;
   indicatorWidth = 0;
 
@@ -26,45 +27,36 @@ export class Prodct implements OnInit {
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('category');
     this.currentCategory = param ? param as Categories : Categories.tableLumin;
-    
-    this.http.getProducts().subscribe({
-      next: (val) => {
-        this.products = val as Product[]
-        this.products = this.products.filter((prod)=> prod.variants? prod.variants.length>0: false)
-        const index = this.route.snapshot.queryParamMap.get('index');
-        this.selectedIndex = index? this.products.findIndex((prod)=> prod.id == index): 0;
-      },
-      error: (err) => {
-        console.log(err);
-        for (let index = 0; index < 8; index++) {
-          this.products.push({
-            id: `cme4vc3750000wjt8qkx5io9v${index}`,
-            name: "tubo e lu fria",
-            description: "un tubo que alumbra y no se calienta",
-            vector: index == 2 ? "/assets/bombillo.svg" : "/assets/Group.svg",
-            details: [],
-            finish: [],
-            subtitle: "",
-            category: index == 2 ?{id: 'asds', nombre: Categories.lightBulb} : { id:'as', nombre:Categories.footLumin},
-            variants: [{
-              name: "",
-              price: 200,
-              stock: 13,
-              image: "/assets/Image.png",
-              images: [],
-              id: ""
-            }]
-          });
-          this.selectedIndex = this.products.findIndex(product => product.id === 'cme4vc3750000wjt8qkx5io9v7');
-          
-        }
-      }
 
-    })
-
+    this.ParamsSubscription = this.route.paramMap.subscribe(() => {
+      this.readParams();
+    });
 
 
   }
+
+  readParams() {
+
+    this.route.paramMap.subscribe(param => {
+      const p = param.get('category') as Categories
+      this.currentCategory = p ?? 'Liminarias de mesa'
+    })
+
+
+    this.http.getProducts({ category: this.currentCategory }).subscribe({
+      next: (val) => {
+        this.products = val as Product[];
+        this.products = this.products.filter((prod) => prod.variants ? prod.variants.length > 0 : false);
+        const index = this.route.snapshot.queryParamMap.get('index');
+        this.selectedIndex = index ? this.products.findIndex((prod) => prod.id == index) : -1;
+      },
+      error: (err) => {
+        console.log(err);
+
+      }
+    });
+  }
+
 
 
   ngAfterViewInit() {
@@ -82,6 +74,7 @@ export class Prodct implements OnInit {
   }
 
   updateIndicator() {
+    if(this.selectedIndex < 0) return
     const elem = this.itemElems.toArray()[this.selectedIndex].nativeElement;
     this.indicatorX = elem.offsetLeft;
     this.indicatorWidth = elem.offsetWidth;

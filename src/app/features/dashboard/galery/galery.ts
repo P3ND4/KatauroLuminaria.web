@@ -4,10 +4,12 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { Subscription } from 'rxjs';
+import { FadeAndSlideIn } from '../../../shared/animations/FadeAndSlideIn';
 
 @Component({
   selector: 'app-galery',
   imports: [CommonModule],
+  animations: [FadeAndSlideIn],
   templateUrl: './galery.html',
   styleUrl: './galery.css'
 })
@@ -30,7 +32,26 @@ export class Galery implements OnInit, AfterViewInit {
       this.readQuery();
     });
 
-    this.http.getPages().subscribe(
+
+
+
+  }
+  readQuery() {
+    this.route.queryParamMap.subscribe(params => {
+      const page = params.get('page');
+      this.currentPage = page ? + page : 1;
+      const category = params.get('category');
+      this.selectedCategory = category ? category as Categories : "TODAS";
+    });
+    this.readData();
+
+  }
+
+  readData() {
+    const option = this.selectedCategory !== 'TODAS' ? { page: this.currentPage, category: this.selectedCategory } : { page: this.currentPage }
+
+    const pagesOpt = {category: this.selectedCategory !== 'TODAS'? this.selectedCategory: undefined}
+    this.http.getPages(pagesOpt).subscribe(
       {
         next: (val) => {
           this.pages = val as number;
@@ -40,22 +61,7 @@ export class Galery implements OnInit, AfterViewInit {
       }
     )
 
-
-
-
-  }
-  readQuery() {
-    this.route.queryParamMap.subscribe(params => {
-      const result = params.get('page');
-      this.currentPage = result ? + result : 1;
-
-    });
-
-    this.readData();
-  }
-
-  readData() {
-    this.http.getProducts(this.currentPage).subscribe({
+    this.http.getProducts(option).subscribe({
       next: (val) => {
         this.products = val as Product[]
         this.products = this.products.filter((prod) => prod.variants.length > 0);
@@ -63,26 +69,6 @@ export class Galery implements OnInit, AfterViewInit {
       },
       error: (err) => {
         console.log(err);
-        for (let index = 0; index < 8; index++) {
-          this.products.push({
-            id: "cme4vc3750000wjt8qkx5io9v",
-            name: "tubo e lu fria",
-            description: "un tubo que alumbra y no se calienta",
-            details: [],
-            subtitle: "alumbra como unyelo",
-            vector: "/assets/Group.svg",
-            finish: [],
-            category: index == 2 ? {id: 'awds', nombre: Categories.tableLumin} : { id: 'asdwasd', nombre: Categories.footLumin},
-            variants: [{
-              id: "cme4vc3750000wjt8qkx5io9v",
-              image: "/assets/Image.png",
-              images: [],
-              price: 200,
-              stock: 13,
-              name: ""
-            }]
-          });
-        }
 
       }
     })
@@ -93,11 +79,16 @@ export class Galery implements OnInit, AfterViewInit {
   }
 
   onCategoryChange(category: Categories | 'TODAS') {
-    this.selectedCategory = category;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: this.currentPage, category: category !== "TODAS" ? category : undefined },
+      queryParamsHandling: 'merge',
+    });
+    window.scrollTo(0, 0);
   }
 
   navigateToProduct(productCategory: Categories, productId: string) {
-    this.router.navigate(['/dashboard', productCategory , productId], {queryParams: {index: productId}});
+    this.router.navigate(['/dashboard', productCategory, productId], { queryParams: { index: productId } });
   }
 
 

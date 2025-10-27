@@ -1,9 +1,13 @@
 <div class="detail-container">
     <div class="img-container">
-        <img class="main-img" [src]="currentProduct!.variants[0].image" />
+        <div class="main-image">
+            <img class="main-img" [src]="images[selectedImage]" [alt]="currentProduct?.name" />
+        </div>
         <div class="sec-img-container">
-            @for (item of [1,2,3,4,5]; track $index) {
-            <img [src]="currentProduct?.variants?.[0]?.price" alt="sec-img">
+            @for (item of images; track $index) {
+            <div class="sec-images">
+                <img [src]="item" [alt]="currentProduct?.name" (click)="selectImage($index)">
+            </div>
             }
         </div>
     </div>
@@ -12,28 +16,47 @@
             <h2>{{currentProduct?.name}}</h2>
             <h4>{{currentProduct?.subtitle}}</h4>
             <p>{{currentProduct?.description}}</p>
-            <div class="finishing-electric">
-                <div class="finishing">
-                    <h3>Terminaciones</h3>
-                    @for (item of currentProduct?.finish; track $index) {
-                    <p>{{item.text}}</p>
-                    }
-                </div>
-                <div class="electric">
-                    <h3>Sistema eléctrico</h3>
+            <div class="features">
 
-                    @for (item of currentProduct?.details; track $index) {
-                    <p>{{item.text}}</p>
-                    }
+                <div class="finishing-electric">
+                    <div class="finishing">
+                        <h3>Terminaciones</h3>
+                        @for (item of prodFinishes; track $index) {
+                        <div class="finish-details">
+                            <p>{{item.text}}</p>
+                            <div class="finis-image">
+                                <img [src]="item.image" [alt]="item.text">
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    <div class="electric">
+                        <h3>Sistema eléctrico</h3>
+                        @for (item of currentProduct?.details; track $index) {
+                        <p>{{item.text}}</p>
+                        }
+                    </div>
+                </div>
+                <div class="variants">
+                    <h3>Colores</h3>
+                    <div class="variant-list">
+                        @for (item of currentProduct?.variants; track $index) {
+                        <div class="color-container" (click)="variantChange($index)"
+                            [ngClass]="{'active': currentVariant === $index}">
+                            <img [src]="item.color?.image" [alt]="item.color?.name">
+                        </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
         <div class="button-bar">
             <div class="divider"></div>
-            <p>{{ (currentProduct!.variants.length > 0 ? currentProduct!.variants[0].price : 0 ) | currency }}</p>
+            <p>{{ (currentProduct!.variants.length > 0 ? currentProduct!.variants[currentVariant].price : 0 ) | currency
+                }}</p>
             <div class="btn-section">
                 <button class="button-base" style="flex: 1;"> <label>ADQUIRIR</label></button>
-                <button class="button-chips" style="padding: 14px;"><img src="/assets/shopping-bag.svg" /></button>
+                <button class="button-chips" style="padding: 14px;" (click)="addToCart()"><img src="/assets/shopping-bag.svg" /></button>
             </div>
         </div>
     </div>

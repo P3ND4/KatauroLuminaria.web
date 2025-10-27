@@ -1,11 +1,13 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { TeamMember } from '../../../shared/models/teamMember';
 import { CommonModule } from '@angular/common';
+import { FadeAndSlideIn } from '../../../shared/animations/FadeAndSlideIn';
 
 @Component({
   selector: 'app-team',
   imports: [CommonModule],
   templateUrl: './team.html',
+  animations: [FadeAndSlideIn],
   styleUrl: './team.css'
 })
 export class Team implements AfterViewInit {

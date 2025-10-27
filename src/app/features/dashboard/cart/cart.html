@@ -5,7 +5,7 @@
             <form [formGroup]="buyingForm" class="payment-form" (ngSubmit)="onSubmit()">
                 <div class="form-pair">
                     <div class="input-container payment">
-                        <label class="form-label" >
+                        <label class="form-label">
                             Nombre*
                         </label>
                         <div class="input-content">
@@ -16,7 +16,7 @@
                         <label class="form-label">
                             Apellido
                         </label>
-                        <div class="input-content" >
+                        <div class="input-content">
                             <input type="text" formControlName="lastName" placeholder="Introduce tu nombre">
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="checkbox-container">
-                    <input type="checkbox" id="shipping" >
+                    <input type="checkbox" id="shipping">
                     <div>
                         <label for="shipping">Envío a domicilio</label>
                         <p>El envío solo está disponible para la provincia de La Habana.</p>
@@ -63,9 +63,9 @@
             </form>
         </div>
         <div class="order-summary">
-            <h2>Mi cesta ({{cartService.currentProducts.length}} productos)</h2>
+            <h2>Mi cesta ({{cartService.currentProducts().length}} productos)</h2>
             <div class="summary-content">
-                @for (item of cartService.currentProducts; track $index) {
+                @for (item of cartService.currentProducts(); track $index) {
                 <div class="summary-item" [ngClass]="{'selected': isActive($index)}">
                     <div class="checkbox-circle" (click)="toggle($index)">
                         <input type="checkbox" [checked]="isActive($index)" (change)="toggle($index)" />
@@ -73,21 +73,25 @@
                     </div>
                     <div class="info-prod">
                         <div class="img" (click)="toggle($index)">
-                            <img [src]="item.variants.length > 0? item.variants[0].image: ''" />
+                            <img [src]="item.image" />
                         </div>
-                        <div class="prod-txt" (click)="toggle($index)">
-                            <h3>{{item.name}}</h3>
-                            <h4 class="desc">{{item.subtitle}}</h4>
-                            <p>{{(item.variants.length > 0 ? item.variants[0].price: '')|currency}}</p>
-                        </div>
-                        <div class="count">
-                            <button (click)="minus($index)">
-                                <img src="/assets/minus.svg" alt="">
-                            </button>
-                            <span class="prod-count">{{selected[$index] || 0}}</span>
-                            <button (click)="plus($index)">
-                                <img src="/assets/plus.svg" alt="">
-                            </button>
+                        <div class="prod-details">
+
+                            <div class="prod-txt" (click)="toggle($index)">
+                                <h3>{{item.genericProd?.name}}</h3>
+                                <h4 class="desc">{{item.genericProd?.subtitle}}</h4>
+                                <p>{{(item.price)|currency}}</p>
+                            </div>
+                            <div class="count">
+                                <button (click)="minus($index)">
+                                    <img [src]="isMobile()? '/assets/minus-mobile.svg' :'/assets/minus.svg'"
+                                        alt="minus">
+                                </button>
+                                <span class="prod-count">{{selected[$index] || 0}}</span>
+                                <button (click)="plus($index)">
+                                    <img [src]="isMobile()? '/assets/plus-mobile.svg' :'/assets/plus.svg'" alt="plus">
+                                </button>
+                            </div>
                         </div>
                     </div>
 

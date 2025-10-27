@@ -38,7 +38,7 @@ p {
 .detail-container {
     display: flex;
     gap: 40px;
-    height: 768px;
+    /*height: 768px;*/
 }
 
 .img-container {
@@ -59,6 +59,8 @@ p {
     padding-inline: 48px;
     padding-block: 64px;
     box-sizing: border-box;
+    border-radius: var(--Corner-Small, 8px);
+    background: var(--Gray-50, #FAFAFA);
 }
 
 .details {
@@ -67,6 +69,12 @@ p {
     flex-direction: column;
     align-items: center;
     align-self: stretch;
+}
+
+.details h2,
+.details h4 {
+    width: 100%;
+    text-align: left;
 }
 
 .button-bar {
@@ -106,19 +114,250 @@ p {
     width: 250px;
     height: 48px;
 }
-.main-img{
-    height: 100%;
-    width: 100%;
+
+.main-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3.869px;
+    overflow: hidden;
 }
-.sec-img-container{
+
+.main-img {
+    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.sec-img-container {
     display: flex;
     height: 123px;
     gap: 7.74px;
 }
-.sec-img-container img{
-    width: 122px;
+
+.sec-images {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /*
+   width: 122px;
+   */
+}
+
+.sec-img-container img {
+    width: 100%;
+    min-height: 100%;
+}
+
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    width: 100%;
+}
+
+.finishing-electric {
+    display: flex;
+    width: 100%;
+    gap: 48px;
+}
+
+.finishing,
+.electric {
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+    flex: 1;
+}
+
+.finishing h3,
+.electric h3,
+.variants h3 {
+    color: var(--Gray-700, #414651);
+
+    /* Text lg/Semibold */
+    font-family: var(--montser-font);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+    margin: 0px;
+    /* 155.556% */
+}
+
+.finishing p,
+.electric p {
+    color: var(--Gray-700, #414651);
+
+    /* Text lg/Medium */
+    font-family: var(--montser-font);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+    /* 155.556% */
+    margin: 0px;
+}
+
+.variants {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+}
+
+
+.variants h3 {
+    text-align: left;
+}
+
+.variant-list {
+    display: flex;
+    gap: 8px;
+}
+
+.color-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.5px solid black;
+    cursor: pointer;
+}
+
+.color-container.active {
+    border: 2px solid #178C94;
+}
+
+.color-container img {
+    min-width: 100%;
     height: 100%;
 }
-.finishing-electric{
+
+.finish-details {
     display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.finis-image {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.finis-image img {
+    height: 100%;
+    min-width: 100%;
+}
+
+@media (max-width: 1300px) {
+
+    .detail-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .detail-content {
+        max-width: 645px;
+    }
+
+
+}
+
+@media (max-width: 900px) {}
+
+@media (max-width: 700px) {
+    .img-container {
+        width: 100%;
+    }
+
+    .main-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    .sec-img-container {
+        width: 100%;
+        height: auto;
+    }
+
+    .sec-images {
+        width: 100%;
+        aspect-ratio: 1;
+    }
+
+    .detail-content {
+        padding: 32px 16px;
+    }
+}
+
+@media (max-width: 550px) {
+
+    .detail-content {
+        width: 100%;
+        min-width: 300px;
+    }
+
+    .details h2 {
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 38px;
+        /* 126.667% */
+    }
+
+    .details h4,
+    .details p {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+        /* 142.857% */
+    }
+
+    .features {
+        flex-direction: column-reverse;
+    }
+
+    .finishing-electric {
+        flex-direction: column;
+    }
+
+    .button-bar p {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 28px;
+        /* 155.556% */
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .button-bar .button-base {
+        padding: 8px 14px;
+        flex: auto;
+        width: auto;
+
+    }
+
+    .button-bar .button-base label {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 20px;
+        /* 142.857% */
+    }
 }

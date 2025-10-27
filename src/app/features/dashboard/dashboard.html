@@ -7,12 +7,12 @@
       <div class="nav-links">
         <img class="Katauro-logo" src="/assets/Katauro.svg" />
 
-        <a (click)="router.navigate(['/dashboard/home'])" [ngClass]="{'active': isActive('/dashboard/home')}">Inicio</a>
-        <a (click)="router.navigate(['/dashboard/team'])" [ngClass]="{'active': isActive('/dashboard/team')}">Nuestro
+        <a [routerLink]= "['/dashboard/home']" [ngClass]="{'active': isActive('/dashboard/home')}">Inicio</a>
+        <a [routerLink]="['/dashboard/team']" [ngClass]="{'active': isActive('/dashboard/team')}">Nuestro
           equipo</a>
-        <a (click)="router.navigate(['/dashboard/galery'])"
+        <a [routerLink]="['/dashboard/galery']"
           [ngClass]="{'active': isActive('/dashboard/galery')}">Luminarias</a>
-        <a (click)="router.navigate(['/dashboard/blog'])" [ngClass]="{'active': isActive('/dashboard/blog')}">Blog</a>
+        <a [routerLink]="['/dashboard/blog']" [ngClass]="{'active': isActive('/dashboard/blog')}">Blog</a>
       </div>
       @if(!isMobile()){
       @if(!isLogged()){
@@ -27,6 +27,7 @@
           <img src="" alt="">
         </button>
         <button class="button-chips" style="padding-inline: 10px;" (click)="router.navigate(['/dashboard/cart'])">
+          <label>{{cartService.currentProducts().length}}</label>
           <img src="/assets/shopping-bag.svg" />
         </button>
       </div>
@@ -50,7 +51,7 @@
       <a (click)="navigateMobile('/dashboard/galery')"
         [ngClass]="{'active': isActive('/dashboard/galery')}">Luminarias</a>
       <a (click)="navigateMobile('/dashboard/blog')" [ngClass]="{'active': isActive('/dashboard/blog')}">Blog</a>
-      <button class="button-base login" [ngStyle]="{'display': isLogged() ? 'none': 'null'}" id="log"
+      <button class="button-base login" [ngStyle]="{'display': isLogged() ? 'none': 'flex'}" id="log"
         (click)="router.navigate(['/login/signin'])">
         <label for="log">Iniciar sesión</label>
       </button>
@@ -64,7 +65,7 @@
           <p class="user-name">{{currentUser?.name}}</p>
           <p class="user-email">{{currentUser?.email}}</p>
         </div>
-        <img src="/assets/log-out.svg" />
+        <img src="/assets/log-out.svg" (click)="logout()" />
         <button class="button-chips" style="padding-inline: 10px;" (click)="navigateMobile('/dashboard/cart')">
           <img src="/assets/shopping-bag.svg" />
         </button>

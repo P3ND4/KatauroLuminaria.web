@@ -1,23 +1,23 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CartService } from '../../../shared/services/cart/cart.service';
-import { Product } from '../../../shared/models/Products';
+import { Product, Variant } from '../../../shared/models/Products';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { count, last } from 'rxjs';
+import { AuthService } from '../../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-cart',
   imports: [CurrencyPipe, ReactiveFormsModule, CommonModule],
-  providers: [CartService],
   templateUrl: './cart.html',
   styleUrl: './cart.css'
 })
 export class Cart implements OnInit {
-  products = signal<Product[]>([]);
+  products = signal<Variant[]>([]);
   buyingForm: FormGroup
   selected: {[key: number]: number} = {};
 
-  constructor(public cartService: CartService, private fb: FormBuilder) {
+  constructor(readonly cartService: CartService, private fb: FormBuilder) {
     this.buyingForm = fb.group(
       {
         name: ["", [Validators.required]],
@@ -26,17 +26,26 @@ export class Cart implements OnInit {
         phone: ["", [Validators.required, Validators.minLength(8)]]
       }
     )
+
   }
   ngOnInit(): void {
-    this.products.set(this.cartService.currentProducts);
+    //this.products.set(this.cartService.currentProducts);
+    //this.loadCart();
   }
+
+  loadCart(){
+    this.cartService.loadCart()
+  }
+
   toggle(index: number): void {
     if(this.selected[index]){
       delete this.selected[index];
     }else{
       this.selected[index] = 1;
+      console.log(this.cartService.currentProducts)
     }
   }
+ 
 
   plus(index: number): void {
     if (this.selected[index]) {
@@ -63,5 +72,8 @@ export class Cart implements OnInit {
       const name = this.buyingForm.get('name')?.value;
       console.log(name);
     }
+  }
+  isMobile(): boolean {
+    return window.innerWidth <= 700;
   }
 }

@@ -34,27 +34,7 @@ export class Home implements OnInit, AfterViewInit {
   ]
   loading = false;
   constructor(private httpService: HttpService) {
-    for (let index = 0; index < 8; index++) {
-      this.mostRated.push({
-        id: "cme4vc3750000wjt8qkx5io9v",
-        name: "tubo e lu fria",
-        description: "un tubo que alumbra y no se calienta",
-        details: [],
-        subtitle: "alumbra como unyelo",
-        vector: "/assets/Group.svg",
-        finish: [],
-        category: index == 2 ? { id: 'as', nombre: Categories.tableLumin } : { id: 'asd', nombre: Categories.footLumin },
-        variants: [{
-          id: "cme4vc3750000wjt8qkx5io9v",
-          image: "/assets/cat_image.png",
-          images: [],
-          price: 200,
-          stock: 13,
-          name: ""
-        }]
-      });
-      this.loading = false
-    }
+
   }
   ngOnInit(): void {
     this.loading = true
@@ -62,51 +42,11 @@ export class Home implements OnInit, AfterViewInit {
       next: (data: any) => {
         this.mostRated = data;
         this.mostRated = this.mostRated.filter((prod: Product) => prod.variants.length != 0);
-        for (let index = 0; index < 8; index++) {
-          this.mostRated.push({
-            id: "cme4vc3750000wjt8qkx5io9v",
-            finish: [],
-            name: "tubo e lu fria",
-            description: "un tubo que alumbra y no se calienta",
-            details: [],
-            subtitle: "alumbra como unyelo",
-            vector: "/assets/Group.svg",
-            category: index == 2 ? { id: 'as', nombre: Categories.tableLumin } : { id: 'asd', nombre: Categories.footLumin },
-            variants: [{
-              id: "cme4vc3750000wjt8qkx5io9v",
-              image: "/assets/cat_image.png",
-              images: [],
-              price: 200,
-              stock: 13,
-              name: ""
-            }]
-          });
-          this.loading = false
-        }
+        this.loading = false
       },
       error: (err) => {
         console.log(err)
-        for (let index = 0; index < 8; index++) {
-          this.mostRated.push({
-            id: "cme4vc3750000wjt8qkx5io9v",
-            finish: [],
-            name: "tubo e lu fria",
-            description: "un tubo que alumbra y no se calienta",
-            details: [],
-            subtitle: "alumbra como unyelo",
-            vector: "/assets/Group.svg",
-            category: index == 2 ? { id: 'as', nombre: Categories.tableLumin } : { id: 'asd', nombre: Categories.footLumin },
-            variants: [{
-              id: "cme4vc3750000wjt8qkx5io9v",
-              image: "/assets/cat_image.png",
-              images: [],
-              price: 200,
-              stock: 13,
-              name: ""
-            }]
-          });
-          this.loading = false
-        }
+        this.loading = false
       }
     });
   }

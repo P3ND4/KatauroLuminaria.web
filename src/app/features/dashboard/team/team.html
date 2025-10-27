@@ -3,16 +3,19 @@
         <h1>
             Ellos hacen la magia
         </h1>
-        <p style="width: 700px;">
+        <p>
             En Katauro somos una familia, este es el equipo encargado del diseño y producción de nuestras luminarias.
         </p>
     </header>
 
-    <div class="team-members">
+    @defer(){
+    <div class="team-members" @fadeAndSlideIn>
         <div class="img-cont">
             <img style="width: 100%; object-fit: contain;" src="/assets/team.png" />
         </div>
-        <div class="team-list">
+        @defer(on viewport){
+
+        <div class="team-list" @fadeAndSlideIn>
             @for (member of team; track $index) {
             <div class="member">
                 <img style="width: 100%; height: 217px;" [src]="member.img" alt="{{member.name}}">
@@ -24,5 +27,11 @@
             </div>
             }
         </div>
+        }@placeholder {
+        <div class="loading">
+            Cargando...
+        </div>
+        }
     </div>
+    }
 </div>
