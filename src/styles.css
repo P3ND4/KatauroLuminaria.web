@@ -87,7 +87,7 @@
     background: var(--White, #FFF);
     /* Shadow/xs */
     box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
-    transition: background 0.5s ease;
+    transition: background 0.2s ease;
 }
 
 .button-chips label {
@@ -99,7 +99,7 @@
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
-    transition: color 0.5s ease;
+    transition: color 0.2s ease;
     /* 150% */
 }
 
@@ -169,13 +169,31 @@
 }
 
 
-::view-transition-old(home) {
+:root[data-direction="right"]::view-transition-old(home),
+:root[data-direction="right"]::view-transition-old(team),
+:root[data-direction="right"]::view-transition-old(galery),
+:root[data-direction="right"]::view-transition-old(blog) {
     animation: exit 1s ease forwards;
 }
 
-::view-transition-new(home) {
-    animation: enter 0.5s ease forwards;
+:root[data-direction="left"]::view-transition-new(home),
+:root[data-direction="left"]::view-transition-new(team),
+:root[data-direction="left"]::view-transition-new(galery),
+:root[data-direction="left"]::view-transition-new(blog) {
+    animation: enter 1s ease forwards;
 }
+
+/* DIRECCIÓN → “right” (vamos hacia la derecha) 
+:root[data-direction="right"] ::view-transition-old(root) {
+    animation: exit 1s ease forwards;
+}
+
+:root[data-direction="left"] ::view-transition-new(root) {
+    animation: enter 1s ease forwards;
+}
+*/
+
+
 
 .social-button {
     display: flex;

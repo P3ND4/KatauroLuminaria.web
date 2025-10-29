@@ -7,12 +7,12 @@
       <div class="nav-links">
         <img class="Katauro-logo" src="/assets/Katauro.svg" />
 
-        <a [routerLink]= "['/dashboard/home']" [ngClass]="{'active': isActive('/dashboard/home')}">Inicio</a>
-        <a [routerLink]="['/dashboard/team']" [ngClass]="{'active': isActive('/dashboard/team')}">Nuestro
+        <a  [ngClass]="{'active': isActive('/dashboard/home')}" (click)="navigate('/dashboard/home')">Inicio</a>
+        <a  [ngClass]="{'active': isActive('/dashboard/team')}" (click)="navigate('/dashboard/team')">Nuestro
           equipo</a>
-        <a [routerLink]="['/dashboard/galery']"
-          [ngClass]="{'active': isActive('/dashboard/galery')}">Luminarias</a>
-        <a [routerLink]="['/dashboard/blog']" [ngClass]="{'active': isActive('/dashboard/blog')}">Blog</a>
+        <a  [ngClass]="{'active': isActive('/dashboard/galery')}" (click)="navigate('/dashboard/galery')">Luminarias</a>
+        <a [ngClass]="{'active': isActive('/dashboard/blog')}"
+          (click)="navigate('/dashboard/blog')">Blog</a>
       </div>
       @if(!isMobile()){
       @if(!isLogged()){
@@ -23,13 +23,34 @@
       }@else {
 
       <div class="user-info">
-        <button class="user-button">
-          <img src="" alt="">
+        <button class="user-button" (click)="clientPanel = true">
+          <img [src]="currentUser?.image" alt="">
         </button>
         <button class="button-chips" style="padding-inline: 10px;" (click)="router.navigate(['/dashboard/cart'])">
           <label>{{cartService.currentProducts().length}}</label>
           <img src="/assets/shopping-bag.svg" />
         </button>
+
+        <div class="clientPanel" [ngClass]="{'closed': !clientPanel, 'open': clientPanel}">
+          <div class="user-panel-data">
+            <button class="user-button">
+              <img [src]="currentUser?.image" alt="">
+            </button>
+            <div class="user-data">
+              <p class="user-name">{{currentUser?.name}}</p>
+              <p class="user-email">{{currentUser?.email}}</p>
+            </div>
+          </div>
+          <div class="user-panel-data">
+            <label>
+              Editar Perfil
+            </label>
+          </div>
+          <div class="user-panel-data" id="logout">
+            <img src="/assets/log-out.svg" alt="">
+            <label for="logout">Log out</label>
+          </div>
+        </div>
       </div>
       }
       }
@@ -42,8 +63,9 @@
       }
       }
     </div>
+    <div class="panelWrapper" (click)="menuIsOpen = false; clientPanel = false"
+      [ngStyle]="{'display': !menuIsOpen && !clientPanel? 'none' : 'block'}"></div>
     @if (isMobile()) {
-
     <div class="mobile-panel" [ngClass]="{'open': menuIsOpen}">
       <a (click)="navigateMobile('/dashboard/home')" [ngClass]="{'active': isActive('/dashboard/home')}">Inicio</a>
       <a (click)="navigateMobile('/dashboard/team')" [ngClass]="{'active': isActive('/dashboard/team')}">Nuestro
@@ -59,7 +81,7 @@
 
       <div class="user-info mobile">
         <button class="user-button">
-          <img src="" alt="">
+          <img [src]="currentUser?.image" alt="">
         </button>
         <div class="user-data">
           <p class="user-name">{{currentUser?.name}}</p>

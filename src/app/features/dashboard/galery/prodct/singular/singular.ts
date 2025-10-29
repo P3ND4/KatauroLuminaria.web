@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Categories, Finish, Product, Variant } from '../../../../../shared/models/Products';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, CurrencyPipe, NgClass } from '@angular/common';
 import { HttpService } from '../../../../../shared/services/http/http.service';
 import { lastValueFrom, Subscription } from 'rxjs';
@@ -24,7 +24,7 @@ export class Singular implements OnInit {
   currentVariant = 0;
   selectedImage = 0;
   user: User | undefined;
-  constructor(private route: ActivatedRoute, private http: HttpService, private cdr: ChangeDetectorRef, private userService: AuthService, readonly cartService: CartService) {
+  constructor(private route: ActivatedRoute, private http: HttpService, private cdr: ChangeDetectorRef, private userService: AuthService, readonly cartService: CartService, private router: Router) {
 
   }
   ngOnInit(): void {
@@ -83,9 +83,28 @@ export class Singular implements OnInit {
         {
           next: val => {
             console.log(val);
-            this.cartService.currentProducts.update(x=>[...x,this.currentProduct!.variants[this.currentVariant]]);
+            this.cartService.currentProducts.update(x => [...x, this.currentProduct!.variants[this.currentVariant]]);
             this.cartService.loadCartFromBackend(this.user!.id);
             this.cdr.detectChanges();
+          },
+          error: err => console.log(err)
+        }
+      )
+    }
+  }
+
+  toOwn() {
+    if (this.currentProduct && this.userService.isLogged()) {
+      this.cartService.addToCart(this.user!.id, this.currentProduct.variants[this.currentVariant].id).subscribe(
+        {
+          next: val => {
+            console.log(val);
+            this.cartService.currentProducts.update(x => [...x, this.currentProduct!.variants[this.currentVariant]]);
+            this.cartService.loadCartFromBackend(this.user!.id);
+            this.cdr.detectChanges();
+            this.router.navigate(['/dashboard/cart'], {queryParams: {
+              markedId: this.currentProduct?.variants[this.currentVariant].id
+            }})
           },
           error: err => console.log(err)
         }

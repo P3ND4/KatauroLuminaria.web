@@ -50,7 +50,7 @@ export class Galery implements OnInit, AfterViewInit {
   readData() {
     const option = this.selectedCategory !== 'TODAS' ? { page: this.currentPage, category: this.selectedCategory } : { page: this.currentPage }
 
-    const pagesOpt = {category: this.selectedCategory !== 'TODAS'? this.selectedCategory: undefined}
+    const pagesOpt = { category: this.selectedCategory !== 'TODAS' ? this.selectedCategory : undefined }
     this.http.getPages(pagesOpt).subscribe(
       {
         next: (val) => {
@@ -75,6 +75,7 @@ export class Galery implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+
     window.scrollTo(0, 0);
   }
 

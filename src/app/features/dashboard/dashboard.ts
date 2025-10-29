@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
-import { Router, RouterOutlet, RouterLinkWithHref, RouterLinkActive } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterOutlet, RouterLinkWithHref } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { CartService } from '../../shared/services/cart/cart.service';
 import { User } from '../../shared/models/User';
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, CommonModule, RouterLinkWithHref, RouterLinkActive],
+  imports: [RouterOutlet, CommonModule,],// RouterLinkWithHref],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -15,6 +15,8 @@ export class Dashboard implements OnInit {
   menuIsOpen = false
   width = window.innerWidth;
   currentUser: User | null = null;
+  clientPanel = false
+  sections = ['home', 'team', 'galery', 'blog'];
   constructor(router: Router, readonly authService: AuthService, readonly cartService: CartService) {
     this.router = router;
     this.authService.currentUser$.subscribe(user => {
@@ -31,7 +33,7 @@ export class Dashboard implements OnInit {
     } catch (error) {
       console.error('Error refreshing user:', error);
     }
-    
+
   }
   isActive(route: string): boolean {
     const currentUrl = window.location.pathname;
@@ -54,8 +56,25 @@ export class Dashboard implements OnInit {
     this.router.navigate([route]);
 
   }
-  logout(){
+  logout() {
     this.authService.logOutUser();
+
+  }
+  navigate(path: string) {
+    // acá puedes setear dirección o animación antes de navegar
+    const index = this.sections.indexOf(this.router.url.split('/')[2]);
+    const targetIndex = this.sections.indexOf(path.split('/')[2]);
+    if (index > targetIndex)
+      document.documentElement.setAttribute('data-direction', 'left');
+    else if (index < targetIndex)
+      document.documentElement.setAttribute('data-direction', 'right');
+    else
+      document.documentElement.setAttribute('data-direction', '');
+    // iniciar transición
+    console.log(document.documentElement.getAttribute('data-direction'));
+    document.startViewTransition(() =>
+      this.router.navigateByUrl(path)
+    )
 
   }
 

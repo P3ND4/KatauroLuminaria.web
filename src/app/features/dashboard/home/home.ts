@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Corousel } from "../../../shared/components/corousel/corousel";
 import { carouselDTO } from '../../../shared/models/carouselDTO';
 import { CommonModule } from '@angular/common';
 import { Categories, Product } from '../../../shared/models/Products';
 import { HttpService } from '../../../shared/services/http/http.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +34,7 @@ export class Home implements OnInit, AfterViewInit {
   mostRated: Product[] = [
   ]
   loading = false;
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService, private cdr: ChangeDetectorRef, readonly router: Router) {
 
   }
   ngOnInit(): void {
@@ -43,6 +44,7 @@ export class Home implements OnInit, AfterViewInit {
         this.mostRated = data;
         this.mostRated = this.mostRated.filter((prod: Product) => prod.variants.length != 0);
         this.loading = false
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.log(err)
@@ -56,5 +58,8 @@ export class Home implements OnInit, AfterViewInit {
   }
   isChargin() {
     return this.loading;
+  }
+  navigateToProduct(productCategory: Categories, productId: string) {
+    this.router.navigate(['/dashboard', productCategory, productId], { queryParams: { index: productId } });
   }
 }

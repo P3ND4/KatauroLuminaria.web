@@ -12,7 +12,7 @@ export class HttpService {
   apiPath = 'https://api.katauro.com'
 
   constructor(private http: HttpClient) {
-    this.apiPath = 'http://localhost:3000'
+    //this.apiPath = 'http://localhost:3000'
 
   }
   getFinishes() {

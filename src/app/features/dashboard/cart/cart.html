@@ -66,29 +66,29 @@
             <h2>Mi cesta ({{cartService.currentProducts().length}} productos)</h2>
             <div class="summary-content">
                 @for (item of cartService.currentProducts(); track $index) {
-                <div class="summary-item" [ngClass]="{'selected': isActive($index)}">
-                    <div class="checkbox-circle" (click)="toggle($index)">
-                        <input type="checkbox" [checked]="isActive($index)" (change)="toggle($index)" />
+                <div class="summary-item" [ngClass]="{'selected': isActive(item.id)}">
+                    <div class="checkbox-circle" (click)="toggle(item.id)">
+                        <input type="checkbox" [checked]="isActive(item.id)" (change)="toggle(item.id)" />
                         <span></span>
                     </div>
                     <div class="info-prod">
-                        <div class="img" (click)="toggle($index)">
+                        <div class="img" (click)="toggle(item.id)">
                             <img [src]="item.image" />
                         </div>
                         <div class="prod-details">
 
-                            <div class="prod-txt" (click)="toggle($index)">
+                            <div class="prod-txt" (click)="toggle(item.id)">
                                 <h3>{{item.genericProd?.name}}</h3>
                                 <h4 class="desc">{{item.genericProd?.subtitle}}</h4>
                                 <p>{{(item.price)|currency}}</p>
                             </div>
                             <div class="count">
-                                <button (click)="minus($index)">
+                                <button (click)="minus(item.id)">
                                     <img [src]="isMobile()? '/assets/minus-mobile.svg' :'/assets/minus.svg'"
                                         alt="minus">
                                 </button>
-                                <span class="prod-count">{{selected[$index] || 0}}</span>
-                                <button (click)="plus($index)">
+                                <span class="prod-count">{{selected[item.id] || 0}}</span>
+                                <button (click)="plus(item.id)">
                                     <img [src]="isMobile()? '/assets/plus-mobile.svg' :'/assets/plus.svg'" alt="plus">
                                 </button>
                             </div>

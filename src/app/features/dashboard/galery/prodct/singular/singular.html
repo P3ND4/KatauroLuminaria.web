@@ -55,7 +55,7 @@
             <p>{{ (currentProduct!.variants.length > 0 ? currentProduct!.variants[currentVariant].price : 0 ) | currency
                 }}</p>
             <div class="btn-section">
-                <button class="button-base" style="flex: 1;"> <label>ADQUIRIR</label></button>
+                <button class="button-base" style="flex: 1;" (click)="toOwn()"> <label>ADQUIRIR</label></button>
                 <button class="button-chips" style="padding: 14px;" (click)="addToCart()"><img src="/assets/shopping-bag.svg" /></button>
             </div>
         </div>

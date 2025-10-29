@@ -1,10 +1,11 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { CartService } from '../../../shared/services/cart/cart.service';
 import { Product, Variant } from '../../../shared/models/Products';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { count, last } from 'rxjs';
+import {Subscription } from 'rxjs';
 import { AuthService } from '../../../shared/services/auth/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -15,9 +16,9 @@ import { AuthService } from '../../../shared/services/auth/auth.service';
 export class Cart implements OnInit {
   products = signal<Variant[]>([]);
   buyingForm: FormGroup
-  selected: {[key: number]: number} = {};
-
-  constructor(readonly cartService: CartService, private fb: FormBuilder) {
+  selected: { [key: string]: number } = {};
+  queryParamsSubscription: Subscription | undefined;
+  constructor(readonly cartService: CartService, private fb: FormBuilder, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
     this.buyingForm = fb.group(
       {
         name: ["", [Validators.required]],
@@ -31,30 +32,48 @@ export class Cart implements OnInit {
   ngOnInit(): void {
     //this.products.set(this.cartService.currentProducts);
     //this.loadCart();
+    this.queryParamsSubscription = this.route.queryParamMap.subscribe(() => {
+      this.loadData();
+    });
   }
 
-  loadCart(){
+  loadData(): void {
+    this.route.queryParamMap.subscribe(params => {
+      var marked = params.get('markedId');
+      if (marked) {
+        const index = marked.split('^');
+        //const current = this.cartService.currentProducts();
+        //const selectedVariants = this.cartService.currentProducts().filter(x=> index.includes(x.id));
+        //const varIndex = selectedVariants.map(x=> this.cartService.currentProducts().indexOf(x));
+        index.forEach(x=> this.selected[x] = 1);
+        this.cdr.detectChanges();
+      }
+    });
+
+  }
+
+  loadCart() {
     this.cartService.loadCart()
   }
 
-  toggle(index: number): void {
-    if(this.selected[index]){
+  toggle(index: string): void {
+    if (this.selected[index]) {
       delete this.selected[index];
-    }else{
+    } else {
       this.selected[index] = 1;
-      console.log(this.cartService.currentProducts)
+      console.log(this.cartService.currentProducts);
     }
   }
- 
 
-  plus(index: number): void {
+
+  plus(index: string): void {
     if (this.selected[index]) {
       this.selected[index]++;
     } else {
       this.selected[index] = 1;
     }
   }
-  minus(index: number): void {
+  minus(index: string): void {
     if (this.selected[index]) {
       this.selected[index]--;
     }
@@ -63,7 +82,7 @@ export class Cart implements OnInit {
     }
   }
 
-  isActive(index: number): boolean {
+  isActive(index: string): boolean {
     return index in this.selected;
   }
 
