@@ -1,0 +1,1 @@
+var r=(i=>(i.tableLumin="Luminarias de mesa",i.wallLumin="Luminarias de pared",i.footLumin="Luminarias de pie",i.roofLumin="Luminarias de techo",i.lightBulb="Bombillo",i.other="Otras",i))(r||{});export{r as a};
