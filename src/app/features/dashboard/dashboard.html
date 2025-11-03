@@ -5,14 +5,13 @@
 
     <div class="navigation-bar">
       <div class="nav-links">
-        <img class="Katauro-logo" src="/assets/Katauro.svg" />
+        <img class="Katauro-logo" src="/assets/Katauro.svg" (click)="navigate('/dashboard/home')" />
 
-        <a  [ngClass]="{'active': isActive('/dashboard/home')}" (click)="navigate('/dashboard/home')">Inicio</a>
-        <a  [ngClass]="{'active': isActive('/dashboard/team')}" (click)="navigate('/dashboard/team')">Nuestro
+        <a [ngClass]="{'active': isActive('/dashboard/home')}" (click)="navigate('/dashboard/home')">Inicio</a>
+        <a [ngClass]="{'active': isActive('/dashboard/team')}" (click)="navigate('/dashboard/team')">Nuestro
           equipo</a>
-        <a  [ngClass]="{'active': isActive('/dashboard/galery')}" (click)="navigate('/dashboard/galery')">Luminarias</a>
-        <a [ngClass]="{'active': isActive('/dashboard/blog')}"
-          (click)="navigate('/dashboard/blog')">Blog</a>
+        <a [ngClass]="{'active': isActive('/dashboard/galery')}" (click)="navigate('/dashboard/galery')">Luminarias</a>
+        <a [ngClass]="{'active': isActive('/dashboard/blog')}" (click)="navigate('/dashboard/blog')">Blog</a>
       </div>
       @if(!isMobile()){
       @if(!isLogged()){
@@ -46,7 +45,7 @@
               Editar Perfil
             </label>
           </div>
-          <div class="user-panel-data" id="logout">
+          <div class="user-panel-data" id="logout" (click)="logout()">
             <img src="/assets/log-out.svg" alt="">
             <label for="logout">Log out</label>
           </div>
@@ -90,6 +89,7 @@
         <img src="/assets/log-out.svg" (click)="logout()" />
         <button class="button-chips" style="padding-inline: 10px;" (click)="navigateMobile('/dashboard/cart')">
           <img src="/assets/shopping-bag.svg" />
+          <label>{{cartService.currentProducts().length}}</label>
         </button>
       </div>
       }

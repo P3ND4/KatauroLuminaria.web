@@ -4,6 +4,7 @@ import { Router, RouterOutlet, RouterLinkWithHref } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { CartService } from '../../shared/services/cart/cart.service';
 import { User } from '../../shared/models/User';
+import { Categories } from '../../shared/models/Products';
 @Component({
   selector: 'app-dashboard',
   imports: [RouterOutlet, CommonModule,],// RouterLinkWithHref],
@@ -62,7 +63,9 @@ export class Dashboard implements OnInit {
   }
   navigate(path: string) {
     // acá puedes setear dirección o animación antes de navegar
-    const index = this.sections.indexOf(this.router.url.split('/')[2]);
+    const split = this.router.url.split(/[/?]/);
+    const current = split[2];
+    const index = this.sections.indexOf(current);
     const targetIndex = this.sections.indexOf(path.split('/')[2]);
     if (index > targetIndex)
       document.documentElement.setAttribute('data-direction', 'left');
@@ -77,5 +80,6 @@ export class Dashboard implements OnInit {
     )
 
   }
+
 
 }

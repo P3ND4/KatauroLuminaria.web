@@ -92,3 +92,17 @@ footer p, .mail {
         transform: translateX(0);
     }
 }
+@media(max-width: 600px){
+    .log-footer{
+        display: none;
+    }
+    .main-login{
+        padding-bottom: 48px;
+        flex: 1;
+    }
+    .login-section{
+        justify-content: initial;
+        gap: 64px;
+    }
+    
+}

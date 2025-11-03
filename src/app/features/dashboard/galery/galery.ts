@@ -80,6 +80,7 @@ export class Galery implements OnInit, AfterViewInit {
   }
 
   onCategoryChange(category: Categories | 'TODAS') {
+    document.documentElement.setAttribute('data-direction', '');
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: this.currentPage, category: category !== "TODAS" ? category : undefined },
@@ -89,6 +90,7 @@ export class Galery implements OnInit, AfterViewInit {
   }
 
   navigateToProduct(productCategory: Categories, productId: string) {
+    document.documentElement.setAttribute('data-direction', '');
     this.router.navigate(['/dashboard', productCategory, productId], { queryParams: { index: productId } });
   }
 

@@ -2,9 +2,12 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, O
 import { Corousel } from "../../../shared/components/corousel/corousel";
 import { carouselDTO } from '../../../shared/models/carouselDTO';
 import { CommonModule } from '@angular/common';
-import { Categories, Product } from '../../../shared/models/Products';
+import { Categories, Product, Variant } from '../../../shared/models/Products';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { Router } from '@angular/router';
+import { CartService } from '../../../shared/services/cart/cart.service';
+import { AuthService } from '../../../shared/services/auth/auth.service';
+import { User } from '../../../shared/models/User';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +16,10 @@ import { Router } from '@angular/router';
   styleUrl: './home.css'
 })
 export class Home implements OnInit, AfterViewInit {
+  catEnum = Categories;
+  correctLoaded = false;
+  user: User | undefined
+
   carousel1: carouselDTO = {
     carousel: 0,
     title: "Título atractivo en 2 líneas de texto",
@@ -34,17 +41,22 @@ export class Home implements OnInit, AfterViewInit {
   mostRated: Product[] = [
   ]
   loading = false;
-  constructor(private httpService: HttpService, private cdr: ChangeDetectorRef, readonly router: Router) {
+  constructor(private httpService: HttpService, private cdr: ChangeDetectorRef, readonly router: Router, private cartService: CartService, private userService: AuthService) {
 
   }
   ngOnInit(): void {
     this.loading = true
+    this.userService.currentUser$.subscribe({
+      next: val => this.user = val as User,
+      error: err => console.log(err)
+    });
     this.httpService.getProducts().subscribe({
       next: (data: any) => {
         this.mostRated = data;
         this.mostRated = this.mostRated.filter((prod: Product) => prod.variants.length != 0);
         this.loading = false
         this.cdr.detectChanges();
+        this.correctLoaded = true;
       },
       error: (err) => {
         console.log(err)
@@ -62,4 +74,41 @@ export class Home implements OnInit, AfterViewInit {
   navigateToProduct(productCategory: Categories, productId: string) {
     this.router.navigate(['/dashboard', productCategory, productId], { queryParams: { index: productId } });
   }
+  navigateCat(cat: Categories) {
+    this.router.navigate(['dashboard/galery'], {
+      queryParams: {
+        page: 1,
+        category: cat
+      }
+    })
+  }
+
+  toOwn(variant: Variant) {
+    if (this.cartService.currentProducts().find(x => x.id === variant.id)) {
+      this.router.navigate(['/dashboard/cart'], {
+        queryParams: {
+          markedId: variant.id
+        }
+      });
+    }
+    else if (this.userService.isLogged()) {
+      this.cartService.addToCart(this.user!.id, variant.id).subscribe(
+        {
+          next: val => {
+            console.log(val);
+            this.cartService.currentProducts.update(x => [...x, variant]);
+            this.cartService.loadCartFromBackend(this.user!.id);
+            this.cdr.detectChanges();
+            this.router.navigate(['/dashboard/cart'], {
+              queryParams: {
+                markedId: variant.id
+              }
+            })
+          },
+          error: err => console.log(err)
+        }
+      )
+    }
+  }
+
 }

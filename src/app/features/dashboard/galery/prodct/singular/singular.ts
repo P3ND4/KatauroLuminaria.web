@@ -94,7 +94,14 @@ export class Singular implements OnInit {
   }
 
   toOwn() {
-    if (this.currentProduct && this.userService.isLogged()) {
+    if (this.currentProduct && this.cartService.currentProducts().find(x => x.id === this.currentProduct?.variants[this.currentVariant].id)) {
+      this.router.navigate(['/dashboard/cart'], {
+        queryParams: {
+          markedId: this.currentProduct?.variants[this.currentVariant].id
+        }
+      });
+    }
+    else if (this.currentProduct && this.userService.isLogged()) {
       this.cartService.addToCart(this.user!.id, this.currentProduct.variants[this.currentVariant].id).subscribe(
         {
           next: val => {
@@ -102,9 +109,11 @@ export class Singular implements OnInit {
             this.cartService.currentProducts.update(x => [...x, this.currentProduct!.variants[this.currentVariant]]);
             this.cartService.loadCartFromBackend(this.user!.id);
             this.cdr.detectChanges();
-            this.router.navigate(['/dashboard/cart'], {queryParams: {
-              markedId: this.currentProduct?.variants[this.currentVariant].id
-            }})
+            this.router.navigate(['/dashboard/cart'], {
+              queryParams: {
+                markedId: this.currentProduct?.variants[this.currentVariant].id
+              }
+            })
           },
           error: err => console.log(err)
         }

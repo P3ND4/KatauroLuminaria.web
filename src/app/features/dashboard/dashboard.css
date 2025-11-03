@@ -19,9 +19,21 @@
   display: flex;
 }
 
+.user-info .button-chips{
+  position: relative;
+}
+.user-info .button-chips label{
+  width: 24px;
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  border-radius: 50%;
+  background-color: #178C94;
+  color: white;
+}
+
 .user-info.mobile {
   width: 100%;
-  overflow: hidden;
 }
 
 .user-name {
@@ -108,6 +120,7 @@
 
 .Katauro-logo {
   margin-right: 12px;
+  cursor: pointer;
 }
 
 .button-base.login {
