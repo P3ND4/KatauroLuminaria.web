@@ -12,7 +12,7 @@ import { AuthService } from '../../../shared/services/auth/auth.service';
 })
 export class Signin {
   loginForm: FormGroup;
-
+  visibility = false;
   constructor(private loginService: AuthService, private fb: FormBuilder, public router: Router) {
     this.loginForm = this.fb.group(
       {
@@ -23,7 +23,11 @@ export class Signin {
 
   }
 
-
+  toggleVisibility(id: string) {
+    this.visibility = !this.visibility;
+    const password = document.getElementById(id) as HTMLInputElement;
+    password.type = (password.type == "password") ? "text" : "password";
+  }
 
   onSubmit() {
     //this.loginService.logInUser({ id: "1", name: "Arturo", lastName:"Gonzalez", email: this.loginForm.value.email, token: "<token>", cart: [] });
@@ -32,7 +36,7 @@ export class Signin {
         console.log(val)
         this.router.navigate(['/dashboard/home']);
       },
-      error: err=> console.log(err)
+      error: err => console.log(err)
     })
   }
 }

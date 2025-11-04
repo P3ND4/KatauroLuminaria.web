@@ -8,9 +8,9 @@
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <div style="position: relative; margin-bottom: 20px;" class="input-container">
                     <label class="form-label">Correo electrónico</label>
-                    <div class="icon-container">
+                    <div class="input-content">
                         <img class="icon" src="/assets/mailGray.svg" alt="">
-                        <input style="padding-left: 38px;" type="email" formControlName="email"
+                        <input type="email" formControlName="email" 
                             placeholder="Introduce tu correo electrónico">
                     </div>
                     @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
@@ -22,7 +22,11 @@
 
                 <div class="input-container">
                     <label class="form-label">Contraseña</label>
-                    <input type="password" formControlName="password" placeholder="••••••••">
+                    <div class="input-content">
+                        <input type="password" formControlName="password" placeholder="••••••••" id="passwordSI">
+                         <img [src]="visibility? '/assets/eye-off.svg': '/assets/eye.svg'" (click)="toggleVisibility('passwordSI')"/>
+                    </div>
+                    
                     <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
                         La contraseña debe tener al menos 6 caracteres
                     </div>

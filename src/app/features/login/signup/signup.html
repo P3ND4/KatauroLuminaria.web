@@ -52,8 +52,9 @@
                         Contraseña*
                     </label>
                     <div class="input-content">
-                        <input type="password" formControlName="password" placeholder="Crear una contraseña">
-                        <img src="/assets/eye.svg" />
+                        <input type="password" formControlName="password" placeholder="Crear una contraseña"
+                            id="password">
+                        <img [src]="visibility[0]? '/assets/eye-off.svg': '/assets/eye.svg'" (click)="toggleVisibility('password', 0)" />
                     </div>
                     <p class="form-p">
                         Debe tener al menos 8 caracteres.
@@ -64,8 +65,9 @@
                         <br />
                     </label>
                     <div class="input-content">
-                        <input type="password" formControlName="confirmPassword" placeholder="Confirma la contraseña">
-                        <img src="/assets/eye.svg" />
+                        <input type="password" formControlName="confirmPassword" placeholder="Confirma la contraseña"
+                            id="passConfirm">
+                        <img [src]="visibility[1]? '/assets/eye-off.svg': '/assets/eye.svg'" (click)="toggleVisibility('passConfirm', 1)"/>
                     </div>
                 </div>
             </div>

@@ -12,7 +12,7 @@ import { AuthService } from '../../../shared/services/auth/auth.service';
   styleUrl: './signup.css'
 })
 export class Signup implements AfterViewInit {
-
+  visibility = [false, false]
   signUpForm: FormGroup;
 
   constructor(private fb: FormBuilder, public router: Router, private http: HttpService, private loginS: AuthService) {
@@ -67,6 +67,12 @@ export class Signup implements AfterViewInit {
       error: err => console.log(err)
 
     })
+  }
+
+  toggleVisibility(id: string, pos: number){
+    this.visibility[pos] = !this.visibility[pos];
+    const password = document.getElementById(id) as HTMLInputElement;
+    password.type = (password.type == "password") ? "text" : "password";
   }
 
 }

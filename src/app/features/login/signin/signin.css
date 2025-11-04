@@ -40,42 +40,11 @@
 }
 
 
-.login-form input {
-    display: flex;
-    padding: 10px 14px;
-    align-items: center;
-    gap: 8px;
-    align-self: stretch;
-
-    border-radius: 8px;
-    border: 1px solid var(--Gray-300, #D5D7DA);
-    /* Shadow/xs */
-    box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
-    width: 100%;
-
-    color: var(--Gray-500, #717680);
-
-    /* Text md/Regular */
-    font-family: var(--montser-font);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-
-    box-sizing: border-box;
-    /* 150% */
-
-}
-
 .icon-container {
     position: relative;
 }
 
-.icon {
-    position: absolute;
-    bottom: 13px;
-    left: 14px;
-}
+
 
 
 .form-label {
