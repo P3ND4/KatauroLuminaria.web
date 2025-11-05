@@ -1,52 +1,56 @@
-        <div class="login-form">
-            <header>
-                <h2>Iniciar sesión</h2>
-                <p>¡Bienvenido de nuevo! Introduce tus datos.</p>
+<div class="login-form">
+    <header>
+        <h2>Iniciar sesión</h2>
+        <p>¡Bienvenido de nuevo! Introduce tus datos.</p>
 
-            </header>
+    </header>
 
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <div style="position: relative; margin-bottom: 20px;" class="input-container">
-                    <label class="form-label">Correo electrónico</label>
-                    <div class="input-content">
-                        <img class="icon" src="/assets/mailGray.svg" alt="">
-                        <input type="email" formControlName="email" 
-                            placeholder="Introduce tu correo electrónico">
-                    </div>
-                    @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
-                    <div>
-                        Email inválido
-                    </div>
-                    }
-                </div>
-
-                <div class="input-container">
-                    <label class="form-label">Contraseña</label>
-                    <div class="input-content">
-                        <input type="password" formControlName="password" placeholder="••••••••" id="passwordSI">
-                         <img [src]="visibility? '/assets/eye-off.svg': '/assets/eye.svg'" (click)="toggleVisibility('passwordSI')"/>
-                    </div>
-                    
-                    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-                        La contraseña debe tener al menos 6 caracteres
-                    </div>
-                </div>
-
-                <div class="forgot-pass">
-                    <label>¿Has olvidado tu contraseña?</label>
-                </div>
-
-                <button style="width: 100%;" class="button-base" type="submit" [disabled]="loginForm.invalid">
-                    <label>Iniciar sesión</label>
-                </button>
-
-                <button class="social-button" style="width: 100%; margin-top: 16px;">
-                    <img src="/assets/Social-icon-google.svg" alt="Google Icon">
-                    <label>Iniciar sesión con Google</label>
-                </button>
-
-                <footer>
-                    <p>¿No tienes una cuenta? <a class="register" (click)="router.navigate(['/login/signup'])">Regístrate</a></p>
-                </footer>
-            </form>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div style="position: relative; margin-bottom: 20px;" class="input-container">
+            <label class="form-label">Correo electrónico</label>
+            <div class="input-content"
+                [ngClass]="{'error': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}">
+                <img class="icon" src="/assets/mailGray.svg" alt="">
+                <input type="email" formControlName="email" placeholder="Introduce tu correo electrónico">
+            </div>
+            @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+            <div class="error-msg">
+                Email inválido
+            </div>
+            }
         </div>
+
+        <div class="input-container">
+            <label class="form-label">Contraseña</label>
+            <div class="input-content"
+                [ngClass]="{'error': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}">
+                <input type="password" formControlName="password" placeholder="••••••••" id="passwordSI">
+                <img [src]="visibility? '/assets/eye-off.svg': '/assets/eye.svg'"
+                    (click)="toggleVisibility('passwordSI')" />
+            </div>
+            @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
+            <div class="error-msg">
+                La contraseña debe tener al menos 6 caracteres
+            </div>
+            }
+        </div>
+
+        <div class="forgot-pass">
+            <label>¿Has olvidado tu contraseña?</label>
+        </div>
+
+        <button style="width: 100%;" class="button-base" type="submit" [disabled]="loginForm.invalid">
+            <label>Iniciar sesión</label>
+        </button>
+
+        <button class="social-button" style="width: 100%; margin-top: 16px;">
+            <img src="/assets/Social-icon-google.svg" alt="Google Icon">
+            <label>Iniciar sesión con Google</label>
+        </button>
+
+        <footer>
+            <p>¿No tienes una cuenta? <a class="register" (click)="router.navigate(['/login/signup'])">Regístrate</a>
+            </p>
+        </footer>
+    </form>
+</div>

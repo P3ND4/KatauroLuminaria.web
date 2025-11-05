@@ -11,17 +11,27 @@
                     <label class="form-label">
                         Nombre*
                     </label>
-                    <div class="input-content">
+                    <div class="input-content" [ngClass]="{'error': !isValidForm('name')}">
                         <input type="text" formControlName="name" placeholder="Introduce tu nombre">
                     </div>
+                    @if (!isValidForm('name')) {
+                    <div class="error-msg">
+                        Nombre requerido
+                    </div>
+                    }
                 </div>
                 <div class="input-container">
                     <label class="form-label">
                         Apellido
                     </label>
-                    <div class="input-content">
-                        <input type="text" formControlName="lastName" placeholder="Introduce tu nombre">
+                    <div class="input-content" [ngClass]="{'error': !isValidForm('lastName')}">
+                        <input type=" text" formControlName="lastName" placeholder="Introduce tu nombre">
                     </div>
+                    @if (!isValidForm('lastName')) {
+                    <div class="error-msg">
+                        Nombre requerido
+                    </div>
+                    }
                 </div>
             </div>
 
@@ -31,17 +41,22 @@
                     <label class="form-label">
                         Correo electrónico*
                     </label>
-                    <div class="input-content">
+                    <div class="input-content" [ngClass]="{'error': !isValidForm('email')}">
                         <img src="/assets/mailGray.svg" />
                         <input type="text" formControlName="email" placeholder="olivia@gmail.com">
                     </div>
+                    @if(!isValidForm('email')){
+                    <div class="error-msg">
+                        Formato de email icorrecto
+                    </div>
+                    }
                 </div>
                 <div class="input-container">
                     <label class="form-label">
                         Teléfono
                     </label>
                     <div class="input-content">
-                        <input type="number" formControlName="phone" placeholder="Introduce tu nombre">
+                        <input type="number" formControlName="phone" placeholder="+53 000-0000">
                     </div>
                 </div>
             </div>
@@ -51,14 +66,20 @@
                     <label class="form-label">
                         Contraseña*
                     </label>
-                    <div class="input-content">
+                    <div class="input-content" [ngClass]="{'error': !isValidForm('password')}">
                         <input type="password" formControlName="password" placeholder="Crear una contraseña"
                             id="password">
-                        <img [src]="visibility[0]? '/assets/eye-off.svg': '/assets/eye.svg'" (click)="toggleVisibility('password', 0)" />
+                        <img [src]="visibility[0]? '/assets/eye-off.svg': '/assets/eye.svg'"
+                            (click)="toggleVisibility('password', 0)" />
                     </div>
+                    @if (isValidForm('password')) {
                     <p class="form-p">
                         Debe tener al menos 8 caracteres.
                     </p>
+                    }
+                    @else {
+                    <div class="error-msg"> Debe tener al menos 8 caracteres.</div>
+                    }
                 </div>
                 <div class="input-container">
                     <label class="form-label">
@@ -67,8 +88,14 @@
                     <div class="input-content">
                         <input type="password" formControlName="confirmPassword" placeholder="Confirma la contraseña"
                             id="passConfirm">
-                        <img [src]="visibility[1]? '/assets/eye-off.svg': '/assets/eye.svg'" (click)="toggleVisibility('passConfirm', 1)"/>
+                        <img [src]="visibility[1]? '/assets/eye-off.svg': '/assets/eye.svg'"
+                            (click)="toggleVisibility('passConfirm', 1)" />
                     </div>
+                    @if(passMisMatch()){
+                    <div class="error-msg">
+                        Las contraseñas deben coincidir
+                    </div>
+                    }
                 </div>
             </div>
 

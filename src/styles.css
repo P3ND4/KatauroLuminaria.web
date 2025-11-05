@@ -236,6 +236,11 @@
     box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
 }
 
+.input-content.error {
+    border: 1px solid var(--Error-300, #FDA29B);
+
+}
+
 input {
     border: none;
     width: 100%;
@@ -303,4 +308,16 @@ input:focus {
     align-items: center;
     border-radius: 50%;
     background: lightgray;
+}
+
+.error-msg {
+    color: var(--Error-500, #F04438);
+
+    /* Text sm/Regular */
+    font-family: var(--montser-font);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
 }

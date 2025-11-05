@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
@@ -23,7 +23,7 @@ export class Signup implements AfterViewInit {
       phone: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
-    });
+    }, {validators: this.passwordMatchValidator});
   }
 
   ngAfterViewInit() {
@@ -43,7 +43,7 @@ export class Signup implements AfterViewInit {
 
       this.http.signUp(user).subscribe(
         {
-          next: (value)=> {
+          next: (value) => {
             console.log(value);
             this.login();
           },
@@ -69,10 +69,22 @@ export class Signup implements AfterViewInit {
     })
   }
 
-  toggleVisibility(id: string, pos: number){
+  toggleVisibility(id: string, pos: number) {
     this.visibility[pos] = !this.visibility[pos];
     const password = document.getElementById(id) as HTMLInputElement;
     password.type = (password.type == "password") ? "text" : "password";
   }
+  passMisMatch(){
+    return this.signUpForm.hasError('passwordMismatch') && this.signUpForm.get('confirmPassword')?.touched;
+  }
 
+  isValidForm(name: string) {
+    return this.signUpForm.get(name)?.valid || !this.signUpForm.get(name)?.touched;
+  }
+
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const confirm = control.get('confirmPassword')?.value;
+    return password === confirm ? null : { passwordMismatch: true };
+  }
 }

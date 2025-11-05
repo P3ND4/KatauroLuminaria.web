@@ -17,7 +17,7 @@ export class Signin {
     this.loginForm = this.fb.group(
       {
         email: ['', [Validators.email, Validators.required]],
-        password: ['', [Validators.minLength(6)]]
+        password: ['', [Validators.minLength(6), Validators.required]]
       }
     )
 

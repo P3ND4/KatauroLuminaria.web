@@ -22,9 +22,9 @@
       }@else {
 
       <div class="user-info">
-        <button class="user-button" (click)="clientPanel = true">
+        <div class="user-button" (click)="clientPanel = true">
           <img [src]="currentUser?.image" alt="">
-        </button>
+        </div>
         <button class="button-chips" style="padding-inline: 10px;" (click)="router.navigate(['/dashboard/cart'])">
           <label>{{cartService.currentProducts().length}}</label>
           <img src="/assets/shopping-bag.svg" />
