@@ -104,5 +104,10 @@ footer p, .mail {
         justify-content: initial;
         gap: 64px;
     }
+
+    .main-login{
+        height: auto;
+        min-height: 100vh;
+    }
     
 }
