@@ -40,7 +40,7 @@
         }
         @if(correctLoaded){
 
-        <div style="display: flex; justify-content: center;">
+        <div class="offers-grid-container">
             <div class="offers-grid">
                 @for (i of mostRated.length < 4? [0,1,2] : [0,1,2,3,4,5,6]; track $index) { <div class="offer"
                     (click)="navigateToProduct(mostRated[i].category.nombre, mostRated[i].id)">

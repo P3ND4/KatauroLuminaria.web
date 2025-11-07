@@ -104,6 +104,11 @@ footer a {
     cursor: pointer;
 }
 
+.eye{
+    width: 20px;
+    height: 20px;
+}
+
 @media (max-width: 670px){
     .form-pair{
         display: flex;

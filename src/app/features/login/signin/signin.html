@@ -25,7 +25,7 @@
             <div class="input-content"
                 [ngClass]="{'error': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}">
                 <input type="password" formControlName="password" placeholder="••••••••" id="passwordSI">
-                <img [src]="visibility? '/assets/eye-off.svg': '/assets/eye.svg'"
+                <img class="eye" [src]="visibility? '/assets/eye-off.svg': '/assets/eye.svg'"
                     (click)="toggleVisibility('passwordSI')" />
             </div>
             @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){

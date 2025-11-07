@@ -37,6 +37,7 @@ export class Signup implements AfterViewInit {
       const user: CreateUserDto = {
         name: this.signUpForm.get('name')?.value,
         lastName: this.signUpForm.value.lastName,
+        phone: this.signUpForm.value.phone,
         password: this.signUpForm.get('password')?.value,
         email: this.signUpForm.get('email')?.value,
       }

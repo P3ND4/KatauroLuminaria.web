@@ -1,11 +1,12 @@
-<div class="signup-form-container">
+<div class="main">
+
     <header>
         <h2>Regístrate</h2>
         <p>Déjanos tus datos y mantente al tanto de nuestras ofertas y lanzamientos.</p>
     </header>
 
     <div class="form-container">
-        <form [formGroup]="signUpForm">
+        <form [formGroup]="editProfileForm">
             <div class="form-pair">
                 <div class="input-container">
                     <label class="form-label">
@@ -56,48 +57,11 @@
                         Teléfono
                     </label>
                     <div class="input-content">
-                        <input type="number" formControlName="phone" placeholder="+53 000-0000">
+                        <input type="number" formControlName="phone" placeholder="+53 0000-0000">
                     </div>
                 </div>
             </div>
 
-            <div class="form-pair">
-                <div class="input-container">
-                    <label class="form-label">
-                        Contraseña*
-                    </label>
-                    <div class="input-content" [ngClass]="{'error': !isValidForm('password')}">
-                        <input type="password" formControlName="password" placeholder="Crear una contraseña"
-                            id="password">
-                        <img class="eye" [src]="visibility[0]? '/assets/eye-off.svg': '/assets/eye.svg'"
-                            (click)="toggleVisibility('password', 0)" />
-                    </div>
-                    @if (isValidForm('password')) {
-                    <p class="form-p">
-                        Debe tener al menos 8 caracteres.
-                    </p>
-                    }
-                    @else {
-                    <div class="error-msg"> Debe tener al menos 8 caracteres.</div>
-                    }
-                </div>
-                <div class="input-container">
-                    <label class="form-label">
-                        <br />
-                    </label>
-                    <div class="input-content">
-                        <input type="password" formControlName="confirmPassword" placeholder="Confirma la contraseña"
-                            id="passConfirm">
-                        <img class="eye" [src]="visibility[1]? '/assets/eye-off.svg': '/assets/eye.svg'"
-                            (click)="toggleVisibility('passConfirm', 1)" />
-                    </div>
-                    @if(passMisMatch()){
-                    <div class="error-msg">
-                        Las contraseñas deben coincidir
-                    </div>
-                    }
-                </div>
-            </div>
 
             <div class="actions">
                 <button class="button-base" style="width: 100%;" (click)="onSubmit()">
@@ -112,11 +76,6 @@
                 </button>
 
             </div>
-
-            <footer>
-                <p>¿Ya tienes una cuenta? <a class="register" (click)="router.navigate(['/login/signin'])">Inicia
-                        sesión</a></p>
-            </footer>
         </form>
     </div>
 

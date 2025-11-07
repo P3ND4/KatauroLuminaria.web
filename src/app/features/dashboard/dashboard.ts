@@ -5,15 +5,17 @@ import { AuthService } from '../../shared/services/auth/auth.service';
 import { CartService } from '../../shared/services/cart/cart.service';
 import { User } from '../../shared/models/User';
 import { Categories } from '../../shared/models/Products';
+import { EditProfile } from './edit-profile/edit-profile';
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, CommonModule,],// RouterLinkWithHref],
+  imports: [RouterOutlet, CommonModule, EditProfile],// RouterLinkWithHref],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
 export class Dashboard implements OnInit {
   router: Router;
-  menuIsOpen = false
+  editIsOpen = false;
+  menuIsOpen = false;
   width = window.innerWidth;
   currentUser: User | null = null;
   clientPanel = false

@@ -50,7 +50,11 @@ h2 {
 
 
 
-
+.offers-grid-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 
 .luminarias-list {
     display: flex;
@@ -635,86 +639,93 @@ h2 {
         line-height: 18px;
     }
 
-    @media (max-width: 700px) {
-        .featured-content {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+}
 
-        h2 {
-            font-size: 24px;
-            line-height: 32px;
-        }
-
-        .header-p {
-            font-size: 14px;
-            line-height: 20px;
-        }
-
-        .featured-content div:nth-child(1),
-        .featured-content div:nth-child(2),
-        .featured-content div:nth-child(3) {
-            width: 351px;
-            height: 307px;
-        }
-
-        .recent-posts-container {
-            padding: 0px;
-            width: auto;
-        }
-
-        .post-container {
-            display: flex;
-            flex-direction: column;
-            gap: 48px;
-        }
-
-        .post-container div:nth-child(1),
-        .post-container div:nth-child(2),
-        .post-container div:nth-child(3) {
-            width: 375px;
-            height: auto;
-        }
-
-        .recent-posts header h2 {
-            font-size: 24px;
-        }
-
+@media (max-width: 700px) {
+    .featured-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
 
-    @media (max-width: 380px) {
-        .offers-grid {
-            grid-template-columns: 140px minmax(8px, auto) 140px;
-            grid-template-rows: 265px 265px 223px 223px 223px;
-        }
+    h2 {
+        font-size: 24px;
+        line-height: 32px;
+    }
 
-        .featured-content div:nth-child(1),
-        .featured-content div:nth-child(2),
-        .featured-content div:nth-child(3) {
-            width: 100%;
-            height: 307px;
-        }
+    .header-p {
+        font-size: 14px;
+        line-height: 20px;
+    }
 
-        .recient-posts-container {
-            padding-inline: 0px;
-        }
+    .featured-content div:nth-child(1),
+    .featured-content div:nth-child(2),
+    .featured-content div:nth-child(3) {
+        width: 351px;
+        height: 307px;
+    }
 
-        .post-container div:nth-child(1),
-        .post-container div:nth-child(2),
-        .post-container div:nth-child(3) {
-            width: 100%;
-            height: auto;
-        }
+    .recent-posts-container {
+        padding: 0px;
+        width: auto;
+    }
 
-        .offer-info {
+    .post-container {
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+    }
 
-            left: 15px;
-            bottom: 45px;
-            padding-left: 16px;
-            padding-right: 16px;
-            height: auto;
-            gap: 8px;
-        }
+    .post-container div:nth-child(1),
+    .post-container div:nth-child(2),
+    .post-container div:nth-child(3) {
+        width: 375px;
+        height: auto;
+    }
+
+    .recent-posts header h2 {
+        font-size: 24px;
+    }
+
+}
+
+@media (max-width: 380px) {
+
+
+    .featured-content div:nth-child(1),
+    .featured-content div:nth-child(2),
+    .featured-content div:nth-child(3) {
+        width: 100%;
+        height: 307px;
+    }
+
+    .recient-posts-container {
+        padding-inline: 0px;
+    }
+
+
+
+    .post-container div:nth-child(1),
+    .post-container div:nth-child(2),
+    .post-container div:nth-child(3) {
+        width: 100%;
+        height: auto;
+    }
+
+    .offer-info {
+
+        left: 15px;
+        bottom: 45px;
+        padding-left: 16px;
+        padding-right: 16px;
+        height: auto;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 340px) {
+    .offers-grid {
+        grid-template-columns: minmax(140px, auto) minmax(8px, auto) minmax(140px, auto);
+        grid-template-rows: 265px 265px 223px 223px 223px;
     }
 }

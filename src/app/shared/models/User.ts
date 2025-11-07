@@ -5,5 +5,6 @@ export class User{
     email!: string;
     image?: string;
     token!: string;
+    phone!: number;
     cart!: [any] | [];
 }
