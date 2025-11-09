@@ -99,6 +99,10 @@
     align-items: center;
 }
 
+.info-contet.third p{
+    text-align: center;
+}
+
 
 .info-contet.second h2,
 .info-contet.second p {
