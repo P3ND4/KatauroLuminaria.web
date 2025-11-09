@@ -32,7 +32,9 @@
           <img [src]="currentUser?.image" alt="">
         </div>
         <button class="button-chips" style="padding-inline: 10px;" (click)="router.navigate(['/dashboard/cart'])">
+          @if(cartService.currentProducts().length > 0){
           <label>{{cartService.currentProducts().length}}</label>
+          }
           <img src="/assets/shopping-bag.svg" />
         </button>
 
@@ -95,7 +97,9 @@
         <img src="/assets/log-out.svg" (click)="logout()" />
         <button class="button-chips" style="padding-inline: 10px;" (click)="navigateMobile('/dashboard/cart')">
           <img src="/assets/shopping-bag.svg" />
+          @if(cartService.currentProducts().length > 0){
           <label>{{cartService.currentProducts().length}}</label>
+          }
         </button>
       </div>
       }

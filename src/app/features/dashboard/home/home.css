@@ -10,6 +10,13 @@
     margin-top: 120px;
 }
 
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
 h2 {
     color: var(--Brand-900, #175659);
     text-align: center;
@@ -36,6 +43,7 @@ h2 {
     font-weight: 400;
     line-height: 30px;
     /* 150% */
+    margin: 0px;
 }
 
 
@@ -114,11 +122,18 @@ h2 {
     margin: 0px;
 }
 
-
+.info-container-featured {
+    position: absolute;
+    width: 100%;
+    padding: 60px 40px;
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+}
 
 .offers-grid {
     display: grid;
-    grid-template-columns: 434px minmax(24px, 50px) 256px minmax(24px, 50px) 256px minmax(24px, 50px) 256px;
+    grid-template-columns: 434px 24px 256px 24px 256px 24px 256px;
     grid-template-rows: 312px 312px;
     row-gap: 24px;
     overflow: hidden;
@@ -192,17 +207,23 @@ h2 {
     grid-column: 7;
 }
 
-.offer-info {
+.offer-info-container {
     position: absolute;
     display: flex;
+    padding: 20px 32px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    flex-direction: column-reverse;
+}
+
+.offer-info {
+    display: flex;
     flex-direction: column;
-    left: 45px;
-    bottom: 40px;
+
     gap: 12px;
     width: 345px;
-    height: 147px;
-    padding: 8px 16px;
-    padding-top: 24px;
+    height: auto;
     box-sizing: border-box;
 }
 
@@ -227,10 +248,8 @@ h2 {
 }
 
 .offer-info.non-first {
-    left: 23px;
-    bottom: 0px;
     width: 208px;
-    height: 147px;
+    height: auto;
 }
 
 .offer-info.non-first h3 {
@@ -312,12 +331,13 @@ h2 {
 }
 
 .info-contet {
-    position: absolute;
-    left: 40px;
-    right: 40px;
-    bottom: 60px;
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
 
 }
+
 
 .info-contet p {
     color: var(--White, #FFF);
@@ -344,6 +364,10 @@ h2 {
     letter-spacing: -0.72px;
     margin: 12px 0px 32px 0px;
     text-align: left;
+}
+
+.info-contet button {
+    width: 122px;
 }
 
 
@@ -373,6 +397,7 @@ h2 {
 .recent-posts-h2 {
     font-size: 36px;
     text-align: left;
+    margin-bottom: 32px;
 }
 
 .recent-posts {
@@ -388,43 +413,28 @@ h2 {
     grid-template-rows: 253px 253px;
 }
 
-.post-container div {
-    width: 100%;
-    height: 100%;
+
+
+.post {
     display: flex;
-    gap: 24px;
-    cursor: pointer;
-}
-
-
-.post-container :nth-child(1) {
-    grid-column: 1;
-    grid-row: 1/3;
     flex-direction: column;
     gap: 32px;
 }
 
-.post-container :nth-child(1) img {
-    width: 100%;
-    height: 335px;
+.post-container :nth-child(1) {
+    grid-column: 1;
+    grid-row: 1/3;
+
+
 }
 
-
 .post-container :nth-child(2) {
-    display: flex;
     grid-column: 2;
     grid-row: 1;
 }
 
-.post-container :nth-child(2) img,
-.post-container :nth-child(3) img {
-    width: 320px;
-    height: 100%;
-}
-
 
 .post-container :nth-child(3) {
-    display: flex;
     grid-column: 2;
     grid-row: 2;
 }
@@ -432,7 +442,37 @@ h2 {
 .info-post {
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
+
+.post.row {
+    flex-direction: row;
+    gap: 24px;
+}
+
+
+.post-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 335px;
+    width: 624px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.post.row div.post-img {
+    height: 100%;
+    width: 320px;
+}
+
+.post-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
 
 .recent-posts h3 {
     color: var(--Gray-900, #181D27);
@@ -536,45 +576,26 @@ h2 {
     }
 
     .post-container {
-        display: grid;
-        gap: 32px;
-        grid-template-columns: 550px;
-        grid-template-rows: 550px 550px 550px;
-    }
-
-    .post-container :nth-child(1) {
-        grid-column: 1;
-        grid-row: 1;
-        flex-direction: column;
-        gap: 32px;
-
-    }
-
-    .post-container :nth-child(1) img {
-        width: 100%;
-        height: 300px;
-    }
-
-
-    .post-container :nth-child(2) {
         display: flex;
+        gap: 32px;
         flex-direction: column;
-        grid-column: 1;
-        grid-row: 2;
+
     }
 
-    .post-container :nth-child(2) img,
-    .post-container :nth-child(3) img {
+
+    .post.row {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .post-img {
+        height: 200px;
         width: 100%;
-        height: 400px;
     }
 
-
-    .post-container :nth-child(3) {
-        display: flex;
-        flex-direction: column;
-        grid-column: 1;
-        grid-row: 3;
+    .post.row div.post-img {
+        height: 200px;
+        width: 100%;
     }
 
     .featured-content {
@@ -603,6 +624,15 @@ h2 {
 
 @media (max-width: 900px) {
     .offers-grid {
+        grid-template-columns: 183px minmax(12px, auto) 183px minmax(12px, auto) 183px;
+        grid-template-rows: 265px 265px 265px 265px;
+        row-gap: 12px;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .offers-grid {
         grid-template-columns: 183px minmax(8px, auto) 183px;
         grid-template-rows: 265px 265px 223px 223px 223px;
     }
@@ -618,14 +648,18 @@ h2 {
     }
 
     .home-container {
-        padding-inline: 0px;
+        padding-inline: 32px;
+        gap: 64px;
+        margin-top: 64px;
+    }
+
+    .offer-info {
+        width: 100%;
     }
 
     .offer-info.non-first {
         gap: 10px;
-        padding-inline: 17px;
-        width: 167px;
-        left: 9px;
+        width: 100%;
         height: auto;
     }
 
@@ -639,9 +673,14 @@ h2 {
         line-height: 18px;
     }
 
-}
+    .offer-info-container {
+        padding: 17.281px 27.65px;
+    }
 
-@media (max-width: 700px) {
+    .offer-info-container.non-first {
+        padding: 14.313px 12px;
+    }
+
     .featured-content {
         display: flex;
         flex-direction: column;
@@ -651,6 +690,10 @@ h2 {
     h2 {
         font-size: 24px;
         line-height: 32px;
+    }
+
+    .header {
+        padding-inline: 32px;
     }
 
     .header-p {
@@ -666,7 +709,7 @@ h2 {
     }
 
     .recent-posts-container {
-        padding: 0px;
+        padding: 12px;
         width: auto;
     }
 
@@ -676,21 +719,63 @@ h2 {
         gap: 48px;
     }
 
-    .post-container div:nth-child(1),
-    .post-container div:nth-child(2),
-    .post-container div:nth-child(3) {
+    .post {
         width: 375px;
         height: auto;
+    }
+
+    .luminarias-list {
+        padding-inline: 12px;
+    }
+    .recent-posts{
+        margin-top: 64px;
     }
 
     .recent-posts header h2 {
         font-size: 24px;
     }
 
+    .home-container {
+        padding-inline: 0px;
+    }
+
+
+    .info-contet p {
+        font-size: 12px;
+
+        line-height: 18px;
+
+    }
+
+    .info-contet h2 {
+
+
+        /* Display md/Semibold */
+
+        font-size: 24px;
+
+        line-height: 32px;
+
+    }
+
+    .post-img {
+        display: flex;
+        height: 200px;
+        width: 100%;
+        overflow: hidden;
+    }
 }
 
 @media (max-width: 380px) {
 
+    .featured-content {
+        width: 100%;
+
+    }
+
+    .luminarias.featured {
+        padding-inline: 12px;
+    }
 
     .featured-content div:nth-child(1),
     .featured-content div:nth-child(2),

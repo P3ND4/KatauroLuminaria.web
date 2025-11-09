@@ -457,11 +457,15 @@
   }
 }
 
-@media (max-width: 380px) {
+@media(max-width: 600px) {
   .navigation-bar {
     padding: 16px;
     box-sizing: border-box;
   }
+}
+
+@media (max-width: 380px) {
+
 
   .footer-content {
     padding: 24px 16px 16px 16px;
