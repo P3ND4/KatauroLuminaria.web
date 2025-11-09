@@ -682,11 +682,13 @@ h2 {
 
     .offer-info {
         width: 100%;
+        padding: 0px;
     }
 
     .offer-info.non-first {
         gap: 10px;
         width: 100%;
+        padding: 0px;
         height: auto;
     }
 
@@ -826,11 +828,6 @@ h2 {
     }
 
     .offer-info {
-
-        left: 15px;
-        bottom: 45px;
-        padding-left: 16px;
-        padding-right: 16px;
         height: auto;
         gap: 8px;
     }
