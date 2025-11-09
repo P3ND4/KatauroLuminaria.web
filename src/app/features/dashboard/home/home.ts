@@ -38,6 +38,16 @@ export class Home implements OnInit, AfterViewInit {
       '/assets/back_image5.png',
       '/assets/back_image.webp']
   }
+
+  carousel3: carouselDTO = {
+    carousel: 2,
+    title: "Katauro Luminarias",
+    description: "Un equipo multidisciplinario de trabajo creado desde el 2013, especializado en el diseño y producción de luminarias en Cuba. Vemos la luz en un diseño conceptual e innovador. Concebimos soluciones tecnológicas que permiten la producción en serie, el montaje en el espacio y el acompañamiento técnico de lámparas.",
+    images: [
+      '/assets/back_image4.png',
+      '/assets/back_image5.png',
+      '/assets/back_image.webp']
+  }
   mostRated: Product[] = [
   ]
   loading = false;
