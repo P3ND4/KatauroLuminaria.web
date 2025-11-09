@@ -17,18 +17,22 @@
             </header>
             <ul class="luminarias-list">
                 <li style="position: relative;" (click)="navigateCat(catEnum.tableLumin)">
+                    <div class="cat-gradient"></div>
                     <img src="/assets/cat_image.png" alt="Lámpara de mesa">
                     <p class="luminaria-title">LUMINARIAS DE MESA</p>
                 </li>
                 <li style="position: relative;" (click)="navigateCat(catEnum.wallLumin)">
+                    <div class="cat-gradient"></div>
                     <img src="/assets/cat_image1.png" alt="Lámpara de pared">
                     <p class="luminaria-title">LUMINARIAS DE PARED</p>
                 </li>
                 <li style="position: relative;" (click)="navigateCat(catEnum.footLumin)">
+                    <div class="cat-gradient"></div>
                     <img src="/assets/cat_image2.png" alt="Lámpara de piso">
                     <p class="luminaria-title">LUMINARIAS DE PISO</p>
                 </li>
                 <li style="position: relative;" (click)="navigateCat(catEnum.roofLumin)">
+                    <div class="cat-gradient"></div>
                     <img src="/assets/cat_image3.png" alt="Lámpara de techo">
                     <p class="luminaria-title">LUMINARIAS DE TECHO</p>
                 </li>
@@ -45,6 +49,7 @@
                 @for (i of mostRated.length < 4? [0,1,2] : [0,1,2,3,4,5,6]; track $index) { <div class="offer"
                     (click)="navigateToProduct(mostRated[i].category.nombre, mostRated[i].id)">
                     <img src="{{mostRated[i].variants[0].image}}" />
+                    <div class="offer-gradient"></div>
                     <div class="offer-info-container" [ngClass]="{'non-first': i != 0}">
                         <div class="offer-info" [ngClass]="{'non-first': i != 0}">
                             <h3 class="lum-name">{{mostRated[i].name}}</h3>
@@ -68,6 +73,7 @@
         <div class="featured-content">
             <div class="featured-product" (click)="navigateToProduct(mostRated[0].category.nombre, mostRated[0].id)">
                 <img [src]="mostRated[0].variants[0].image" alt="">
+                <div class="featured-gradiant"></div>
                 <div class="info-container-featured">
                     <div class="info-contet">
                         <p class="card-info">{{mostRated[0].subtitle}}</p>
@@ -80,6 +86,7 @@
             </div>
             <div class="featured-product" (click)="navigateToProduct(mostRated[1].category.nombre, mostRated[1].id)">
                 <img [src]="mostRated[1].variants[0].image" alt="">
+                <div class="featured-gradiant"></div>
                 <div class="info-container-featured">
 
                     <div class="info-contet">
@@ -93,6 +100,7 @@
             </div>
             <div class="featured-product" (click)="navigateToProduct(mostRated[2].category.nombre, mostRated[2].id)">
                 <img [src]="mostRated[2].variants[0].image" alt="">
+                <div class="featured-gradiant"></div>
                 <div class="info-container-featured">
                     <div class="info-contet">
                         <p class="card-info">{{mostRated[2].subtitle}}</p>
