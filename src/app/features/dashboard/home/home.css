@@ -235,6 +235,16 @@ h2 {
     font-weight: 600;
     line-height: 44px;
     margin: 0px;
+
+    display: -webkit-box;
+    display: box;
+    
+    box-orient: vertical;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .offer-info .luminaria-sub {
@@ -838,7 +848,8 @@ h2 {
         width: 100%;
         box-sizing: border-box;
     }
-    .offers-grid-container{
+
+    .offers-grid-container {
         align-items: start;
         justify-content: start;
         padding-inline: 12px;
