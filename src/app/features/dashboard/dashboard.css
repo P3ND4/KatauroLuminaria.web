@@ -56,6 +56,7 @@
   border-radius: 50%;
   background-color: #178C94;
   color: white;
+  text-align: center;
 }
 
 .user-info.mobile {
@@ -92,8 +93,9 @@
   width: 100%;
 }
 
-.manu-button {
+.menu-button {
   cursor: pointer;
+  display: none;
 }
 
 .nav-links {
@@ -159,7 +161,7 @@
   width: 100%;
   bottom: 0px;
   background: var(--Gray-50, #FAFAFA);
-  display: flex;
+  display: none;
   flex-direction: column;
   overflow: hidden;
   box-sizing: border-box;
@@ -409,7 +411,7 @@
   margin-top: 27px;
 }
 
-.contact-wu .input-content{
+.contact-wu .input-content {
   flex: 1;
 }
 
@@ -478,6 +480,25 @@
   .footer-links.copyright {
     order: 2;
   }
+
+  .menu-button {
+    display: initial;
+  }
+
+  .user-info {
+    display: none;
+  }
+  .user-info.mobile{
+    display: flex;
+  }
+
+  .button-base.login {
+    display: none;
+  }
+
+  .mobile-panel{
+    display: flex;
+  }
 }
 
 @media(max-width: 600px) {
@@ -496,16 +517,21 @@
   .factory-info img {
     height: 18px;
   }
-  .map-pin{
+
+  .map-pin {
     top: 5px;
   }
-  .phone, .mail{
+
+  .phone,
+  .mail {
     margin-top: 30px;
   }
 
-  .footer-text-green{
+  .footer-text-green {
     margin-top: 4px;
   }
+
+
 
 }
 

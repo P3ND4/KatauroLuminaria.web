@@ -8,7 +8,7 @@ import { Categories } from '../../shared/models/Products';
 import { EditProfile } from './edit-profile/edit-profile';
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, CommonModule, EditProfile],// RouterLinkWithHref],
+  imports: [RouterOutlet, CommonModule, EditProfile, RouterLinkWithHref],// RouterLinkWithHref],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })

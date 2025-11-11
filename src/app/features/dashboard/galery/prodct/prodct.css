@@ -129,23 +129,37 @@ h3 {
 @media (max-width: 900px) {
     .cat-container {
         padding: 34px 12px;
-        
+
     }
+
     .cat-content {
         gap: 8px;
         justify-content: left;
     }
-    .single-product-nav{
+
+    .single-product-nav {
         justify-content: left;
     }
+
     .product-container {
         padding: 48px 16px;
     }
 }
 
-@media(max-width: 700px) {}
+@media(max-width: 700px) {
+    .cat-container {
+        margin-block: 32px;
+    }
 
-@media (max-width: 550px) {
+    .cat-content .button-chips {
+        padding: 8px 14px;
+    }
+
+    .cat-content .button-chips label {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
     h2 {
         font-size: 30px;
         font-style: normal;

@@ -13,30 +13,29 @@
       <div class="nav-links">
         <img class="Katauro-logo" src="/assets/Katauro.svg" (click)="navigate('/dashboard/home')" />
 
-        <a [ngClass]="{'active': isActive('/dashboard/home')}" (click)="navigate('/dashboard/home')">Inicio</a>
-        <a [ngClass]="{'active': isActive('/dashboard/team')}" (click)="navigate('/dashboard/team')">Nuestro
+        <a [ngClass]="{'active': isActive('/dashboard/home')}" [routerLink]="'/dashboard/home'" (click)="navigate('/dashboard/home')">Inicio</a>
+        <a [ngClass]="{'active': isActive('/dashboard/team')}" [routerLink]="'/dashboard/team'" (click)="navigate('/dashboard/team')">Nuestro
           equipo</a>
-        <a [ngClass]="{'active': isActive('/dashboard/galery')}" (click)="navigate('/dashboard/galery')">Luminarias</a>
-        <a [ngClass]="{'active': isActive('/dashboard/blog')}" (click)="navigate('/dashboard/blog')">Blog</a>
+        <a [ngClass]="{'active': isActive('/dashboard/galery')}" [routerLink]="'/dashboard/galery'" (click)="navigate('/dashboard/galery')">Luminarias</a>
+        <a [ngClass]="{'active': isActive('/dashboard/blog')}" [routerLink]="'/dashboard/blog'" (click)="navigate('/dashboard/blog')">Blog</a>
       </div>
-      @if(!isMobile()){
       @if(!isLogged()){
 
-      <button class="button-base login" id="log" (click)="router.navigate(['/login/signin'])">
+      <a class="button-base login" id="log" [routerLink]="'/login/signin'">
         <label for="log">Iniciar sesión</label>
-      </button>
+      </a>
       }@else {
 
       <div class="user-info">
         <div class="user-button" (click)="clientPanel = true">
           <img [src]="currentUser?.image" alt="">
         </div>
-        <button class="button-chips" style="padding-inline: 10px;" (click)="router.navigate(['/dashboard/cart'])">
+        <a class="button-chips" style="padding-inline: 10px;" [routerLink]="'/dashboard/cart'">
           @if(cartService.currentProducts().length > 0){
           <label>{{cartService.currentProducts().length}}</label>
           }
           <img src="/assets/shopping-bag.svg" />
-        </button>
+        </a>
 
         <div class="clientPanel" [ngClass]="{'closed': !clientPanel, 'open': clientPanel}">
           <div class="user-panel-data">
@@ -60,15 +59,13 @@
         </div>
       </div>
       }
-      }
-      @else {
-      @if (!menuIsOpen) {
-      <img class="manu-button" src="/assets/menu.svg" alt="menu" (click)="toggleMenu()">
-      }
-      @else {
-      <img class="manu-button" src="/assets/menu_open.svg" (click)="toggleMenu()" />
-      }
-      }
+
+
+      <img class="menu-button" [src]="!menuIsOpen?'/assets/menu.svg':'/assets/menu_open.svg'" alt="menu"
+        (click)="toggleMenu()">
+
+
+
     </div>
     <div class="panelWrapper" (click)="menuIsOpen = false; clientPanel = false"
       [ngStyle]="{'display': !menuIsOpen && !clientPanel? 'none' : 'block'}"></div>
@@ -95,12 +92,12 @@
           <p class="user-email">{{currentUser?.email}}</p>
         </div>
         <img src="/assets/log-out.svg" (click)="logout()" />
-        <button class="button-chips" style="padding-inline: 10px;" (click)="navigateMobile('/dashboard/cart')">
+        <a class="button-chips" style="padding-inline: 10px;" [routerLink]="'/dashboard/cart'">
           <img src="/assets/shopping-bag.svg" />
           @if(cartService.currentProducts().length > 0){
           <label>{{cartService.currentProducts().length}}</label>
           }
-        </button>
+        </a>
       </div>
       }
     </div>

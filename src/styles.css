@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 
 :root {
@@ -148,13 +148,12 @@
 
 @keyframes exit {
     0% {
-        opacity: 1;
+
         transform: translateY(0);
     }
 
     100% {
-        opacity: 1;
-        transform: translateY(100%);
+        transform: translateY(100vh);
     }
 }
 
@@ -173,14 +172,19 @@
 :root[data-direction="right"]::view-transition-old(team),
 :root[data-direction="right"]::view-transition-old(galery),
 :root[data-direction="right"]::view-transition-old(blog) {
-    animation: exit 1s ease forwards;
+    animation: exit 0.6s ease forwards;
 }
+
 
 :root[data-direction="left"]::view-transition-new(home),
 :root[data-direction="left"]::view-transition-new(team),
 :root[data-direction="left"]::view-transition-new(galery),
 :root[data-direction="left"]::view-transition-new(blog) {
-    animation: enter 1s ease forwards;
+    animation: enter 0.6s ease forwards;
+}
+
+a {
+    text-decoration: none;
 }
 
 /* DIRECCIÓN → “right” (vamos hacia la derecha) 

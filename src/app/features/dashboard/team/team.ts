@@ -2,10 +2,12 @@ import { AfterViewInit, Component } from '@angular/core';
 import { TeamMember } from '../../../shared/models/teamMember';
 import { CommonModule } from '@angular/common';
 import { FadeAndSlideIn } from '../../../shared/animations/FadeAndSlideIn';
+import { Corousel } from "../../../shared/components/corousel/corousel";
+import { carouselDTO } from '../../../shared/models/carouselDTO';
 
 @Component({
   selector: 'app-team',
-  imports: [CommonModule],
+  imports: [CommonModule, Corousel],
   templateUrl: './team.html',
   animations: [FadeAndSlideIn],
   styleUrl: './team.css'
@@ -24,6 +26,16 @@ export class Team implements AfterViewInit {
       )
 
     }
+  }
+
+  carousel: carouselDTO = {
+    carousel: 3,
+    title: "Título atractivo en 2 líneas de texto",
+    description: "Descripción corta del evento o producto que se este promocionando.",
+    images: [
+      '/assets/back_image4.png',
+      '/assets/back_image5.png',
+      '/assets/back_image.webp']
   }
 
   ngAfterViewInit(): void {

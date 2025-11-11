@@ -2,14 +2,16 @@
     display: flex;
     flex-direction: column;
     gap: 96px;
+    background-color: #FAFAFA;
 }
 
 .main-h {
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 96px;
-    margin-bottom: 40px;
+    padding-top: 96px;
+    padding-bottom: 40px;
+    background-color: white;
 }
 
 h1 {
@@ -41,14 +43,117 @@ h1 {
     margin: 0px;
 }
 
+.metrics {
+    display: flex;
+    height: 560px;
+    padding-inline: 80px;
+    gap: 96px;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-container {
+    width: 688px;
+    height: 100%;
+}
+
+
+.metric-content {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    width: 496px;
+    gap: 32px;
+
+}
+
+.metric-content header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.metric-content header h2 {
+    color: var(--Gray-900, #181D27);
+
+    /* Display lg/Semibold */
+    font-family: var(--montser-font);
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 60px;
+    /* 125% */
+    letter-spacing: -0.96px;
+    margin: 0px;
+}
+
+.metric-content header p {
+    color: var(--Brand-700, #007981);
+
+    /* Text md/Semibold */
+    font-family: var(--montser-font);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    /* 150% */
+    margin: 0px;
+}
+
+.metric-info {
+    display: flex;
+    gap: 32px;
+}
+
+.metric-count {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.metric-info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    flex: 1;
+}
+
+.metric-count p {
+    color: var(--Brand-600, #178C94);
+
+    /* Display xl/Semibold */
+    font-family: var(--montser-font);
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 72px;
+    /* 120% */
+    letter-spacing: -1.2px;
+    margin: 0px;
+}
+
+.metric-coun span {
+    color: var(--Gray-900, #181D27);
+
+    /* Text lg/Medium */
+    font-family: var(--montser-font);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+    /* 155.556% */
+}
+
 .team-list {
     padding-top: 64px;
     padding-inline: 80px;
+    justify-content: center;
     row-gap: 64px;
     column-gap: 50px;
     display: flex;
     flex-wrap: wrap;
     padding-bottom: 96px;
+    background-color: white;
 }
 
 .img-cont {
@@ -89,6 +194,21 @@ h4 {
     margin: 0px;
 }
 
+.member-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 217px;
+}
+
+.member-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
 .member p {
     color: var(--Gray-600, #535862);
     font-family: var(--montser-font);
@@ -100,7 +220,35 @@ h4 {
     margin-bottom: 0px;
 }
 
+@media (max-width: 1300px) {
+    .metrics {
+        flex-direction: column;
+        height: auto;
+        padding-inline: 40px;
+        gap: 40px;
+    }
+
+    .carousel-container {
+        width: 100%;
+        height: 560px;
+    }
+
+    .team-list {
+        padding-inline: 40px;
+        column-gap: 32px;
+    }
+}
+
+
 @media (max-width: 768px) {
+
+    .metric-content p,
+    .metric-content h2,
+    .metric-count p,
+    .metric-count span {
+        text-align: center;
+    }
+
     .main-h h1 {
         font-size: 24px;
         font-style: normal;
@@ -117,5 +265,78 @@ h4 {
         font-weight: 400;
         line-height: 20px;
 
+    }
+
+    .team-list {
+        gap: 12px;
+        padding: 64px 12px;
+    }
+
+    .member {
+        width: 150px;
+        height: 296px;
+    }
+
+    .member-info h3 {
+        line-height: 20px;
+        /* 142.857% */
+        font-size: 14px;
+    }
+
+    .member-info h4,
+    .member-info p {
+        font-size: 11px;
+        line-height: 18px;
+
+    }
+
+    .member-info p {
+        margin-top: 8px;
+    }
+
+    .member-img {
+        width: 100%;
+        height: 169.5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .metric-info {
+        flex-direction: column;
+    }
+
+    .metric-content header p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .metric-content header h2 {
+        font-size: 30px;
+        line-height: 38px;
+    }
+
+    .metric-count p {
+        font-size: 48px;
+        line-height: 60px;
+        letter-spacing: -0.96px;
+    }
+
+    .metric-count span {
+        font-size: 18px;
+        line-height: 28px;
+
+    }
+
+    .carousel-container {
+        height: 240px;
+        overflow: hidden;
+    }
+
+    .carousel-container app-corousel {
+        height: 240px;
+    }
+
+    .metrics {
+        padding-inline: 16px;
     }
 }

@@ -9,6 +9,17 @@
     overflow: hidden;
 }
 
+.carousel-container.third {
+    height: 648px;
+
+}
+
+.carousel-container.fourth {
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
 .carousel-container input[type="radio"] {
     display: none;
 }
@@ -61,7 +72,7 @@
     left: calc(50% - 24px);
 }
 
-.gradient{
+.gradient {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -107,7 +118,7 @@
     align-items: center;
 }
 
-.info-contet.third p{
+.info-contet.third p {
     text-align: center;
 }
 
