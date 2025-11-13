@@ -11,6 +11,14 @@ import { Categories } from '../../models/Products';
 export class HttpService {
   apiPath = 'https://api.katauro.com'
 
+  readonly CatParser = [
+    Categories.footLumin,
+    Categories.lightBulb,
+    Categories.roofLumin,
+    Categories.tableLumin,
+    Categories.wallLumin
+  ]
+
   constructor(private http: HttpClient) {
     //this.apiPath = 'http://localhost:3000';
 
@@ -36,7 +44,7 @@ export class HttpService {
       return this.http.get(`${this.apiPath}/products?page=${options.page}`);
     }
     else if (options?.category) {
-      return options.page ? this.http.get(`${this.apiPath}/products?page=${options.page}&category=${options.category}`) : this.http.get(`${this.apiPath}/products?category=${options.category}`)
+      return options.page ? this.http.get(`${this.apiPath}/products?page=${options.page}&category=${this.CatParser.indexOf(options.category)}`) : this.http.get(`${this.apiPath}/products?category=${this.CatParser.indexOf(options.category)}`)
     }
     return this.http.get(`${this.apiPath}/products`)
   }
