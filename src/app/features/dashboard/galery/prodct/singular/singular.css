@@ -416,4 +416,8 @@ p {
         font-size: 11px;
         line-height: 18px;
     }
+
+    .finish-details p{
+        margin: 0px;
+    }
 }

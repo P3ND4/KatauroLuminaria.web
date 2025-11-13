@@ -439,6 +439,9 @@ h3 {
 
 @media (max-width: 535px) {
 
+    .galery-container{
+        padding-inline: 12px;
+    }
 
     .product img {
         height: 105%;

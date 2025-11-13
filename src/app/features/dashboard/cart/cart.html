@@ -40,13 +40,71 @@
                         </div>
                     </div>
                 </div>
-                <div class="checkbox-container">
-                    <input type="checkbox" id="shipping">
+                <div class="checkbox-container" style="cursor: pointer;">
+                    <div class="checkbox-circle" (click)="aditionalInfo = !aditionalInfo">
+                        <input type="checkbox" [checked]="aditionalInfo" (change)="!aditionalInfo" id="adit-inf" />
+                        <span></span>
+                    </div>
                     <div>
-                        <label for="shipping">Envío a domicilio</label>
-                        <p>El envío solo está disponible para la provincia de La Habana.</p>
+                        <label for="adit-inf" style="cursor: pointer;">Envío a domicilio</label>
+                        <p (click)="aditionalInfo = !aditionalInfo">El envío solo está disponible para la provincia de
+                            La Habana.</p>
                     </div>
                 </div>
+
+                @if(aditionalInfo){
+                <div class="aditional">
+                    <div class="form-pair">
+                        <div class="input-container" id="prov">
+                            <label for="prov" class="form-label">
+                                Provincia
+                            </label>
+                            <div class="input-content" (click)="provinceOpen =! provinceOpen">
+                                <img [ngClass]="{'open': provinceOpen}" src="/assets/chevron-down.svg" alt="">
+                                <span> {{buyingForm.get('province')?.value}}</span>
+                            </div>
+                            <div class="drop-down-menu" [@dropdownAnimation]="provinceOpen ? 'open': 'closed'">
+                                @for (province of provincesArray; track $index) {
+                                <div class="drop-down-item" (click)="selectProvince(province)">{{province}}</div>
+                                }
+                            </div>
+                        </div>
+                        <div class="input-container" id="prov">
+                            <label for="prov" class="form-label">
+                                Municipio
+                            </label>
+                            <div class="input-content" (click)="munIsOpen = !munIsOpen">
+                                <img [ngClass]="{'open': munIsOpen}" src="/assets/chevron-down.svg" alt="">
+                                <span>{{this.buyingForm.get('municipality')?.value === ""? ' Introduce tu municipio':
+                                    this.buyingForm.get('municipality')?.value }}</span>
+                            </div>
+                            <div class="drop-down-menu" [@dropdownAnimation]="munIsOpen ? 'open': 'closed'">
+                                @for (muni of currentProvinceMun; track $index) {
+                                <div class="drop-down-item" (click)="selectMunicipality(muni)">{{muni}}</div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-container" id="address">
+                        <label for="address">Dirección</label>
+                        <div class="input-content">
+                            <input formControlName="address" type="text" placeholder="Introduce tu dirección">
+                        </div>
+                    </div>
+
+                    <div class="input-container" id="note">
+                        <label for="note">Nota adicional</label>
+                        <div class="input-content">
+                            <textarea formControlName="note" type="text" maxlength="200"
+                                placeholder="Escribe algún dato adicional"></textarea>
+                        </div>
+                        <span class="w-count"> {{buyingForm.get('note')?.value.length}}/200 </span>
+                    </div>
+
+                </div>
+                }
+
                 <div class="submit-container">
                     <p>Para adquirir <mark>nuestros productos</mark>, solo debe completar el <mark>formulario de
                             solicitud</mark>. Una vez
@@ -97,6 +155,21 @@
 
                 </div>
                 }
+            </div>
+            <div class="check">
+                <div class="subtotal">
+                    <h3>Subtotal</h3>
+                    <h3>{{subTotalPrice() | currency}}</h3>
+                </div>
+                <div class="subtotal">
+                    <h3>Transportación</h3>
+                    <h3>{{deliveryPrice() | currency}}</h3>
+                </div>
+                <div class="total-price">
+                    <div class="divider"></div>
+                    <h2>Total</h2>
+                    <h2>{{ deliveryPrice() + subTotalPrice() | currency }}</h2>
+                </div>
             </div>
         </div>
     </div>

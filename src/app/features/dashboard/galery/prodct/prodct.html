@@ -6,25 +6,30 @@
 
     <div class="cat-container">
         <div class="cat-content">
-            <button class="button-chips cat" [ngClass]="{'active': currentCategory === categories.tableLumin}"
+            <button #CatElement class="button-chips cat"
+                [ngClass]="{'active': currentCategory === categories.tableLumin}"
                 (click)="onCategorieChange(categories.tableLumin)">
                 <label>LUMINARIAS DE MESA</label>
             </button>
-            <button class="button-chips cat" [ngClass]="{'active': currentCategory === categories.wallLumin}"
+            <button #CatElement class="button-chips cat"
+                [ngClass]="{'active': currentCategory === categories.wallLumin}"
                 (click)="onCategorieChange(categories.wallLumin)">
                 <label>LUMINARIAS DE PARED</label>
             </button>
-            <button class="button-chips cat" [ngClass]="{'active': currentCategory === categories.footLumin}"
+            <button #CatElement class="button-chips cat"
+                [ngClass]="{'active': currentCategory === categories.footLumin}"
                 (click)="onCategorieChange(categories.footLumin)">
                 <label>LUMINARIAS DE PIE</label>
             </button>
-            <button class="button-chips cat" [ngClass]="{'active': currentCategory === categories.roofLumin}"
+            <button #CatElement class="button-chips cat"
+                [ngClass]="{'active': currentCategory === categories.roofLumin}"
                 (click)="onCategorieChange(categories.roofLumin)">
                 <label>LUMINARIAS DE TECHO</label>
             </button>
-            <button class="button-chips cat" [ngClass]="{'active': currentCategory === categories.lightBulb}"
+            <button #CatElement class="button-chips cat"
+                [ngClass]="{'active': currentCategory === categories.lightBulb}"
                 (click)="onCategorieChange(categories.lightBulb)">
-                <label>BOMBILLO</label>
+                <label>ACCESORIOS</label>
             </button>
         </div>
 
@@ -33,8 +38,8 @@
             <img class="itemElement" #itemElem [src]='prod.vector' (click)="selectProduct($index)" />
             }
             <div class="base-bar"></div>
-            <div class="indicator" [ngStyle]="selectedIndex < 0 ? {'display': 'none'}: {} " [style.transform]="'translateX(' + indicatorX + 'px)'"
-                [style.width.px]="indicatorWidth"></div>
+            <div class="indicator" [ngStyle]="selectedIndex < 0 ? {'display': 'none'}: {} "
+                [style.transform]="'translateX(' + indicatorX + 'px)'" [style.width.px]="indicatorWidth"></div>
         </div>
 
     </div>

@@ -4,29 +4,29 @@
         <h3>Nuestras luminarias</h3>
     </header>
     <div class="category-nav">
-        <button class="button-chips cat" [ngClass]="{'active': selectedCategory == 'TODAS'}"
+        <button #CatElementGalery class="button-chips cat" [ngClass]="{'active': selectedCategory == 'TODAS'}"
             (click)="onCategoryChange('TODAS')">
             <label>TODAS</label>
         </button>
-        <button class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.tableLumin}"
+        <button #CatElementGalery class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.tableLumin}"
             (click)="onCategoryChange(categories.tableLumin)">
             <label>LUMINARIAS DE MESA</label>
         </button>
-        <button class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.wallLumin}"
+        <button #CatElementGalery class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.wallLumin}"
             (click)="onCategoryChange(categories.wallLumin)">
             <label>LUMINARIAS DE PARED</label>
         </button>
-        <button class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.footLumin}"
+        <button #CatElementGalery class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.footLumin}"
             (click)="onCategoryChange(categories.footLumin)">
             <label>LUMINARIAS DE PIE</label>
         </button>
-        <button class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.roofLumin}"
+        <button #CatElementGalery class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.roofLumin}"
             (click)="onCategoryChange(categories.roofLumin)">
             <label>LUMINARIAS DE TECHO</label>
         </button>
-        <button class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.lightBulb}"
+        <button #CatElementGalery class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.lightBulb}"
             (click)="onCategoryChange(categories.lightBulb)">
-            <label>BOMBILLO</label>
+            <label>ACCESORIOS</label>
         </button>
     </div>
     <div class="galery-content">

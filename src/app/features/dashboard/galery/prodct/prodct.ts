@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, NgZone, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Categories, Product } from '../../../../shared/models/Products';
 import { CommonModule } from '@angular/common';
@@ -21,8 +21,9 @@ export class Prodct implements OnInit {
   indicatorWidth = 0;
 
   @ViewChildren('itemElem') itemElems!: QueryList<ElementRef>;
+  @ViewChildren('CatElement') catElements!: QueryList<ElementRef>;
 
-  constructor(private route: ActivatedRoute, private router: Router, private zone: NgZone, private http: HttpService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private zone: NgZone, private http: HttpService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('category');
@@ -40,6 +41,7 @@ export class Prodct implements OnInit {
     this.route.paramMap.subscribe(param => {
       const p = param.get('category') as Categories
       this.currentCategory = p ?? 'Liminarias de mesa'
+      this.scrollToSelectedCat();
     })
 
 
@@ -48,7 +50,13 @@ export class Prodct implements OnInit {
         this.products = val as Product[];
         this.products = this.products.filter((prod) => prod.variants ? prod.variants.length > 0 : false);
         const index = this.route.snapshot.queryParamMap.get('index');
+        if (!index && this.products.length > 0) {
+          this.selectProduct(0);
+          ; return;
+        }
         this.selectedIndex = index ? this.products.findIndex((prod) => prod.id == index) : -1;
+        this.updateIndicator();
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.log(err);
@@ -64,6 +72,7 @@ export class Prodct implements OnInit {
     this.zone.onStable.subscribe(() => {
       this.updateIndicator();
       this.scrollToSelected();
+
     });
   }
 
@@ -74,7 +83,7 @@ export class Prodct implements OnInit {
   }
 
   updateIndicator() {
-    if(this.selectedIndex < 0) return
+    if (this.selectedIndex < 0) return;
     const elem = this.itemElems.toArray()[this.selectedIndex].nativeElement;
     this.indicatorX = elem.offsetLeft;
     this.indicatorWidth = elem.offsetWidth;
@@ -91,6 +100,17 @@ export class Prodct implements OnInit {
     });
   }
 
+  scrollToSelectedCat() {
+    const elems = this.catElements.toArray();
+    const catDic = { 'Luminarias de mesa': 0, 'Luminarias de pared': 1, 'Luminarias de pie': 2, 'Luminarias de techo': 3, 'Accesorios': 4, 'Otras': 5 }
+    const elem = elems[catDic[this.currentCategory]];
+    if (!elem) return;
+    elem.nativeElement.scrollIntoView({
+      behavior: 'smooth', // animado
+      inline: 'center',   // lo centra horizontalmente
+      block: 'nearest'    // no hace scroll vertical
+    });
+  }
 
   onCategorieChange(categorie: Categories) {
     this.currentCategory = categorie;

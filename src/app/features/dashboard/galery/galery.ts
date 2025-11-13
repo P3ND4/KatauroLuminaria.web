@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Categories, Product, Variant } from '../../../shared/models/Products';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +21,7 @@ export class Galery implements OnInit, AfterViewInit {
   currentPage = 1
   pagesArray = [1]
   queryParamsSubscription: Subscription | undefined;
+  @ViewChildren('CatElementGalery') catElements!: QueryList<ElementRef>;
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpService) {
 
   }
@@ -36,12 +37,15 @@ export class Galery implements OnInit, AfterViewInit {
 
 
   }
+
+
   readQuery() {
     this.route.queryParamMap.subscribe(params => {
       const page = params.get('page');
       this.currentPage = page ? + page : 1;
       const category = params.get('category');
       this.selectedCategory = category ? category as Categories : "TODAS";
+
     });
     this.readData();
 
@@ -75,7 +79,7 @@ export class Galery implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-
+    this.scrollToSelectedCat(this.selectedCategory);
     window.scrollTo(0, 0);
   }
 
@@ -94,6 +98,18 @@ export class Galery implements OnInit, AfterViewInit {
     this.router.navigate(['/dashboard', productCategory, productId], { queryParams: { index: productId } });
   }
 
+
+  scrollToSelectedCat(currentCategory: Categories | 'TODAS') {
+    const elems = this.catElements.toArray();
+    const catDic = { 'TODAS': 0, 'Luminarias de mesa': 1, 'Luminarias de pared': 2, 'Luminarias de pie': 3, 'Luminarias de techo': 4, 'Accesorios': 5, 'Otras': 6 }
+    const elem = elems[catDic[currentCategory]];
+    if (!elem) return;
+    elem.nativeElement.scrollIntoView({
+      behavior: 'smooth', // animado
+      inline: 'center',   // lo centra horizontalmente
+      block: 'nearest'    // no hace scroll vertical
+    });
+  }
 
   onPageChange(page: number) {
     this.currentPage = page;

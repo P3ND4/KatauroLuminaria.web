@@ -115,7 +115,8 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 48px;
-    flex: 1;
+
+    width: auto;
 }
 
 .metric-count p {
@@ -132,7 +133,7 @@ h1 {
     margin: 0px;
 }
 
-.metric-coun span {
+.metric-count span {
     color: var(--Gray-900, #181D27);
 
     /* Text lg/Medium */
@@ -296,11 +297,12 @@ h4 {
 
     .member-img {
         width: 100%;
-        height: 169.5px;
+        aspect-ratio: 1;
     }
 }
 
-@media (max-width: 480px) {
+
+@media (max-width: 560px) {
     .metric-info {
         flex-direction: column;
     }
