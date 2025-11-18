@@ -36,7 +36,8 @@
     margin: 0px;
 }
 
-.button-base label {
+.button-base label,
+.button-base span {
     color: var(--White, #FFF);
     /* Text md/Semibold */
     font-family: var(--montser-font);
@@ -54,7 +55,8 @@
     cursor: pointer;
 }
 
-.button-base label:hover {
+.button-base label:hover,
+.button-base span:hover {
     cursor: pointer;
 }
 
@@ -90,7 +92,8 @@
     transition: background 0.2s ease;
 }
 
-.button-chips label {
+.button-chips label,
+.button-chips span {
     color: var(--Gray-700, #414651);
 
     /* Text md/Semibold */
@@ -114,12 +117,15 @@
 }
 
 .button-chips:hover,
-.button-chips label:hover {
+.button-chips label:hover,
+.button-chips span:hover {
     cursor: pointer;
 }
 
 .button-chips:active label,
-.button-chips.active label {
+.button-chips.active label,
+.button-chips:active span,
+.button-chips.active span {
     color: var(--Brand-700, #007981);
 
     /* Text md/Semibold */
@@ -214,7 +220,8 @@ a {
     box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
 }
 
-.social-buttons label {
+.social-buttons label,
+.social-buttons span {
     color: var(--Gray-700, #414651);
 
     /* Text md/Semibold */
@@ -245,7 +252,9 @@ a {
 
 }
 
-input, .input-content span, textarea{
+input,
+.input-content span,
+textarea {
     border: none;
     width: 100%;
     height: 100%;
@@ -268,7 +277,7 @@ input:focus {
     outline: none;
 }
 
-.input-container{
+.input-container {
     display: flex;
     flex-direction: column;
     gap: 6px;

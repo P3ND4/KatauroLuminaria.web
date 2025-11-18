@@ -1,7 +1,10 @@
 <div style="view-transition-name: home; background-color: white;">
-    @if (isChargin()) {
-    <div class="spin-container">
-        <div class="spinner"></div>
+    @if (!correctLoaded) {
+    <div class="chargin-bar-container">
+        <div class="chargin-bar"></div>
+    </div>
+    <div class="car-cont">
+        <app-skeleton-loader class="sk" [type]="2" class="sk"></app-skeleton-loader>
     </div>
     }
     @else {
@@ -40,83 +43,96 @@
 
         </div>
         @if (correctLoaded) {
-        <app-corousel [data]="carousel2" />
+        <app-corousel [data]="carousel2"></app-corousel>
+        }@else {
+        <div class="car2-cont">
+            <app-skeleton-loader class="sk" [type]="3" class="sk"></app-skeleton-loader>
+        </div>
         }
-        @if(correctLoaded){
+
 
         <div class="offers-grid-container">
             <div class="offers-grid">
-                @for (i of mostRated.length < 4? [0,1,2] : [0,1,2,3,4,5,6]; track $index) { <div class="offer"
-                    (click)="navigateToProduct(mostRated[i].category.nombre, mostRated[i].id)">
+                @for (i of [0,1,2,3,4,5,6]; track $index) {
+                @if (correctLoaded) {
+                <div class="offer" (click)="navigateToProduct(mostRated[i].category.nombre, mostRated[i].id)">
                     <img src="{{mostRated[i].variants[0].image}}" />
                     <div class="offer-gradient"></div>
                     <div class="offer-info-container" [ngClass]="{'non-first': i != 0}">
                         <div class="offer-info" [ngClass]="{'non-first': i != 0}">
                             <h3 class="lum-name">{{mostRated[i].name}}</h3>
                             <p class="luminaria-sub">{{ mostRated[i].subtitle }}</p>
-
                         </div>
                     </div>
-            </div>
-            }
-
-        </div>
-    </div>
-    }
-    @if(correctLoaded){
-
-    <div class="luminarias featured">
-        <header style="gap: 20px; display: block;">
-            <h2>Luminarias destacadas</h2>
-            <p class="header-p">Aprecia nuestras lámparas de diseño propio más relevantes.</p>
-        </header>
-        <div class="featured-content">
-            <div class="featured-product" (click)="navigateToProduct(mostRated[0].category.nombre, mostRated[0].id)">
-                <img [src]="mostRated[0].variants[0].image" alt="">
-                <div class="featured-gradiant"></div>
-                <div class="info-container-featured">
-                    <div class="info-contet">
-                        <p class="card-info">{{mostRated[0].subtitle}}</p>
-                        <h2 class="car-text">{{mostRated[0].name}}</h2>
-                        <button class="button-chips" (click)="$event.stopPropagation();toOwn(mostRated[0].variants[0])">
-                            <label>Adquirir</label>
-                        </button>
-                    </div>
                 </div>
-            </div>
-            <div class="featured-product" (click)="navigateToProduct(mostRated[1].category.nombre, mostRated[1].id)">
-                <img [src]="mostRated[1].variants[0].image" alt="">
-                <div class="featured-gradiant"></div>
-                <div class="info-container-featured">
-
-                    <div class="info-contet">
-                        <p class="card-info">{{mostRated[1].subtitle}}</p>
-                        <h2 class="car-text">{{mostRated[1].name}}</h2>
-                        <button class="button-chips" (click)="$event.stopPropagation();toOwn(mostRated[1].variants[0])">
-                            <label>Adquirir</label>
-                        </button>
-                    </div>
+                } @else {
+                <div class="offer">
+                    <app-skeleton-loader [type]="1" class="sk"></app-skeleton-loader>
                 </div>
-            </div>
-            <div class="featured-product" (click)="navigateToProduct(mostRated[2].category.nombre, mostRated[2].id)">
-                <img [src]="mostRated[2].variants[0].image" alt="">
-                <div class="featured-gradiant"></div>
-                <div class="info-container-featured">
-                    <div class="info-contet">
-                        <p class="card-info">{{mostRated[2].subtitle}}</p>
-                        <h2 class="car-text">{{mostRated[2].name}}</h2>
-                        <button class="button-chips"
-                            (click)="$event.stopPropagation(); toOwn(mostRated[1].variants[0])">
-                            <label>Adquirir</label>
-                        </button>
-                    </div>
-                </div>
+                }
+                }
             </div>
         </div>
 
+        @if(correctLoaded){
+
+        <div class="luminarias featured">
+            <header style="gap: 20px; display: block;">
+                <h2>Luminarias destacadas</h2>
+                <p class="header-p">Aprecia nuestras lámparas de diseño propio más relevantes.</p>
+            </header>
+            <div class="featured-content">
+                <div class="featured-product"
+                    (click)="navigateToProduct(mostRated[0].category.nombre, mostRated[0].id)">
+                    <img [src]="mostRated[0].variants[0].image" alt="">
+                    <div class="featured-gradiant"></div>
+                    <div class="info-container-featured">
+                        <div class="info-contet">
+                            <p class="card-info">{{mostRated[0].subtitle}}</p>
+                            <h2 class="car-text">{{mostRated[0].name}}</h2>
+                            <button class="button-chips"
+                                (click)="$event.stopPropagation();toOwn(mostRated[0].variants[0])">
+                                <label>Adquirir</label>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-product"
+                    (click)="navigateToProduct(mostRated[1].category.nombre, mostRated[1].id)">
+                    <img [src]="mostRated[1].variants[0].image" alt="">
+                    <div class="featured-gradiant"></div>
+                    <div class="info-container-featured">
+
+                        <div class="info-contet">
+                            <p class="card-info">{{mostRated[1].subtitle}}</p>
+                            <h2 class="car-text">{{mostRated[1].name}}</h2>
+                            <button class="button-chips"
+                                (click)="$event.stopPropagation();toOwn(mostRated[1].variants[0])">
+                                <label>Adquirir</label>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-product"
+                    (click)="navigateToProduct(mostRated[2].category.nombre, mostRated[2].id)">
+                    <img [src]="mostRated[2].variants[0].image" alt="">
+                    <div class="featured-gradiant"></div>
+                    <div class="info-container-featured">
+                        <div class="info-contet">
+                            <p class="card-info">{{mostRated[2].subtitle}}</p>
+                            <h2 class="car-text">{{mostRated[2].name}}</h2>
+                            <button class="button-chips"
+                                (click)="$event.stopPropagation(); toOwn(mostRated[1].variants[0])">
+                                <label>Adquirir</label>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        }
     </div>
-    }
-</div>
 
 
 </div>

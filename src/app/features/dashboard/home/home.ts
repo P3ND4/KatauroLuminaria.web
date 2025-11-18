@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Corousel } from "../../../shared/components/corousel/corousel";
 import { carouselDTO } from '../../../shared/models/carouselDTO';
 import { CommonModule } from '@angular/common';
@@ -8,10 +8,11 @@ import { Router } from '@angular/router';
 import { CartService } from '../../../shared/services/cart/cart.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { User } from '../../../shared/models/User';
+import { SkeletonLoader } from '../../../shared/components/skeleton-loader/skeleton-loader';
 
 @Component({
   selector: 'app-home',
-  imports: [Corousel, CommonModule],
+  imports: [Corousel, CommonModule, SkeletonLoader],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
