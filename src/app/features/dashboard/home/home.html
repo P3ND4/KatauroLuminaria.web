@@ -1,8 +1,10 @@
+@if(!correctLoaded){
+<div class="chargin-bar-container">
+    <div class="chargin-bar"></div>
+</div>
+}
 <div style="view-transition-name: home; background-color: white;">
     @if (!correctLoaded) {
-    <div class="chargin-bar-container">
-        <div class="chargin-bar"></div>
-    </div>
     <div class="car-cont">
         <app-skeleton-loader class="sk" [type]="2" class="sk"></app-skeleton-loader>
     </div>
@@ -74,7 +76,7 @@
             </div>
         </div>
 
-        @if(correctLoaded){
+
 
         <div class="luminarias featured">
             <header style="gap: 20px; display: block;">
@@ -82,11 +84,12 @@
                 <p class="header-p">Aprecia nuestras lámparas de diseño propio más relevantes.</p>
             </header>
             <div class="featured-content">
+                @if(correctLoaded){
                 <div class="featured-product"
                     (click)="navigateToProduct(mostRated[0].category.nombre, mostRated[0].id)">
                     <img [src]="mostRated[0].variants[0].image" alt="">
                     <div class="featured-gradiant"></div>
-                    <div class="info-container-featured">
+                    <div class="info-container-featured first">
                         <div class="info-contet">
                             <p class="card-info">{{mostRated[0].subtitle}}</p>
                             <h2 class="car-text">{{mostRated[0].name}}</h2>
@@ -128,10 +131,17 @@
                         </div>
                     </div>
                 </div>
+                }@else {
+                @for (item of [1, 2, 3]; track $index) {
+                <div class="sk-container">
+                    <app-skeleton-loader [type]="4" class="sk"></app-skeleton-loader>
+                </div>
+                }
+                }
             </div>
 
         </div>
-        }
+
     </div>
 
 

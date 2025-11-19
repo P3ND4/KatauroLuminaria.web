@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+.loader{
+    height: 82px;
+    width: 60px;
+    background: linear-gradient(180deg,#0000000a 0%,#0000006e 96%);
+}
 h2 {
     color: var(--Brand-900, #175659);
     text-align: center;

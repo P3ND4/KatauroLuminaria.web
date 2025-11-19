@@ -24,6 +24,7 @@ export class Singular implements OnInit {
   currentVariant = 0;
   selectedImage = 0;
   user: User | undefined;
+  charged = false
   constructor(private route: ActivatedRoute, private http: HttpService, private cdr: ChangeDetectorRef, private userService: AuthService, readonly cartService: CartService, private router: Router) {
 
   }
@@ -41,6 +42,7 @@ export class Singular implements OnInit {
           this.images = this.currentProduct.variants[this.currentVariant].images.map(x => x.link);
           this.loadFinishes();
           this.cdr.detectChanges();
+          this.charged =true
         }),
         error: (err) => {
           console.log(err)
@@ -60,6 +62,7 @@ export class Singular implements OnInit {
       next: val => {
         this.finishes = val as Finish[];
         this.prodFinishes = this.finishes.filter(x => this.currentProduct!.finish.filter(y => y.finishId === x.id).length > 0) ?? [];
+        
       },
       error: err => console.log(err)
     })

@@ -1,17 +1,28 @@
 <div class="detail-container">
     <div class="img-container">
         <div class="main-image">
+            @if (charged) {
             <img class="main-img" [src]="images[selectedImage]" [alt]="currentProduct?.name" />
+            }
+            @else {
+            <div class="image-loader"></div>
+            }
         </div>
         <div class="sec-img-container">
             @for (item of images; track $index) {
             <div class="sec-images">
+                @if (charged) {
                 <img [src]="item" [alt]="currentProduct?.name" (click)="selectImage($index)">
+                }
+                @else {
+                <div class="image-loader"></div>
+                }
             </div>
             }
         </div>
     </div>
     <div class="detail-content">
+        @if(charged){
         <div class="details">
             <h2>{{currentProduct?.name}}</h2>
             <h4>{{currentProduct?.subtitle}}</h4>
@@ -51,20 +62,57 @@
                 </div>
             </div>
         </div>
+        }@else {
+        <div class="details sk">
+            <div class="sk-pair">
+                <div class="sk-bar header"></div>
+                <div class="sk-bar s-line"></div>
+            </div>
+            <div class="sk-pair">
+                <div class="sk-bar line"></div>
+                <div class="sk-bar line"></div>
+                <div class="sk-bar line"></div>
+                <div class="sk-bar line w70"></div>
+            </div>
+
+            <div class="sk-pairs">
+                <div class="sk-pair">
+                    <div class="sk-bar line w70"></div>
+                    <div class="sk-bar line"></div>
+                    <div class="sk-bar line"></div>
+                    <div class="sk-bar line"></div>
+                </div>
+                <div class="sk-pair">
+                    <div class="sk-bar line w70"></div>
+                    <div class="sk-bar line"></div>
+                    <div class="sk-bar line"></div>
+                    <div class="sk-bar line"></div>
+                </div>
+            </div>
+            <div class="sk-pair">
+                <div class="sk-bar line 70"></div>
+                <div class="sk-bar cube"></div>
+            </div>
+
+        </div>
+        }
         <div class="button-bar">
             <div class="divider"></div>
             <div class="price-info">
-
+                @if(charged){
                 <p>{{ (currentProduct!.variants.length > 0 ? currentProduct!.variants[currentVariant].price : 0 ) |
                     currency
                     }}</p>
+                }
+                @else {
+                    <div class="sk-bar line price"></div>
+                }
                 <span>Cada Luminaria</span>
 
             </div>
             <div class="btn-section">
                 <button class="button-base" style="flex: 1;" (click)="toOwn()"> <label>ADQUIRIR</label></button>
-                <button class="button-chips"  (click)="addToCart()"><img
-                        src="/assets/shopping-bag.svg" /></button>
+                <button class="button-chips" (click)="addToCart()"><img src="/assets/shopping-bag.svg" /></button>
             </div>
         </div>
     </div>

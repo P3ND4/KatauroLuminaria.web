@@ -11,7 +11,15 @@
     background: linear-gradient(180deg, #0000000a 0%, #00000050 96%);
 }
 
+@keyframes shimmer {
+    0% {
+        background-position: 0 -200%;
+    }
 
+    100% {
+        background-position: 0 200%;
+    }
+}
 
 
 .head-t1 {
@@ -44,6 +52,7 @@
 
 
 .skeleton-main.t2 {
+    background-size: 100% 200%;
     padding: 145px;
 }
 
@@ -53,7 +62,8 @@
 }
 
 
-.head-t2, .head-t3 {
+.head-t2,
+.head-t3 {
     width: 60%;
     height: 56px;
     border-radius: 4px;
@@ -95,4 +105,57 @@
 .button-chips {
     width: auto;
     flex: 0 0 0;
+}
+
+
+.skeleton-main.t4 {
+    flex-direction: column;
+    justify-content: end;
+    padding: 60px 40px;
+}
+
+.head-t4,
+.line2-t4 {
+    height: 40px;
+    border-radius: 4px;
+    background-color: #A4A7AE;
+}
+
+.line2-t4 {
+    width: 70%;
+    
+}
+
+.line1-t14 {
+    border-radius: 4px;
+    background-color: #A4A7AE;
+    width: 60%;
+    height: 16px;
+}
+
+
+@media (max-width: 700px) {
+    .skeleton-main {
+        padding-inline: 12px;
+    }
+
+    .skeleton-main.t2,
+    .skeleton-main.t3 {
+        padding-inline: 24px;
+    }
+
+    .head-t1 {}
+
+    .head-t2,
+    .head-t3 {
+        height: 38px;
+        width: 80%;
+    }
+
+
+    .head2-t2,
+    .head2-t3 {
+        height: 38px;
+        width: 60%;
+    }
 }

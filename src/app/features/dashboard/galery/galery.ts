@@ -5,10 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { Subscription } from 'rxjs';
 import { FadeAndSlideIn } from '../../../shared/animations/FadeAndSlideIn';
+import { SkeletonLoader } from '../../../shared/components/skeleton-loader/skeleton-loader';
 
 @Component({
   selector: 'app-galery',
-  imports: [CommonModule],
+  imports: [CommonModule, SkeletonLoader],
   animations: [FadeAndSlideIn],
   templateUrl: './galery.html',
   styleUrl: './galery.css'
@@ -21,6 +22,9 @@ export class Galery implements OnInit, AfterViewInit {
   currentPage = 1
   pagesArray = [1]
   queryParamsSubscription: Subscription | undefined;
+
+  correctCharged = false;
+
   @ViewChildren('CatElementGalery') catElements!: QueryList<ElementRef>;
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpService) {
 
@@ -70,6 +74,7 @@ export class Galery implements OnInit, AfterViewInit {
         this.products = val as Product[]
         this.products = this.products.filter((prod) => prod.variants.length > 0);
         console.log(this.products.length);
+        this.correctCharged = true;
       },
       error: (err) => {
         console.log(err);

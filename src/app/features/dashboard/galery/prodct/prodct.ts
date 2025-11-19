@@ -19,6 +19,9 @@ export class Prodct implements OnInit {
   selectedIndex = -1;
   indicatorX = 0;
   indicatorWidth = 0;
+  charged = false;
+
+
 
   @ViewChildren('itemElem') itemElems!: QueryList<ElementRef>;
   @ViewChildren('CatElement') catElements!: QueryList<ElementRef>;
@@ -41,7 +44,7 @@ export class Prodct implements OnInit {
     this.route.paramMap.subscribe(param => {
       const p = param.get('category') as Categories
       this.currentCategory = p ?? 'Liminarias de mesa'
-      this.scrollToSelectedCat();
+
     })
 
 
@@ -49,14 +52,18 @@ export class Prodct implements OnInit {
       next: (val) => {
         this.products = val as Product[];
         this.products = this.products.filter((prod) => prod.variants ? prod.variants.length > 0 : false);
+        this.charged = true;
+        this.scrollToSelectedCat();
         const index = this.route.snapshot.queryParamMap.get('index');
         if (!index && this.products.length > 0) {
           this.selectProduct(0);
-          ; return;
+          return;
         }
         this.selectedIndex = index ? this.products.findIndex((prod) => prod.id == index) : -1;
         this.updateIndicator();
+        this.scrollToSelected();
         this.cdr.detectChanges();
+
       },
       error: (err) => {
         console.log(err);
@@ -71,7 +78,6 @@ export class Prodct implements OnInit {
     window.scrollTo(0, 0);
     this.zone.onStable.subscribe(() => {
       this.updateIndicator();
-      this.scrollToSelected();
 
     });
   }
@@ -84,9 +90,12 @@ export class Prodct implements OnInit {
 
   updateIndicator() {
     if (this.selectedIndex < 0) return;
-    const elem = this.itemElems.toArray()[this.selectedIndex].nativeElement;
-    this.indicatorX = elem.offsetLeft;
-    this.indicatorWidth = elem.offsetWidth;
+    const elem = this.itemElems.toArray()[this.selectedIndex]
+    var ref: any | undefined
+    if(elem) ref = elem.nativeElement;
+    else return;
+    this.indicatorX = ref?.offsetLeft;
+    this.indicatorWidth = ref?.offsetWidth;
   }
 
   scrollToSelected() {
@@ -101,7 +110,9 @@ export class Prodct implements OnInit {
   }
 
   scrollToSelectedCat() {
+
     const elems = this.catElements.toArray();
+    if (!elems) return;
     const catDic = { 'Luminarias de mesa': 0, 'Luminarias de pared': 1, 'Luminarias de pie': 2, 'Luminarias de techo': 3, 'Accesorios': 4, 'Otras': 5 }
     const elem = elems[catDic[this.currentCategory]];
     if (!elem) return;

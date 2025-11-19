@@ -1,3 +1,8 @@
+@if(!correctCharged){
+<div class="chargin-bar-container">
+    <div class="chargin-bar"></div>
+</div>
+}
 <div class="galery-container" style="view-transition-name: galery; background-color: white;">
     <header class="galery-header">
         <h2>Galería</h2>
@@ -8,35 +13,49 @@
             (click)="onCategoryChange('TODAS')">
             <label>TODAS</label>
         </button>
-        <button #CatElementGalery class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.tableLumin}"
+        <button #CatElementGalery class="button-chips cat"
+            [ngClass]="{'active': selectedCategory == categories.tableLumin}"
             (click)="onCategoryChange(categories.tableLumin)">
             <label>LUMINARIAS DE MESA</label>
         </button>
-        <button #CatElementGalery class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.wallLumin}"
+        <button #CatElementGalery class="button-chips cat"
+            [ngClass]="{'active': selectedCategory == categories.wallLumin}"
             (click)="onCategoryChange(categories.wallLumin)">
             <label>LUMINARIAS DE PARED</label>
         </button>
-        <button #CatElementGalery class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.footLumin}"
+        <button #CatElementGalery class="button-chips cat"
+            [ngClass]="{'active': selectedCategory == categories.footLumin}"
             (click)="onCategoryChange(categories.footLumin)">
             <label>LUMINARIAS DE PIE</label>
         </button>
-        <button #CatElementGalery class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.roofLumin}"
+        <button #CatElementGalery class="button-chips cat"
+            [ngClass]="{'active': selectedCategory == categories.roofLumin}"
             (click)="onCategoryChange(categories.roofLumin)">
             <label>LUMINARIAS DE TECHO</label>
         </button>
-        <button #CatElementGalery class="button-chips cat" [ngClass]="{'active': selectedCategory == categories.lightBulb}"
+        <button #CatElementGalery class="button-chips cat"
+            [ngClass]="{'active': selectedCategory == categories.lightBulb}"
             (click)="onCategoryChange(categories.lightBulb)">
             <label>ACCESORIOS</label>
         </button>
     </div>
     <div class="galery-content">
+        @if (!correctCharged) {
+        @for (product of [0,1,2,3,4,5,6,7,8]; track $index){
+        <div [class]="'product pos-' + ($index%9)">
+            <app-skeleton-loader class="sk"></app-skeleton-loader>
+        </div>
+        }
+        }
+        @else {
         @for (product of products; track $index) {
         @defer(on viewport){
         <div [class]="'product pos-' + ($index%9)" [ngClass]="{'small': products.length == 8}"
-            (click)="navigateToProduct(product.category.nombre, product.id)" @fadeAndSlideIn>
+            (click)="navigateToProduct(product.category.nombre, product.id)">
             <img [src]="product.variants[0].image" alt="{{ product.name }}">
             <div class="gradient"></div>
-            <div class="info-content" [ngClass]="{'t1': $index % 9 in [2,3,4,5,6,7,9] || $index == 7 && products.length ==8}">
+            <div class="info-content"
+                [ngClass]="{'t1': $index % 9 in [2,3,4,5,6,7,9] || $index == 7 && products.length ==8}">
                 <div class="product-info"
                     [ngClass]="{'t1': $index % 9 in [2,3,4,5,6,7,9] || $index == 7 && products.length ==8} ">
                     <h3>{{product.name}}</h3>
@@ -46,6 +65,7 @@
         </div>
         }@placeholder {
         <div></div>
+        }
         }
         }
     </div>

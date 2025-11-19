@@ -1,4 +1,4 @@
-<div class="skeleton-main" [ngClass]="{'t2': type == 2, 't3': type == 3}">
+<div class="skeleton-main" [ngClass]="{'t2': type == 2, 't3': type == 3, 't4': type == 4}">
     @if (type == 1) {
 
     <div class="head-t1">
@@ -16,11 +16,19 @@
         <span>Ver oferta</span>
     </button>
     }
-    @else {
+    @else if(type == 3) {
     <div class="head-t3"></div>
     <div class="head2-t3"></div>
     <div class="line1-t3"></div>
     <div class="line2-t3"></div>
+    <button style="width: 122px;" class="button-chips">
+        <span>Ver oferta</span>
+    </button>
+    }
+    @else if(type == 4) {
+    <div class="line1-t4"></div>
+    <div class="head-t4"></div>
+    <div class="line2-t4"></div>
     <button style="width: 122px;" class="button-chips">
         <span>Ver oferta</span>
     </button>
