@@ -1,8 +1,8 @@
 <div class="main">
 
     <header>
-        <h2>Regístrate</h2>
-        <p>Déjanos tus datos y mantente al tanto de nuestras ofertas y lanzamientos.</p>
+        <h2>Información personal</h2>
+        <p>Actualiza tu foto y datos personales aquí.</p>
     </header>
 
     <div class="form-container">
@@ -63,16 +63,36 @@
             </div>
 
 
+            <div class="profile-img">
+                <div class="avatar">
+                    <img [src]="imagePreview" alt="">
+                </div>
+                <div class="drag-n-drop-cont" (click)="onFilesSelected($event)" (dragleave)="onDragLeave($event)"
+                    (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+                    <div class="dnd-icon">
+                        <img src="assets/upload-cloud.svg" alt="">
+                    </div>
+                    <input type="file" #fileInput style="display: none;" (change)="onFileChange($event)" id="">
+                    <div class="dnd-txt">
+                        <p><span>Haga clic para cargar</span> o arrastrar y soltar</p>
+                        <p>SVG, PNG, JPG or GIF (max. 800x400px)</p>
+                    </div>
+                    <div class="progress-bar" [style.width.%]="progress">
+                    </div>
+                </div>
+            </div>
+
             <div class="actions">
-                <button class="button-base" style="width: 100%;" (click)="onSubmit()">
-                    <label>
-                        Crear cuenta
-                    </label>
+                <div class="divider"></div>
+
+                <button class="button-base" (click)="onSubmit()">
+                    <span>
+                        Guradar
+                    </span>
                 </button>
 
-                <button class="social-button" style="width: 100%; margin-top: 16px;">
-                    <img src="/assets/Social-icon-google.svg" alt="Google Icon">
-                    <label>Regístrate con Google</label>
+                <button class="button-chips" (click)="onClose()">
+                    <span>Cancelar</span>
                 </button>
 
             </div>

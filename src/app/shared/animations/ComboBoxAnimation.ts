@@ -20,10 +20,10 @@ export const DropdownAnimation =
         })),
         transition('closed => open', [
             style({ display: 'flex' }),
-            animate('500ms ease-out')
+            animate('300ms ease-out')
         ]),
         transition('open => closed', [
-            animate('500ms ease-in', style({ height: '20px' }))
+            animate('300ms ease-in', style({ height: '20px' }))
         ])
     ])
 

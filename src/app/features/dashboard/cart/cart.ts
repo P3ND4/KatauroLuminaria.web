@@ -2,13 +2,16 @@ import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { CartService } from '../../../shared/services/cart/cart.service';
 import { Product, Variant } from '../../../shared/models/Products';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, MinLengthValidator, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../../shared/models/User';
 import { DropdownAnimation, DropdownAnimationAH } from '../../../shared/animations/ComboBoxAnimation';
 import { CUBA_PROVINCES } from '../../../shared/models/citiesDic';
+import { CreateOrderDto } from '../../../shared/models/createOrderDTO';
+import { OrderState } from '../../../shared/models/Order';
+import { HttpService } from '../../../shared/services/http/http.service';
 
 @Component({
   selector: 'app-cart',
@@ -29,7 +32,8 @@ export class Cart implements OnInit {
   currentProvinceMun: string[] = []
   provinces = CUBA_PROVINCES;
   provincesArray: string[] = [];
-  constructor(readonly cartService: CartService, private fb: FormBuilder, private route: ActivatedRoute, private cdr: ChangeDetectorRef, private authService: AuthService) {
+  constructor(readonly cartService: CartService, private fb: FormBuilder, private http: HttpService,
+    private route: ActivatedRoute, private cdr: ChangeDetectorRef, private authService: AuthService) {
     this.provincesArray = Object.keys(CUBA_PROVINCES) as string[];
     this.currentProvinceMun = this.provinces['La Habana']
     this.buyingForm = fb.group(
@@ -41,7 +45,7 @@ export class Cart implements OnInit {
         province: ["La Habana"],
         municipality: [""],
         address: [""],
-        note: [""]
+        note: ["", Validators.maxLength(200)]
       }
     )
 
@@ -62,6 +66,32 @@ export class Cart implements OnInit {
       this.loadData();
     });
   }
+
+  toggleDelivery() {
+    this.aditionalInfo = !this.aditionalInfo;
+    var province = this.buyingForm.get('province');
+    var city = this.buyingForm.get('municipality');
+    var address = this.buyingForm.get('address');
+    if (this.aditionalInfo) {
+      this.buyingForm.get('province')?.setValidators([Validators.required, Validators.minLength(1)]);
+      this.buyingForm.get('municipality')?.setValidators([Validators.required, Validators.minLength(1)]);
+      this.buyingForm.get('address')?.setValidators([Validators.required, Validators.minLength(1)]);
+    }
+    else {
+      province?.clearValidators()
+      address?.clearValidators()
+      city?.clearValidators()
+    }
+
+    province?.updateValueAndValidity();
+    city?.updateValueAndValidity();
+    address?.updateValueAndValidity();
+
+    this.cdr.detectChanges()
+  }
+
+
+
   selectProvince(name: string) {
     this.buyingForm.get('province')?.setValue(name);
     this.buyingForm.get('municipality')?.setValue("");
@@ -125,9 +155,35 @@ export class Cart implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.buyingForm.valid) {
-      const name = this.buyingForm.get('name')?.value;
-      console.log(name);
+    if (this.buyingForm.valid && this.currentUser) {
+      const order: CreateOrderDto = {
+        userId: this.currentUser.id,
+        createdAt: new Date(),
+        productsID: this.cartService.currentProducts().filter(x => x.id in this.selected).map(x => ({
+          productId: x.id,
+          count: this.selected[x.id]
+        })),
+        note: this.buyingForm.get('note')?.value,
+        province: this.buyingForm.get('province')?.value,
+        city: this.buyingForm.get('municipality')?.value,
+        address: this.buyingForm.get('address')?.value,
+        delivery: this.aditionalInfo,
+        state: OrderState.pending,
+        price: this.subTotalPrice(),
+        delPrice: this.deliveryPrice(),
+        name: this.buyingForm.get('name')?.value,
+        lastName: this.buyingForm.get('lastName')?.value,
+        email: this.buyingForm.get('email')?.value,
+        phone: (this.buyingForm.get('phone')?.value as number).toString()
+      }
+      console.log(order);
+      this.http.createOrder(order).subscribe({
+        next: val => {
+          console.log(val);
+          this.openWhatsApp();
+        },
+        error: err => console.log(err)
+      })
     }
   }
   isMobile(): boolean {
@@ -146,4 +202,11 @@ export class Cart implements OnInit {
   deliveryPrice(): number {
     return 0;
   }
+  openWhatsApp() {
+    const phone = '5355801741';
+    const text = encodeURIComponent('Hola, quiero escribirte');
+    window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+  }
+
+
 }

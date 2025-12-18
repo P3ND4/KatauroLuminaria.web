@@ -289,7 +289,7 @@ textarea {
 }
 
 .input-content img {
-    transition: transform 0.5s ease;
+    transition: transform 0.3s ease;
 }
 
 .input-content img.open {

@@ -40,21 +40,21 @@ export class Color {
 
 export class Variant {
     id!: string;
-    variantName!: string;
+    colorId!: string;
     price!: number;
     stock!: number;
-    image!: string;
-    colorId?: string;
-    images!: Image[];
-    color?: Color;
+    image?: string;
+    images!: { link: string, id: string }[]
+    color!: Color
+    genericId!: string;
     genericProd?: Product;
 }
-export class Image{
+export class Image {
     id!: string;
     link!: string;
 };
 
-export class FinishForProduct{
+export class FinishForProduct {
     productId!: string;
     finishId!: string;
 }
@@ -64,7 +64,7 @@ export class CatModel {
     nombre!: Categories
 }
 
-export enum Typology{
+export enum Typology {
     simple = "Simple",
     variant = "Variante"
 }

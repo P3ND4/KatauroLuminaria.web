@@ -4,4 +4,5 @@ interface CreateUserDto {
     lastName: string;
     password: string;
     phone: string;
+    image?: string;
 }

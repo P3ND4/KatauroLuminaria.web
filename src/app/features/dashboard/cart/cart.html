@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="checkbox-container" style="cursor: pointer;">
-                    <div class="checkbox-circle" (click)="aditionalInfo = !aditionalInfo">
+                    <div class="checkbox-circle" (click)="toggleDelivery()">
                         <input type="checkbox" [checked]="aditionalInfo" (change)="!aditionalInfo" id="adit-inf" />
                         <span></span>
                     </div>
@@ -116,7 +116,8 @@
                         <br />
                         Su solicitud será procesada una vez confirmado el pago.
                     </p>
-                    <button type="submit" class="button-base"><label>SOLICITAR PEDIDO</label></button>
+                    <button type="submit" class="button-base" [disabled]="!buyingForm.valid"><label>SOLICITAR
+                            PEDIDO</label></button>
                 </div>
             </form>
         </div>
@@ -163,7 +164,7 @@
                 </div>
                 <div class="subtotal">
                     <h3>Transportación</h3>
-                    <h3>{{deliveryPrice() | currency}}</h3>
+                    <h3>{{ aditionalInfo? (deliveryPrice() | currency) : '--------' }}</h3>
                 </div>
                 <div class="total-price">
                     <div class="divider"></div>

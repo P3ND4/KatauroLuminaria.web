@@ -55,7 +55,7 @@
                         @for (item of currentProduct?.variants; track $index) {
                         <div class="color-container" (click)="variantChange($index)"
                             [ngClass]="{'active': currentVariant === $index}">
-                            <img [src]="item.color?.image" [alt]="item.color?.name">
+                            <img [src]="item.color!.image" [alt]="item.color!.name">
                         </div>
                         }
                     </div>

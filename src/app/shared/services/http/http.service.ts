@@ -4,6 +4,7 @@ import { LoginDto } from '../../models/loginDto';
 import { User } from '../../models/User';
 import { Observable } from 'rxjs';
 import { Categories } from '../../models/Products';
+import { CreateOrderDto } from '../../models/createOrderDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class HttpService {
   ]
 
   constructor(private http: HttpClient) {
-    //this.apiPath = 'http://localhost:3000';
+    this.apiPath = 'http://localhost:3000';
 
   }
   getFinishes() {
@@ -35,8 +36,13 @@ export class HttpService {
     return this.http.post(`${this.apiPath}/auth/register`, createUserDto)
   }
 
+
   signIn(loginDto: LoginDto) {
     return this.http.post(`${this.apiPath}/auth/login`, loginDto, { withCredentials: true })
+  }
+
+  updateUser(createOrderDTO: CreateUserDto, id: string) {
+    return this.http.patch(`${this.apiPath}/users/${id}`, createOrderDTO);
   }
 
   getProducts(options?: { page?: number, category?: Categories }) {
@@ -67,5 +73,7 @@ export class HttpService {
   getUserById(id: string) {
     return this.http.get(`${this.apiPath}/users/${id}`, { withCredentials: true })
   }
-
+  createOrder(body: CreateOrderDto) {
+    return this.http.post(`${this.apiPath}/order`, body, { withCredentials: true })
+  }
 }
