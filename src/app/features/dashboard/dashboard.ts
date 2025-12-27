@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterOutlet, RouterLinkWithHref } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { CartService } from '../../shared/services/cart/cart.service';
 import { User } from '../../shared/models/User';
 import { Categories } from '../../shared/models/Products';
 import { EditProfile } from './edit-profile/edit-profile';
+import { routeAnimations } from '../../shared/animations/routerAnimation';
 @Component({
   selector: 'app-dashboard',
   imports: [RouterOutlet, CommonModule, EditProfile, RouterLinkWithHref],// RouterLinkWithHref],
+  animations: [routeAnimations],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -20,12 +22,15 @@ export class Dashboard implements OnInit {
   currentUser: User | null = null;
   clientPanel = false
   sections = ['home', 'team', 'galery', 'blog'];
+  @ViewChild('outlet') outlet!: RouterOutlet;
   constructor(router: Router, readonly authService: AuthService, readonly cartService: CartService) {
     this.router = router;
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
     });
   }
+
+
   async ngOnInit(): Promise<void> {
     try {
       await this.authService.refreshUser();
@@ -83,5 +88,22 @@ export class Dashboard implements OnInit {
 
   }
 
+  prevIndex = 0;
+  direction: 'left' | 'right' = 'left';
+
+  prepareRoute(outlet: RouterOutlet) {
+    const currentIndex = outlet?.activatedRouteData?.['index'] ?? 0;
+    this.direction = currentIndex > this.prevIndex ? 'right'
+      : currentIndex < this.prevIndex ? 'left'
+        : this.direction;
+    return this.direction
+  }
+
+  onAnimationStart(outlet: RouterOutlet) {
+    console.log(this.direction);
+  }
+  onAnimationDone(outlet: RouterOutlet) {
+    this.prevIndex = outlet?.activatedRouteData?.['index'] ?? 0;
+  }
 
 }

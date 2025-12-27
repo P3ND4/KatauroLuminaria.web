@@ -29,6 +29,10 @@ export class Signin {
     password.type = (password.type == "password") ? "text" : "password";
   }
 
+  forgotPassword() {
+    this.router.navigate(['/login/forgot-password']);
+  }
+
   onSubmit() {
     //this.loginService.logInUser({ id: "1", name: "Arturo", lastName:"Gonzalez", email: this.loginForm.value.email, token: "<token>", cart: [] });
     this.loginService.logUserByCredentials(this.loginForm.value.email, this.loginForm.value.password).subscribe({

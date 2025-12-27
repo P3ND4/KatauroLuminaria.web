@@ -379,6 +379,19 @@
   height: 100%;
 }
 
+
+.page-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+  /* 👈 IMPORTANTE */
+  min-height: calc(100svh - 80px);
+  /* navbar */
+}
+
+
+
+
 .user-panel-data label {
   color: var(--Gray-700, #414651);
 

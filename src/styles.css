@@ -173,7 +173,7 @@
     }
 }
 
-
+/*
 :root[data-direction="right"]::view-transition-old(home),
 :root[data-direction="right"]::view-transition-old(team),
 :root[data-direction="right"]::view-transition-old(galery),
@@ -188,7 +188,7 @@
 :root[data-direction="left"]::view-transition-new(blog) {
     animation: enter 0.6s ease forwards;
 }
-
+*/
 a {
     text-decoration: none;
 }

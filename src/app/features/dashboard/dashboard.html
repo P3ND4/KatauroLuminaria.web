@@ -11,17 +11,13 @@
 
     <div class="navigation-bar">
       <div class="nav-links">
-        <img class="Katauro-logo" src="/assets/Katauro.svg" (click)="navigate('/dashboard/home')" />
+        <img class="Katauro-logo" src="/assets/Katauro.svg" [routerLink]="'/dashboard/home'" />
 
-        <a [ngClass]="{'active': isActive('/dashboard/home')}" [routerLink]="'/dashboard/home'"
-          (click)="navigate('/dashboard/home')">Inicio</a>
-        <a [ngClass]="{'active': isActive('/dashboard/team')}" [routerLink]="'/dashboard/team'"
-          (click)="navigate('/dashboard/team')">Nuestro
+        <a [ngClass]="{'active': isActive('/dashboard/home')}" [routerLink]="'/dashboard/home'">Inicio</a>
+        <a [ngClass]="{'active': isActive('/dashboard/team')}" [routerLink]="'/dashboard/team'">Nuestro
           equipo</a>
-        <a [ngClass]="{'active': isActive('/dashboard/galery')}" [routerLink]="'/dashboard/galery'"
-          (click)="navigate('/dashboard/galery')">Luminarias</a>
-        <a [ngClass]="{'active': isActive('/dashboard/blog')}" [routerLink]="'/dashboard/blog'"
-          (click)="navigate('/dashboard/blog')">Blog</a>
+        <a [ngClass]="{'active': isActive('/dashboard/galery')}" [routerLink]="'/dashboard/galery'">Luminarias</a>
+        <a [ngClass]="{'active': isActive('/dashboard/blog')}" [routerLink]="'/dashboard/blog'">Blog</a>
       </div>
       @if(!isLogged()){
 
@@ -110,14 +106,11 @@
     }
   </div>
 
-
-  <div class="router-content" style="
-  display: flex; 
-  flex: 1; 
-  flex-direction: column; 
-  min-height: 0;">
-    <router-outlet />
+  <div class="page-wrapper" [@routeAnimations]="prepareRoute(outlet)" (@routeAnimations.done)="onAnimationDone(outlet)"
+    (@routeAnimations.start)="onAnimationStart(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
   </div>
+
 
   <div class="footer">
     <div class="footer-content">
