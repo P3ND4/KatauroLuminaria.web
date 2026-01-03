@@ -9,7 +9,7 @@ import {
 export const routeAnimations = trigger('routeAnimations', [
 
   // 👉 Vas a la derecha (baja)
-  transition('left => right', [
+  transition(':increment', [
 
     query(':enter, :leave', [
       style({
@@ -21,7 +21,7 @@ export const routeAnimations = trigger('routeAnimations', [
     ], { optional: true }),
 
     query(':leave', [
-      animate('1300ms ease-in', style({
+      animate('500ms ease-in', style({
         transform: 'translateY(100%)',
         opacity: 0
       }))
@@ -29,7 +29,7 @@ export const routeAnimations = trigger('routeAnimations', [
   ]),
 
   // 👈 Vas a la izquierda (sube)
-  transition('right => left', [
+  transition(':decrement', [
 
     query(':enter, :leave', [
       style({
@@ -45,7 +45,7 @@ export const routeAnimations = trigger('routeAnimations', [
         transform: 'translateY(100%)',
         opacity: 0
       }),
-      animate('1300ms ease-out', style({
+      animate('500ms ease-out', style({
         transform: 'translateY(0)',
         opacity: 1
       }))

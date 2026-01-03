@@ -9,10 +9,11 @@ import { CartService } from '../../../shared/services/cart/cart.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { User } from '../../../shared/models/User';
 import { SkeletonLoader } from '../../../shared/components/skeleton-loader/skeleton-loader';
+import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
 
 @Component({
   selector: 'app-home',
-  imports: [Corousel, CommonModule, SkeletonLoader],
+  imports: [Corousel, CommonModule, SkeletonLoader, BoxLoader],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
@@ -52,11 +53,12 @@ export class Home implements OnInit, AfterViewInit {
   mostRated: Product[] = [
   ]
   loading = false;
+  loadMsg = "Cargando..."
+
   constructor(private httpService: HttpService, private cdr: ChangeDetectorRef, readonly router: Router, private cartService: CartService, private userService: AuthService) {
 
   }
   ngOnInit(): void {
-    this.loading = true
     this.userService.currentUser$.subscribe({
       next: val => this.user = val as User,
       error: err => console.log(err)
@@ -65,13 +67,13 @@ export class Home implements OnInit, AfterViewInit {
       next: (data: any) => {
         this.mostRated = data;
         this.mostRated = this.mostRated.filter((prod: Product) => prod.variants.length != 0);
-        this.loading = false
+
         this.cdr.detectChanges();
         this.correctLoaded = true;
       },
       error: (err) => {
         console.log(err)
-        this.loading = false
+
       }
     });
   }
@@ -103,6 +105,8 @@ export class Home implements OnInit, AfterViewInit {
       });
     }
     else if (this.userService.isLogged()) {
+      this.loading = true;
+      this.cdr.detectChanges();
       this.cartService.addToCart(this.user!.id, variant.id).subscribe(
         {
           next: val => {
@@ -116,7 +120,10 @@ export class Home implements OnInit, AfterViewInit {
               }
             })
           },
-          error: err => console.log(err)
+          error: err => {
+            console.log(err);
+            this.loading = false;
+          }
         }
       )
     }

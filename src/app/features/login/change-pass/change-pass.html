@@ -1,0 +1,45 @@
+<div class="main">
+
+    @if(loading){
+    <div class="loader-wrapper">
+        <app-box-loader></app-box-loader>
+    </div>
+    }
+
+    <form [formGroup]="changePassForm" (submit)="onSubmit()">
+        <h2>Restablece tu contraseña</h2>
+        <div class="form-container">
+            <div class="input-container">
+                <div class="pair">
+                    <span>Contraseña*</span>
+                    <div class="input-content" [ngClass]="{'error': !isValidForm('password')}">
+                        <input id="pass" type="password" placeholder="Crear una contraseña" formControlName="password">
+                        <img class=" eye" [src]="visibility[0]?'/assets/eye-off.svg': '/assets/eye.svg'" alt=""
+                            (click)="toggleVisibility('pass', 0)">
+                    </div>
+                    <div class="input-content" [ngClass]="{'error': !isValidForm('password') || passMisMatch()}">
+                        <input id="ConfirmPass" type="password" placeholder="Confirma la contraseña"
+                            formControlName="confirmPassword">
+                        <img class="eye" [src]="visibility[1]?'/assets/eye-off.svg': '/assets/eye.svg'" alt=""
+                            (click)="toggleVisibility('ConfirmPass', 1)">
+                    </div>
+                    @if (isValidForm('password')) {
+                    <span class="pair-footer">Debe tener al menos 8 caracteres.</span>
+                    }
+                    @else {
+                    <p class="error-msg">Debe tener al menos 8 caracteres.</p>
+                    }
+
+                    @if(passMisMatch()){
+                    <div class="error-msg">
+                        Las contraseñas deben coincidir
+                    </div>
+                    }
+                </div>
+            </div>
+            <button class="button-base" type="submit" [disabled]="!changePassForm.valid">
+                <span>Cambiar contraseña</span>
+            </button>
+        </div>
+    </form>
+</div>

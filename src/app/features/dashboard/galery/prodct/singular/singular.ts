@@ -7,10 +7,11 @@ import { lastValueFrom, Subscription } from 'rxjs';
 import { CartService } from '../../../../../shared/services/cart/cart.service';
 import { AuthService } from '../../../../../shared/services/auth/auth.service';
 import { User } from '../../../../../shared/models/User';
+import { BoxLoader } from "../../../../../shared/components/box-loader/box-loader";
 
 @Component({
   selector: 'app-singular',
-  imports: [CurrencyPipe, CommonModule],
+  imports: [CurrencyPipe, CommonModule, BoxLoader],
   templateUrl: './singular.html',
   styleUrl: './singular.css'
 })
@@ -24,7 +25,8 @@ export class Singular implements OnInit {
   currentVariant = 0;
   selectedImage = 0;
   user: User | undefined;
-  charged = false
+  charged = false;
+  loading = false;
   constructor(private route: ActivatedRoute, private http: HttpService, private cdr: ChangeDetectorRef, private userService: AuthService, readonly cartService: CartService, private router: Router) {
 
   }
@@ -42,7 +44,7 @@ export class Singular implements OnInit {
           this.images = this.currentProduct.variants[this.currentVariant].images.map(x => x.link);
           this.loadFinishes();
           this.cdr.detectChanges();
-          this.charged =true
+          this.charged = true
         }),
         error: (err) => {
           console.log(err)
@@ -62,7 +64,7 @@ export class Singular implements OnInit {
       next: val => {
         this.finishes = val as Finish[];
         this.prodFinishes = this.finishes.filter(x => this.currentProduct!.finish.filter(y => y.finishId === x.id).length > 0) ?? [];
-        
+
       },
       error: err => console.log(err)
     })
@@ -82,15 +84,20 @@ export class Singular implements OnInit {
 
   async addToCart() {
     if (this.currentProduct && this.userService.isLogged()) {
+      this.loading = true;
       this.cartService.addToCart(this.user!.id, this.currentProduct.variants[this.currentVariant].id).subscribe(
         {
           next: val => {
             console.log(val);
             this.cartService.currentProducts.update(x => [...x, this.currentProduct!.variants[this.currentVariant]]);
             this.cartService.loadCartFromBackend(this.user!.id);
+            this.loading = false;
             this.cdr.detectChanges();
           },
-          error: err => console.log(err)
+          error: err => {
+            console.log(err);
+            this.loading = false;
+          }
         }
       )
     }
@@ -105,12 +112,14 @@ export class Singular implements OnInit {
       });
     }
     else if (this.currentProduct && this.userService.isLogged()) {
+      this.loading = true;
       this.cartService.addToCart(this.user!.id, this.currentProduct.variants[this.currentVariant].id).subscribe(
         {
           next: val => {
             console.log(val);
             this.cartService.currentProducts.update(x => [...x, this.currentProduct!.variants[this.currentVariant]]);
             this.cartService.loadCartFromBackend(this.user!.id);
+            this.loading = false;
             this.cdr.detectChanges();
             this.router.navigate(['/dashboard/cart'], {
               queryParams: {
@@ -118,7 +127,10 @@ export class Singular implements OnInit {
               }
             })
           },
-          error: err => console.log(err)
+          error: err => {
+            console.log(err);
+            this.loading = false;
+          }
         }
       )
     }

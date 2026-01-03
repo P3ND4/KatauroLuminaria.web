@@ -21,7 +21,7 @@ export class HttpService {
   ]
 
   constructor(private http: HttpClient) {
-    this.apiPath = 'http://localhost:3000';
+    //this.apiPath = 'http://localhost:3000';
 
   }
   getFinishes() {
@@ -29,7 +29,7 @@ export class HttpService {
   }
 
   addToCart(userId: string, variantId: string): Observable<User> {
-    return this.http.patch<User>(`${this.apiPath}/users/${userId}`, { updateCart: [variantId] });
+    return this.http.patch<User>(`${this.apiPath}/users/${userId}`, { updateCart: [variantId] }, { withCredentials: true });
   }
 
   signUp(createUserDto: CreateUserDto) {
@@ -76,4 +76,17 @@ export class HttpService {
   createOrder(body: CreateOrderDto) {
     return this.http.post(`${this.apiPath}/order`, body, { withCredentials: true })
   }
+
+  sendCode(email: string) {
+    return this.http.patch(`${this.apiPath}/auth/sendCode`, { email: email }, { withCredentials: true });
+  }
+
+  verifyCode(email: string, code: string) {
+    return this.http.patch(`${this.apiPath}/auth/verifyCode`, { email: email, code: code }, { withCredentials: true });
+  }
+
+  changePassword(email: string, pass: string) {
+    return this.http.patch(`${this.apiPath}/auth/changePassword`, { email, newPassword: pass }, { withCredentials: true });
+  }
+
 }

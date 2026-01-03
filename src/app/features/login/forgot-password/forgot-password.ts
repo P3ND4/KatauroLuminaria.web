@@ -1,17 +1,21 @@
-import { ChangeDetectorRef, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HttpService } from '../../../shared/services/http/http.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
 
 @Component({
   selector: 'app-forgot-password',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, BoxLoader],
   templateUrl: './forgot-password.html',
   styleUrl: './forgot-password.css'
 })
-export class ForgotPassword {
+export class ForgotPassword implements OnInit {
   @ViewChildren('codeInput') inputs!: QueryList<ElementRef>;
   forgotPasswordForm: FormGroup;
-
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {
+  email: string | undefined;
+  loading = false;
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, private http: HttpService, private route: ActivatedRoute, private router: Router) {
     this.forgotPasswordForm = this.fb.group({
       f1: ['', [Validators.required, Validators.maxLength(1)]],
       f2: ['', [Validators.required, Validators.maxLength(1)]],
@@ -20,6 +24,9 @@ export class ForgotPassword {
       f5: ['', [Validators.required, Validators.maxLength(1)]],
       f6: ['', [Validators.required, Validators.maxLength(1)]]
     });
+  }
+  ngOnInit(): void {
+    this.email = this.route.snapshot.queryParamMap.get('email') ?? undefined;
   }
   onInput(event: Event, index: number) {
     const input = event.target as HTMLInputElement;
@@ -65,5 +72,25 @@ export class ForgotPassword {
 
   onSubmit() {
     console.log(this.forgotPasswordForm.value);
+    if (this.forgotPasswordForm.valid && this.email) {
+      var code = '';
+      for (let index = 0; index < 6; index++) {
+        code += this.forgotPasswordForm.get(`f${index + 1}`)?.value
+      }
+      this.loading = true
+      this.http.verifyCode(this.email, code).subscribe(
+        {
+          next: val => {
+            console.log(val);
+            this.loading = false;
+            this.router.navigate(['login', 'change-pass'], { queryParams: { email: this.email } });
+          },
+          error: err => {
+            console.log(err);
+            this.loading = false;
+          }
+        }
+      )
+    }
   }
 }

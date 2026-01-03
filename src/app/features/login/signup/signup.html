@@ -1,4 +1,9 @@
 <div class="signup-form-container">
+    @if(loading){
+    <div class="loader-wrapper">
+        <app-box-loader [message]="'Registrando...'"></app-box-loader>
+    </div>
+    }
     <header>
         <h2>Regístrate</h2>
         <p>Déjanos tus datos y mantente al tanto de nuestras ofertas y lanzamientos.</p>
@@ -85,7 +90,7 @@
                     <label class="form-label">
                         <br />
                     </label>
-                    <div class="input-content">
+                    <div class="input-content" [ngClass]="{'error': !isValidForm('password') || passMisMatch() }">
                         <input type="password" formControlName="confirmPassword" placeholder="Confirma la contraseña"
                             id="passConfirm">
                         <img class="eye" [src]="visibility[1]? '/assets/eye-off.svg': '/assets/eye.svg'"

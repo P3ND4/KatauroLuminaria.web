@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewChecked, Component, OnInit, ViewChild } from '@angular/core';
-import { Router, RouterOutlet, RouterLinkWithHref } from '@angular/router';
+import { Router, RouterOutlet, RouterLinkWithHref, ActivatedRoute, NavigationStart } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { CartService } from '../../shared/services/cart/cart.service';
 import { User } from '../../shared/models/User';
 import { Categories } from '../../shared/models/Products';
 import { EditProfile } from './edit-profile/edit-profile';
 import { routeAnimations } from '../../shared/animations/routerAnimation';
+import { BoxLoader } from "../../shared/components/box-loader/box-loader";
+import { filter } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   imports: [RouterOutlet, CommonModule, EditProfile, RouterLinkWithHref],// RouterLinkWithHref],
@@ -23,11 +25,14 @@ export class Dashboard implements OnInit {
   clientPanel = false
   sections = ['home', 'team', 'galery', 'blog'];
   @ViewChild('outlet') outlet!: RouterOutlet;
-  constructor(router: Router, readonly authService: AuthService, readonly cartService: CartService) {
+  constructor(router: Router, readonly authService: AuthService, readonly cartService: CartService, private route: ActivatedRoute) {
     this.router = router;
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
     });
+
+    //router.events.pipe(filter(e => e instanceof NavigationStart)).subscribe(() => this.prepareRoute(this.outlet));
+
   }
 
 
@@ -92,11 +97,8 @@ export class Dashboard implements OnInit {
   direction: 'left' | 'right' = 'left';
 
   prepareRoute(outlet: RouterOutlet) {
-    const currentIndex = outlet?.activatedRouteData?.['index'] ?? 0;
-    this.direction = currentIndex > this.prevIndex ? 'right'
-      : currentIndex < this.prevIndex ? 'left'
-        : this.direction;
-    return this.direction
+    this.prevIndex = outlet?.activatedRouteData?.['index'] ?? this.prevIndex;
+    return this.prevIndex;
   }
 
   onAnimationStart(outlet: RouterOutlet) {

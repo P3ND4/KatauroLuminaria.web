@@ -4,16 +4,20 @@ import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validatio
 import { Router } from '@angular/router';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
+import { passwordMatchValidator } from '../../../shared/validators/passwordMissMatch.validator';
+import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
 
 @Component({
   selector: 'app-signup',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, BoxLoader],
   templateUrl: './signup.html',
   styleUrl: './signup.css'
 })
 export class Signup implements AfterViewInit {
   visibility = [false, false]
   signUpForm: FormGroup;
+  loading = false;
+
 
   constructor(private fb: FormBuilder, public router: Router, private http: HttpService, private loginS: AuthService) {
     this.signUpForm = this.fb.group({
@@ -23,7 +27,7 @@ export class Signup implements AfterViewInit {
       phone: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
-    }, {validators: this.passwordMatchValidator});
+    }, { validators: passwordMatchValidator });
   }
 
   ngAfterViewInit() {
@@ -42,14 +46,17 @@ export class Signup implements AfterViewInit {
         email: this.signUpForm.get('email')?.value,
       }
 
+      this.loading = true;
+
       this.http.signUp(user).subscribe(
         {
           next: (value) => {
             console.log(value);
             this.login();
           },
-          error(err) {
-            console.log(err)
+          error: (err) => {
+            console.log(err);
+            this.loading = false;
           }
         }
       )
@@ -63,9 +70,13 @@ export class Signup implements AfterViewInit {
     this.loginS.logUserByCredentials(this.signUpForm.value.email, this.signUpForm.value.password).subscribe({
       next: val => {
         console.log(val)
+        this.loading = false;
         this.router.navigate(['/dashboard/home']);
       },
-      error: err => console.log(err)
+      error: err => {
+        this.loading = false;
+        console.log(err);
+      }
 
     })
   }
@@ -75,7 +86,7 @@ export class Signup implements AfterViewInit {
     const password = document.getElementById(id) as HTMLInputElement;
     password.type = (password.type == "password") ? "text" : "password";
   }
-  passMisMatch(){
+  passMisMatch() {
     return this.signUpForm.hasError('passwordMismatch') && this.signUpForm.get('confirmPassword')?.touched;
   }
 
@@ -83,9 +94,5 @@ export class Signup implements AfterViewInit {
     return this.signUpForm.get(name)?.valid || !this.signUpForm.get(name)?.touched;
   }
 
-  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
-    const password = control.get('password')?.value;
-    const confirm = control.get('confirmPassword')?.value;
-    return password === confirm ? null : { passwordMismatch: true };
-  }
+
 }

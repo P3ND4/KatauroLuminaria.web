@@ -1,4 +1,9 @@
 <div class="cart-container">
+    @if(loading){
+    <div class="loader-wrapper">
+        <app-box-loader></app-box-loader>
+    </div>
+    }
     <div class="cart-content">
         <div class="payment-details">
             <h2>Detalles de facturación</h2>

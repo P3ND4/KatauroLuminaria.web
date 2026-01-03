@@ -12,10 +12,11 @@ import { CUBA_PROVINCES } from '../../../shared/models/citiesDic';
 import { CreateOrderDto } from '../../../shared/models/createOrderDTO';
 import { OrderState } from '../../../shared/models/Order';
 import { HttpService } from '../../../shared/services/http/http.service';
+import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
 
 @Component({
   selector: 'app-cart',
-  imports: [CurrencyPipe, ReactiveFormsModule, CommonModule],
+  imports: [CurrencyPipe, ReactiveFormsModule, CommonModule, BoxLoader],
   animations: [DropdownAnimation, DropdownAnimationAH],
   templateUrl: './cart.html',
   styleUrl: './cart.css'
@@ -32,6 +33,7 @@ export class Cart implements OnInit {
   currentProvinceMun: string[] = []
   provinces = CUBA_PROVINCES;
   provincesArray: string[] = [];
+  loading = false;
   constructor(readonly cartService: CartService, private fb: FormBuilder, private http: HttpService,
     private route: ActivatedRoute, private cdr: ChangeDetectorRef, private authService: AuthService) {
     this.provincesArray = Object.keys(CUBA_PROVINCES) as string[];
@@ -83,9 +85,9 @@ export class Cart implements OnInit {
       city?.clearValidators()
     }
 
-    province?.updateValueAndValidity();
-    city?.updateValueAndValidity();
-    address?.updateValueAndValidity();
+    province?.updateValueAndValidity({onlySelf: true, emitEvent: false });
+    city?.updateValueAndValidity({onlySelf: true, emitEvent: false });
+    address?.updateValueAndValidity({ onlySelf: true, emitEvent: false });
 
     this.cdr.detectChanges()
   }
@@ -156,6 +158,7 @@ export class Cart implements OnInit {
 
   onSubmit(): void {
     if (this.buyingForm.valid && this.currentUser) {
+
       const order: CreateOrderDto = {
         userId: this.currentUser.id,
         createdAt: new Date(),
@@ -177,12 +180,18 @@ export class Cart implements OnInit {
         phone: (this.buyingForm.get('phone')?.value as number).toString()
       }
       console.log(order);
+
+      this.loading = true;
       this.http.createOrder(order).subscribe({
         next: val => {
           console.log(val);
+          this.loading = false;
           this.openWhatsApp();
         },
-        error: err => console.log(err)
+        error: err => {
+          console.log(err);
+          this.loading = false;
+        }
       })
     }
   }
