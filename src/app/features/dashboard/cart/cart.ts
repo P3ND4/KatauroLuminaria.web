@@ -85,8 +85,8 @@ export class Cart implements OnInit {
       city?.clearValidators()
     }
 
-    province?.updateValueAndValidity({onlySelf: true, emitEvent: false });
-    city?.updateValueAndValidity({onlySelf: true, emitEvent: false });
+    province?.updateValueAndValidity({ onlySelf: true, emitEvent: false });
+    city?.updateValueAndValidity({ onlySelf: true, emitEvent: false });
     address?.updateValueAndValidity({ onlySelf: true, emitEvent: false });
 
     this.cdr.detectChanges()
@@ -157,7 +157,7 @@ export class Cart implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.buyingForm.valid && this.currentUser) {
+    if (this.buyingForm.valid && this.currentUser && this.selected) {
 
       const order: CreateOrderDto = {
         userId: this.currentUser.id,
@@ -216,6 +216,8 @@ export class Cart implements OnInit {
     const text = encodeURIComponent('Hola, quiero escribirte');
     window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
   }
-
+  noSelected() {
+    return Object.keys(this.selected).length == 0;
+  }
 
 }

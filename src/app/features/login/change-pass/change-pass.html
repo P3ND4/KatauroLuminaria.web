@@ -17,7 +17,7 @@
                         <img class=" eye" [src]="visibility[0]?'/assets/eye-off.svg': '/assets/eye.svg'" alt=""
                             (click)="toggleVisibility('pass', 0)">
                     </div>
-                    <div class="input-content" [ngClass]="{'error': !isValidForm('password') || passMisMatch()}">
+                    <div class="input-content" [ngClass]="{'error': !isValidForm('confirmPassword') || passMisMatch()}">
                         <input id="ConfirmPass" type="password" placeholder="Confirma la contraseña"
                             formControlName="confirmPassword">
                         <img class="eye" [src]="visibility[1]?'/assets/eye-off.svg': '/assets/eye.svg'" alt=""

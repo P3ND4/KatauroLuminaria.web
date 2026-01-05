@@ -121,7 +121,8 @@
                         <br />
                         Su solicitud será procesada una vez confirmado el pago.
                     </p>
-                    <button type="submit" class="button-base" [disabled]="!buyingForm.valid"><label>SOLICITAR
+                    <button type="submit" class="button-base"
+                        [disabled]="!buyingForm.valid || noSelected()"><label>SOLICITAR
                             PEDIDO</label></button>
                 </div>
             </form>

@@ -107,5 +107,16 @@ export class Dashboard implements OnInit {
   onAnimationDone(outlet: RouterOutlet) {
     this.prevIndex = outlet?.activatedRouteData?.['index'] ?? 0;
   }
+  toggleEdit() {
+    this.editIsOpen = !this.editIsOpen;
+    this.clientPanel = false
+    this.editIsOpen ? this.lockScroll() : this.unlockScroll();
+  }
+  lockScroll(): void {
+     document.body.style.overflow = 'hidden';
+  }
 
+  unlockScroll(): void {
+    document.body.style.overflow = '';
+  }
 }

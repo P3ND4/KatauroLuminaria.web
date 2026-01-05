@@ -3,9 +3,9 @@
 
 
   @if(editIsOpen){
-  <div class="edit-wrapper" (click)="editIsOpen=false">
+  <div class="edit-wrapper" (click)="toggleEdit()">
     <div class="edit-container" (click)="$event.stopPropagation()">
-      <app-edit-profile (close)="editIsOpen =false" />
+      <app-edit-profile (close)="toggleEdit()" />
     </div>
   </div>
   }
@@ -49,7 +49,7 @@
               <p class="user-email">{{currentUser?.email}}</p>
             </div>
           </div>
-          <div class="user-panel-data" (click)="editIsOpen = true">
+          <div class="user-panel-data" (click)="toggleEdit()">
             <div class="divider"></div>
             <label>
               Editar Perfil
@@ -88,14 +88,14 @@
       @if (isLogged()) {
 
       <div class="user-info mobile">
-        <button class="user-button">
+        <button class="user-button" (click)="toggleEdit()">
           <img [src]="currentUser?.image" alt="">
         </button>
         <div class="user-data">
           <p class="user-name">{{currentUser?.name}}</p>
           <p class="user-email">{{currentUser?.email}}</p>
         </div>
-        <img src="/assets/log-out.svg" (click)="logout()" />
+        <img src="/assets/log-out.svg" style="cursor: pointer;" (click)="logout()" />
         <a class="button-chips" style="padding-inline: 10px;" [routerLink]="'/dashboard/cart'">
           <img src="/assets/shopping-bag.svg" />
           @if(cartService.currentProducts().length > 0){

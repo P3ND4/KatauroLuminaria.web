@@ -42,7 +42,7 @@ export class ChangePass {
   }
 
   isValidForm(name: string) {
-    return this.changePassForm.get(name)?.valid
+    return this.changePassForm.get(name)?.valid || !this.changePassForm.get(name)?.touched
   }
 
   login() {

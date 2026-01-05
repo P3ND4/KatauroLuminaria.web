@@ -21,7 +21,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10000;
+  background-color: rgba(10, 13, 18, 0.6);
+  z-index: 1000;
 }
 
 .user-info {
@@ -372,6 +373,10 @@
   overflow: hidden;
 }
 
+.user-button :hover {
+  cursor: pointer;
+}
+
 .user-button img,
 .user-image {
   object-fit: cover;
@@ -390,7 +395,9 @@
 }
 
 
-
+.user-panel-data :hover {
+  cursor: pointer;
+}
 
 .user-panel-data label {
   color: var(--Gray-700, #414651);
