@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewChecked, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterOutlet, RouterLinkWithHref, ActivatedRoute, NavigationStart } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { CartService } from '../../shared/services/cart/cart.service';
@@ -11,7 +11,7 @@ import { BoxLoader } from "../../shared/components/box-loader/box-loader";
 import { filter } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, CommonModule, EditProfile, RouterLinkWithHref],// RouterLinkWithHref],
+  imports: [RouterOutlet, CommonModule, EditProfile, RouterLinkWithHref, BoxLoader],// RouterLinkWithHref],
   animations: [routeAnimations],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
@@ -24,8 +24,10 @@ export class Dashboard implements OnInit {
   currentUser: User | null = null;
   clientPanel = false
   sections = ['home', 'team', 'galery', 'blog'];
+  loadingMsg = '';
+  loading = false;
   @ViewChild('outlet') outlet!: RouterOutlet;
-  constructor(router: Router, readonly authService: AuthService, readonly cartService: CartService, private route: ActivatedRoute) {
+  constructor(router: Router, readonly authService: AuthService, readonly cartService: CartService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
     this.router = router;
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
@@ -36,24 +38,37 @@ export class Dashboard implements OnInit {
   }
 
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() {
+    this.loadUser()
+
+  }
+
+  loadUser() {
     try {
-      await this.authService.refreshUser();
+      this.authService.refreshUser();
       this.authService.currentUser$.subscribe(user => {
         this.currentUser = user;
-        if (this.currentUser) this.cartService.loadCart()
+        if (this.currentUser) {
+          this.cartService.loadCart();
+        }
       });
     } catch (error) {
       console.error('Error refreshing user:', error);
-    }
+      this.loading = false;
 
+    }
   }
+
+
+
   isActive(route: string): boolean {
     const currentUrl = window.location.pathname;
     return currentUrl.includes(route);
   }
   isLogged() {
-    return this.authService.isLogged()
+    const isloged = this.authService.isLogged()
+    if (isloged) this.loading = false
+    return isloged;
   }
   changeWidth(an: number) {
     this.width = window.innerWidth;
@@ -70,7 +85,14 @@ export class Dashboard implements OnInit {
 
   }
   logout() {
-    this.authService.logOutUser();
+    try {
+      this.loading = true;
+      this.loadingMsg = 'Cerrando...'
+      this.authService.logOutUser();
+
+    } catch (error) {
+      console.log(error);
+    }
 
   }
   navigate(path: string) {
@@ -110,10 +132,17 @@ export class Dashboard implements OnInit {
   toggleEdit() {
     this.editIsOpen = !this.editIsOpen;
     this.clientPanel = false
-    this.editIsOpen ? this.lockScroll() : this.unlockScroll();
+    if (this.editIsOpen) this.lockScroll()
+    else {
+      this.loadingMsg = 'Actualizando...';
+      this.loading = true;
+      this.unlockScroll();
+      this.loadUser();
+    };
+
   }
   lockScroll(): void {
-     document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
   }
 
   unlockScroll(): void {

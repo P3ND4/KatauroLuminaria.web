@@ -50,10 +50,28 @@
 }
 
 .user-name {
+  color: var(--Gray-700, #414651);
+
+  /* Text sm/Semibold */
+  font-family: var(--montser-font);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  /* 142.857% */
   margin: 0px;
 }
 
 .user-email {
+  color: var(--Gray-600, #535862);
+
+  /* Text sm/Regular */
+  font-family: var(--montser-font);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 142.857% */
   margin: 0px;
 }
 

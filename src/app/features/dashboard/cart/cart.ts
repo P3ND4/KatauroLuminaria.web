@@ -10,7 +10,7 @@ import { User } from '../../../shared/models/User';
 import { DropdownAnimation, DropdownAnimationAH } from '../../../shared/animations/ComboBoxAnimation';
 import { CUBA_PROVINCES } from '../../../shared/models/citiesDic';
 import { CreateOrderDto } from '../../../shared/models/createOrderDTO';
-import { OrderState } from '../../../shared/models/Order';
+import { Order, OrderState } from '../../../shared/models/Order';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
 
@@ -84,12 +84,10 @@ export class Cart implements OnInit {
       address?.clearValidators()
       city?.clearValidators()
     }
-
-    province?.updateValueAndValidity({ onlySelf: true, emitEvent: false });
-    city?.updateValueAndValidity({ onlySelf: true, emitEvent: false });
-    address?.updateValueAndValidity({ onlySelf: true, emitEvent: false });
-
-    this.cdr.detectChanges()
+    province?.updateValueAndValidity({ emitEvent: false });
+    city?.updateValueAndValidity({ emitEvent: false });
+    address?.updateValueAndValidity({ emitEvent: false });
+    this.buyingForm.updateValueAndValidity();
   }
 
 
@@ -186,7 +184,7 @@ export class Cart implements OnInit {
         next: val => {
           console.log(val);
           this.loading = false;
-          this.openWhatsApp();
+          this.openWhatsApp((val as Order).id);
         },
         error: err => {
           console.log(err);
@@ -211,13 +209,15 @@ export class Cart implements OnInit {
   deliveryPrice(): number {
     return 0;
   }
-  openWhatsApp() {
+  openWhatsApp(id: string) {
     const phone = '5355801741';
-    const text = encodeURIComponent('Hola, quiero escribirte');
+    const text = encodeURIComponent('Hola, quiero escribirte para realizar el pago de la compra con id \n' + `  ${id}`);
     window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
   }
   noSelected() {
     return Object.keys(this.selected).length == 0;
   }
-
+  isValidForm(name: string) {
+    return this.buyingForm.get(name)?.valid || !this.buyingForm.get(name)?.touched;
+  }
 }

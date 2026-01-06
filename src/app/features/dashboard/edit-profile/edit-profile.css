@@ -6,13 +6,15 @@
     align-items: center;
     gap: 24px;
     align-self: stretch;
-    width: 592px;
+
     border-radius: 12px;
     background: var(--White, #FFF);
+
 
     /* Shadow/sm */
     box-shadow: 0 1px 3px 0 rgb(10, 13, 18), 0 1px 2px 0 rgb(10, 13, 18);
 }
+
 
 
 .form-pair {
@@ -227,8 +229,8 @@ footer a {
         flex-direction: column;
     }
 
-    .signup-form-container {
-        width: auto;
+    form{
+        width: initial;
     }
 
     header h2 {

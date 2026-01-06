@@ -13,17 +13,23 @@
                         <label class="form-label">
                             Nombre*
                         </label>
-                        <div class="input-content">
+                        <div class="input-content" [ngClass]="{'error': !isValidForm('name')}">
                             <input type="text" formControlName="name" placeholder="Introduce tu nombre">
                         </div>
+                        @if(!isValidForm('name')){
+                        <div class="error-msg">Campo requerido</div>
+                        }
                     </div>
                     <div class="input-container payment">
                         <label class="form-label">
                             Apellido
                         </label>
-                        <div class="input-content">
+                        <div class="input-content" [ngClass]="{'error': !isValidForm('lastName')}">
                             <input type="text" formControlName="lastName" placeholder="Introduce tu nombre">
                         </div>
+                        @if(!isValidForm('lastName')){
+                        <div class="error-msg">Campo requerido</div>
+                        }
                     </div>
                 </div>
 
@@ -32,27 +38,33 @@
                         <label class="form-label">
                             Correo electrónico
                         </label>
-                        <div class="input-content">
+                        <div class="input-content" [ngClass]="{'error': !isValidForm('email')}">
                             <input type="email" placeholder="olivia@gmail.com" formControlName="email">
                         </div>
+                        @if(!isValidForm('email')){
+                        <div class="error-msg">Email no válido</div>
+                        }
                     </div>
                     <div class="input-container payment">
                         <label class="form-label">
                             Teléfono
                         </label>
-                        <div class="input-content">
-                            <input type="number" placeholder="+53 000-0000" formControlName="phone">
+                        <div class="input-content" [ngClass]="{'error': !isValidForm('phone')}">
+                            <input type="number" placeholder="+53 0000-0000" formControlName="phone">
                         </div>
+                        @if(!isValidForm('phone')){
+                        <div class="error-msg">Numero no válido</div>
+                        }
                     </div>
                 </div>
-                <div class="checkbox-container" style="cursor: pointer;">
-                    <div class="checkbox-circle" (click)="toggleDelivery()">
-                        <input type="checkbox" [checked]="aditionalInfo" (change)="!aditionalInfo" id="adit-inf" />
+                <div class="checkbox-container" style="cursor: pointer;" (click)="toggleDelivery()">
+                    <div class="checkbox-circle">
+                        <input type="checkbox" [checked]="aditionalInfo" id=" adit-inf" />
                         <span></span>
                     </div>
                     <div>
                         <label for="adit-inf" style="cursor: pointer;">Envío a domicilio</label>
-                        <p (click)="aditionalInfo = !aditionalInfo">El envío solo está disponible para la provincia de
+                        <p>El envío solo está disponible para la provincia de
                             La Habana.</p>
                     </div>
                 </div>
@@ -64,8 +76,10 @@
                             <label for="prov" class="form-label">
                                 Provincia
                             </label>
-                            <div class="input-content" (click)="provinceOpen =! provinceOpen">
-                                <img [ngClass]="{'open': provinceOpen}" src="/assets/chevron-down.svg" alt="">
+                            <div class="input-content">
+                                <!--
+                                    <img [ngClass]="{'open': provinceOpen}" src="/assets/chevron-down.svg" alt="">
+                                    -->
                                 <span> {{buyingForm.get('province')?.value}}</span>
                             </div>
                             <div class="drop-down-menu" [@dropdownAnimation]="provinceOpen ? 'open': 'closed'">
@@ -78,7 +92,9 @@
                             <label for="prov" class="form-label">
                                 Municipio
                             </label>
-                            <div class="input-content" (click)="munIsOpen = !munIsOpen">
+                            <div class="input-content"
+                                (click)="munIsOpen = !munIsOpen; !munIsOpen? buyingForm.get('municipality')?.markAsTouched() : ''  "
+                                [ngClass]="{'error': !isValidForm('municipality')}">
                                 <img [ngClass]="{'open': munIsOpen}" src="/assets/chevron-down.svg" alt="">
                                 <span>{{this.buyingForm.get('municipality')?.value === ""? ' Introduce tu municipio':
                                     this.buyingForm.get('municipality')?.value }}</span>
@@ -88,14 +104,20 @@
                                 <div class="drop-down-item" (click)="selectMunicipality(muni)">{{muni}}</div>
                                 }
                             </div>
+                            @if(!isValidForm('municipality')){
+                            <div class="error-msg">Campo requerido</div>
+                            }
                         </div>
                     </div>
 
                     <div class="input-container" id="address">
                         <label for="address">Dirección</label>
-                        <div class="input-content">
+                        <div class="input-content" [ngClass]="{'error': !isValidForm('address')}">
                             <input formControlName="address" type="text" placeholder="Introduce tu dirección">
                         </div>
+                        @if(!isValidForm('address')){
+                        <div class="error-msg">Campo requerido</div>
+                        }
                     </div>
 
                     <div class="input-container" id="note">

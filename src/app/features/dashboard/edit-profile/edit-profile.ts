@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
@@ -6,14 +6,17 @@ import { User } from '../../../shared/models/User';
 import { CommonModule } from '@angular/common';
 import { CloudinaryService } from '../../../shared/services/cloudinary/cloudinary.service';
 import { HttpEventType } from '@angular/common/http';
+import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-profile',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, BoxLoader],
   templateUrl: './edit-profile.html',
   styleUrl: './edit-profile.css'
 })
 export class EditProfile {
+  loading = false;
   editProfileForm: FormGroup;
   currentUser: User | undefined;
   imagePreview: string | undefined;
@@ -23,10 +26,10 @@ export class EditProfile {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   constructor(private fb: FormBuilder, private http: HttpService, private loginS: AuthService, private cloudy: CloudinaryService, private cdr: ChangeDetectorRef) {
     this.editProfileForm = this.fb.group({
-      name: [''],
-      lastName: [''],
-      email: ['', [Validators.email]],
-      phone: [''],
+      name: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.email, Validators.required]],
+      phone: ['', [Validators.required, Validators.minLength(8)]],
       image: ['']
 
     });
@@ -37,14 +40,15 @@ export class EditProfile {
       }
     })
   }
-  ngOnInit() {
+
+  async ngOnInit(): Promise<void> {
     this.loginS.currentUser$.subscribe({
       next: user => {
         this.currentUser = user ?? undefined;
         this.editProfileForm.patchValue({
           name: user?.name ?? '',
           lastName: user?.lastName ?? '',
-          phone: user?.phone,
+          phone: user?.phone ?? '',
           email: user?.email ?? '',
           image: user?.image ?? ''
         });
@@ -109,7 +113,7 @@ export class EditProfile {
   }
   onSubmit() {
     if (this.editProfileForm.valid) {
-
+      this.loading = true
       const user: CreateUserDto = {
         name: this.editProfileForm.get('name')?.value,
         lastName: this.editProfileForm.get('name')?.value,
@@ -119,15 +123,16 @@ export class EditProfile {
         image: this.editProfileForm.get('image')?.value,
       }
 
-      this.http.updateUser(user, this.currentUser!.id).subscribe(
+      this.http.updateUser(user, true ? "24f4dac8-89b3-4f44-a507-c0f1c781f616" : this.currentUser!.id).subscribe(
         {
           next: (value) => {
             console.log(value);
+            this.loading = false;
             this.close.emit(true);
-
           },
-          error(err) {
-            console.log(err)
+          error: (err) => {
+            this.loading = false;
+            console.log(err);
           }
         }
       )
@@ -137,6 +142,7 @@ export class EditProfile {
     }
   }
   onClose() {
+
     this.close.emit(true);
   }
 }

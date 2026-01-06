@@ -1,6 +1,11 @@
 <div class="dashboard"
-  style="box-sizing: border-box; min-height: 100svh; padding-top: 80px; display: flex; flex-direction: column;">
+  style="box-sizing: border-box; min-height: 100svh; padding-top: 80px; display: flex; flex-direction: column; position: relative;">
 
+  @if(loading){
+  <div class="loader-wrapper" style="position: fixed;">
+    <app-box-loader [message]="loadingMsg"></app-box-loader>
+  </div>
+  }
 
   @if(editIsOpen){
   <div class="edit-wrapper" (click)="toggleEdit()">

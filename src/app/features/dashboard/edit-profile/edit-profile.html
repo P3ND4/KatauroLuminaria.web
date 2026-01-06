@@ -1,12 +1,17 @@
 <div class="main">
-
+    @if (loading) {
+    <div class="loader-wrapper">
+        <app-box-loader></app-box-loader>
+    </div>
+    }
     <header>
         <h2>Información personal</h2>
         <p>Actualiza tu foto y datos personales aquí.</p>
     </header>
 
     <div class="form-container">
-        <form [formGroup]="editProfileForm">
+        @if(editProfileForm){
+        <form [formGroup]="editProfileForm" (submit)="onSubmit()" (reset)="onClose()">
             <div class="form-pair">
                 <div class="input-container">
                     <label class="form-label">
@@ -85,18 +90,18 @@
             <div class="actions">
                 <div class="divider"></div>
 
-                <button class="button-base" (click)="onSubmit()">
+                <button class="button-base" type="submit" [disabled]="!editProfileForm.valid || loading">
                     <span>
                         Guradar
                     </span>
                 </button>
 
-                <button class="button-chips" (click)="onClose()">
+                <button class="button-chips" type="reset">
                     <span>Cancelar</span>
                 </button>
 
             </div>
-        </form>
+        </form>}
     </div>
 
 </div>

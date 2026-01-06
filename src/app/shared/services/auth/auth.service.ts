@@ -26,7 +26,8 @@ export class AuthService {
     return this.http.signIn({ email, password });
   }
 
-  logOutUser() {  
+  logOutUser() {
+
     this.http.logOut().subscribe(
       {
         next: (val) => {
