@@ -42,14 +42,13 @@ export class CartService {
     this.http.getUserById(id).subscribe(
       {
         next: val => this.currentProducts.set(((val as User).cart as { product: Variant }[]).map(x => x.product)),
-        error: err=> console.log(err)
+        error: err => console.log(err)
       }
     )
   }
 
-  deleteFromCart(id: string) {
-    //const index = this.currentProducts.findIndex((prod) => prod.id == id);
-    //this.currentProducts.splice(index);
+  deleteFromCart(id: string, userId: string) {
+    return this.http.updateUser({ deleteFromCArt: id }, userId)
   }
   deleteSelectedFromCart(prodsId: string[]) {
     //this.currentProducts = this.currentProducts.filter((prod) => !prodsId.find((id) => prod.id == id))

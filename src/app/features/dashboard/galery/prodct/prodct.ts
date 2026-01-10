@@ -4,6 +4,8 @@ import { Categories, Product } from '../../../../shared/models/Products';
 import { CommonModule } from '@angular/common';
 import { HttpService } from '../../../../shared/services/http/http.service';
 import { Subscription } from 'rxjs';
+import { parseError } from '../../../../shared/services/errors/errorParser';
+import { ErrorLogService } from '../../../../shared/services/errors/error.log.service';
 
 @Component({
   selector: 'app-prodct',
@@ -26,7 +28,8 @@ export class Prodct implements OnInit {
   @ViewChildren('itemElem') itemElems!: QueryList<ElementRef>;
   @ViewChildren('CatElement') catElements!: QueryList<ElementRef>;
 
-  constructor(private route: ActivatedRoute, private router: Router, private zone: NgZone, private http: HttpService, private cdr: ChangeDetectorRef) { }
+  constructor(private route: ActivatedRoute, private router: Router, private zone: NgZone,
+    private http: HttpService, private cdr: ChangeDetectorRef, private errorServ: ErrorLogService) { }
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('category');
@@ -67,7 +70,7 @@ export class Prodct implements OnInit {
       },
       error: (err) => {
         console.log(err);
-
+        this.errorServ.addError(parseError(err));
       }
     });
   }
@@ -92,7 +95,7 @@ export class Prodct implements OnInit {
     if (this.selectedIndex < 0) return;
     const elem = this.itemElems.toArray()[this.selectedIndex]
     var ref: any | undefined
-    if(elem) ref = elem.nativeElement;
+    if (elem) ref = elem.nativeElement;
     else return;
     this.indicatorX = ref?.offsetLeft;
     this.indicatorWidth = ref?.offsetWidth;

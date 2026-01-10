@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HttpService } from '../../../shared/services/http/http.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
+import { parseError } from '../../../shared/services/errors/errorParser';
+import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -15,7 +17,8 @@ export class ForgotPassword implements OnInit {
   forgotPasswordForm: FormGroup;
   email: string | undefined;
   loading = false;
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, private http: HttpService, private route: ActivatedRoute, private router: Router) {
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, private http: HttpService,
+    private route: ActivatedRoute, private router: Router, private errorServ: ErrorLogService) {
     this.forgotPasswordForm = this.fb.group({
       f1: ['', [Validators.required, Validators.maxLength(1)]],
       f2: ['', [Validators.required, Validators.maxLength(1)]],
@@ -88,6 +91,7 @@ export class ForgotPassword implements OnInit {
           error: err => {
             console.log(err);
             this.loading = false;
+            this.errorServ.addError(parseError(err));
           }
         }
       )

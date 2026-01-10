@@ -6,6 +6,8 @@ import { HttpService } from '../../../shared/services/http/http.service';
 import { Subscription } from 'rxjs';
 import { FadeAndSlideIn } from '../../../shared/animations/FadeAndSlideIn';
 import { SkeletonLoader } from '../../../shared/components/skeleton-loader/skeleton-loader';
+import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
+import { parseError } from '../../../shared/services/errors/errorParser';
 
 @Component({
   selector: 'app-galery',
@@ -26,7 +28,7 @@ export class Galery implements OnInit, AfterViewInit {
   correctCharged = false;
 
   @ViewChildren('CatElementGalery') catElements!: QueryList<ElementRef>;
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpService) {
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpService, private errorServ: ErrorLogService) {
 
   }
 
@@ -78,7 +80,7 @@ export class Galery implements OnInit, AfterViewInit {
       },
       error: (err) => {
         console.log(err);
-
+        this.errorServ.addError(parseError(err));
       }
     })
   }

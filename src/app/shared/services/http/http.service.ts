@@ -41,7 +41,7 @@ export class HttpService {
     return this.http.post(`${this.apiPath}/auth/login`, loginDto, { withCredentials: true })
   }
 
-  updateUser(createOrderDTO: CreateUserDto, id: string) {
+  updateUser(createOrderDTO: UpdateUserDto, id: string) {
     return this.http.patch(`${this.apiPath}/users/${id}`, createOrderDTO, { withCredentials: true });
   }
 

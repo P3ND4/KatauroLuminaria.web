@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
+import { parseError } from '../../../shared/services/errors/errorParser';
+import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
 
 @Component({
   selector: 'app-signin',
@@ -17,7 +19,7 @@ export class Signin {
   visibility = false;
   loading = false;
   loadMsg = "Iniciando sesión...";
-  constructor(private loginService: AuthService, private fb: FormBuilder, public router: Router, private http: HttpService) {
+  constructor(private loginService: AuthService, private fb: FormBuilder, public router: Router, private http: HttpService, private errorServ: ErrorLogService) {
     this.loginForm = this.fb.group(
       {
         email: ['', [Validators.email, Validators.required]],
@@ -49,6 +51,9 @@ export class Signin {
           error: err => {
             this.loading = false;
             console.log(err);
+            if (err.error.statusCode == 404) this.errorServ.addError({ name: 'Usuario inexistente', error: 'No existe ningún usuario con ese correo' })
+            else
+              this.errorServ.addError(parseError(err));
           }
         }
       )
@@ -70,6 +75,12 @@ export class Signin {
         error: err => {
           this.loading = false;
           console.log(err);
+          if (err.error.statusCode == 404) {
+            this.errorServ.addError({ name: 'Usuario inexistente', error: 'No existe ningún usuario con ese correo' })
+            this.loginForm.get('password')?.setErrors({ "message": "Credenciales inválidas (email)"})
+          }
+          else
+            this.errorServ.addError(parseError(err));
         }
       })
     }

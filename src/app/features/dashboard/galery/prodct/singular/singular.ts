@@ -8,6 +8,8 @@ import { CartService } from '../../../../../shared/services/cart/cart.service';
 import { AuthService } from '../../../../../shared/services/auth/auth.service';
 import { User } from '../../../../../shared/models/User';
 import { BoxLoader } from "../../../../../shared/components/box-loader/box-loader";
+import { ErrorLogService } from '../../../../../shared/services/errors/error.log.service';
+import { parseError } from '../../../../../shared/services/errors/errorParser';
 
 @Component({
   selector: 'app-singular',
@@ -27,7 +29,8 @@ export class Singular implements OnInit {
   user: User | undefined;
   charged = false;
   loading = false;
-  constructor(private route: ActivatedRoute, private http: HttpService, private cdr: ChangeDetectorRef, private userService: AuthService, readonly cartService: CartService, private router: Router) {
+  constructor(private route: ActivatedRoute, private http: HttpService, private cdr: ChangeDetectorRef, private userService: AuthService,
+    readonly cartService: CartService, private router: Router, private errorServ: ErrorLogService) {
 
   }
   ngOnInit(): void {
@@ -47,8 +50,8 @@ export class Singular implements OnInit {
           this.charged = true
         }),
         error: (err) => {
-          console.log(err)
-
+          console.log(err);
+          this.errorServ.addError(parseError(err));
         }
       })
     }
@@ -66,7 +69,10 @@ export class Singular implements OnInit {
         this.prodFinishes = this.finishes.filter(x => this.currentProduct!.finish.filter(y => y.finishId === x.id).length > 0) ?? [];
 
       },
-      error: err => console.log(err)
+      error: err => {
+        console.log(err);
+        this.errorServ.addError(parseError(err));
+      }
     })
   }
 
@@ -97,6 +103,7 @@ export class Singular implements OnInit {
           error: err => {
             console.log(err);
             this.loading = false;
+            this.errorServ.addError(parseError(err));
           }
         }
       )
@@ -130,6 +137,7 @@ export class Singular implements OnInit {
           error: err => {
             console.log(err);
             this.loading = false;
+            this.errorServ.addError(parseError(err));
           }
         }
       )

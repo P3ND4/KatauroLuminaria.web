@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
+import { parseError } from '../../../shared/services/errors/errorParser';
+import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
 
 
 @Component({
@@ -21,7 +23,8 @@ export class ChangePass {
   loading = false;
 
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private http: HttpService, private loginS: AuthService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router,
+    private http: HttpService, private loginS: AuthService, private errorServ: ErrorLogService) {
     this.email = route.snapshot.queryParamMap.get('email') ?? undefined;
     this.changePassForm = fb.group(
       {
@@ -55,6 +58,7 @@ export class ChangePass {
       error: err => {
         console.log(err);
         this.loading = false;
+        this.errorServ.addError(parseError(err));
       }
 
     })
@@ -71,7 +75,7 @@ export class ChangePass {
         error: err => {
           this.loading = false;
           console.log(err);
-
+          this.errorServ.addError(parseError(err));
         }
       })
     }

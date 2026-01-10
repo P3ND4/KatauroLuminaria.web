@@ -25,6 +25,17 @@
     margin: 0px;
 }
 
+.prod-act {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.trash {
+    display: flex;
+    justify-content: right;
+}
+
 .payment-details {
     display: flex;
     flex-direction: column;
@@ -262,6 +273,7 @@ textarea {
     display: flex;
     gap: 16px;
     align-items: center;
+    flex: 1;
 }
 
 .prod-count {
@@ -475,6 +487,7 @@ textarea {
     display: flex;
     gap: 16px;
     align-items: center;
+    flex: 1;
 }
 
 @media (max-width: 1300px) {

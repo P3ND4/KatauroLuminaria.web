@@ -9,6 +9,9 @@ import { EditProfile } from './edit-profile/edit-profile';
 import { routeAnimations } from '../../shared/animations/routerAnimation';
 import { BoxLoader } from "../../shared/components/box-loader/box-loader";
 import { filter } from 'rxjs';
+import { ErrorLogService } from '../../shared/services/errors/error.log.service';
+import { ErrorBox } from "../../shared/components/error-box/error-box";
+import { parseError } from '../../shared/services/errors/errorParser';
 @Component({
   selector: 'app-dashboard',
   imports: [RouterOutlet, CommonModule, EditProfile, RouterLinkWithHref, BoxLoader],// RouterLinkWithHref],
@@ -26,9 +29,11 @@ export class Dashboard implements OnInit {
   sections = ['home', 'team', 'galery', 'blog'];
   loadingMsg = '';
   loading = false;
+  globalErrors: { name: string, error: string }[] = []
   @ViewChild('outlet') outlet!: RouterOutlet;
-  constructor(router: Router, readonly authService: AuthService, readonly cartService: CartService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
+  constructor(router: Router, readonly authService: AuthService, readonly cartService: CartService, private route: ActivatedRoute, private cdr: ChangeDetectorRef, public readonly errorServ: ErrorLogService) {
     this.router = router;
+    this.errorServ.errors.subscribe((val) => this.globalErrors = val);
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
     });
@@ -39,7 +44,8 @@ export class Dashboard implements OnInit {
 
 
   ngOnInit() {
-    this.loadUser()
+
+    this.loadUser();
 
   }
 
@@ -55,6 +61,7 @@ export class Dashboard implements OnInit {
     } catch (error) {
       console.error('Error refreshing user:', error);
       this.loading = false;
+      this.errorServ.addError(parseError(error as any));
 
     }
   }

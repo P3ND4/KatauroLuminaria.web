@@ -13,6 +13,8 @@ import { CreateOrderDto } from '../../../shared/models/createOrderDTO';
 import { Order, OrderState } from '../../../shared/models/Order';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
+import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
+import { parseError } from '../../../shared/services/errors/errorParser';
 
 @Component({
   selector: 'app-cart',
@@ -35,7 +37,7 @@ export class Cart implements OnInit {
   provincesArray: string[] = [];
   loading = false;
   constructor(readonly cartService: CartService, private fb: FormBuilder, private http: HttpService,
-    private route: ActivatedRoute, private cdr: ChangeDetectorRef, private authService: AuthService) {
+    private route: ActivatedRoute, private cdr: ChangeDetectorRef, private authService: AuthService, private errorServ: ErrorLogService) {
     this.provincesArray = Object.keys(CUBA_PROVINCES) as string[];
     this.currentProvinceMun = this.provinces['La Habana']
     this.buyingForm = fb.group(
@@ -189,6 +191,7 @@ export class Cart implements OnInit {
         error: err => {
           console.log(err);
           this.loading = false;
+          this.errorServ.addError(parseError(err));
         }
       })
     }
@@ -219,5 +222,17 @@ export class Cart implements OnInit {
   }
   isValidForm(name: string) {
     return this.buyingForm.get(name)?.valid || !this.buyingForm.get(name)?.touched;
+  }
+  deleteFromCart(id: string) {
+    this.cartService.deleteFromCart(id, this.currentUser!.id).subscribe({
+      next: val => {
+        this.cartService.currentProducts().splice(this.cartService.currentProducts().findIndex(x => x.id == id));
+        this.loadCart();
+      },
+      error: err => {
+        console.log(err);
+        this.errorServ.addError(parseError(err));
+      }
+    })
   }
 }

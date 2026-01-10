@@ -6,6 +6,8 @@ import { HttpService } from '../../../shared/services/http/http.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { passwordMatchValidator } from '../../../shared/validators/passwordMissMatch.validator';
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
+import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
+import { parseError } from '../../../shared/services/errors/errorParser';
 
 @Component({
   selector: 'app-signup',
@@ -19,7 +21,7 @@ export class Signup implements AfterViewInit {
   loading = false;
 
 
-  constructor(private fb: FormBuilder, public router: Router, private http: HttpService, private loginS: AuthService) {
+  constructor(private fb: FormBuilder, public router: Router, private http: HttpService, private loginS: AuthService, private errorServ: ErrorLogService) {
     this.signUpForm = this.fb.group({
       name: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -57,6 +59,7 @@ export class Signup implements AfterViewInit {
           error: (err) => {
             console.log(err);
             this.loading = false;
+            this.errorServ.addError(parseError(err));
           }
         }
       )
@@ -76,6 +79,7 @@ export class Signup implements AfterViewInit {
       error: err => {
         this.loading = false;
         console.log(err);
+        this.errorServ.addError(parseError(err));
       }
 
     })

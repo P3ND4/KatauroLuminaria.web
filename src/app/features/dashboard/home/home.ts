@@ -10,6 +10,9 @@ import { AuthService } from '../../../shared/services/auth/auth.service';
 import { User } from '../../../shared/models/User';
 import { SkeletonLoader } from '../../../shared/components/skeleton-loader/skeleton-loader';
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
+import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { parseError } from '../../../shared/services/errors/errorParser';
 
 @Component({
   selector: 'app-home',
@@ -55,7 +58,7 @@ export class Home implements OnInit, AfterViewInit {
   loading = false;
   loadMsg = "Cargando..."
 
-  constructor(private httpService: HttpService, private cdr: ChangeDetectorRef, readonly router: Router, private cartService: CartService, private userService: AuthService) {
+  constructor(private httpService: HttpService, private cdr: ChangeDetectorRef, readonly router: Router, private cartService: CartService, private userService: AuthService, private errorServ: ErrorLogService) {
 
   }
   ngOnInit(): void {
@@ -71,9 +74,9 @@ export class Home implements OnInit, AfterViewInit {
         this.cdr.detectChanges();
         this.correctLoaded = true;
       },
-      error: (err) => {
-        console.log(err)
-
+      error: (err: HttpErrorResponse) => {
+        console.log(err);
+        this.errorServ.addError(parseError(err));
       }
     });
   }

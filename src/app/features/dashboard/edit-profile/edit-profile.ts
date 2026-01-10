@@ -8,6 +8,8 @@ import { CloudinaryService } from '../../../shared/services/cloudinary/cloudinar
 import { HttpEventType } from '@angular/common/http';
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
 import { Observable } from 'rxjs';
+import { parseError } from '../../../shared/services/errors/errorParser';
+import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -24,7 +26,8 @@ export class EditProfile {
   @Output() close = new EventEmitter<boolean>(false);
   isHovering = false
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-  constructor(private fb: FormBuilder, private http: HttpService, private loginS: AuthService, private cloudy: CloudinaryService, private cdr: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder, private http: HttpService, private loginS: AuthService,
+    private cloudy: CloudinaryService, private cdr: ChangeDetectorRef, private errorServ: ErrorLogService) {
     this.editProfileForm = this.fb.group({
       name: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -133,6 +136,7 @@ export class EditProfile {
           error: (err) => {
             this.loading = false;
             console.log(err);
+            this.errorServ.addError(parseError(err));
           }
         }
       )

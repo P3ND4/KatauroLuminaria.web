@@ -169,15 +169,23 @@
                                 <h4 class="desc">{{item.genericProd?.subtitle}}</h4>
                                 <p>{{(item.price)|currency}}</p>
                             </div>
-                            <div class="count">
-                                <button (click)="minus(item.id)">
-                                    <img [src]="isMobile()? '/assets/minus-mobile.svg' :'/assets/minus.svg'"
-                                        alt="minus">
-                                </button>
-                                <span class="prod-count">{{selected[item.id] || 0}}</span>
-                                <button (click)="plus(item.id)">
-                                    <img [src]="isMobile()? '/assets/plus-mobile.svg' :'/assets/plus.svg'" alt="plus">
-                                </button>
+
+                            <div class="prod-act">
+                                <div class="count">
+                                    <button (click)="minus(item.id)">
+                                        <img [src]="isMobile()? '/assets/minus-mobile.svg' :'/assets/minus.svg'"
+                                            alt="minus">
+                                    </button>
+                                    <span class="prod-count">{{selected[item.id] || 0}}</span>
+                                    <button (click)="plus(item.id)">
+                                        <img [src]="isMobile()? '/assets/plus-mobile.svg' :'/assets/plus.svg'"
+                                            alt="plus">
+                                    </button>
+                                </div>
+                                <div class="trash">
+                                    <img [src]="'assets/trash-2.svg'" alt="">
+                                </div>
+
                             </div>
                         </div>
                     </div>
