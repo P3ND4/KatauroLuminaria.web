@@ -61,7 +61,7 @@ export class Dashboard implements OnInit {
     } catch (error) {
       console.error('Error refreshing user:', error);
       this.loading = false;
-      this.errorServ.addError(parseError(error as any));
+      //this.errorServ.addError(parseError(error as any));
 
     }
   }

@@ -55,7 +55,7 @@ export class AuthService {
         error: (err) => {
           this._currentUser.next(null);
           console.log(err);
-          this.errorServ.addError(parseError(err));
+          //this.errorServ.addError(parseError(err));
 
         }
       }
