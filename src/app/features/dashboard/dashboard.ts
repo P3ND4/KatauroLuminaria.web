@@ -136,11 +136,11 @@ export class Dashboard implements OnInit {
   onAnimationDone(outlet: RouterOutlet) {
     this.prevIndex = outlet?.activatedRouteData?.['index'] ?? 0;
   }
-  toggleEdit() {
+  toggleEdit(update?: boolean) {
     this.editIsOpen = !this.editIsOpen;
     this.clientPanel = false
     if (this.editIsOpen) this.lockScroll()
-    else {
+    else if (update) {
       this.loadingMsg = 'Actualizando...';
       this.loading = true;
       this.unlockScroll();

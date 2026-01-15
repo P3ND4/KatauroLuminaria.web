@@ -43,24 +43,34 @@ export class EditProfile {
       }
     })
   }
-
+  openDropdown = false;
+  selectedRegionCode = 2;
   async ngOnInit(): Promise<void> {
     this.loginS.currentUser$.subscribe({
       next: user => {
+
+        const phone = user?.phone.split(" ") ?? ""
+        this.selectedRegionCode = user ? this.regionCodes.findIndex(x => x.code == phone[0]) : 2
+        this.selectedRegionCode = this.selectedRegionCode == -1 ? 2 : this.selectedRegionCode
+
         this.currentUser = user ?? undefined;
         this.editProfileForm.patchValue({
           name: user?.name ?? '',
           lastName: user?.lastName ?? '',
-          phone: user?.phone ?? '',
+          phone: phone.length > 0 ? phone[1] : "",
           email: user?.email ?? '',
           image: user?.image ?? ''
         });
         this.imagePreview = user?.image
+        this.cdr.detectChanges()
       }
     });
   }
   ngAfterViewInit() { }
-
+  onSelectRegionCode(index: number) {
+    this.selectedRegionCode = index;
+    this.openDropdown = false;
+  }
 
   upload(file: File) {
     this.progress = 0;
@@ -70,7 +80,7 @@ export class EditProfile {
         this.cdr.detectChanges();
       } else if (event.type === HttpEventType.Response) {
         console.log('✅ Subida completa:', event.body);
-        const optimizedUrl = (event.body as { secure_url: string }).secure_url.replace('/upload/', '/upload/q_auto,f_auto/');
+        const optimizedUrl = (event.body as { secure_url: string, public_id: string }).secure_url.replace('/upload/', '/upload/q_auto,f_auto/');
         this.progress = 100;
         this.imagePreview = optimizedUrl
         this.editProfileForm.get('image')?.setValue(optimizedUrl);
@@ -120,13 +130,13 @@ export class EditProfile {
       const user: CreateUserDto = {
         name: this.editProfileForm.get('name')?.value,
         lastName: this.editProfileForm.get('name')?.value,
-        phone: this.editProfileForm.value.phone,
+        phone: this.regionCodes[this.selectedRegionCode].code + " " + this.editProfileForm.value.phone,
         password: this.editProfileForm.get('password')?.value,
         email: this.editProfileForm.get('email')?.value,
         image: this.editProfileForm.get('image')?.value,
       }
 
-      this.http.updateUser(user, true ? "24f4dac8-89b3-4f44-a507-c0f1c781f616" : this.currentUser!.id).subscribe(
+      this.http.updateUser(user, this.currentUser!.id).subscribe(
         {
           next: (value) => {
             console.log(value);
@@ -147,6 +157,40 @@ export class EditProfile {
   }
   onClose() {
 
-    this.close.emit(true);
+    this.close.emit(false);
   }
+
+
+  regionCodes = [
+    { code: '+1', country: 'US' },   // Estados Unidos
+    { code: '+52', country: 'MX' },
+    { code: '+53', country: 'CU' },
+    { code: '+54', country: 'AR' },
+    { code: '+55', country: 'BR' },
+    { code: '+56', country: 'CL' },
+    { code: '+57', country: 'CO' },
+    { code: '+58', country: 'VE' },
+
+    { code: '+34', country: 'ES' },
+    { code: '+33', country: 'FR' },
+    { code: '+39', country: 'IT' },
+    { code: '+49', country: 'DE' },
+    { code: '+44', country: 'GB' },
+
+    { code: '+351', country: 'PT' },
+    { code: '+31', country: 'NL' },
+    { code: '+32', country: 'BE' },
+    { code: '+41', country: 'CH' },
+    { code: '+43', country: 'AT' },
+
+    { code: '+86', country: 'CN' },
+    { code: '+81', country: 'JP' },
+    { code: '+82', country: 'KR' },
+    { code: '+91', country: 'IN' },
+
+    { code: '+7', country: 'RU' },
+    { code: '+20', country: 'EG' },
+    { code: '+27', country: 'ZA' },
+    { code: '+61', country: 'AU' },
+  ];
 }

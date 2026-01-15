@@ -38,26 +38,7 @@ export class Signin {
   forgotPassword() {
     const emailForm = this.loginForm.get('email');
     if (emailForm?.valid) {
-      this.loadMsg = "Enviando código...";
-      this.loading = true;
-      this.http.sendCode(emailForm.value).subscribe(
-        {
-          next: val => {
-            console.log(val);
-            this.loading = false;
-            this.router.navigate(['/login/forgot-password'], { queryParams: { email: this.loginForm.get('email')?.value } });
-
-          },
-          error: err => {
-            this.loading = false;
-            console.log(err);
-            if (err.error.statusCode == 404) this.errorServ.addError({ name: 'Usuario inexistente', error: 'No existe ningún usuario con ese correo' })
-            else
-              this.errorServ.addError(parseError(err));
-          }
-        }
-      )
-
+      this.router.navigate(['/login/forgot-password'], { queryParams: { email: emailForm?.value } });
     }
   }
 
@@ -77,7 +58,7 @@ export class Signin {
           console.log(err);
           if (err.error.statusCode == 404) {
             this.errorServ.addError({ name: 'Usuario inexistente', error: 'No existe ningún usuario con ese correo' })
-            this.loginForm.get('password')?.setErrors({ "message": "Credenciales inválidas (email)"})
+            this.loginForm.get('password')?.setErrors({ "message": "Credenciales inválidas (email)" })
           }
           else
             this.errorServ.addError(parseError(err));

@@ -62,7 +62,23 @@
                         Teléfono
                     </label>
                     <div class="input-content">
-                        <input type="number" formControlName="phone" placeholder="+53 0000-0000">
+                        <div class="region-code">
+                            <div class="drop" (click)="openDropdown = !openDropdown">
+                                <span>{{regionCodes[selectedRegionCode].country}}</span>
+                                <img src="/assets/chevron-down.svg" />
+                                <div class="dropdown-region" [ngClass]="{'open': openDropdown}">
+                                    @for (code of regionCodes; track $index) {
+                                    <div class="dropdown-item"
+                                        (click)="$event.stopPropagation(); onSelectRegionCode($index);">
+                                        <span>{{code.country}}</span>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            <span class="code">{{regionCodes[selectedRegionCode].code}}</span>
+                        </div>
+
+                        <input type="number" formControlName="phone" placeholder="0000-0000">
                     </div>
                 </div>
             </div>

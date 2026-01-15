@@ -10,7 +10,7 @@
   @if(editIsOpen){
   <div class="edit-wrapper" (click)="toggleEdit()">
     <div class="edit-container" (click)="$event.stopPropagation()">
-      <app-edit-profile (close)="toggleEdit()" />
+      <app-edit-profile (close)="toggleEdit($event.valueOf())" />
     </div>
   </div>
   }

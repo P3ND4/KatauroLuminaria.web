@@ -57,13 +57,20 @@ export class Cart implements OnInit {
   ngOnInit(): void {
     //this.products.set(this.cartService.currentProducts);
     //this.loadCart();
+
+
+
     this.authService.currentUser$.subscribe(user => {
+
+      const phone = user?.phone.split(" ") ?? ""
+      this.selectedRegionCode = user ? this.regionCodes.findIndex(x => x.code == phone[0]) : 2
+      this.selectedRegionCode = this.selectedRegionCode == -1 ? 2 : this.selectedRegionCode
       this.currentUser = user ?? undefined;
       this.buyingForm.patchValue({
         name: user?.name ?? '',
         lastName: user?.lastName ?? '',
         email: user?.email ?? '',
-        phone: user?.phone ?? ''
+        phone: phone.length > 0 ? phone[1] : ''
       })
     })
     this.queryParamsSubscription = this.route.queryParamMap.subscribe(() => {
@@ -177,7 +184,7 @@ export class Cart implements OnInit {
         name: this.buyingForm.get('name')?.value,
         lastName: this.buyingForm.get('lastName')?.value,
         email: this.buyingForm.get('email')?.value,
-        phone: (this.buyingForm.get('phone')?.value as number).toString()
+        phone: this.regionCodes[this.selectedRegionCode].code + " " + (this.buyingForm.get('phone')?.value as number).toString()
       }
       console.log(order);
 
@@ -235,4 +242,44 @@ export class Cart implements OnInit {
       }
     })
   }
+  openDropdown = false;
+  selectedRegionCode = 2;
+  onSelectRegionCode(index: number) {
+    this.selectedRegionCode = index;
+    this.openDropdown = false;
+  }
+
+
+  regionCodes = [
+    { code: '+1', country: 'US' },   // Estados Unidos
+    { code: '+52', country: 'MX' },
+    { code: '+53', country: 'CU' },
+    { code: '+54', country: 'AR' },
+    { code: '+55', country: 'BR' },
+    { code: '+56', country: 'CL' },
+    { code: '+57', country: 'CO' },
+    { code: '+58', country: 'VE' },
+
+    { code: '+34', country: 'ES' },
+    { code: '+33', country: 'FR' },
+    { code: '+39', country: 'IT' },
+    { code: '+49', country: 'DE' },
+    { code: '+44', country: 'GB' },
+
+    { code: '+351', country: 'PT' },
+    { code: '+31', country: 'NL' },
+    { code: '+32', country: 'BE' },
+    { code: '+41', country: 'CH' },
+    { code: '+43', country: 'AT' },
+
+    { code: '+86', country: 'CN' },
+    { code: '+81', country: 'JP' },
+    { code: '+82', country: 'KR' },
+    { code: '+91', country: 'IN' },
+
+    { code: '+7', country: 'RU' },
+    { code: '+20', country: 'EG' },
+    { code: '+27', country: 'ZA' },
+    { code: '+61', country: 'AU' },
+  ];
 }

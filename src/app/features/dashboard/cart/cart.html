@@ -50,7 +50,25 @@
                             Teléfono
                         </label>
                         <div class="input-content" [ngClass]="{'error': !isValidForm('phone')}">
-                            <input type="number" placeholder="+53 0000-0000" formControlName="phone">
+
+
+                            <div class="region-code">
+                                <div class="drop" (click)="openDropdown = !openDropdown">
+                                    <span>{{regionCodes[selectedRegionCode].country}}</span>
+                                    <img src="/assets/chevron-down.svg" />
+                                    <div class="dropdown-region" [ngClass]="{'open': openDropdown}">
+                                        @for (code of regionCodes; track $index) {
+                                        <div class="dropdown-item"
+                                            (click)="$event.stopPropagation(); onSelectRegionCode($index);">
+                                            <span>{{code.country}}</span>
+                                        </div>
+                                        }
+                                    </div>
+                                </div>
+                                <span class="code">{{regionCodes[selectedRegionCode].code}}</span>
+                            </div>
+
+                            <input type="number" placeholder="0000-0000" formControlName="phone">
                         </div>
                         @if(!isValidForm('phone')){
                         <div class="error-msg">Numero no válido</div>
@@ -96,7 +114,8 @@
                                 (click)="munIsOpen = !munIsOpen; !munIsOpen? buyingForm.get('municipality')?.markAsTouched() : ''  "
                                 [ngClass]="{'error': !isValidForm('municipality')}">
                                 <img [ngClass]="{'open': munIsOpen}" src="/assets/chevron-down.svg" alt="">
-                                <span>{{this.buyingForm.get('municipality')?.value === ""? ' Introduce tu municipio':
+                                <span>{{this.buyingForm.get('municipality')?.value === ""? ' Introduce tu
+                                    municipio':
                                     this.buyingForm.get('municipality')?.value }}</span>
                             </div>
                             <div class="drop-down-menu" [@dropdownAnimation]="munIsOpen ? 'open': 'closed'">
@@ -135,9 +154,11 @@
                 <div class="submit-container">
                     <p>Para adquirir <mark>nuestros productos</mark>, solo debe completar el <mark>formulario de
                             solicitud</mark>. Una vez
-                        recibido el pedido, lo contactaremos a través de <mark>Whatsapp</mark> para ajustar os detalles
+                        recibido el pedido, lo contactaremos a través de <mark>Whatsapp</mark> para ajustar os
+                        detalles
                         del <mark> método de
-                            pago</mark> y le enviaremos un <mark>correo electrónico</mark> con la <mark>factura</mark>
+                            pago</mark> y le enviaremos un <mark>correo electrónico</mark> con la
+                        <mark>factura</mark>
                         correspondiente.
                         <br />
                         <br />
