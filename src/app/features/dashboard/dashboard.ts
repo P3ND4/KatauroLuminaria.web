@@ -146,6 +146,7 @@ export class Dashboard implements OnInit {
       this.unlockScroll();
       this.loadUser();
     };
+    this.unlockScroll();
 
   }
   lockScroll(): void {
