@@ -145,8 +145,7 @@ export class Dashboard implements OnInit {
       this.loading = true;
       this.unlockScroll();
       this.loadUser();
-    };
-    this.unlockScroll();
+    } else this.unlockScroll();
 
   }
   lockScroll(): void {
