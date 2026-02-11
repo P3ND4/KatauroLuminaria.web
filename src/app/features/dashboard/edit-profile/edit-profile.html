@@ -93,10 +93,11 @@
                     <div class="dnd-icon">
                         <img src="assets/upload-cloud.svg" alt="">
                     </div>
-                    <input type="file" #fileInput style="display: none;" (change)="onFileChange($event)" id="">
+                    <input type="file" #fileInput style="display: none;" accept=".JPG, .PNG,.SVG"
+                        (change)="onFileChange($event)" id="">
                     <div class="dnd-txt">
                         <p><span>Haga clic para cargar</span> o arrastrar y soltar</p>
-                        <p>SVG, PNG, JPG or GIF (max. 800x400px)</p>
+                        <p>SVG, PNG o JPG (max. 5MB)</p>
                     </div>
                     <div class="progress-bar" [style.width.%]="progress">
                     </div>

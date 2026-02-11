@@ -71,9 +71,18 @@ export class EditProfile {
     this.selectedRegionCode = index;
     this.openDropdown = false;
   }
-
+  allowedTypes = ['image/png', 'image/jpeg', 'image/svg+xml', 'image/svg'];
   upload(file: File) {
     this.progress = 0;
+    if (file.size > 5 * 1024 * 1024) {
+      this.errorServ.addError({ name: "Archivo demasiado grande", error: "El acrhivo seleccionado excede el maximo permitido de 5MB" });
+      return;
+    }
+    if (!this.allowedTypes.includes(file.type)) {
+      this.errorServ.addError({ name: 'Formato no permitidp', error: `El formato: ${file.type} no esta permitido, solo PNG, SVG o JPG` })
+      return;
+    }
+
     this.cloudy.uploadFile(file).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress && event.total) {
         this.progress = Math.round((event.loaded / event.total) * 100);

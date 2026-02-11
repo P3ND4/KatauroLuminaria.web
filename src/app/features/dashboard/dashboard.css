@@ -22,7 +22,7 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(10, 13, 18, 0.6);
-  z-index: 1000;
+  z-index: 100;
 }
 
 .user-info {
