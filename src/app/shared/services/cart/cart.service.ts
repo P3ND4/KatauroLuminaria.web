@@ -47,7 +47,7 @@ export class CartService {
     )
   }
 
-  deleteFromCart(id: string, userId: string) {
+  deleteFromCart(id: string[], userId: string) {
     return this.http.updateUser({ deleteFromCArt: id }, userId)
   }
   deleteSelectedFromCart(prodsId: string[]) {

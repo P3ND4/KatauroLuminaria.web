@@ -1,3 +1,5 @@
+import { Promotion } from "./promotions";
+
 export enum Categories {
     tableLumin = "Luminarias de mesa",
     wallLumin = "Luminarias de pared",
@@ -48,6 +50,11 @@ export class Variant {
     color!: Color
     genericId!: string;
     genericProd?: Product;
+    promotions!: {
+        productId: string
+        promotionId: string
+        promotion: Promotion
+    }[]
 }
 export class Image {
     id!: string;

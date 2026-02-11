@@ -231,12 +231,15 @@ export class Cart implements OnInit {
     return this.buyingForm.get(name)?.valid || !this.buyingForm.get(name)?.touched;
   }
   deleteFromCart(id: string) {
-    this.cartService.deleteFromCart(id, this.currentUser!.id).subscribe({
+    this.loading = true;
+    this.cartService.deleteFromCart([id], this.currentUser!.id).subscribe({
       next: val => {
+        this.loading = false;
         this.cartService.currentProducts().splice(this.cartService.currentProducts().findIndex(x => x.id == id));
-        this.loadCart();
+
       },
       error: err => {
+        this.loading = false;
         console.log(err);
         this.errorServ.addError(parseError(err));
       }

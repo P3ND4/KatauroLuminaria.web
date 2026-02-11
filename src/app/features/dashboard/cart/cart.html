@@ -114,8 +114,7 @@
                                 (click)="munIsOpen = !munIsOpen; !munIsOpen? buyingForm.get('municipality')?.markAsTouched() : ''  "
                                 [ngClass]="{'error': !isValidForm('municipality')}">
                                 <img [ngClass]="{'open': munIsOpen}" src="/assets/chevron-down.svg" alt="">
-                                <span>{{this.buyingForm.get('municipality')?.value === ""? ' Introduce tu
-                                    municipio':
+                                <span>{{this.buyingForm.get('municipality')?.value === ""? ' Introduce tu municipio':
                                     this.buyingForm.get('municipality')?.value }}</span>
                             </div>
                             <div class="drop-down-menu" [@dropdownAnimation]="munIsOpen ? 'open': 'closed'">
@@ -204,7 +203,7 @@
                                     </button>
                                 </div>
                                 <div class="trash">
-                                    <img [src]="'assets/trash-2.svg'" alt="">
+                                    <img [src]="'assets/trash-2.svg'" alt="" (click)="deleteFromCart(item.id)">
                                 </div>
 
                             </div>

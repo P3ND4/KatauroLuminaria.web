@@ -21,7 +21,7 @@ export class HttpService {
   ]
 
   constructor(private http: HttpClient) {
-    //this.apiPath = 'http://localhost:3000';
+    this.apiPath = 'http://localhost:3000';
 
   }
   getFinishes() {
@@ -42,6 +42,7 @@ export class HttpService {
   }
 
   updateUser(createOrderDTO: UpdateUserDto, id: string) {
+    console.log(createOrderDTO.deleteFromCArt);
     return this.http.patch(`${this.apiPath}/users/${id}`, createOrderDTO, { withCredentials: true });
   }
 

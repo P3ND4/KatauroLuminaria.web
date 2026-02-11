@@ -5,7 +5,7 @@ interface CreateUserDto {
     password: string;
     phone: string;
     image?: string;
-    deleteFromCArt?: string;
+    deleteFromCArt?: string[];
 }
 interface UpdateUserDto {
     email?: string;
@@ -14,5 +14,5 @@ interface UpdateUserDto {
     password?: string;
     phone?: string;
     image?: string;
-    deleteFromCArt?: string;
+    deleteFromCArt?: string[];
 }

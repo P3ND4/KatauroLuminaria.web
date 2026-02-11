@@ -24,7 +24,7 @@ export class Corousel implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if(this.data){
+    if (this.data) {
       this.images = this.data.images
     }
     this.carouselType = this.data?.carousel
@@ -39,7 +39,11 @@ export class Corousel implements OnInit, OnDestroy {
   goToSlide(index: number) {
     this.currentSlide = index;
     clearInterval(this.autoSlideInterval);
-    setTimeout(() => this.startAutoplay(), 10000); // espera 10s y sigue
+    this.autoSlideInterval = setTimeout(() => {
+      clearInterval(this.autoSlideInterval);
+      this.startAutoplay();
+    }, 6000
+    ); // espera 10s y sigue
   }
   nextSlide(): void {
     this.currentSlide = (this.currentSlide + 1) % this.images.length;
