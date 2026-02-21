@@ -57,7 +57,11 @@
 
 }
 
-.slide.visible {
+.visible {
+    opacity: 1;
+}
+
+.info-container.visible {
     opacity: 1;
 }
 
@@ -82,11 +86,13 @@
 
 .info-container {
     position: absolute;
+    opacity: 0;
     z-index: 3;
     width: 100%;
     height: 100%;
     padding: 116px 145px;
     box-sizing: border-box;
+    transition: opacity 1s ease-in-out;
 }
 
 .info-container.third {

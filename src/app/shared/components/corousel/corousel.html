@@ -5,13 +5,14 @@
     <div class="gradient"></div>
     }
     <div class="slides">
+        @for (ban of data.banners; track ban; let i = $index) {
         @if (carouselType != 3) {
         <div class="info-container"
-            [ngClass]="{'second': carouselType == 1, 'third': carouselType == 2 ,'fourth':carouselType=== 3 }">
+            [ngClass]="{'second': carouselType == 1, 'third': carouselType == 2 ,'fourth':carouselType=== 3, 'visible': currentSlide === i }">
             <div class="info-contet"
                 [ngClass]="{'second': carouselType == 1, 'third': carouselType == 2 ,'fourth': 3 }">
-                <h2 class="car-text">{{data?.title}}</h2>
-                <p class="card-info">{{data?.description}}</p>
+                <h2 class="car-text">{{ban.name}}</h2>
+                <p class="card-info">{{ban.description}}</p>
                 @if(carouselType !=2){
                 <button class="button-chips">
                     <label>Adquirir</label>
@@ -20,16 +21,19 @@
             </div>
         </div>
         }
-        <div class="slide" *ngFor="let img of images; let i = index" [ngClass]="{ 'visible': currentSlide === i }">
-            <img src="{{img}}" />
+        <div class="slide" [ngClass]="{ 'visible': currentSlide === i }">
+            <img [src]="ban.image" />
         </div>
+        }
     </div>
     @if(carouselType !=2){
 
     <div class="navegacion">
+        @for(ban of data.banners; track ban; let i = $index){
         <label [ngStyle]="{'background-color': currentSlide === i ? '#fff' : '#717680'}"
-            [ngClass]="{'fourth': carouselType === 3}" *ngFor="let img of images; let i = index" (click)="goToSlide(i)">
+            [ngClass]="{'fourth': carouselType === 3}" (click)="goToSlide(i)">
         </label>
+        }
     </div>
     }
 </div>

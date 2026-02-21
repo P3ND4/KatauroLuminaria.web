@@ -14,7 +14,7 @@
         <app-skeleton-loader class="sk" [type]="2" class="sk"></app-skeleton-loader>
     </div>
     }
-    @else {
+    @else if(carousel1 && correctLoaded()) {
     <app-corousel [data]="carousel1" />
     }
     <div class="home-container">
@@ -49,8 +49,8 @@
             </ul>
 
         </div>
-        @if (correctLoaded) {
-        <app-corousel [data]="carousel2"></app-corousel>
+        @if (correctLoaded()) {
+        <app-corousel [data]="carousel2!"></app-corousel>
         }@else {
         <div class="car2-cont">
             <app-skeleton-loader class="sk" [type]="3" class="sk"></app-skeleton-loader>
@@ -61,7 +61,7 @@
         <div class="offers-grid-container">
             <div class="offers-grid">
                 @for (i of [0,1,2,3,4,5,6]; track $index) {
-                @if (correctLoaded) {
+                @if (correctLoaded()) {
                 <div class="offer" (click)="navigateToProduct(mostRated[i].category.nombre, mostRated[i].id)">
                     <img src="{{mostRated[i].variants[0].image}}" />
                     <div class="offer-gradient"></div>
@@ -89,7 +89,7 @@
                 <p class="header-p">Aprecia nuestras lámparas de diseño propio más relevantes.</p>
             </header>
             <div class="featured-content">
-                @if(correctLoaded){
+                @if(correctLoaded()){
                 <div class="featured-product"
                     (click)="navigateToProduct(mostRated[0].category.nombre, mostRated[0].id)">
                     <img [src]="mostRated[0].variants[0].image" [alt]="mostRated[0].name">

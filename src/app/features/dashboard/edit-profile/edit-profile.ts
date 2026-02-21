@@ -33,7 +33,7 @@ export class EditProfile {
       lastName: ['', Validators.required],
       email: ['', [Validators.email, Validators.required]],
       phone: ['', [Validators.required, Validators.minLength(8)]],
-      image: ['']
+      image: [null]
 
     });
     loginS.currentUser$.subscribe({
@@ -59,7 +59,7 @@ export class EditProfile {
           lastName: user?.lastName ?? '',
           phone: phone.length > 0 ? phone[1] : "",
           email: user?.email ?? '',
-          image: user?.image ?? ''
+          image: { image: user?.image, public_id: user?.publicId }
         });
         this.imagePreview = user?.image
         this.cdr.detectChanges()
@@ -89,10 +89,11 @@ export class EditProfile {
         this.cdr.detectChanges();
       } else if (event.type === HttpEventType.Response) {
         console.log('✅ Subida completa:', event.body);
-        const optimizedUrl = (event.body as { secure_url: string, public_id: string }).secure_url.replace('/upload/', '/upload/q_auto,f_auto/');
+        let res = event.body as { secure_url: string, public_id: string }
+        const optimizedUrl = res.secure_url.replace('/upload/', '/upload/q_auto,f_auto/');
         this.progress = 100;
         this.imagePreview = optimizedUrl
-        this.editProfileForm.get('image')?.setValue(optimizedUrl);
+        this.editProfileForm.get('image')?.setValue({ image: optimizedUrl, publicId: res.public_id });
         setTimeout(() => {
           this.progress = 0;
           this.cdr.detectChanges();
@@ -138,11 +139,13 @@ export class EditProfile {
       this.loading = true
       const user: CreateUserDto = {
         name: this.editProfileForm.get('name')?.value,
-        lastName: this.editProfileForm.get('name')?.value,
+        lastName: this.editProfileForm.get('lastName')?.value,
         phone: this.regionCodes[this.selectedRegionCode].code + " " + this.editProfileForm.value.phone,
         password: this.editProfileForm.get('password')?.value,
         email: this.editProfileForm.get('email')?.value,
-        image: this.editProfileForm.get('image')?.value,
+        image: this.editProfileForm.get('image')?.value?.image,
+        publicId: this.editProfileForm.get('image')?.value?.publicId,
+
       }
 
       this.http.updateUser(user, this.currentUser!.id).subscribe(

@@ -28,11 +28,11 @@ export class Banner {
     name!: string
     description!: string
     prodId!: string
-    product!: Variant
+    product?: Variant
     image!: string
     publicId?: string
     carouselId!: number
-    carousel!: Carousel
+    carousel?: Carousel
 
 }
 

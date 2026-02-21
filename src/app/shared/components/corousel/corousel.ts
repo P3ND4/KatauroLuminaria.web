@@ -9,14 +9,10 @@ import { carouselDTO } from '../../models/carouselDTO';
   styleUrl: './corousel.css'
 })
 export class Corousel implements OnInit, OnDestroy {
-  @Input() data?: carouselDTO
+  @Input({ required: true }) data!: carouselDTO
   carouselType?: number
   currentSlide: number = 0;
-  images: string[] = [
-    '/assets/back_image.webp',
-    '/assets/Carousel_image2.png',
-    '/assets/Carousel_image.png'
-  ];
+
   autoSlideInterval: any;
 
   ngOnDestroy(): void {
@@ -24,9 +20,6 @@ export class Corousel implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.data) {
-      this.images = this.data.images
-    }
     this.carouselType = this.data?.carousel
     this.startAutoplay();
   }
@@ -46,7 +39,7 @@ export class Corousel implements OnInit, OnDestroy {
     ); // espera 10s y sigue
   }
   nextSlide(): void {
-    this.currentSlide = (this.currentSlide + 1) % this.images.length;
+    this.currentSlide = (this.currentSlide + 1) % this.data.banners.length;
   }
 
 

@@ -90,4 +90,8 @@ export class HttpService {
     return this.http.patch(`${this.apiPath}/auth/changePassword`, { email, newPassword: pass }, { withCredentials: true });
   }
 
+  getCarousels() {
+    return this.http.get(`${this.apiPath}/promotion/carousel`);
+  }
+
 }

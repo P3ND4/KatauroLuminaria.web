@@ -15,10 +15,11 @@ import { HttpService } from '../../../shared/services/http/http.service';
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
 import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
 import { parseError } from '../../../shared/services/errors/errorParser';
+import { MessageBox } from "../../../shared/components/message-box/message-box";
 
 @Component({
   selector: 'app-cart',
-  imports: [CurrencyPipe, ReactiveFormsModule, CommonModule, BoxLoader],
+  imports: [CurrencyPipe, ReactiveFormsModule, CommonModule, BoxLoader, MessageBox],
   animations: [DropdownAnimation, DropdownAnimationAH],
   templateUrl: './cart.html',
   styleUrl: './cart.css'
@@ -36,6 +37,8 @@ export class Cart implements OnInit {
   provinces = CUBA_PROVINCES;
   provincesArray: string[] = [];
   loading = false;
+  toDelete: string | undefined;
+
   constructor(readonly cartService: CartService, private fb: FormBuilder, private http: HttpService,
     private route: ActivatedRoute, private cdr: ChangeDetectorRef, private authService: AuthService, private errorServ: ErrorLogService) {
     this.provincesArray = Object.keys(CUBA_PROVINCES) as string[];
@@ -54,6 +57,7 @@ export class Cart implements OnInit {
     )
 
   }
+
   ngOnInit(): void {
     //this.products.set(this.cartService.currentProducts);
     //this.loadCart();
@@ -245,6 +249,23 @@ export class Cart implements OnInit {
       }
     })
   }
+  warn: { msg: string, warn: string } | undefined;
+  chose(id: string) {
+    this.toDelete = id;
+    this.warn = { msg: 'Eliminar producto de la cesta', warn: '¿Estás seguro que deseas realizar esta acción? Esta acción no tiene vuelta atrás.' };
+  }
+
+  onChosen(opt: boolean) {
+    if (opt && this.toDelete) {
+      this.deleteFromCart(this.toDelete);
+      this.toDelete = undefined;
+    }
+    else {
+      this.toDelete = undefined;
+    }
+  }
+
+
   openDropdown = false;
   selectedRegionCode = 2;
   onSelectRegionCode(index: number) {

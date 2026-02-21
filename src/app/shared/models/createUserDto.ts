@@ -5,6 +5,7 @@ interface CreateUserDto {
     password: string;
     phone: string;
     image?: string;
+    publicId?: string;
     deleteFromCArt?: string[];
 }
 interface UpdateUserDto {

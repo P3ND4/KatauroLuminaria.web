@@ -46,6 +46,7 @@ export class Galery implements OnInit, AfterViewInit {
 
 
   readQuery() {
+    this.correctCharged = false;
     this.route.queryParamMap.subscribe(params => {
       const page = params.get('page');
       this.currentPage = page ? + page : 1;

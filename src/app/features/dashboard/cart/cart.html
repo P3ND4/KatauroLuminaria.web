@@ -4,6 +4,11 @@
         <app-box-loader></app-box-loader>
     </div>
     }
+    @if(toDelete){
+    <div class="loader-wrapper">
+        <app-message-box [data]="warn" (acept)="onChosen($event.valueOf())"></app-message-box>
+    </div>
+    }
     <div class="cart-content">
         <div class="payment-details">
             <h2>Detalles de facturación</h2>
@@ -203,7 +208,7 @@
                                     </button>
                                 </div>
                                 <div class="trash">
-                                    <img [src]="'assets/trash-2.svg'" alt="" (click)="deleteFromCart(item.id)">
+                                    <img [src]="'assets/trash-2.svg'" alt="" (click)="chose(item.id)">
                                 </div>
 
                             </div>

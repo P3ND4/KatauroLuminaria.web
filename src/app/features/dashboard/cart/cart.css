@@ -557,6 +557,12 @@ textarea {
         /* 155.556% */
     }
 
+    .prod-act {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+    }
+
     .prod-txt h3 {
         font-size: 14px;
         font-style: normal;
