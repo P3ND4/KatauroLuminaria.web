@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { CloudinaryService } from '../../../shared/services/cloudinary/cloudinary.service';
 import { HttpEventType } from '@angular/common/http';
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
-import { Observable } from 'rxjs';
 import { parseError } from '../../../shared/services/errors/errorParser';
 import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
 

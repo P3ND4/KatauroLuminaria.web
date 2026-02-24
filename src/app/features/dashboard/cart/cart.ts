@@ -16,6 +16,7 @@ import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
 import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
 import { parseError } from '../../../shared/services/errors/errorParser';
 import { MessageBox } from "../../../shared/components/message-box/message-box";
+import { Promotion } from '../../../shared/models/promotions';
 
 @Component({
   selector: 'app-cart',
@@ -214,12 +215,32 @@ export class Cart implements OnInit {
     let total = 0;
     for (const key in this.selected) {
       const variant = this.cartService.currentProducts().find(x => x.id === key);
+      console.log(variant?.promotions)
+      let varDiscount = variant?.promotions.filter(x => this.filterPromoByDate(x.promotion)).map(x => x.promotion.discount * 0.01).reduce((a, b) => a + b, 0) ?? 0;
+
+      if (variant) {
+        total += (variant.price - (variant.price * varDiscount)) * this.selected[key];
+      }
+    }
+    return total;
+  }
+
+  private filterPromoByDate(promotion: Promotion) {
+    let now = new Date()
+    return new Date(promotion.startDate) < now && new Date(promotion.endDate) > now;
+  }
+
+  OriginalSubTotalPrice(): number {
+    let total = 0;
+    for (const key in this.selected) {
+      const variant = this.cartService.currentProducts().find(x => x.id === key);
       if (variant) {
         total += variant.price * this.selected[key];
       }
     }
     return total;
   }
+
   deliveryPrice(): number {
     return 0;
   }
