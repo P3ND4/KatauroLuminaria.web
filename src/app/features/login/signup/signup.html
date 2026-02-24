@@ -1,4 +1,9 @@
 <div class="signup-form-container">
+    @if(loading){
+    <div class="loader-wrapper">
+        <app-box-loader [message]="'Registrando...'"></app-box-loader>
+    </div>
+    }
     <header>
         <h2>Regístrate</h2>
         <p>Déjanos tus datos y mantente al tanto de nuestras ofertas y lanzamientos.</p>
@@ -56,7 +61,24 @@
                         Teléfono
                     </label>
                     <div class="input-content">
-                        <input type="number" formControlName="phone" placeholder="+53 000-0000">
+
+                        <div class="region-code">
+                            <div class="drop" (click)="openDropdown = !openDropdown">
+                                <span>{{regionCodes[selectedRegionCode].country}}</span>
+                                <img src="/assets/chevron-down.svg" />
+                                <div class="dropdown-region" [ngClass]="{'open': openDropdown}">
+                                    @for (code of regionCodes; track $index) {
+                                    <div class="dropdown-item"
+                                        (click)="$event.stopPropagation(); onSelectRegionCode($index);">
+                                        <span>{{code.country}}</span>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            <span class="code">{{regionCodes[selectedRegionCode].code}}</span>
+                        </div>
+
+                        <input type="number" formControlName="phone" placeholder="0000-0000">
                     </div>
                 </div>
             </div>
@@ -85,7 +107,7 @@
                     <label class="form-label">
                         <br />
                     </label>
-                    <div class="input-content">
+                    <div class="input-content" [ngClass]="{'error': !isValidForm('password') || passMisMatch() }">
                         <input type="password" formControlName="confirmPassword" placeholder="Confirma la contraseña"
                             id="passConfirm">
                         <img class="eye" [src]="visibility[1]? '/assets/eye-off.svg': '/assets/eye.svg'"
@@ -100,7 +122,7 @@
             </div>
 
             <div class="actions">
-                <button class="button-base" style="width: 100%;" (click)="onSubmit()">
+                <button class="button-base" style="width: 100%;" [disabled]="!signUpForm.valid" (click)="onSubmit()">
                     <label>
                         Crear cuenta
                     </label>

@@ -1,4 +1,10 @@
 <div class="login-form">
+    @if (loading) {
+    <div class="loader-wrapper">
+        <app-box-loader [message]="loadMsg"></app-box-loader>
+    </div>
+    }
+
     <header>
         <h2>Iniciar sesión</h2>
         <p>¡Bienvenido de nuevo! Introduce tus datos.</p>
@@ -35,7 +41,7 @@
             }
         </div>
 
-        <div class="forgot-pass">
+        <div class="forgot-pass" (click)="forgotPassword()">
             <label>¿Has olvidado tu contraseña?</label>
         </div>
 

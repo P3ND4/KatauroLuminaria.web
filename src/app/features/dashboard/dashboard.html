@@ -1,9 +1,16 @@
 <div class="dashboard"
-  style="box-sizing: border-box; min-height: 100svh; padding-top: 80px; display: flex; flex-direction: column;">
+  style="box-sizing: border-box; min-height: 100svh; padding-top: 80px; display: flex; flex-direction: column; position: relative;">
+
+  @if(loading){
+  <div class="loader-wrapper" style="position: fixed;">
+    <app-box-loader [message]="loadingMsg"></app-box-loader>
+  </div>
+  }
+
   @if(editIsOpen){
-  <div class="edit-wrapper" (click)="editIsOpen=false">
+  <div class="edit-wrapper" (click)="toggleEdit()">
     <div class="edit-container" (click)="$event.stopPropagation()">
-      <app-edit-profile (close)="editIsOpen =false" />
+      <app-edit-profile (close)="toggleEdit($event.valueOf())" />
     </div>
   </div>
   }
@@ -11,17 +18,13 @@
 
     <div class="navigation-bar">
       <div class="nav-links">
-        <img class="Katauro-logo" src="/assets/Katauro.svg" (click)="navigate('/dashboard/home')" />
+        <img class="Katauro-logo" src="/assets/Katauro.svg" [routerLink]="'/dashboard/home'" />
 
-        <a [ngClass]="{'active': isActive('/dashboard/home')}" [routerLink]="'/dashboard/home'"
-          (click)="navigate('/dashboard/home')">Inicio</a>
-        <a [ngClass]="{'active': isActive('/dashboard/team')}" [routerLink]="'/dashboard/team'"
-          (click)="navigate('/dashboard/team')">Nuestro
+        <a [ngClass]="{'active': isActive('/dashboard/home')}" [routerLink]="'/dashboard/home'">Inicio</a>
+        <a [ngClass]="{'active': isActive('/dashboard/team')}" [routerLink]="'/dashboard/team'">Nuestro
           equipo</a>
-        <a [ngClass]="{'active': isActive('/dashboard/galery')}" [routerLink]="'/dashboard/galery'"
-          (click)="navigate('/dashboard/galery')">Luminarias</a>
-        <a [ngClass]="{'active': isActive('/dashboard/blog')}" [routerLink]="'/dashboard/blog'"
-          (click)="navigate('/dashboard/blog')">Blog</a>
+        <a [ngClass]="{'active': isActive('/dashboard/galery')}" [routerLink]="'/dashboard/galery'">Luminarias</a>
+        <a [ngClass]="{'active': isActive('/dashboard/blog')}" [routerLink]="'/dashboard/blog'">Blog</a>
       </div>
       @if(!isLogged()){
 
@@ -51,7 +54,7 @@
               <p class="user-email">{{currentUser?.email}}</p>
             </div>
           </div>
-          <div class="user-panel-data" (click)="editIsOpen = true">
+          <div class="user-panel-data" (click)="toggleEdit()">
             <div class="divider"></div>
             <label>
               Editar Perfil
@@ -90,14 +93,14 @@
       @if (isLogged()) {
 
       <div class="user-info mobile">
-        <button class="user-button">
+        <button class="user-button" (click)="toggleEdit()">
           <img [src]="currentUser?.image" alt="">
         </button>
         <div class="user-data">
           <p class="user-name">{{currentUser?.name}}</p>
           <p class="user-email">{{currentUser?.email}}</p>
         </div>
-        <img src="/assets/log-out.svg" (click)="logout()" />
+        <img src="/assets/log-out.svg" style="cursor: pointer;" (click)="logout()" />
         <a class="button-chips" style="padding-inline: 10px;" [routerLink]="'/dashboard/cart'">
           <img src="/assets/shopping-bag.svg" />
           @if(cartService.currentProducts().length > 0){
@@ -110,14 +113,11 @@
     }
   </div>
 
-
-  <div class="router-content" style="
-  display: flex; 
-  flex: 1; 
-  flex-direction: column; 
-  min-height: 0;">
-    <router-outlet />
+  <div class="page-wrapper" [@routeAnimations]="prepareRoute(outlet)" (@routeAnimations.done)="onAnimationDone(outlet)"
+    (@routeAnimations.start)="onAnimationStart(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
   </div>
+
 
   <div class="footer">
     <div class="footer-content">

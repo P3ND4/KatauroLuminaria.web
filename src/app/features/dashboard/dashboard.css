@@ -21,7 +21,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10000;
+  background-color: rgba(10, 13, 18, 0.6);
+  z-index: 100;
 }
 
 .user-info {
@@ -49,12 +50,32 @@
 }
 
 .user-name {
+  color: var(--Gray-700, #414651);
+
+  /* Text sm/Semibold */
+  font-family: var(--montser-font);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  /* 142.857% */
   margin: 0px;
 }
 
 .user-email {
+  color: var(--Gray-600, #535862);
+
+  /* Text sm/Regular */
+  font-family: var(--montser-font);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 142.857% */
   margin: 0px;
 }
+
+
 
 .user-data {
   display: flex;
@@ -372,11 +393,30 @@
   overflow: hidden;
 }
 
+.user-button :hover {
+  cursor: pointer;
+}
+
 .user-button img,
 .user-image {
   object-fit: cover;
   width: 100%;
   height: 100%;
+}
+
+
+.page-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+  /* 👈 IMPORTANTE */
+  min-height: calc(100svh - 80px);
+  /* navbar */
+}
+
+
+.user-panel-data :hover {
+  cursor: pointer;
 }
 
 .user-panel-data label {

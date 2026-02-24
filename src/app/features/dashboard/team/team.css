@@ -306,6 +306,9 @@ h4 {
     .metric-info {
         flex-direction: column;
     }
+    .metric-content{
+        width: 100%;
+    }
 
     .metric-content header p {
         font-size: 14px;

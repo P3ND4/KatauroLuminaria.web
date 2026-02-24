@@ -9,54 +9,59 @@ import { CartService } from '../../../shared/services/cart/cart.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { User } from '../../../shared/models/User';
 import { SkeletonLoader } from '../../../shared/components/skeleton-loader/skeleton-loader';
+import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
+import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { parseError } from '../../../shared/services/errors/errorParser';
+import { Carousel } from '../../../shared/models/promotions';
 
 @Component({
   selector: 'app-home',
-  imports: [Corousel, CommonModule, SkeletonLoader],
+  imports: [Corousel, CommonModule, SkeletonLoader, BoxLoader],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
 export class Home implements OnInit, AfterViewInit {
   catEnum = Categories;
-  correctLoaded = false;
+  correctLoaded = () => this.prodLoaded && this.carLoaded;
   user: User | undefined
+  prodLoaded = false
+  carLoaded = false
 
-  carousel1: carouselDTO = {
-    carousel: 0,
-    title: "Título atractivo en 2 líneas de texto",
-    description: "Descripción corta del evento o producto que se este promocionando.",
-    images: [
-      '/assets/back_image.webp',
-      '/assets/back_image2.png',
-      '/assets/back_image3.png']
-  }
-  carousel2: carouselDTO = {
-    carousel: 1,
-    title: "Título atractivo en 2 líneas de texto",
-    description: "Descripción corta del evento o producto que se este promocionando.",
-    images: [
+
+  carousel1: carouselDTO | undefined;
+  carousel2: carouselDTO | undefined;
+
+  carousel3: carouselDTO = this.create3rdPan()
+
+  create3rdPan() {
+    const images = [
       '/assets/back_image4.png',
       '/assets/back_image5.png',
       '/assets/back_image.webp']
-  }
+    const carousel: carouselDTO = {
+      carousel: 2,
+      banners: images.map(x => ({
+        id: 0,
+        name: "Katauro Luminarias",
+        description: "Un equipo multidisciplinario de trabajo creado desde el 2013, especializado en el diseño y producción de luminarias en Cuba. Vemos la luz en un diseño conceptual e innovador. Concebimos soluciones tecnológicas que permiten la producción en serie, el montaje en el espacio y el acompañamiento técnico de lámparas.",
+        image: x,
+        prodId: '',
+        carouselId: 0
+      }))
+    }
+    return carousel;
 
-  carousel3: carouselDTO = {
-    carousel: 2,
-    title: "Katauro Luminarias",
-    description: "Un equipo multidisciplinario de trabajo creado desde el 2013, especializado en el diseño y producción de luminarias en Cuba. Vemos la luz en un diseño conceptual e innovador. Concebimos soluciones tecnológicas que permiten la producción en serie, el montaje en el espacio y el acompañamiento técnico de lámparas.",
-    images: [
-      '/assets/back_image4.png',
-      '/assets/back_image5.png',
-      '/assets/back_image.webp']
   }
   mostRated: Product[] = [
   ]
   loading = false;
-  constructor(private httpService: HttpService, private cdr: ChangeDetectorRef, readonly router: Router, private cartService: CartService, private userService: AuthService) {
+  loadMsg = "Cargando..."
+
+  constructor(private httpService: HttpService, private cdr: ChangeDetectorRef, readonly router: Router, private cartService: CartService, private userService: AuthService, private errorServ: ErrorLogService) {
 
   }
   ngOnInit(): void {
-    this.loading = true
     this.userService.currentUser$.subscribe({
       next: val => this.user = val as User,
       error: err => console.log(err)
@@ -65,16 +70,38 @@ export class Home implements OnInit, AfterViewInit {
       next: (data: any) => {
         this.mostRated = data;
         this.mostRated = this.mostRated.filter((prod: Product) => prod.variants.length != 0);
-        this.loading = false
+
         this.cdr.detectChanges();
-        this.correctLoaded = true;
+        this.prodLoaded = true;
       },
-      error: (err) => {
-        console.log(err)
-        this.loading = false
+      error: (err: HttpErrorResponse) => {
+        console.log(err);
+        this.errorServ.addError(parseError(err));
       }
     });
+    this.loadData();
   }
+
+  loadData() {
+    this.httpService.getCarousels().subscribe({
+      next: val => {
+        const cars = val as Carousel[]
+        this.carousel1 = {
+          carousel: 0,
+          banners: cars[0].banners
+        }
+        this.carousel2 = {
+          carousel: 1,
+          banners: cars[1].banners
+        }
+        this.carLoaded = true;
+      },
+      error: err => {
+        this.errorServ.addError(parseError(err))
+      }
+    })
+  }
+
 
   ngAfterViewInit() {
     window.scrollTo(0, 0); // Scroll instantáneo al top
@@ -103,6 +130,8 @@ export class Home implements OnInit, AfterViewInit {
       });
     }
     else if (this.userService.isLogged()) {
+      this.loading = true;
+      this.cdr.detectChanges();
       this.cartService.addToCart(this.user!.id, variant.id).subscribe(
         {
           next: val => {
@@ -116,7 +145,10 @@ export class Home implements OnInit, AfterViewInit {
               }
             })
           },
-          error: err => console.log(err)
+          error: err => {
+            console.log(err);
+            this.loading = false;
+          }
         }
       )
     }

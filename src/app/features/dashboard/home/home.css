@@ -404,7 +404,7 @@ h2 {
 
 .featured-product img {
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     width: 105%;
     height: 105%;
     object-fit: cover;

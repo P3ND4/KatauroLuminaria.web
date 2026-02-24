@@ -73,6 +73,10 @@
 
 .forgot-pass {
     margin-block: 24px;
+
+}
+.forgot-pass :hover{
+    cursor: pointer;
 }
 
 .forgot-pass label {

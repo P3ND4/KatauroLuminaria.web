@@ -29,7 +29,7 @@ export class HttpService {
   }
 
   addToCart(userId: string, variantId: string): Observable<User> {
-    return this.http.patch<User>(`${this.apiPath}/users/${userId}`, { updateCart: [variantId] });
+    return this.http.patch<User>(`${this.apiPath}/users/${userId}`, { updateCart: [variantId] }, { withCredentials: true });
   }
 
   signUp(createUserDto: CreateUserDto) {
@@ -41,8 +41,9 @@ export class HttpService {
     return this.http.post(`${this.apiPath}/auth/login`, loginDto, { withCredentials: true })
   }
 
-  updateUser(createOrderDTO: CreateUserDto, id: string) {
-    return this.http.patch(`${this.apiPath}/users/${id}`, createOrderDTO);
+  updateUser(createOrderDTO: UpdateUserDto, id: string) {
+    console.log(createOrderDTO.deleteFromCArt);
+    return this.http.patch(`${this.apiPath}/users/${id}`, createOrderDTO, { withCredentials: true });
   }
 
   getProducts(options?: { page?: number, category?: Categories }) {
@@ -76,4 +77,21 @@ export class HttpService {
   createOrder(body: CreateOrderDto) {
     return this.http.post(`${this.apiPath}/order`, body, { withCredentials: true })
   }
+
+  sendCode(email: string) {
+    return this.http.patch(`${this.apiPath}/auth/sendCode`, { email: email }, { withCredentials: true });
+  }
+
+  verifyCode(email: string, code: string) {
+    return this.http.patch(`${this.apiPath}/auth/verifyCode`, { email: email, code: code }, { withCredentials: true });
+  }
+
+  changePassword(email: string, pass: string) {
+    return this.http.patch(`${this.apiPath}/auth/changePassword`, { email, newPassword: pass }, { withCredentials: true });
+  }
+
+  getCarousels() {
+    return this.http.get(`${this.apiPath}/promotion/carousel`);
+  }
+
 }

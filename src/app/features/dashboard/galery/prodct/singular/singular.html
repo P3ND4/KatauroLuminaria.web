@@ -1,4 +1,9 @@
 <div class="detail-container">
+    @if(loading){
+    <div class="loader-wrapper">
+        <app-box-loader></app-box-loader>
+    </div>
+    }
     <div class="img-container">
         <div class="main-image">
             @if (charged) {
@@ -105,7 +110,7 @@
                     }}</p>
                 }
                 @else {
-                    <div class="sk-bar line price"></div>
+                <div class="sk-bar line price"></div>
                 }
                 <span>Cada Luminaria</span>
 

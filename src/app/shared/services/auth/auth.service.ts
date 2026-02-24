@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { User } from '../../models/User';
 import { HttpService } from '../http/http.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ErrorLogService } from '../errors/error.log.service';
+import { parseError } from '../errors/errorParser';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ export class AuthService {
 
 
 
-  constructor(private http: HttpService) {
+  constructor(private http: HttpService, private errorServ: ErrorLogService) {
   }
 
   logInUser(user: User) {
@@ -26,7 +28,8 @@ export class AuthService {
     return this.http.signIn({ email, password });
   }
 
-  logOutUser() {  
+  logOutUser() {
+
     this.http.logOut().subscribe(
       {
         next: (val) => {
@@ -52,6 +55,8 @@ export class AuthService {
         error: (err) => {
           this._currentUser.next(null);
           console.log(err);
+          //this.errorServ.addError(parseError(err));
+
         }
       }
     )

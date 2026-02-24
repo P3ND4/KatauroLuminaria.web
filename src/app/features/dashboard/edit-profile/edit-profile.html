@@ -1,12 +1,17 @@
 <div class="main">
-
+    @if (loading) {
+    <div class="loader-wrapper">
+        <app-box-loader></app-box-loader>
+    </div>
+    }
     <header>
         <h2>Información personal</h2>
         <p>Actualiza tu foto y datos personales aquí.</p>
     </header>
 
     <div class="form-container">
-        <form [formGroup]="editProfileForm">
+        @if(editProfileForm){
+        <form [formGroup]="editProfileForm" (submit)="onSubmit()" (reset)="onClose()">
             <div class="form-pair">
                 <div class="input-container">
                     <label class="form-label">
@@ -57,7 +62,23 @@
                         Teléfono
                     </label>
                     <div class="input-content">
-                        <input type="number" formControlName="phone" placeholder="+53 0000-0000">
+                        <div class="region-code">
+                            <div class="drop" (click)="openDropdown = !openDropdown">
+                                <span>{{regionCodes[selectedRegionCode].country}}</span>
+                                <img src="/assets/chevron-down.svg" />
+                                <div class="dropdown-region" [ngClass]="{'open': openDropdown}">
+                                    @for (code of regionCodes; track $index) {
+                                    <div class="dropdown-item"
+                                        (click)="$event.stopPropagation(); onSelectRegionCode($index);">
+                                        <span>{{code.country}}</span>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            <span class="code">{{regionCodes[selectedRegionCode].code}}</span>
+                        </div>
+
+                        <input type="number" formControlName="phone" placeholder="0000-0000">
                     </div>
                 </div>
             </div>
@@ -72,10 +93,11 @@
                     <div class="dnd-icon">
                         <img src="assets/upload-cloud.svg" alt="">
                     </div>
-                    <input type="file" #fileInput style="display: none;" (change)="onFileChange($event)" id="">
+                    <input type="file" #fileInput style="display: none;" accept=".JPG, .PNG,.SVG"
+                        (change)="onFileChange($event)" id="">
                     <div class="dnd-txt">
                         <p><span>Haga clic para cargar</span> o arrastrar y soltar</p>
-                        <p>SVG, PNG, JPG or GIF (max. 800x400px)</p>
+                        <p>SVG, PNG o JPG (max. 5MB)</p>
                     </div>
                     <div class="progress-bar" [style.width.%]="progress">
                     </div>
@@ -85,18 +107,18 @@
             <div class="actions">
                 <div class="divider"></div>
 
-                <button class="button-base" (click)="onSubmit()">
+                <button class="button-base" type="submit" [disabled]="!editProfileForm.valid || loading">
                     <span>
                         Guradar
                     </span>
                 </button>
 
-                <button class="button-chips" (click)="onClose()">
+                <button class="button-chips" type="reset">
                     <span>Cancelar</span>
                 </button>
 
             </div>
-        </form>
+        </form>}
     </div>
 
 </div>

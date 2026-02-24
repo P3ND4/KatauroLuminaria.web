@@ -413,6 +413,7 @@ h3 {
     .pagination {
         width: 100%;
         padding-inline: 40px;
+        box-sizing: border-box;
     }
 }
 
@@ -487,6 +488,10 @@ h3 {
 }
 
 @media (max-width: 535px) {
+
+    .pagination {
+        width: 100%;
+    }
 
     .galery-container {
         padding-inline: 12px;

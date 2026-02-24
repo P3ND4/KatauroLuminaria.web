@@ -28,14 +28,25 @@ export class Team implements AfterViewInit {
     }
   }
 
-  carousel: carouselDTO = {
-    carousel: 3,
-    title: "Título atractivo en 2 líneas de texto",
-    description: "Descripción corta del evento o producto que se este promocionando.",
-    images: [
+  carousel: carouselDTO = this.createCarousel();
+
+  createCarousel() {
+    const images = [
       '/assets/back_image4.png',
       '/assets/back_image5.png',
       '/assets/back_image.webp']
+    const car: carouselDTO = {
+      carousel: 3,
+      banners: images.map(x => ({
+        name: "Título atractivo en 2 líneas de texto",
+        description: "Descripción corta del evento o producto que se este promocionando.",
+        image: x,
+        id: 1,
+        prodId: "",
+        carouselId: 1
+      }))
+    }
+    return car;
   }
 
   ngAfterViewInit(): void {

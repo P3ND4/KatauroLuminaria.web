@@ -10,12 +10,17 @@ import { User } from '../../../shared/models/User';
 import { DropdownAnimation, DropdownAnimationAH } from '../../../shared/animations/ComboBoxAnimation';
 import { CUBA_PROVINCES } from '../../../shared/models/citiesDic';
 import { CreateOrderDto } from '../../../shared/models/createOrderDTO';
-import { OrderState } from '../../../shared/models/Order';
+import { Order, OrderState } from '../../../shared/models/Order';
 import { HttpService } from '../../../shared/services/http/http.service';
+import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
+import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
+import { parseError } from '../../../shared/services/errors/errorParser';
+import { MessageBox } from "../../../shared/components/message-box/message-box";
+import { Promotion } from '../../../shared/models/promotions';
 
 @Component({
   selector: 'app-cart',
-  imports: [CurrencyPipe, ReactiveFormsModule, CommonModule],
+  imports: [CurrencyPipe, ReactiveFormsModule, CommonModule, BoxLoader, MessageBox],
   animations: [DropdownAnimation, DropdownAnimationAH],
   templateUrl: './cart.html',
   styleUrl: './cart.css'
@@ -32,8 +37,11 @@ export class Cart implements OnInit {
   currentProvinceMun: string[] = []
   provinces = CUBA_PROVINCES;
   provincesArray: string[] = [];
+  loading = false;
+  toDelete: string | undefined;
+
   constructor(readonly cartService: CartService, private fb: FormBuilder, private http: HttpService,
-    private route: ActivatedRoute, private cdr: ChangeDetectorRef, private authService: AuthService) {
+    private route: ActivatedRoute, private cdr: ChangeDetectorRef, private authService: AuthService, private errorServ: ErrorLogService) {
     this.provincesArray = Object.keys(CUBA_PROVINCES) as string[];
     this.currentProvinceMun = this.provinces['La Habana']
     this.buyingForm = fb.group(
@@ -50,16 +58,24 @@ export class Cart implements OnInit {
     )
 
   }
+
   ngOnInit(): void {
     //this.products.set(this.cartService.currentProducts);
     //this.loadCart();
+
+
+
     this.authService.currentUser$.subscribe(user => {
+
+      const phone = user?.phone.split(" ") ?? ""
+      this.selectedRegionCode = user ? this.regionCodes.findIndex(x => x.code == phone[0]) : 2
+      this.selectedRegionCode = this.selectedRegionCode == -1 ? 2 : this.selectedRegionCode
       this.currentUser = user ?? undefined;
       this.buyingForm.patchValue({
         name: user?.name ?? '',
         lastName: user?.lastName ?? '',
         email: user?.email ?? '',
-        phone: user?.phone ?? ''
+        phone: phone.length > 0 ? phone[1] : ''
       })
     })
     this.queryParamsSubscription = this.route.queryParamMap.subscribe(() => {
@@ -82,12 +98,10 @@ export class Cart implements OnInit {
       address?.clearValidators()
       city?.clearValidators()
     }
-
-    province?.updateValueAndValidity();
-    city?.updateValueAndValidity();
-    address?.updateValueAndValidity();
-
-    this.cdr.detectChanges()
+    province?.updateValueAndValidity({ emitEvent: false });
+    city?.updateValueAndValidity({ emitEvent: false });
+    address?.updateValueAndValidity({ emitEvent: false });
+    this.buyingForm.updateValueAndValidity();
   }
 
 
@@ -155,7 +169,8 @@ export class Cart implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.buyingForm.valid && this.currentUser) {
+    if (this.buyingForm.valid && this.currentUser && this.selected) {
+
       const order: CreateOrderDto = {
         userId: this.currentUser.id,
         createdAt: new Date(),
@@ -174,15 +189,22 @@ export class Cart implements OnInit {
         name: this.buyingForm.get('name')?.value,
         lastName: this.buyingForm.get('lastName')?.value,
         email: this.buyingForm.get('email')?.value,
-        phone: (this.buyingForm.get('phone')?.value as number).toString()
+        phone: this.regionCodes[this.selectedRegionCode].code + " " + (this.buyingForm.get('phone')?.value as number).toString()
       }
       console.log(order);
+
+      this.loading = true;
       this.http.createOrder(order).subscribe({
         next: val => {
           console.log(val);
-          this.openWhatsApp();
+          this.loading = false;
+          this.openWhatsApp((val as Order).id);
         },
-        error: err => console.log(err)
+        error: err => {
+          console.log(err);
+          this.loading = false;
+          this.errorServ.addError(parseError(err));
+        }
       })
     }
   }
@@ -193,20 +215,116 @@ export class Cart implements OnInit {
     let total = 0;
     for (const key in this.selected) {
       const variant = this.cartService.currentProducts().find(x => x.id === key);
+      console.log(variant?.promotions)
+      let varDiscount = variant?.promotions.filter(x => this.filterPromoByDate(x.promotion)).map(x => x.promotion.discount * 0.01).reduce((a, b) => a + b, 0) ?? 0;
+
+      if (variant) {
+        total += (variant.price - (variant.price * varDiscount)) * this.selected[key];
+      }
+    }
+    return total;
+  }
+
+  private filterPromoByDate(promotion: Promotion) {
+    let now = new Date()
+    return new Date(promotion.startDate) < now && new Date(promotion.endDate) > now;
+  }
+
+  OriginalSubTotalPrice(): number {
+    let total = 0;
+    for (const key in this.selected) {
+      const variant = this.cartService.currentProducts().find(x => x.id === key);
       if (variant) {
         total += variant.price * this.selected[key];
       }
     }
     return total;
   }
+
   deliveryPrice(): number {
     return 0;
   }
-  openWhatsApp() {
+  openWhatsApp(id: string) {
     const phone = '5355801741';
-    const text = encodeURIComponent('Hola, quiero escribirte');
+    const text = encodeURIComponent('Hola, quiero escribirte para realizar el pago de la compra con id \n' + `  ${id}`);
     window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+  }
+  noSelected() {
+    return Object.keys(this.selected).length == 0;
+  }
+  isValidForm(name: string) {
+    return this.buyingForm.get(name)?.valid || !this.buyingForm.get(name)?.touched;
+  }
+  deleteFromCart(id: string) {
+    this.loading = true;
+    this.cartService.deleteFromCart([id], this.currentUser!.id).subscribe({
+      next: val => {
+        this.loading = false;
+        this.cartService.currentProducts().splice(this.cartService.currentProducts().findIndex(x => x.id == id));
+
+      },
+      error: err => {
+        this.loading = false;
+        console.log(err);
+        this.errorServ.addError(parseError(err));
+      }
+    })
+  }
+  warn: { msg: string, warn: string } | undefined;
+  chose(id: string) {
+    this.toDelete = id;
+    this.warn = { msg: 'Eliminar producto de la cesta', warn: '¿Estás seguro que deseas realizar esta acción? Esta acción no tiene vuelta atrás.' };
+  }
+
+  onChosen(opt: boolean) {
+    if (opt && this.toDelete) {
+      this.deleteFromCart(this.toDelete);
+      this.toDelete = undefined;
+    }
+    else {
+      this.toDelete = undefined;
+    }
   }
 
 
+  openDropdown = false;
+  selectedRegionCode = 2;
+  onSelectRegionCode(index: number) {
+    this.selectedRegionCode = index;
+    this.openDropdown = false;
+  }
+
+
+  regionCodes = [
+    { code: '+1', country: 'US' },   // Estados Unidos
+    { code: '+52', country: 'MX' },
+    { code: '+53', country: 'CU' },
+    { code: '+54', country: 'AR' },
+    { code: '+55', country: 'BR' },
+    { code: '+56', country: 'CL' },
+    { code: '+57', country: 'CO' },
+    { code: '+58', country: 'VE' },
+
+    { code: '+34', country: 'ES' },
+    { code: '+33', country: 'FR' },
+    { code: '+39', country: 'IT' },
+    { code: '+49', country: 'DE' },
+    { code: '+44', country: 'GB' },
+
+    { code: '+351', country: 'PT' },
+    { code: '+31', country: 'NL' },
+    { code: '+32', country: 'BE' },
+    { code: '+41', country: 'CH' },
+    { code: '+43', country: 'AT' },
+
+    { code: '+86', country: 'CN' },
+    { code: '+81', country: 'JP' },
+    { code: '+82', country: 'KR' },
+    { code: '+91', country: 'IN' },
+
+    { code: '+7', country: 'RU' },
+    { code: '+20', country: 'EG' },
+    { code: '+27', country: 'ZA' },
+    { code: '+61', country: 'AU' },
+  ];
 }
