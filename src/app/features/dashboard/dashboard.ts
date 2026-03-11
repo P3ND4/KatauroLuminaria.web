@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewChecked, ChangeDetectorRef, Component, inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Router, RouterOutlet, RouterLinkWithHref, ActivatedRoute, NavigationStart } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { CartService } from '../../shared/services/cart/cart.service';
@@ -23,7 +23,7 @@ export class Dashboard implements OnInit {
   router: Router;
   editIsOpen = false;
   menuIsOpen = false;
-  width = window.innerWidth;
+
   currentUser: User | null = null;
   clientPanel = false
   sections = ['home', 'team', 'galery', 'blog'];
@@ -69,7 +69,7 @@ export class Dashboard implements OnInit {
 
 
   isActive(route: string): boolean {
-    const currentUrl = window.location.pathname;
+    const currentUrl = this.router.url;
     return currentUrl.includes(route);
   }
   isLogged() {
@@ -77,11 +77,15 @@ export class Dashboard implements OnInit {
     if (isloged) this.loading = false
     return isloged;
   }
-  changeWidth(an: number) {
-    this.width = window.innerWidth;
-  }
+
+
+  plataformId = inject(PLATFORM_ID);
+
   isMobile() {
-    return innerWidth < 800
+    if (isPlatformBrowser(this.plataformId)) {
+      return innerWidth < 800;
+    }
+    return false;
   }
   toggleMenu() {
     this.menuIsOpen = this.menuIsOpen ? false : true

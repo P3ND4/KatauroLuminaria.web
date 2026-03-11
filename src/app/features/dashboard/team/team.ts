@@ -1,6 +1,6 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, inject, PLATFORM_ID } from '@angular/core';
 import { TeamMember } from '../../../shared/models/teamMember';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FadeAndSlideIn } from '../../../shared/animations/FadeAndSlideIn';
 import { Corousel } from "../../../shared/components/corousel/corousel";
 import { carouselDTO } from '../../../shared/models/carouselDTO';
@@ -48,9 +48,11 @@ export class Team implements AfterViewInit {
     }
     return car;
   }
-
+  platformId = inject(PLATFORM_ID);
   ngAfterViewInit(): void {
-    window.scrollTo(0, 0);
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo(0, 0);
+    }
   }
 
 }

@@ -25,7 +25,7 @@
           equipo</a>
         <a [ngClass]="{'active': isActive('/dashboard/galery')}" [routerLink]="'/dashboard/galery'">Luminarias</a>
         <!--TODO: Implement blog link -->
-        <a [ngClass]="{'active': isActive('/dashboard/blog')}" >Blog</a>
+        <a [ngClass]="{'active': isActive('/dashboard/blog')}">Blog</a>
       </div>
       @if(!isLogged()){
 
@@ -79,7 +79,9 @@
     </div>
     <div class="panelWrapper" (click)="menuIsOpen = false; clientPanel = false"
       [ngStyle]="{'display': !menuIsOpen && !clientPanel? 'none' : 'block'}"></div>
-    @if (isMobile()) {
+
+    @if(isMobile()) {<div></div>}
+
     <div class="mobile-panel" [ngClass]="{'open': menuIsOpen}">
       <a (click)="navigateMobile('/dashboard/home')" [ngClass]="{'active': isActive('/dashboard/home')}">Inicio</a>
       <a (click)="navigateMobile('/dashboard/team')" [ngClass]="{'active': isActive('/dashboard/team')}">Nuestro
@@ -111,7 +113,7 @@
       </div>
       }
     </div>
-    }
+
   </div>
 
   <div class="page-wrapper" [@routeAnimations]="prepareRoute(outlet)" (@routeAnimations.done)="onAnimationDone(outlet)"

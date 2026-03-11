@@ -173,6 +173,7 @@
   box-sizing: border-box;
   padding: 24px 16px 24px 16px;
   gap: 32px;
+  display: none;
   transition: transform 0.5s ease;
 }
 

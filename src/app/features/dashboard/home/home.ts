@@ -1,7 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Corousel } from "../../../shared/components/corousel/corousel";
 import { carouselDTO } from '../../../shared/models/carouselDTO';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Categories, Product, Variant } from '../../../shared/models/Products';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { Router } from '@angular/router';
@@ -76,6 +76,7 @@ export class Home implements OnInit, AfterViewInit {
       },
       error: (err: HttpErrorResponse) => {
         console.log(err);
+        this.prodLoaded = true;
         this.errorServ.addError(parseError(err));
       }
     });
@@ -97,14 +98,17 @@ export class Home implements OnInit, AfterViewInit {
         this.carLoaded = true;
       },
       error: err => {
+        this.carLoaded = true;
         this.errorServ.addError(parseError(err))
       }
     })
   }
 
-
+  platformId = inject(PLATFORM_ID);
   ngAfterViewInit() {
-    window.scrollTo(0, 0); // Scroll instantáneo al top
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo(0, 0); // Scroll instantáneo al top
+    }
   }
   isChargin() {
     return this.loading;

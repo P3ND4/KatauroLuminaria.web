@@ -1,1 +1,0 @@
-import{c as a,d as e,f as t,h as n}from"./chunk-7ZVSO22Y.js";var o=a("fadeAndSlideIn",[n(":enter",[t({opacity:0,transform:"translateY(1200px)"}),e("1000ms ease-out",t({opacity:1,transform:"translateY(0)"}))])]);export{o as a};

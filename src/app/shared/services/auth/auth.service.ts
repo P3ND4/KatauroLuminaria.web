@@ -12,7 +12,7 @@ export class AuthService {
   private _currentUser = new BehaviorSubject<User | null>(null);
   currentUser$ = this._currentUser.asObservable();
 
-  private userChecked = false;
+  public userChecked = true;
 
 
 
@@ -55,6 +55,7 @@ export class AuthService {
         error: (err) => {
           this._currentUser.next(null);
           console.log(err);
+          this.userChecked = true;
           //this.errorServ.addError(parseError(err));
 
         }
@@ -63,7 +64,7 @@ export class AuthService {
   }
 
   isLogged(): boolean {
-    return this.currentUser$ !== null && this.userChecked;
+    return this._currentUser.value !== null && this.userChecked;
   }
 
 }

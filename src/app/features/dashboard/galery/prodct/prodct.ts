@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, ElementRef, NgZone, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, inject, NgZone, OnInit, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Categories, Product } from '../../../../shared/models/Products';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpService } from '../../../../shared/services/http/http.service';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { parseError } from '../../../../shared/services/errors/errorParser';
 import { ErrorLogService } from '../../../../shared/services/errors/error.log.service';
 
@@ -76,13 +76,14 @@ export class Prodct implements OnInit {
   }
 
 
-
+  plataformId = inject(PLATFORM_ID);
   ngAfterViewInit() {
-    window.scrollTo(0, 0);
-    this.zone.onStable.subscribe(() => {
+    if (isPlatformBrowser(this.plataformId)) {
+      window.scrollTo(0, 0);
+    }
+    this.zone.onStable.pipe(take(1)).subscribe(() => {
       this.updateIndicator();
-
-    });
+    });;
   }
 
   selectProduct(index: number) {
@@ -102,28 +103,33 @@ export class Prodct implements OnInit {
   }
 
   scrollToSelected() {
-    const elems = this.itemElems.toArray();
-    const elem = elems[this.selectedIndex];
-    if (!elem) return;
-    elem.nativeElement.scrollIntoView({
-      behavior: 'smooth', // animado
-      inline: 'center',   // lo centra horizontalmente
-      block: 'nearest'    // no hace scroll vertical
-    });
+    if (isPlatformBrowser(this.plataformId)) {
+      const elems = this.itemElems.toArray();
+      const elem = elems[this.selectedIndex];
+      if (!elem) return;
+
+      elem.nativeElement.scrollIntoView({
+        behavior: 'smooth', // animado
+        inline: 'center',   // lo centra horizontalmente
+        block: 'nearest'    // no hace scroll vertical
+      });
+    }
   }
 
   scrollToSelectedCat() {
 
-    const elems = this.catElements.toArray();
-    if (!elems) return;
-    const catDic = { 'Luminarias de mesa': 0, 'Luminarias de pared': 1, 'Luminarias de pie': 2, 'Luminarias de techo': 3, 'Accesorios': 4, 'Otras': 5 }
-    const elem = elems[catDic[this.currentCategory]];
-    if (!elem) return;
-    elem.nativeElement.scrollIntoView({
-      behavior: 'smooth', // animado
-      inline: 'center',   // lo centra horizontalmente
-      block: 'nearest'    // no hace scroll vertical
-    });
+    if (isPlatformBrowser(this.plataformId)) {
+      const elems = this.catElements.toArray();
+      if (!elems) return;
+      const catDic = { 'Luminarias de mesa': 0, 'Luminarias de pared': 1, 'Luminarias de pie': 2, 'Luminarias de techo': 3, 'Accesorios': 4, 'Otras': 5 }
+      const elem = elems[catDic[this.currentCategory]];
+      if (!elem) return;
+      elem.nativeElement.scrollIntoView({
+        behavior: 'smooth', // animado
+        inline: 'center',   // lo centra horizontalmente
+        block: 'nearest'    // no hace scroll vertical
+      });
+    }
   }
 
   onCategorieChange(categorie: Categories) {
