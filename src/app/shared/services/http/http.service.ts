@@ -21,7 +21,7 @@ export class HttpService {
   ]
 
   constructor(private http: HttpClient) {
-    //this.apiPath = 'http://localhost:3000';
+    this.apiPath = 'http://localhost:3000';
 
   }
   getFinishes() {
@@ -92,6 +92,10 @@ export class HttpService {
 
   getCarousels() {
     return this.http.get(`${this.apiPath}/promotion/carousel`);
+  }
+
+  findRandomProducts(count: number) {
+    return this.http.get(`${this.apiPath}/products/rnd/${count}`);
   }
 
 }
