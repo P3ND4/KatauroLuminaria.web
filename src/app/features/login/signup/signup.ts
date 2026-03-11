@@ -26,7 +26,7 @@ export class Signup implements AfterViewInit {
       name: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required, Validators.minLength(8)],
+      phone: ['', [Validators.required, Validators.minLength(7)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
     }, { validators: passwordMatchValidator });

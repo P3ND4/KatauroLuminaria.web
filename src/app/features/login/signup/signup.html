@@ -80,6 +80,11 @@
 
                         <input type="number" formControlName="phone" placeholder="0000-0000">
                     </div>
+                    @if(!isValidForm('phone')){
+                    <div class="error-msg">
+                        Formato de teléfono incorrecto
+                    </div>
+                    }
                 </div>
             </div>
 
