@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { carouselDTO } from '../../models/carouselDTO';
 
 @Component({
@@ -19,9 +19,13 @@ export class Corousel implements OnInit, OnDestroy {
     clearInterval(this.autoSlideInterval);
   }
 
+  platagormId = inject(PLATFORM_ID);
   ngOnInit(): void {
     this.carouselType = this.data?.carousel
-    this.startAutoplay();
+
+    if (isPlatformBrowser(this.platagormId)) {
+      this.startAutoplay();
+    }
   }
 
   startAutoplay(): void {

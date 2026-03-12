@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewChecked, ChangeDetectorRef, Component, inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Router, RouterOutlet, RouterLinkWithHref, ActivatedRoute, NavigationStart } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { CartService } from '../../shared/services/cart/cart.service';
@@ -19,7 +19,7 @@ import { parseError } from '../../shared/services/errors/errorParser';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
-export class Dashboard implements OnInit {
+export class Dashboard implements OnInit, AfterViewInit {
   router: Router;
   editIsOpen = false;
   menuIsOpen = false;
@@ -44,11 +44,13 @@ export class Dashboard implements OnInit {
 
 
   ngOnInit() {
-
     this.loadUser();
-
+  }
+  ngAfterViewInit() {
+    console.log("dashboard view init");
   }
 
+  
   loadUser() {
     try {
       this.authService.refreshUser();
