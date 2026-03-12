@@ -48,10 +48,10 @@ export class Dashboard implements OnInit, AfterViewInit {
     this.loadUser();
   }
   ngAfterViewInit() {
-    console.log("dashboard view init");
+    console.log('12/3/2026 2:31pm')
   }
 
-  
+
   loadUser() {
     try {
       this.authService.refreshUser();
