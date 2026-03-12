@@ -94,4 +94,8 @@ export class HttpService {
     return this.http.get(`${this.apiPath}/promotion/carousel`);
   }
 
+  findRandomProducts(count: number) {
+    return this.http.get(`${this.apiPath}/products/rnd/${count}`);
+  }
+
 }

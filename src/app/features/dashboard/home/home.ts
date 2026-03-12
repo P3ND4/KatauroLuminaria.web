@@ -23,7 +23,7 @@ import { Carousel } from '../../../shared/models/promotions';
 })
 export class Home implements OnInit, AfterViewInit {
   catEnum = Categories;
-  correctLoaded = () => this.prodLoaded && this.carLoaded;
+  correctLoaded = () => this.prodLoaded && this.carLoaded && this.randLoaded;
   user: User | undefined
   prodLoaded = false
   carLoaded = false
@@ -53,20 +53,41 @@ export class Home implements OnInit, AfterViewInit {
     return carousel;
 
   }
-  mostRated: Product[] = [
-  ]
+  mostRated: Product[] = [];
+  random: Product[] = [];
   loading = false;
   loadMsg = "Cargando..."
 
   constructor(private httpService: HttpService, private cdr: ChangeDetectorRef, readonly router: Router, private cartService: CartService, private userService: AuthService, private errorServ: ErrorLogService) {
 
   }
+
+  randLoaded = false;
+
+
   ngOnInit(): void {
     this.userService.currentUser$.subscribe({
       next: val => this.user = val as User,
       error: err => console.log(err)
     });
-    this.httpService.getProducts().subscribe({
+    this.httpService.findRandomProducts(7).subscribe({
+      next: (data: any) => {
+        this.random = data;
+        this.random = this.random.filter((prod: Product) => prod.variants.length != 0);
+
+        this.cdr.detectChanges();
+        this.randLoaded = true;
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log(err);
+        this.errorServ.addError(parseError(err));
+        this.randLoaded = true;
+      }
+    });
+
+
+
+    this.httpService.findRandomProducts(3).subscribe({
       next: (data: any) => {
         this.mostRated = data;
         this.mostRated = this.mostRated.filter((prod: Product) => prod.variants.length != 0);
@@ -78,8 +99,10 @@ export class Home implements OnInit, AfterViewInit {
         console.log(err);
         this.prodLoaded = true;
         this.errorServ.addError(parseError(err));
+        this.prodLoaded = true;
       }
     });
+
     this.loadData();
   }
 
@@ -98,8 +121,8 @@ export class Home implements OnInit, AfterViewInit {
         this.carLoaded = true;
       },
       error: err => {
+        this.errorServ.addError(parseError(err));
         this.carLoaded = true;
-        this.errorServ.addError(parseError(err))
       }
     })
   }

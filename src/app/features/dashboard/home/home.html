@@ -62,13 +62,13 @@
             <div class="offers-grid">
                 @for (i of [0,1,2,3,4,5,6]; track $index) {
                 @if (correctLoaded()) {
-                <div class="offer" (click)="navigateToProduct(mostRated[i].category.nombre, mostRated[i].id)">
-                    <img src="{{mostRated[i].variants[0].image}}" />
+                <div class="offer" (click)="navigateToProduct(random[i].category.nombre, random[i].id)">
+                    <img src="{{random[i].variants[0].image}}" />
                     <div class="offer-gradient"></div>
                     <div class="offer-info-container" [ngClass]="{'non-first': i != 0}">
                         <div class="offer-info" [ngClass]="{'non-first': i != 0}">
-                            <h3 class="lum-name">{{mostRated[i].name}}</h3>
-                            <p class="luminaria-sub">{{ mostRated[i].subtitle }}</p>
+                            <h3 class="lum-name">{{random[i].name}}</h3>
+                            <p class="luminaria-sub">{{ random[i].subtitle }}</p>
                         </div>
                     </div>
                 </div>
