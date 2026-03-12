@@ -22,7 +22,7 @@ export class HttpService {
 
   constructor(private http: HttpClient) {
     //this.apiPath = 'http://localhost:3000';
-
+    
   }
   getFinishes() {
     return this.http.get(`${this.apiPath}/products/finish`);
