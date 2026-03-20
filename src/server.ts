@@ -7,8 +7,14 @@ import {
 import express from 'express';
 import { join } from 'node:path';
 
-const browserDistFolder = join(import.meta.dirname, '../browser');
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const browserDistFolder = join(__dirname, '../browser');
+console.log('Static folder:', browserDistFolder);
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
