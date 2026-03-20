@@ -44,11 +44,11 @@ export class Dashboard implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    console.log('12/3/2026 2:31pm')
+   
     this.loadUser();
   }
   ngAfterViewInit() {
-    console.log('12/3/2026 2:31pm')
+    
   }
 
 
