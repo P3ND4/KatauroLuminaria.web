@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnInit, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
 import { Categories, Product, Variant } from '../../../shared/models/Products';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { Subscription } from 'rxjs';
@@ -8,10 +8,13 @@ import { FadeAndSlideIn } from '../../../shared/animations/FadeAndSlideIn';
 import { SkeletonLoader } from '../../../shared/components/skeleton-loader/skeleton-loader';
 import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
 import { parseError } from '../../../shared/services/errors/errorParser';
+import { Discount } from "../../../shared/components/discount/discount";
+import { calculateDiscount } from '../../../shared/utils/calcDiscount';
+import { getAlt } from '../../../shared/utils/getAlt';
 
 @Component({
   selector: 'app-galery',
-  imports: [CommonModule, SkeletonLoader],
+  imports: [CommonModule, SkeletonLoader, Discount],
   animations: [FadeAndSlideIn],
   templateUrl: './galery.html',
   styleUrl: './galery.css'
@@ -24,8 +27,10 @@ export class Galery implements OnInit, AfterViewInit {
   currentPage = 1
   pagesArray = [1]
   queryParamsSubscription: Subscription | undefined;
-
+  public discounts = calculateDiscount;
   correctCharged = false;
+  getAlt = getAlt;
+
 
   @ViewChildren('CatElementGalery') catElements!: QueryList<ElementRef>;
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpService, private errorServ: ErrorLogService) {
@@ -36,6 +41,7 @@ export class Galery implements OnInit, AfterViewInit {
     const cat = this.route.snapshot.paramMap.get('cat');
 
     this.queryParamsSubscription = this.route.queryParamMap.subscribe(() => {
+      console.log('Query params changed, re-reading...');
       this.readQuery();
     });
 
@@ -62,11 +68,14 @@ export class Galery implements OnInit, AfterViewInit {
     const option = this.selectedCategory !== 'TODAS' ? { page: this.currentPage, category: this.selectedCategory } : { page: this.currentPage }
 
     const pagesOpt = { category: this.selectedCategory !== 'TODAS' ? this.selectedCategory : undefined }
+
+    console.log('Reading data with options: ', option);
     this.http.getPages(pagesOpt).subscribe(
       {
         next: (val) => {
           this.pages = val as number;
           this.pagesArray = Array.from({ length: this.pages }, (_, i) => i + 1);
+          console.log('Total pages: ', this.pages);
         },
         error: (err) => { console.log(err); }
       }
@@ -92,10 +101,9 @@ export class Galery implements OnInit, AfterViewInit {
   }
 
   onCategoryChange(category: Categories | 'TODAS') {
-    document.documentElement.setAttribute('data-direction', '');
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { page: this.currentPage, category: category !== "TODAS" ? category : undefined },
+      queryParams: { page: 1, category: category !== "TODAS" ? category : undefined },
       queryParamsHandling: 'merge',
     });
     window.scrollTo(0, 0);
@@ -107,16 +115,20 @@ export class Galery implements OnInit, AfterViewInit {
   }
 
 
+  plataformId = inject(PLATFORM_ID);
+
   scrollToSelectedCat(currentCategory: Categories | 'TODAS') {
     const elems = this.catElements.toArray();
     const catDic = { 'TODAS': 0, 'Luminarias de mesa': 1, 'Luminarias de pared': 2, 'Luminarias de pie': 3, 'Luminarias de techo': 4, 'Accesorios': 5, 'Otras': 6 }
     const elem = elems[catDic[currentCategory]];
     if (!elem) return;
-    elem.nativeElement.scrollIntoView({
-      behavior: 'smooth', // animado
-      inline: 'center',   // lo centra horizontalmente
-      block: 'nearest'    // no hace scroll vertical
-    });
+    if (isPlatformBrowser(this.plataformId)) {
+      elem.nativeElement.scrollIntoView({
+        behavior: 'smooth', // animado
+        inline: 'center',   // lo centra horizontalmente
+        block: 'nearest'    // no hace scroll vertical
+      });
+    }
   }
 
   onPageChange(page: number) {

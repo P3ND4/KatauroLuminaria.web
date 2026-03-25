@@ -7,7 +7,8 @@
     <div class="img-container">
         <div class="main-image">
             @if (charged) {
-            <img class="main-img" [src]="images[selectedImage]" [alt]="currentProduct?.name" />
+            <img class="main-img" [src]="images[selectedImage]"
+                [alt]="currentProduct? getAlt(currentProduct.variants[currentVariant]): ''" />
             }
             @else {
             <div class="image-loader"></div>
@@ -17,7 +18,8 @@
             @for (item of images; track $index) {
             <div class="sec-images">
                 @if (charged) {
-                <img [src]="item" [alt]="currentProduct?.name" (click)="selectImage($index)">
+                <img [src]="item" [alt]="currentProduct? getAlt(currentProduct.variants[currentVariant]): ''"
+                    (click)="selectImage($index)">
                 }
                 @else {
                 <div class="image-loader"></div>
@@ -27,6 +29,12 @@
         </div>
     </div>
     <div class="detail-content">
+        @if(discounts( currentProduct? currentProduct.variants[currentVariant] : undefined) > 0){
+        <div class="discount">
+            <app-discount
+                [discount]="discounts(currentProduct? currentProduct.variants[currentVariant] : undefined)*100"></app-discount>
+        </div>
+        }
         @if(charged){
         <div class="details">
             <h2>{{currentProduct?.name}}</h2>
@@ -105,9 +113,12 @@
             <div class="divider"></div>
             <div class="price-info">
                 @if(charged){
-                <p>{{ (currentProduct!.variants.length > 0 ? currentProduct!.variants[currentVariant].price : 0 ) |
-                    currency
-                    }}</p>
+                <p>{{currentProduct!.variants[currentVariant].price * (1 -discounts(currentProduct?
+                    currentProduct.variants[currentVariant] : undefined)) | currency}}
+                    @if(discounts(currentProduct? currentProduct.variants[currentVariant] : undefined) > 0){
+                    <span class="old-price">{{currentProduct!.variants[currentVariant].price | currency}}</span>
+                    }
+                </p>
                 }
                 @else {
                 <div class="sk-bar line price"></div>

@@ -16,6 +16,11 @@
 
 }
 
+.discounted {
+    font-size: 15px;
+    text-decoration: line-through;
+}
+
 .drop :hover {
     cursor: pointer;
 }
@@ -555,6 +560,11 @@ textarea {
         line-height: 28px;
         margin: 0px;
         /* 155.556% */
+    }
+
+    .discounted {
+        font-size: 10px;
+        text-decoration: line-through;
     }
 
     .prod-act {

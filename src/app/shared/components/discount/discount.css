@@ -1,0 +1,13 @@
+.main-discount{
+    background-color: #007981;
+    border-radius: 22px;
+}
+
+.main-discount span{
+    color: #F0FEFF;
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 700;
+    padding: 4px 8px;
+    font-family: var(--montser-font);
+}

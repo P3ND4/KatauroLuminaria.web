@@ -19,6 +19,6 @@ export class App implements OnInit {
     this.errorServ.errors.subscribe((val) => this.globalErrors = val);
   }
   ngOnInit(): void {
-    console.log('20/3/2026 4:31pm')
+    console.log('20/3/2026 8:41pm')
   }
 }

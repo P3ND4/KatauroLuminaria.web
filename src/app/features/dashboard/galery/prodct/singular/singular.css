@@ -10,6 +10,20 @@ h2 {
     letter-spacing: -0.96px;
 }
 
+.discount {
+    position: absolute;
+    z-index: 2;
+    top: 64px;
+    right: 48px;
+}
+
+.old-price {
+    text-decoration: line-through;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    margin-left: 4px;
+}
+
 h4 {
     color: var(--Brand-600, #178C94);
 
@@ -75,7 +89,7 @@ h4 {
     background-color: #A4A7AE;
 }
 
-.sk-bar.line.price{
+.sk-bar.line.price {
     height: 24px;
 }
 
@@ -114,6 +128,7 @@ p {
 
 .detail-content {
     display: flex;
+    position: relative;
     flex: 1;
     min-width: 472px;
     flex-direction: column;

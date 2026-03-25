@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, inject, NgZone, OnInit, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, NgZone, OnInit, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Categories, Product } from '../../../../shared/models/Products';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -6,6 +6,7 @@ import { HttpService } from '../../../../shared/services/http/http.service';
 import { Subscription, take } from 'rxjs';
 import { parseError } from '../../../../shared/services/errors/errorParser';
 import { ErrorLogService } from '../../../../shared/services/errors/error.log.service';
+import { After } from 'v8';
 
 @Component({
   selector: 'app-prodct',
@@ -13,7 +14,7 @@ import { ErrorLogService } from '../../../../shared/services/errors/error.log.se
   templateUrl: './prodct.html',
   styleUrl: './prodct.css'
 })
-export class Prodct implements OnInit {
+export class Prodct implements OnInit, AfterViewInit {
   currentCategory: Categories = Categories.tableLumin;
   categories = Categories;
   products: Product[] = []
@@ -34,7 +35,6 @@ export class Prodct implements OnInit {
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('category');
     this.currentCategory = param ? param as Categories : Categories.tableLumin;
-
     this.ParamsSubscription = this.route.paramMap.subscribe(() => {
       this.readParams();
     });
@@ -47,7 +47,6 @@ export class Prodct implements OnInit {
     this.route.paramMap.subscribe(param => {
       const p = param.get('category') as Categories
       this.currentCategory = p ?? 'Liminarias de mesa'
-
     })
 
 
@@ -57,16 +56,22 @@ export class Prodct implements OnInit {
         this.products = this.products.filter((prod) => prod.variants ? prod.variants.length > 0 : false);
         this.charged = true;
         this.scrollToSelectedCat();
-        const index = this.route.snapshot.queryParamMap.get('index');
-        if (!index && this.products.length > 0) {
-          this.selectProduct(0);
-          return;
-        }
-        this.selectedIndex = index ? this.products.findIndex((prod) => prod.id == index) : -1;
-        this.updateIndicator();
-        this.scrollToSelected();
-        this.cdr.detectChanges();
 
+
+        this.zone.onStable.pipe(take(1)).subscribe(() => {
+          const index = this.route.firstChild?.snapshot.paramMap.get('id');
+
+          if (!index && this.products.length > 0) {
+            this.selectProduct(0);
+            return;
+          }
+
+          this.selectedIndex = index
+            ? this.products.findIndex((prod) => prod.id == index)
+            : -1;
+
+          this.selectProduct(this.selectedIndex);
+        });
       },
       error: (err) => {
         console.log(err);
@@ -81,9 +86,10 @@ export class Prodct implements OnInit {
     if (isPlatformBrowser(this.plataformId)) {
       window.scrollTo(0, 0);
     }
-    this.zone.onStable.pipe(take(1)).subscribe(() => {
-      this.updateIndicator();
-    });;
+    // this.zone.onStable.pipe(take(1)).subscribe(() => {
+    // this.updateIndicator();
+    //});;
+
   }
 
   selectProduct(index: number) {

@@ -22,7 +22,7 @@ export class HttpService {
 
   constructor(private http: HttpClient) {
     //this.apiPath = 'http://localhost:3000';
-    
+
   }
   getFinishes() {
     return this.http.get(`${this.apiPath}/products/finish`);
@@ -65,7 +65,8 @@ export class HttpService {
   }
 
   getPages(option?: { category?: Categories }) {
-    return !option?.category ? this.http.get(`${this.apiPath}/products/pages`) : this.http.get(`${this.apiPath}/products/pages?category=${option.category}`)
+
+    return !option?.category ? this.http.get(`${this.apiPath}/products/pages`) : this.http.get(`${this.apiPath}/products/pages?category=${this.CatParser.indexOf(option.category)}`)
   }
 
   refreshUser() {

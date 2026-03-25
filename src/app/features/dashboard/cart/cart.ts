@@ -17,6 +17,7 @@ import { ErrorLogService } from '../../../shared/services/errors/error.log.servi
 import { parseError } from '../../../shared/services/errors/errorParser';
 import { MessageBox } from "../../../shared/components/message-box/message-box";
 import { Promotion } from '../../../shared/models/promotions';
+import { calculateDiscount } from '../../../shared/utils/calcDiscount';
 
 @Component({
   selector: 'app-cart',
@@ -39,7 +40,7 @@ export class Cart implements OnInit {
   provincesArray: string[] = [];
   loading = false;
   toDelete: string | undefined;
-
+  discount = calculateDiscount;
   constructor(readonly cartService: CartService, private fb: FormBuilder, private http: HttpService,
     private route: ActivatedRoute, private cdr: ChangeDetectorRef, private authService: AuthService, private errorServ: ErrorLogService) {
     this.provincesArray = Object.keys(CUBA_PROVINCES) as string[];
@@ -145,6 +146,11 @@ export class Cart implements OnInit {
       this.selected[index] = 1;
       console.log(this.cartService.currentProducts);
     }
+  }
+
+  canAdd(index: string): boolean {
+    const variant = this.cartService.currentProducts().find(x => x.id === index);
+    return variant ? this.selected[index] < variant.stock : false;
   }
 
 

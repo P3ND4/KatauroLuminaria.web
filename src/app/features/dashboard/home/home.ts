@@ -14,6 +14,7 @@ import { ErrorLogService } from '../../../shared/services/errors/error.log.servi
 import { HttpErrorResponse } from '@angular/common/http';
 import { parseError } from '../../../shared/services/errors/errorParser';
 import { Carousel } from '../../../shared/models/promotions';
+import { getAlt } from '../../../shared/utils/getAlt';
 
 @Component({
   selector: 'app-home',
@@ -57,7 +58,7 @@ export class Home implements OnInit, AfterViewInit {
   random: Product[] = [];
   loading = false;
   loadMsg = "Cargando..."
-
+  altTExt = getAlt;
   constructor(private httpService: HttpService, private cdr: ChangeDetectorRef, readonly router: Router, private cartService: CartService, private userService: AuthService, private errorServ: ErrorLogService) {
 
   }

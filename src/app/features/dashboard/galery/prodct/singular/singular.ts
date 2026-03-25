@@ -10,10 +10,13 @@ import { User } from '../../../../../shared/models/User';
 import { BoxLoader } from "../../../../../shared/components/box-loader/box-loader";
 import { ErrorLogService } from '../../../../../shared/services/errors/error.log.service';
 import { parseError } from '../../../../../shared/services/errors/errorParser';
+import { Discount } from "../../../../../shared/components/discount/discount";
+import { calculateDiscount } from '../../../../../shared/utils/calcDiscount';
+import { getAlt } from '../../../../../shared/utils/getAlt';
 
 @Component({
   selector: 'app-singular',
-  imports: [CurrencyPipe, CommonModule, BoxLoader],
+  imports: [CurrencyPipe, CommonModule, BoxLoader, Discount],
   templateUrl: './singular.html',
   styleUrl: './singular.css'
 })
@@ -29,6 +32,11 @@ export class Singular implements OnInit {
   user: User | undefined;
   charged = false;
   loading = false;
+  getAlt = getAlt;
+
+
+
+  discounts = calculateDiscount;
   constructor(private route: ActivatedRoute, private http: HttpService, private cdr: ChangeDetectorRef, private userService: AuthService,
     readonly cartService: CartService, private router: Router, private errorServ: ErrorLogService) {
 
@@ -108,6 +116,9 @@ export class Singular implements OnInit {
         }
       )
     }
+    else if (!this.userService.isLogged()) {
+      this.router.navigate(['/login/signin']);
+    }
   }
 
   toOwn() {
@@ -142,6 +153,10 @@ export class Singular implements OnInit {
         }
       )
     }
+    else if (!this.userService.isLogged()) {
+      this.router.navigate(['/login/signin']);
+    }
+
   }
 
 }

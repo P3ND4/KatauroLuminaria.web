@@ -192,7 +192,13 @@
                             <div class="prod-txt" (click)="toggle(item.id)">
                                 <h3>{{item.genericProd?.name}}</h3>
                                 <h4 class="desc">{{item.genericProd?.subtitle}}</h4>
-                                <p>{{(item.price)|currency}}</p>
+                                <p>{{( item.price * (1-discount(item)) | currency)}}
+                                    @if(discount(item) > 0) {
+                                    <span class="discounted">
+                                        {{item.price | currency}}
+                                    </span>
+                                    }
+                                </p>
                             </div>
 
                             <div class="prod-act">
@@ -202,7 +208,7 @@
                                             alt="minus">
                                     </button>
                                     <span class="prod-count">{{selected[item.id] || 0}}</span>
-                                    <button (click)="plus(item.id)">
+                                    <button (click)="plus(item.id)" [disabled]="!canAdd(item.id)">
                                         <img [src]="isMobile()? '/assets/plus-mobile.svg' :'/assets/plus.svg'"
                                             alt="plus">
                                     </button>

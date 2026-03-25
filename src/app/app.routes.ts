@@ -11,6 +11,7 @@ import { Singular } from './features/dashboard/galery/prodct/singular/singular';
 import { Signin } from './features/login/signin/signin';
 import { Signup } from './features/login/signup/signup';
 import { Cart } from './features/dashboard/cart/cart';
+import { authGuard } from './shared/guards/auth-guard';
 
 export const routes: Routes = [
     {
@@ -21,7 +22,7 @@ export const routes: Routes = [
             {
                 path: 'dashboard', component: Dashboard,
                 children: [
-                    { path: 'cart', data: { index: 4 }, loadComponent: () => import('./features/dashboard/cart/cart').then(m => m.Cart) },
+                    { path: 'cart', canActivate: [authGuard], data: { index: 4 }, loadComponent: () => import('./features/dashboard/cart/cart').then(m => m.Cart) },
                     { path: 'home', data: { index: 0 }, loadComponent: () => import('./features/dashboard/home/home').then(m => m.Home) },
                     { path: 'team', data: { index: 1 }, loadComponent: () => import('./features/dashboard/team/team').then(m => m.Team) },
                     { path: 'galery', data: { index: 2 }, loadComponent: () => import('./features/dashboard/galery/galery').then(m => m.Galery) },
