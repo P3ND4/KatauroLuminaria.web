@@ -74,7 +74,7 @@ export class Prodct implements OnInit, AfterViewInit {
         });
       },
       error: (err) => {
-        console.log(err);
+
         this.errorServ.addError(parseError(err));
       }
     });
@@ -93,6 +93,7 @@ export class Prodct implements OnInit, AfterViewInit {
   }
 
   selectProduct(index: number) {
+    if (index === this.selectedIndex) return;
     this.selectedIndex = index;
     this.updateIndicator();
     this.router.navigate([`dashboard/${this.currentCategory}/${this.products[index].id}`]);

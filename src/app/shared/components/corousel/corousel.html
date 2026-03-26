@@ -10,12 +10,12 @@
         <div class="info-container"
             [ngClass]="{'second': carouselType == 1, 'third': carouselType == 2 ,'fourth':carouselType=== 3, 'visible': currentSlide === i }">
             <div class="info-contet"
-                [ngClass]="{'second': carouselType == 1, 'third': carouselType == 2 ,'fourth': 3 }">
+                [ngClass]="{'second': carouselType == 1, 'third': carouselType == 2 ,'fourth': carouselType == 3 }">
                 <h2 class="car-text">{{ban.name}}</h2>
                 <p class="card-info">{{ban.description}}</p>
                 @if(carouselType !=2){
-                <button class="button-chips">
-                    <label>Adquirir</label>
+                <button class="button-chips" (click)="toOwn($index)">
+                    <span>Adquirir</span>
                 </button>
                 }
             </div>

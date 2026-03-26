@@ -41,7 +41,7 @@ export class Galery implements OnInit, AfterViewInit {
     const cat = this.route.snapshot.paramMap.get('cat');
 
     this.queryParamsSubscription = this.route.queryParamMap.subscribe(() => {
-      console.log('Query params changed, re-reading...');
+
       this.readQuery();
     });
 
@@ -69,13 +69,13 @@ export class Galery implements OnInit, AfterViewInit {
 
     const pagesOpt = { category: this.selectedCategory !== 'TODAS' ? this.selectedCategory : undefined }
 
-    console.log('Reading data with options: ', option);
+
     this.http.getPages(pagesOpt).subscribe(
       {
         next: (val) => {
           this.pages = val as number;
           this.pagesArray = Array.from({ length: this.pages }, (_, i) => i + 1);
-          console.log('Total pages: ', this.pages);
+
         },
         error: (err) => { console.log(err); }
       }
@@ -85,11 +85,10 @@ export class Galery implements OnInit, AfterViewInit {
       next: (val) => {
         this.products = val as Product[]
         this.products = this.products.filter((prod) => prod.variants.length > 0);
-        console.log(this.products.length);
+
         this.correctCharged = true;
       },
       error: (err) => {
-        console.log(err);
         this.errorServ.addError(parseError(err));
       }
     })

@@ -80,7 +80,7 @@ export class Home implements OnInit, AfterViewInit {
         this.randLoaded = true;
       },
       error: (err: HttpErrorResponse) => {
-        console.log(err);
+
         this.errorServ.addError(parseError(err));
         this.randLoaded = true;
       }
@@ -97,7 +97,7 @@ export class Home implements OnInit, AfterViewInit {
         this.prodLoaded = true;
       },
       error: (err: HttpErrorResponse) => {
-        console.log(err);
+
         this.prodLoaded = true;
         this.errorServ.addError(parseError(err));
         this.prodLoaded = true;
@@ -115,6 +115,7 @@ export class Home implements OnInit, AfterViewInit {
           carousel: 0,
           banners: cars[0].banners
         }
+
         this.carousel2 = {
           carousel: 1,
           banners: cars[1].banners
@@ -163,7 +164,7 @@ export class Home implements OnInit, AfterViewInit {
       this.cartService.addToCart(this.user!.id, variant.id).subscribe(
         {
           next: val => {
-            console.log(val);
+
             this.cartService.currentProducts.update(x => [...x, variant]);
             this.cartService.loadCartFromBackend(this.user!.id);
             this.cdr.detectChanges();
@@ -174,7 +175,7 @@ export class Home implements OnInit, AfterViewInit {
             })
           },
           error: err => {
-            console.log(err);
+
             this.loading = false;
           }
         }

@@ -47,6 +47,7 @@ export class Singular implements OnInit {
   }
   chargeValues() {
     const id = this.route.snapshot.paramMap.get('id')
+    const selectedVariant = this.route.snapshot.queryParamMap.get('variant');
     this.prodId = id ? id : undefined;
     if (id) {
       this.http.getProductById(id).subscribe({
@@ -54,11 +55,14 @@ export class Singular implements OnInit {
           this.currentProduct = val as Product
           this.images = this.currentProduct.variants[this.currentVariant].images.map(x => x.link);
           this.loadFinishes();
+          if (selectedVariant) {
+            this.currentVariant = this.currentProduct?.variants.findIndex(x => x.id === selectedVariant) ?? 0;
+          }
           this.cdr.detectChanges();
           this.charged = true
         }),
         error: (err) => {
-          console.log(err);
+
           this.errorServ.addError(parseError(err));
         }
       })
@@ -78,7 +82,7 @@ export class Singular implements OnInit {
 
       },
       error: err => {
-        console.log(err);
+
         this.errorServ.addError(parseError(err));
       }
     })
@@ -102,14 +106,14 @@ export class Singular implements OnInit {
       this.cartService.addToCart(this.user!.id, this.currentProduct.variants[this.currentVariant].id).subscribe(
         {
           next: val => {
-            console.log(val);
+
             this.cartService.currentProducts.update(x => [...x, this.currentProduct!.variants[this.currentVariant]]);
             this.cartService.loadCartFromBackend(this.user!.id);
             this.loading = false;
             this.cdr.detectChanges();
           },
           error: err => {
-            console.log(err);
+
             this.loading = false;
             this.errorServ.addError(parseError(err));
           }
@@ -134,7 +138,7 @@ export class Singular implements OnInit {
       this.cartService.addToCart(this.user!.id, this.currentProduct.variants[this.currentVariant].id).subscribe(
         {
           next: val => {
-            console.log(val);
+
             this.cartService.currentProducts.update(x => [...x, this.currentProduct!.variants[this.currentVariant]]);
             this.cartService.loadCartFromBackend(this.user!.id);
             this.loading = false;
@@ -146,7 +150,7 @@ export class Singular implements OnInit {
             })
           },
           error: err => {
-            console.log(err);
+
             this.loading = false;
             this.errorServ.addError(parseError(err));
           }

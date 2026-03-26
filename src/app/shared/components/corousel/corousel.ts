@@ -1,6 +1,8 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { carouselDTO } from '../../models/carouselDTO';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-corousel',
@@ -28,6 +30,8 @@ export class Corousel implements OnInit, OnDestroy {
     }
   }
 
+  constructor(private router: Router) { }
+
   startAutoplay(): void {
     this.autoSlideInterval = setInterval(() => this.nextSlide(), 4000); // Cambia de slide cada 4 segundos
   }
@@ -46,6 +50,17 @@ export class Corousel implements OnInit, OnDestroy {
     this.currentSlide = (this.currentSlide + 1) % this.data.banners.length;
   }
 
+  toOwn(slide: number) {
+
+    this.data.banners[slide].product ?
+      this.router.navigate(['dashboard', this.data.banners[slide].product?.genericProd?.category.nombre, this.data.banners[slide].product.genericProd?.id],
+        {
+          queryParams: {
+            variant: this.data.banners[slide].prodId
+          }
+        }
+      ) : null
+  }
 
 
 }

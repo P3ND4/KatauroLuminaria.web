@@ -1,4 +1,4 @@
-import {Variant } from "../models/Products";
+import { Variant } from "../models/Products";
 
 export function getAlt(Product: Variant): string {
     const text = Product.genericProd?.name + '\n' + Product.genericProd?.subtitle + '\n'
