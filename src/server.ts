@@ -35,7 +35,7 @@ const angularApp = new AngularNodeAppEngine();
  */
 app.use(
   express.static(browserDistFolder, {
-    maxAge: '1y',
+    maxAge: '0',
     index: false,
     redirect: false,
   }),
