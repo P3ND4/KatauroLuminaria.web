@@ -18,10 +18,12 @@ import { parseError } from '../../../shared/services/errors/errorParser';
 import { MessageBox } from "../../../shared/components/message-box/message-box";
 import { Promotion } from '../../../shared/models/promotions';
 import { calculateDiscount } from '../../../shared/utils/calcDiscount';
+import { CustomCurrencyPipe } from '../../../shared/pipes/myCurrencyPipe';
 
 @Component({
   selector: 'app-cart',
-  imports: [CurrencyPipe, ReactiveFormsModule, CommonModule, BoxLoader, MessageBox],
+  imports: [CustomCurrencyPipe, ReactiveFormsModule, CommonModule, BoxLoader, MessageBox],
+  providers: [CurrencyPipe],
   animations: [DropdownAnimation, DropdownAnimationAH],
   templateUrl: './cart.html',
   styleUrl: './cart.css'

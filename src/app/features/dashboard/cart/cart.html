@@ -192,12 +192,13 @@
                             <div class="prod-txt" (click)="toggle(item.id)">
                                 <h3>{{item.genericProd?.name}}</h3>
                                 <h4 class="desc">{{item.genericProd?.subtitle}}</h4>
-                                <p>{{( item.price * (1-discount(item)) | currency)}}
+                                <p>{{( item.price * (1-discount(item)) | customCurrency)}}
                                     @if(discount(item) > 0) {
                                     <span class="discounted">
-                                        {{item.price | currency}}
+                                        {{item.price | customCurrency}}
                                     </span>
                                     }
+                                    <span [style.font-weight]="'semibold'" style="font-size: 12px;">USD</span>
                                 </p>
                             </div>
 
@@ -227,16 +228,18 @@
             <div class="check">
                 <div class="subtotal">
                     <h3>Subtotal</h3>
-                    <h3>{{subTotalPrice() | currency}}</h3>
+                    <h3>{{subTotalPrice() | customCurrency}}</h3>
                 </div>
                 <div class="subtotal">
                     <h3>Transportación</h3>
-                    <h3>{{ aditionalInfo? (deliveryPrice() | currency) : '--------' }}</h3>
+                    <h3>{{ aditionalInfo? (deliveryPrice() | customCurrency) : '--------' }}</h3>
                 </div>
                 <div class="total-price">
                     <div class="divider"></div>
                     <h2>Total</h2>
-                    <h2>{{ deliveryPrice() + subTotalPrice() | currency }}</h2>
+                    <h2>{{ deliveryPrice() + subTotalPrice() | customCurrency }}
+                        <span [style.font-weight]="'semibold'" style="font-size: 14px;">USD</span>
+                    </h2>
                 </div>
             </div>
         </div>

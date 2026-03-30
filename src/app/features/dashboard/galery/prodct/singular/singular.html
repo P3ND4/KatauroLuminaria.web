@@ -114,10 +114,12 @@
             <div class="price-info">
                 @if(charged){
                 <p>{{currentProduct!.variants[currentVariant].price * (1 -discounts(currentProduct?
-                    currentProduct.variants[currentVariant] : undefined)) | currency}}
+                    currentProduct.variants[currentVariant] : undefined)) | customCurrency}}
                     @if(discounts(currentProduct? currentProduct.variants[currentVariant] : undefined) > 0){
-                    <span class="old-price">{{currentProduct!.variants[currentVariant].price | currency}}</span>
+                    <span class="old-price">{{currentProduct!.variants[currentVariant].price |
+                        customCurrency}}</span>
                     }
+                    <span [style.font-weight]="600" class="currency">USD</span>
                 </p>
                 }
                 @else {

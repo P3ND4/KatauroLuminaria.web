@@ -96,7 +96,9 @@ export class Galery implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.scrollToSelectedCat(this.selectedCategory);
-    window.scrollTo(0, 0);
+    if (isPlatformBrowser(this.plataformId)) {
+      window.scrollTo(0, 0);
+    }
   }
 
   onCategoryChange(category: Categories | 'TODAS') {

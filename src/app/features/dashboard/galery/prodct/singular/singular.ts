@@ -13,10 +13,12 @@ import { parseError } from '../../../../../shared/services/errors/errorParser';
 import { Discount } from "../../../../../shared/components/discount/discount";
 import { calculateDiscount } from '../../../../../shared/utils/calcDiscount';
 import { getAlt } from '../../../../../shared/utils/getAlt';
+import { CustomCurrencyPipe } from '../../../../../shared/pipes/myCurrencyPipe';
 
 @Component({
   selector: 'app-singular',
-  imports: [CurrencyPipe, CommonModule, BoxLoader, Discount],
+  imports: [CustomCurrencyPipe, CommonModule, BoxLoader, Discount],
+  providers: [CurrencyPipe],
   templateUrl: './singular.html',
   styleUrl: './singular.css'
 })
