@@ -4,6 +4,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FadeAndSlideIn } from '../../../shared/animations/FadeAndSlideIn';
 import { Corousel } from "../../../shared/components/corousel/corousel";
 import { carouselDTO } from '../../../shared/models/carouselDTO';
+import { optimizeUrlCloudy } from '../../../shared/utils/optimizeUrlCloudy';
 
 @Component({
   selector: 'app-team',
@@ -27,14 +28,16 @@ export class Team implements AfterViewInit {
 
     }
   }
-
   carousel: carouselDTO = this.createCarousel();
+
+
+  teamImage = optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775019483/equipo-katauro.jpg_xug0xt.jpg');
 
   createCarousel() {
     const images = [
-      '/assets/back_image4.png',
-      '/assets/back_image5.png',
-      '/assets/back_image.webp']
+      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775019475/diseno-luminarias-madera-katauro.jpg..jpg_nkkdms.jpg'),
+      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775019474/diseno-luminarias-katauro.jpg..jpg_yxkgir.jpg'),
+      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775019476/diseno-prodccion-luminarias-katauro.jpg..jpg_sxewkj.jpg')]
     const car: carouselDTO = {
       carousel: 3,
       banners: images.map(x => ({

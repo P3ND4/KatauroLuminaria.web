@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { parseError } from '../../../shared/services/errors/errorParser';
 import { Carousel } from '../../../shared/models/promotions';
 import { getAlt } from '../../../shared/utils/getAlt';
+import { optimizeUrlCloudy } from '../../../shared/utils/optimizeUrlCloudy';
 
 @Component({
   selector: 'app-home',
@@ -37,9 +38,9 @@ export class Home implements OnInit, AfterViewInit {
 
   create3rdPan() {
     const images = [
-      '/assets/back_image4.png',
-      '/assets/back_image5.png',
-      '/assets/back_image.webp']
+      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775018858/katauro-luminarias-Cuba-prosccion-disen%CC%83o.jpg_ckeosw.jpg'),
+      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775018857/luminarias-Cuba-prosccion-disen%CC%83o-katauro.jpg_pmvroe.jpg'),
+      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775018858/Cuba-katauro-luminarias-prosccion-disen%CC%83o.jpg_oxcprj.jpg')]
     const carousel: carouselDTO = {
       carousel: 2,
       banners: images.map(x => ({
