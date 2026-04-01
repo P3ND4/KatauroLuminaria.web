@@ -83,7 +83,8 @@ export class Galery implements OnInit, AfterViewInit {
 
     this.http.getProducts(option).subscribe({
       next: (val) => {
-        this.products = val as Product[]
+        console.log(val);
+        this.products = (val as { products: Product[], total: number }).products;
         this.products = this.products.filter((prod) => prod.variants.length > 0);
 
         this.correctCharged = true;

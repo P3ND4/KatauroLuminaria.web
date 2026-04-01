@@ -52,7 +52,7 @@ export class Prodct implements OnInit, AfterViewInit {
 
     this.http.getProducts({ category: this.currentCategory }).subscribe({
       next: (val) => {
-        this.products = val as Product[];
+        this.products = (val as { products: Product[], total: number }).products;
         this.products = this.products.filter((prod) => prod.variants ? prod.variants.length > 0 : false);
         this.charged = true;
         this.scrollToSelectedCat();
@@ -62,7 +62,7 @@ export class Prodct implements OnInit, AfterViewInit {
           const index = this.route.firstChild?.snapshot.paramMap.get('id');
 
           if (!index && this.products.length > 0) {
-            this.selectProduct(0);
+            this.selectProduct(0, true);
             return;
           }
 
@@ -92,10 +92,11 @@ export class Prodct implements OnInit, AfterViewInit {
 
   }
 
-  selectProduct(index: number) {
-    if (index === this.selectedIndex) return;
+  selectProduct(index: number, forceNav = false) {
+    const lastIndex = this.selectedIndex;
     this.selectedIndex = index;
     this.updateIndicator();
+    if (index === lastIndex && !forceNav) return;
     this.router.navigate([`dashboard/${this.currentCategory}/${this.products[index].id}`]);
   }
 

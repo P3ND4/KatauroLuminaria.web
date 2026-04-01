@@ -8,9 +8,9 @@ import { firstValueFrom } from "rxjs";
 export async function prodPrerenderParams() {
 
     const http = inject(HttpService);
-    const prods: Product[] = await firstValueFrom(http.getProducts()) as Product[];
+    const { products } = await firstValueFrom(http.getProducts()) as { products: Product[] };
 
-    return prods.map(prod => ({
+    return products.map(prod => ({
         category: prod.category.nombre.toLowerCase(),
         id: prod.id
     }));

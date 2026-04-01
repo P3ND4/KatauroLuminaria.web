@@ -25,7 +25,7 @@ export class CustomCurrencyPipe implements PipeTransform {
         );
 
         if (!formatted) return null;
-        console.log('Formatted value:', formatted);
+
 
         // 🔥 Aquí metemos el espacio después del símbolo
         return formatted.replace('$', '$ ');
