@@ -1,37 +1,5 @@
 {
   "routes": {
-    "/": {},
-    "/dashboard": {},
-    "/dashboard/accesorios": {},
-    "/dashboard/accesorios/184dff8b-3368-4d74-b122-706623a29c73": {},
-    "/dashboard/accesorios/2556ea39-5fc9-479d-a05f-7764ebd61d49": {},
-    "/dashboard/accesorios/420743e1-375f-4fab-a7fc-881aef5b7df3": {},
-    "/dashboard/accesorios/78ccd2ae-eb82-4fdc-b68b-770661b0ed2c": {},
-    "/dashboard/blog": {},
-    "/dashboard/cart": {},
-    "/dashboard/galery": {},
-    "/dashboard/home": {},
-    "/dashboard/luminarias de mesa": {},
-    "/dashboard/luminarias de mesa/1c76fd7c-b9d7-4838-83d0-e6a99895317a": {},
-    "/dashboard/luminarias de mesa/5c581aa1-6fd2-4ade-bc05-468d9815096d": {},
-    "/dashboard/luminarias de mesa/6e463d4d-8bbe-4e15-a3cd-0ac5cfe92d1b": {},
-    "/dashboard/luminarias de mesa/74f7d969-2dc2-4367-890a-0230eaa00785": {},
-    "/dashboard/luminarias de pared": {},
-    "/dashboard/luminarias de pared/d717c86c-ddf8-4cf1-9d75-f4796f339aad": {},
-    "/dashboard/luminarias de pie": {},
-    "/dashboard/luminarias de pie/04b3151a-66fc-4bb4-b07b-0c188b600b5a": {},
-    "/dashboard/luminarias de pie/59a6a292-a54a-48bc-a233-83bd7d806591": {},
-    "/dashboard/luminarias de techo": {},
-    "/dashboard/luminarias de techo/08ad2389-1bc7-4757-ad34-af9db8e0b8e5": {},
-    "/dashboard/luminarias de techo/2341a0ec-e782-4b3d-85eb-1ee0531a0597": {},
-    "/dashboard/luminarias de techo/bbc3d350-86cc-4d80-93ea-321b5ba09b5f": {},
-    "/dashboard/luminarias de techo/e48723eb-c3e0-4f98-94bb-452377aa36ff": {},
-    "/dashboard/luminarias de techo/fd53e5cf-aea3-4687-a3e7-3d9300b7ff58": {},
-    "/dashboard/team": {},
-    "/login": {},
-    "/login/change-pass": {},
-    "/login/forgot-password": {},
-    "/login/signin": {},
-    "/login/signup": {}
+    "/dashboard/team": {}
   }
 }

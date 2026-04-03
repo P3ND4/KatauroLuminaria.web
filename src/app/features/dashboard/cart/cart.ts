@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject, PLATFORM_ID, signal } from '@angular/core';
 import { CartService } from '../../../shared/services/cart/cart.service';
 import { Product, Variant } from '../../../shared/models/Products';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, isPlatformBrowser } from '@angular/common';
 import { FormBuilder, FormGroup, MinLengthValidator, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../shared/services/auth/auth.service';
@@ -34,6 +34,7 @@ export class Cart implements OnInit {
   selected: { [key: string]: number } = {};
   queryParamsSubscription: Subscription | undefined;
   currentUser: User | undefined;
+  plataformId = inject(PLATFORM_ID);
   aditionalInfo = false;
   provinceOpen = false;
   munIsOpen = false;
@@ -217,7 +218,7 @@ export class Cart implements OnInit {
     }
   }
   isMobile(): boolean {
-    return window.innerWidth <= 700;
+    return isPlatformBrowser(this.plataformId) ? window.innerWidth <= 700 : false;
   }
   subTotalPrice(): number {
     let total = 0;
@@ -253,9 +254,11 @@ export class Cart implements OnInit {
     return 0;
   }
   openWhatsApp(id: string) {
-    const phone = '5355801741';
-    const text = encodeURIComponent('Hola, quiero escribirte para realizar el pago de la compra con id \n' + `  ${id}`);
-    window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+    if (isPlatformBrowser(this.plataformId)) {
+      const phone = '5355801741';
+      const text = encodeURIComponent('Hola, quiero escribirte para realizar el pago de la compra con id \n' + `  ${id}`);
+      window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+    }
   }
   noSelected() {
     return Object.keys(this.selected).length == 0;

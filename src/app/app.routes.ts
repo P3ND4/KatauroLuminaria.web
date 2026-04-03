@@ -1,17 +1,9 @@
-import { provideRouter, Routes, withViewTransitions } from '@angular/router';
+import { Routes } from '@angular/router';
 import { App } from './app';
 import { Dashboard } from './features/dashboard/dashboard';
-import { Home } from './features/dashboard/home/home';
-import { Team } from './features/dashboard/team/team';
-import { Galery } from './features/dashboard/galery/galery';
-import { Blog } from './features/dashboard/blog/blog';
-import { Login } from './features/login/login';
-import { Prodct } from './features/dashboard/galery/prodct/prodct';
-import { Singular } from './features/dashboard/galery/prodct/singular/singular';
-import { Signin } from './features/login/signin/signin';
-import { Signup } from './features/login/signup/signup';
-import { Cart } from './features/dashboard/cart/cart';
+
 import { authGuard } from './shared/guards/auth-guard';
+import path from 'path';
 
 export const routes: Routes = [
     {
@@ -45,6 +37,6 @@ export const routes: Routes = [
             },
         ]
     },
-    { path: '**', redirectTo: 'dashboard/home' }
+    { path: '**', redirectTo: 'dashboard/home', pathMatch: 'full' }
 ];
 

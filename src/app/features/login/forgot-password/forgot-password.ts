@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren, inject, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,6 +24,7 @@ export class ForgotPassword implements OnInit, OnDestroy {
   email: string | undefined;
   loading = false;
   loadMsg = "Verificando código...";
+  plataformId = inject(PLATFORM_ID);
   constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, private http: HttpService,
     private route: ActivatedRoute, private router: Router, private errorServ: ErrorLogService) {
     this.forgotPasswordForm = this.fb.group({
@@ -67,13 +69,15 @@ export class ForgotPassword implements OnInit, OnDestroy {
 
   startTimer() {
     this.timeLeft = 5 * 60 * 1000; // Reset to 5 minutes
-    this.intervalId = window.setInterval(() => {
-      if (this.timeLeft > 0) {
-        this.timeLeft -= 1000;
-      } else {
-        this.stopTimer();
-      }
-    }, 1000);
+    if (isPlatformBrowser(this.plataformId)) {
+      this.intervalId = window.setInterval(() => {
+        if (this.timeLeft > 0) {
+          this.timeLeft -= 1000;
+        } else {
+          this.stopTimer();
+        }
+      }, 1000);
+    }
   }
 
   stopTimer() {

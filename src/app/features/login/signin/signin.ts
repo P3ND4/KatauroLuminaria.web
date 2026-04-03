@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth/auth.service';
@@ -19,6 +19,7 @@ export class Signin {
   visibility = false;
   loading = false;
   loadMsg = "Iniciando sesión...";
+  plataformId = inject(PLATFORM_ID);
   constructor(private loginService: AuthService, private fb: FormBuilder, public router: Router, private http: HttpService, private errorServ: ErrorLogService) {
     this.loginForm = this.fb.group(
       {
@@ -31,8 +32,12 @@ export class Signin {
 
   toggleVisibility(id: string) {
     this.visibility = !this.visibility;
-    const password = document.getElementById(id) as HTMLInputElement;
-    password.type = (password.type == "password") ? "text" : "password";
+    if (isPlatformBrowser(this.plataformId)) {
+      const password = document.getElementById(id) as HTMLInputElement;
+      if (password) {
+        password.type = (password.type == "password") ? "text" : "password";
+      }
+    }
   }
 
   forgotPassword() {

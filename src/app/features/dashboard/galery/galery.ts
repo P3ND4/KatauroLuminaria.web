@@ -108,11 +108,15 @@ export class Galery implements OnInit, AfterViewInit {
       queryParams: { page: 1, category: category !== "TODAS" ? category : undefined },
       queryParamsHandling: 'merge',
     });
-    window.scrollTo(0, 0);
+    if (isPlatformBrowser(this.plataformId)) {
+      window.scrollTo(0, 0);
+    }
   }
 
   navigateToProduct(productCategory: Categories, productId: string) {
-    document.documentElement.setAttribute('data-direction', '');
+    if (isPlatformBrowser(this.plataformId)) {
+      document.documentElement.setAttribute('data-direction', '');
+    }
     this.router.navigate(['/dashboard', productCategory, productId], { queryParams: { index: productId } });
   }
 
@@ -140,7 +144,9 @@ export class Galery implements OnInit, AfterViewInit {
       queryParams: { page: this.currentPage },
       queryParamsHandling: 'merge',
     });
-    window.scrollTo(0, 0);
+    if (isPlatformBrowser(this.plataformId)) {
+      window.scrollTo(0, 0);
+    }
   }
 
 

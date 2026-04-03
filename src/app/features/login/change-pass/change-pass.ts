@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { passwordMatchValidator } from '../../../shared/validators/passwordMissMatch.validator';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
@@ -23,6 +23,7 @@ export class ChangePass {
   loading = false;
 
 
+  platformId = inject(PLATFORM_ID);
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router,
     private http: HttpService, private loginS: AuthService, private errorServ: ErrorLogService) {
     this.email = route.snapshot.queryParamMap.get('email') ?? undefined;
@@ -37,8 +38,12 @@ export class ChangePass {
   }
   toggleVisibility(id: string, pos: number) {
     this.visibility[pos] = !this.visibility[pos];
-    const password = document.getElementById(id) as HTMLInputElement;
-    password.type = (password.type == "password") ? "text" : "password";
+    if (isPlatformBrowser(this.platformId)) {
+      const password = document.getElementById(id) as HTMLInputElement;
+      if (password) {
+        password.type = (password.type == "password") ? "text" : "password";
+      }
+    }
   }
   passMisMatch() {
     return this.changePassForm.hasError('passwordMismatch') && this.changePassForm.get('confirmPassword')?.touched;

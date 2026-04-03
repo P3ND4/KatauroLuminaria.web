@@ -115,17 +115,21 @@ export class Dashboard implements OnInit, AfterViewInit {
     const current = split[2];
     const index = this.sections.indexOf(current);
     const targetIndex = this.sections.indexOf(path.split('/')[2]);
-    if (index > targetIndex)
-      document.documentElement.setAttribute('data-direction', 'left');
-    else if (index < targetIndex)
-      document.documentElement.setAttribute('data-direction', 'right');
-    else
-      document.documentElement.setAttribute('data-direction', '');
-    // iniciar transición
-    console.log(document.documentElement.getAttribute('data-direction'));
-    document.startViewTransition(() =>
-      this.router.navigateByUrl(path)
-    )
+    if (isPlatformBrowser(this.plataformId)) {
+      if (index > targetIndex)
+        document.documentElement.setAttribute('data-direction', 'left');
+      else if (index < targetIndex)
+        document.documentElement.setAttribute('data-direction', 'right');
+      else
+        document.documentElement.setAttribute('data-direction', '');
+      // iniciar transición
+      console.log(document.documentElement.getAttribute('data-direction'));
+      document.startViewTransition(() =>
+        this.router.navigateByUrl(path)
+      );
+    } else {
+      this.router.navigateByUrl(path);
+    }
 
   }
 
@@ -156,10 +160,14 @@ export class Dashboard implements OnInit, AfterViewInit {
 
   }
   lockScroll(): void {
-    document.body.style.overflow = 'hidden';
+    if (isPlatformBrowser(this.plataformId)) {
+      document.body.style.overflow = 'hidden';
+    }
   }
 
   unlockScroll(): void {
-    document.body.style.overflow = '';
+    if (isPlatformBrowser(this.plataformId)) {
+      document.body.style.overflow = '';
+    }
   }
 }

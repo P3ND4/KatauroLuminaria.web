@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Component, inject, PLATFORM_ID } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '../../../shared/services/http/http.service';
@@ -21,6 +21,7 @@ export class Signup implements AfterViewInit {
   loading = false;
   selectedRegionCode = 2;
   openDropdown = false;
+  plataformId = inject(PLATFORM_ID);
   constructor(private fb: FormBuilder, public router: Router, private http: HttpService, private loginS: AuthService, private errorServ: ErrorLogService) {
     this.signUpForm = this.fb.group({
       name: ['', Validators.required],
@@ -97,8 +98,12 @@ export class Signup implements AfterViewInit {
 
   toggleVisibility(id: string, pos: number) {
     this.visibility[pos] = !this.visibility[pos];
-    const password = document.getElementById(id) as HTMLInputElement;
-    password.type = (password.type == "password") ? "text" : "password";
+    if (isPlatformBrowser(this.plataformId)) {
+      const password = document.getElementById(id) as HTMLInputElement;
+      if (password) {
+        password.type = (password.type == "password") ? "text" : "password";
+      }
+    }
   }
   passMisMatch() {
     return this.signUpForm.hasError('passwordMismatch') && this.signUpForm.get('confirmPassword')?.touched;
