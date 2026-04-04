@@ -38,7 +38,8 @@
                 "localhost",
                 "katauro.com",
                 "www.katauro.com",
-                "katauroluminariaweb-production.up.railway.app"
+                "katauroluminariaweb-production.up.railway.app",
+                "katauro-luminaria-web.vercel.app"
               ]
             },
             "ssr": {
