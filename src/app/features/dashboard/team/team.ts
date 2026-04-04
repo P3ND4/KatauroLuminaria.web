@@ -35,9 +35,9 @@ export class Team implements AfterViewInit {
 
   createCarousel() {
     const images = [
-      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775019475/diseno-luminarias-madera-katauro.jpg..jpg_nkkdms.jpg'),
-      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775019474/diseno-luminarias-katauro.jpg..jpg_yxkgir.jpg'),
-      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775019476/diseno-prodccion-luminarias-katauro.jpg..jpg_sxewkj.jpg')]
+      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775273492/Artboard_1.jpg_wccoph.jpg'),
+      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_2.jpg_wt6ieb.jpg'),
+      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_3.jpg_tmeilp.jpg')]
     const car: carouselDTO = {
       carousel: 3,
       banners: images.map(x => ({

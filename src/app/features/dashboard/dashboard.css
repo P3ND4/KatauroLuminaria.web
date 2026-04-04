@@ -203,7 +203,9 @@
 }
 
 .contact-wu {
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   grid-column: 1;
   grid-row: 1;
 }
@@ -498,7 +500,11 @@
   }
 
   .contact-wu {
-    height: 371px;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    padding-bottom: 32px;
+    gap: 10px;
   }
 
   .social-media {
@@ -586,7 +592,13 @@
     padding-left: 30px;
   }
 
+  .contact-wu {
+    height: fit-content;
+    padding-bottom: 32px;
+  }
+
   .contact-info {
+
     padding-left: 0px;
   }
 }

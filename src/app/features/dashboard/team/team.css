@@ -158,11 +158,19 @@ h1 {
 }
 
 .img-cont {
+    aspect-ratio: calc(1440/560);
+    min-height: 264px;
     width: 100%;
-    height: auto;
-    display: flex;
-    position: relative;
+    overflow: hidden;
 }
+
+.img-cont img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
 
 .member {
     display: flex;
@@ -223,7 +231,7 @@ h4 {
 
 @media (max-width: 1300px) {
     .metrics {
-        flex-direction: column;
+        flex-direction: column-reverse;
         height: auto;
         padding-inline: 40px;
         gap: 40px;
@@ -248,6 +256,12 @@ h4 {
     .metric-count p,
     .metric-count span {
         text-align: center;
+    }
+
+    .main-h {
+        padding-top: 48px;
+        padding-bottom: 0;
+        padding-inline: 32px;
     }
 
     .main-h h1 {
@@ -306,7 +320,8 @@ h4 {
     .metric-info {
         flex-direction: column;
     }
-    .metric-content{
+
+    .metric-content {
         width: 100%;
     }
 

@@ -37,7 +37,8 @@
               "allowedHosts": [
                 "localhost",
                 "katauro.com",
-                "www.katauro.com"
+                "www.katauro.com",
+                "katauroluminariaweb-production.up.railway.app"
               ]
             },
             "ssr": {

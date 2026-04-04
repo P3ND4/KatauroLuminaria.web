@@ -38,9 +38,9 @@ export class Home implements OnInit, AfterViewInit {
 
   create3rdPan() {
     const images = [
-      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775018858/katauro-luminarias-Cuba-prosccion-disen%CC%83o.jpg_ckeosw.jpg'),
-      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775018857/luminarias-Cuba-prosccion-disen%CC%83o-katauro.jpg_pmvroe.jpg'),
-      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775018858/Cuba-katauro-luminarias-prosccion-disen%CC%83o.jpg_oxcprj.jpg')]
+      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775273492/Artboard_1.jpg_wccoph.jpg'),
+      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_2.jpg_wt6ieb.jpg'),
+      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_3.jpg_tmeilp.jpg')]
     const carousel: carouselDTO = {
       carousel: 2,
       banners: images.map(x => ({
