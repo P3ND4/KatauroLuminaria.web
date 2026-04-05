@@ -29,7 +29,7 @@
     z-index: 1000;
 }
 
-.discount{
+.discount {
     position: absolute;
     z-index: 2;
     top: 20px;
@@ -494,12 +494,19 @@ h3 {
 
 @media (max-width: 535px) {
 
+
+
+    .galery-header {
+        gap: 12px;
+    }
+
     .pagination {
         width: 100%;
     }
 
     .galery-container {
         padding-inline: 12px;
+        padding-top: 46px;
     }
 
     .product img {

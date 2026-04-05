@@ -115,6 +115,12 @@ h3 {
     transition: transform 0.3s ease;
 }
 
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
 .discover-header {
     display: flex;
     height: 48px;
@@ -163,6 +169,10 @@ h3 {
 
     .cat-content .button-chips {
         padding: 8px 14px;
+    }
+
+    .header {
+        gap: 12px;
     }
 
     .cat-content .button-chips label {
