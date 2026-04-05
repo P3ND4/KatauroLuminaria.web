@@ -135,6 +135,15 @@
 }
 
 
+.carousel-container.first .slide img{
+    object-position: right;
+}
+
+.carousel-container.second .slide img{
+    object-position: left;
+}
+
+
 .info-contet h2 {
     color: var(--White, #FFF);
 
