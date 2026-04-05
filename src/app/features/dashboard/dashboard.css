@@ -202,6 +202,8 @@
   z-index: 1;
 }
 
+
+
 .contact-wu {
   display: flex;
   flex-direction: column;
@@ -379,6 +381,13 @@
   gap: 12px
 }
 
+
+.ideas-cover {
+  display: flex;
+  width: 80%;
+  margin-top: 12px;
+}
+
 .divider {
   position: absolute;
   top: 0px;
@@ -501,6 +510,7 @@
 
   .contact-wu {
     display: flex;
+    max-width: 392px;
     flex-direction: column;
     height: fit-content;
     padding-bottom: 32px;
@@ -545,12 +555,24 @@
   .mobile-panel {
     display: flex;
   }
+
+  .factory-info {
+    margin-top: 46px;
+  }
 }
 
 @media(max-width: 600px) {
   .navigation-bar {
     padding: 16px;
     box-sizing: border-box;
+  }
+
+  .contact-wu {
+    max-width: 343px;
+  }
+
+  .ideas-cover {
+    width: 80%;
   }
 
   .shop-info header,
@@ -594,7 +616,7 @@
 
   .contact-wu {
     height: fit-content;
-    padding-bottom: 32px;
+    padding-bottom: 46px;
   }
 
   .contact-info {

@@ -1,10 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-
-
+@import url('https://fonts.googleapis.com/css2?family=Allura:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alex Brush:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Notera:wght@400&display=swap');
 :root {
     --gray-25: #FDFDFD;
     --montser-font: 'Montserrat', sans-serif;
+    --allura-font: 'Allura', cursive;
+    --alex-brush-font: 'Alex Brush', cursive;
+    --notera-font: 'Notera', cursive;
 }
 
 h2,
