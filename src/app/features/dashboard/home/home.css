@@ -20,6 +20,12 @@
 }
 
 
+.luminarias.featured header {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-inline: 12px;
+}
 
 .chargin-bar {
     width: 0%;
@@ -793,6 +799,10 @@ h2 {
         padding-inline: 32px;
         gap: 64px;
         margin-top: 64px;
+    }
+
+    .luminarias.featured header {
+        gap: 12px;
     }
 
     .offer-info {

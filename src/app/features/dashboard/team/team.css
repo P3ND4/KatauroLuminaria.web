@@ -261,9 +261,13 @@ h4 {
 
     .main-h {
         padding-top: 48px;
-        padding-bottom: 0;
+        padding-bottom: 32px;
         padding-inline: 32px;
 
+    }
+
+    .metrics {
+        padding-bottom: 32px;
     }
 
     .main-h h1 {
@@ -282,6 +286,10 @@ h4 {
         font-weight: 400;
         line-height: 20px;
 
+    }
+
+    .our-team {
+        gap: 32px;
     }
 
     .team-list {
