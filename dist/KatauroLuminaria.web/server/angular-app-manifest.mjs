@@ -25,7 +25,7 @@ export default {
   {
     "renderMode": 0,
     "preload": [
-      "chunk-47R2QT76.js",
+      "chunk-NNWRXM27.js",
       "chunk-SXSRPIZO.js",
       "chunk-LPWX3GUC.js",
       "chunk-G6XDZR4B.js"
@@ -35,7 +35,7 @@ export default {
   {
     "renderMode": 2,
     "preload": [
-      "chunk-AWBQBWL5.js",
+      "chunk-7L4AHAJD.js",
       "chunk-SXSRPIZO.js",
       "chunk-JFY52BG6.js"
     ],
@@ -116,9 +116,9 @@ export default {
 ],
   entryPointToBrowserMapping: undefined,
   assets: {
-    'index.csr.html': {size: 16907, hash: '1b8cb4e6e4def393fb087635e6248ef3621b8b1215216a93004e647468012692', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 7884, hash: '4173c649def1927ba4b4d9bf20021db0ba9eeb5e9d1008647b12c445815bcee3', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
-    'dashboard/team/index.html': {size: 53589, hash: '65fa9f85e73b3311544704c791e3ed2897049a6aaab9aeae716360e4355e2974', text: () => import('./assets-chunks/dashboard_team_index_html.mjs').then(m => m.default)},
+    'index.csr.html': {size: 16907, hash: '51b811cd650bc9a18a894f5147b94318b176aacfc421de06411d9ee8920caaff', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 7884, hash: '53b5d9c1fb7fa0d1df1da8d847f4b324106fd7874c3622aa31184e9397756b79', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'dashboard/team/index.html': {size: 53694, hash: '44fae057338ad5073368728945ad021ba6244451a5811cc4a2eb77cde3811a80', text: () => import('./assets-chunks/dashboard_team_index_html.mjs').then(m => m.default)},
     'styles-K54BMADN.css': {size: 27866, hash: 'HwREGa1vEZQ', text: () => import('./assets-chunks/styles-K54BMADN_css.mjs').then(m => m.default)}
   },
 };
