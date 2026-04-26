@@ -1,1 +1,182 @@
-<p>blog works!</p>
+@if (loading) {
+<div class="loader-wrapper">
+    <app-box-loader [message]="loadMsg"></app-box-loader>
+</div>
+}
+
+<div class="blog-container">
+    <div class="blog-header">
+        <h1 class="blog-title">Luz a tu estilo</h1>
+        <p class="blog-subtitle">Descubre consejos, información y documentación de Katauro</p>
+        @if (usingMockData) {
+        <div class="mock-data-badge">
+            <span>📌 Datos de demostración - Base de datos vacía</span>
+        </div>
+        }
+    </div>
+
+    @if (blogsLoaded) {
+    <!-- Featured Section -->
+    <div class="featured-section">
+        <h2 class="featured-title">Blog post card templates</h2>
+
+        <div class="featured-grid">
+            <!-- Main Featured Blog -->
+            @if (featuredBlog && featuredBlog.id) {
+            <div class="blog-card" (click)="navigateToBlog(featuredBlog.id!)">
+                <div class="blog-card-image-container featured-image-container">
+
+                    @if (featuredBlog.images && featuredBlog.images.length > 0) {
+                    <img [src]="featuredBlog.images[0].link" [alt]="featuredBlog.title" class="featured-image" />
+                    } @else {
+                    <div class="featured-image-placeholder"></div>
+                    }
+                </div>
+                <div class="blog-card-content">
+                    <p class="blog-card-date">{{ featuredBlog.createdAt | date: 'dd MMM yyyy' }}</p>
+                    <h3 class="blog-card-title">{{ featuredBlog.title }}</h3>
+                    <p class="blog-card-description">{{ featuredBlog.introduction }}</p>
+                    <!-- Tags -->
+                    @if (featuredBlog.tags && featuredBlog.tags.length > 0) {
+                    <div class="blog-card-tags">
+                        @for (blogTag of featuredBlog.tags; track blogTag.tagId) {
+                        @if (blogTag.tag) {
+                        <span class="blog-tag" [style.backgroundColor]="blogTag.tag.bgColor"
+                            [style.color]="blogTag.tag.color">
+                            {{ blogTag.tag.name }}
+                        </span>
+                        }
+                        }
+                    </div>
+                    }
+
+                </div>
+            </div>
+            } @else {
+            <div class="featured-blog">
+                <app-skeleton-loader [type]="4" class="sk"></app-skeleton-loader>
+            </div>
+            }
+
+            <!-- Secondary Blogs -->
+            <div class="secondary-blogs">
+                @for (blog of secondaryBlogs; track blog.id || $index) {
+                @if (blog && blog.id) {
+                <div class="blog-card secondary-blog" (click)="navigateToBlog(blog.id!)">
+                    <div class="blog-card-image-container secondary-image-container">
+
+                        @if (blog.images && blog.images.length > 0) {
+                        <img [src]="blog.images[0].link" [alt]="blog.title" class="secondary-image" />
+                        } @else {
+                        <div class="secondary-image-placeholder"></div>
+                        }
+                    </div>
+                    <div class="blog-card-content">
+                        <h4 class="blog-card-title">{{ blog.title }}</h4>
+                        <p class="blog-card-date">{{ blog.createdAt | date: 'dd MMM yyyy' }}</p>
+                    </div>
+                </div>
+                } @else {
+                <div class="secondary-blog">
+                    <app-skeleton-loader [type]="4" class="sk"></app-skeleton-loader>
+                </div>
+                }
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- All Blogs Grid Section -->
+    <div class="all-blogs-section">
+        <h2 class="all-blogs-title">Todas las publicaciones</h2>
+
+        <div class="blogs-grid">
+            @for (blog of allBlogs; track blog.id || $index) {
+            @if (blog && blog.id) {
+            <div class="blog-card" (click)="navigateToBlog(blog.id!)">
+                <div class="blog-card-image-container">
+                    @if (blog.images && blog.images.length > 0) {
+                    <img [src]="blog.images[0].link" [alt]="blog.title" class="blog-card-image" />
+                    } @else {
+                    <div class="blog-card-image-placeholder"></div>
+                    }
+                    <div class="blog-card-gradient"></div>
+                </div>
+                <div class="blog-card-content">
+                    <p class="blog-card-date">{{ blog.createdAt | date: 'dd MMM yyyy' }}</p>
+                    <h3 class="blog-card-title">{{ blog.title }}</h3>
+                    <p class="blog-card-description">{{ blog.introduction }}</p>
+
+                    <!-- Tags -->
+                    @if (blog.tags && blog.tags.length > 0) {
+                    <div class="blog-card-tags">
+                        @for (blogTag of blog.tags; track blogTag.tagId) {
+                        @if (blogTag.tag) {
+                        <span class="blog-tag" [style.backgroundColor]="blogTag.tag.bgColor"
+                            [style.color]="blogTag.tag.color">
+                            {{ blogTag.tag.name }}
+                        </span>
+                        }
+                        }
+                    </div>
+                    }
+                </div>
+            </div>
+            } @else {
+            <div class="blog-card">
+                <app-skeleton-loader [type]="1" class="sk"></app-skeleton-loader>
+            </div>
+            }
+            }
+        </div>
+
+        <!-- Pagination -->
+        @if (totalPages > 1) {
+        <div class="pagination">
+            <button class="pagination-btn prev" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+                ←
+            </button>
+
+            @for (page of paginationArray; track page) {
+            <button class="pagination-btn" [ngClass]="{'active': page === currentPage}" (click)="goToPage(page)">
+                {{ page }}
+            </button>
+            }
+
+            <button class="pagination-btn next" [disabled]="currentPage === totalPages"
+                (click)="goToPage(currentPage + 1)">
+                →
+            </button>
+        </div>
+        }
+    </div>
+
+    } @else {
+    <!-- Loading State -->
+    <div class="featured-section">
+        <div class="featured-grid">
+            <div class="featured-blog">
+                <app-skeleton-loader [type]="4" class="sk"></app-skeleton-loader>
+            </div>
+            <div class="secondary-blogs">
+                <div class="secondary-blog">
+                    <app-skeleton-loader [type]="4" class="sk"></app-skeleton-loader>
+                </div>
+                <div class="secondary-blog">
+                    <app-skeleton-loader [type]="4" class="sk"></app-skeleton-loader>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="all-blogs-section">
+        <div class="blogs-grid">
+            @for (i of [0,1,2,3,4,5,6,7,8]; track $index) {
+            <div class="blog-card">
+                <app-skeleton-loader [type]="1" class="sk"></app-skeleton-loader>
+            </div>
+            }
+        </div>
+    </div>
+    }
+</div>

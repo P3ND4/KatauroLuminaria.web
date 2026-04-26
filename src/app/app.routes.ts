@@ -17,8 +17,14 @@ export const routes: Routes = [
                     { path: 'cart', canActivate: [authGuard], data: { index: 4 }, loadComponent: () => import('./features/dashboard/cart/cart').then(m => m.Cart) },
                     { path: 'home', data: { index: 0 }, loadComponent: () => import('./features/dashboard/home/home').then(m => m.Home) },
                     { path: 'team', data: { index: 1 }, loadComponent: () => import('./features/dashboard/team/team').then(m => m.Team) },
-                    { path: 'galery', data: { index: 2 }, loadComponent: () => import('./features/dashboard/galery/galery').then(m => m.Galery) },
-                    { path: 'blog', data: { index: 3 }, loadComponent: () => import('./features/dashboard/blog/blog').then(m => m.Blog) },
+                    {
+                        path: 'blog', data: { index: 2 }, loadComponent: () => import('./features/dashboard/blog/blog').then(m => m.Blog),
+                    },
+
+                    {
+                        path: 'blog/:id', loadComponent: () => import('./features/dashboard/blog/blob-viewer/blob-viewer').then(m => m.BlobViewer)
+                    },
+                    { path: 'galery', data: { index: 3 }, loadComponent: () => import('./features/dashboard/galery/galery').then(m => m.Galery) },
                     {
                         path: ':category', loadComponent: () => import('./features/dashboard/galery/prodct/prodct').then(m => m.Prodct), children: [
                             { path: ':id', loadComponent: () => import('./features/dashboard/galery/prodct/singular/singular').then(m => m.Singular) }

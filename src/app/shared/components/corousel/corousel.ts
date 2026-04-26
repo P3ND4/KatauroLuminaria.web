@@ -61,6 +61,28 @@ export class Corousel implements OnInit, OnDestroy {
         }
       ) : null
   }
+  startX = 0;
+  endX = 0;
+  onTouchStart(pos: TouchEvent) {
+    this.startX = pos.touches[0].clientX;
+  }
+  onTouchEnd(pos: TouchEvent) {
+    this.endX = pos.changedTouches[0].clientX;
+    this.handleSwipe();
+  }
 
+  handleSwipe() {
+    const diff = this.startX - this.endX;
+
+    if (Math.abs(diff) < 50) return; // evita movimientos pequeños
+
+    if (diff > 0) {
+      // swipe izquierda 👉 siguiente
+      this.goToSlide((this.currentSlide + 1) % 3)
+    } else {
+      // swipe derecha 👉 anterior
+      this.goToSlide(((this.currentSlide - 1) % 3 + 3) % 3)
+    }
+  }
 
 }

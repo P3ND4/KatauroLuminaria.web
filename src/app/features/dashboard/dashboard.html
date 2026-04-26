@@ -25,7 +25,7 @@
           equipo</a>
         <a [ngClass]="{'active': isActive('/dashboard/galery')}" [routerLink]="'/dashboard/galery'">Luminarias</a>
         <!--TODO: Implement blog link -->
-        <a [ngClass]="{'active': isActive('/dashboard/blog')}">Blog</a>
+        <a [ngClass]="{'active': isActive('/dashboard/blog')}" [routerLink]="'/dashboard/blog'" >Blog</a>
       </div>
       @if(!isLogged()){
 
