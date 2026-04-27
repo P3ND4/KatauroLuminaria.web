@@ -18,7 +18,7 @@
     @if (blogsLoaded) {
     <!-- Featured Section -->
     <div class="featured-section">
-        <h2 class="featured-title">Blog post card templates</h2>
+        <h2 class="featured-title">Publicaciones recientes</h2>
 
         <div class="featured-grid">
             <!-- Main Featured Blog -->
@@ -74,6 +74,19 @@
                     <div class="blog-card-content">
                         <h4 class="blog-card-title">{{ blog.title }}</h4>
                         <p class="blog-card-date">{{ blog.createdAt | date: 'dd MMM yyyy' }}</p>
+                        <p class="blog-card-description"> {{blog.introduction}} </p>
+                        @if (blog.tags && blog.tags.length > 0) {
+                        <div class="blog-card-tags">
+                            @for (blogTag of blog.tags; track blogTag.tagId) {
+                            @if (blogTag.tag) {
+                            <span class="blog-tag" [style.backgroundColor]="blogTag.tag.bgColor"
+                                [style.color]="blogTag.tag.color">
+                                {{ blogTag.tag.name }}
+                            </span>
+                            }
+                            }
+                        </div>
+                        }
                     </div>
                 </div>
                 } @else {
@@ -133,20 +146,32 @@
         <!-- Pagination -->
         @if (totalPages > 1) {
         <div class="pagination">
-            <button class="pagination-btn prev" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
-                ←
-            </button>
+            <div class="move prev" (click)="goToPage(currentPage !== 1 ? currentPage - 1: 1 )">
+                <img src="/assets/arrow-left.svg" alt="">
+                <label>Anterior</label>
+            </div>
+            <div class="pages">
 
-            @for (page of paginationArray; track page) {
-            <button class="pagination-btn" [ngClass]="{'active': page === currentPage}" (click)="goToPage(page)">
-                {{ page }}
-            </button>
-            }
-
-            <button class="pagination-btn next" [disabled]="currentPage === totalPages"
-                (click)="goToPage(currentPage + 1)">
-                →
-            </button>
+                @for (page of paginationArray; track $index) {
+                @if (page === totalPages && currentPage-totalPages > 2 ) {
+                <div class="page">
+                    <label>...</label>
+                </div>
+                }
+                <div class="page" [ngClass]="{'active': currentPage == page}" (click)="goToPage(page)">
+                    <label>{{page}}</label>
+                </div>
+                @if(currentPage > 3 && page+2 == currentPage){
+                <div class="page">
+                    <label>...</label>
+                </div>
+                }
+                }
+            </div>
+            <div class="move next" (click)="goToPage(currentPage !== totalPages ? currentPage + 1: totalPages )">
+                <label>Sigiente</label>
+                <img src="/assets/arrow-right.svg" alt="">
+            </div>
         </div>
         }
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -16,8 +16,9 @@ import { MOCK_BLOGS } from '../../../shared/mocks/blogs.mock';
   templateUrl: './blog.html',
   styleUrl: './blog.css'
 })
-export class Blog implements OnInit {
+export class Blog implements OnInit, AfterViewInit {
   blogs: BlogEntinty[] = [];
+  recientBlogs: BlogEntinty[] = [];
   loading = false;
   loadMsg = "Cargando blogs...";
   blogsLoaded = false;
@@ -34,15 +35,61 @@ export class Blog implements OnInit {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.loadBlogs();
+      this.loadRecients();
+      this.loadPages();
+    }
+  }
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo(0, 0);
     }
   }
 
+
+
+  loadRecients() {
+    this.httpService.getBlogs(1).subscribe({
+      next: (data: any) => {
+        let blogsData = Array.isArray(data.blogs) ? (data as { blogs: BlogEntinty[], total: number }).blogs : [];
+        blogsData = blogsData.filter(blog => blog && blog.id);
+
+        // Si no hay datos, usar mock
+        if (blogsData.length === 0) {
+          this.useMockData();
+        } else {
+          this.recientBlogs = blogsData.slice(0, 3);
+
+          this.usingMockData = false;
+
+          // Asegurar que siempre hay 9 blogs para una página
+          this.loadBlogs();
+        }
+
+
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error('Error loading blogs:', err);
+        // Usar mock data cuando hay error
+        this.useMockData();
+        this.blogsLoaded = true;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  loadPages() {
+    this.httpService.getBlogPages().subscribe({
+      next: val => {
+        this.totalPages = val as number
+      },
+      error: err => this.errorServ.addError(parseError(err))
+    })
+  }
+
   loadBlogs(): void {
-    this.loading = true;
     this.httpService.getBlogs(this.currentPage).subscribe({
       next: (data: any) => {
-        let blogsData = Array.isArray(data as BlogEntinty[]) ? data as BlogEntinty[] : [];
+        let blogsData = Array.isArray(data.blogs) ? (data as { blogs: BlogEntinty[], total: number }).blogs : [];
         blogsData = blogsData.filter(blog => blog && blog.id);
 
         // Si no hay datos, usar mock
@@ -60,7 +107,6 @@ export class Blog implements OnInit {
         }
 
         this.blogsLoaded = true;
-        this.loading = false;
         this.cdr.detectChanges();
       },
       error: (err: HttpErrorResponse) => {
@@ -68,7 +114,6 @@ export class Blog implements OnInit {
         // Usar mock data cuando hay error
         this.useMockData();
         this.blogsLoaded = true;
-        this.loading = false;
         this.cdr.detectChanges();
       }
     });
@@ -89,11 +134,11 @@ export class Blog implements OnInit {
   }
 
   get featuredBlog(): BlogEntinty | undefined {
-    return this.blogs && this.blogs.length > 0 ? this.blogs[0] : undefined;
+    return this.recientBlogs && this.recientBlogs.length > 0 ? this.recientBlogs[0] : undefined;
   }
 
   get secondaryBlogs(): BlogEntinty[] {
-    return this.blogs && this.blogs.length > 1 ? this.blogs.slice(1, 3) : [];
+    return this.recientBlogs && this.recientBlogs.length > 1 ? this.recientBlogs.slice(1, 3) : [];
   }
 
   get allBlogs(): BlogEntinty[] {

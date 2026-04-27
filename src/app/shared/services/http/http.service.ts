@@ -21,7 +21,7 @@ export class HttpService {
   ]
 
   constructor(private http: HttpClient) {
-    this.apiPath = 'http://localhost:3500';
+    //  this.apiPath = 'http://localhost:3500';
 
   }
   getFinishes() {
@@ -100,15 +100,24 @@ export class HttpService {
   }
 
   getBlogs(page?: number) {
-    return page ? this.http.get(`${this.apiPath}/blogs?page=${page}`) : this.http.get(`${this.apiPath}/blog`);
+    return page ? this.http.get(`${this.apiPath}/blogs?page=${page}&&sortBy=desc`) : this.http.get(`${this.apiPath}/blog`);
   }
 
-  getBlogPages() {
-    return this.http.get(`${this.apiPath}/blogs/pages`);
-  }
 
-  getBlog(id: string){
+
+  getBlog(id: string) {
     return this.http.get(`${this.apiPath}/blogs/${id}`);
+  }
+  getBlogPages(option?: { tags?: string, search?: string }) {
+    var url = option ? `${this.apiPath}/blogs/pages/total?` : `${this.apiPath}/blogs/pages/total`;
+
+    if (option?.tags) {
+      url += option.search ? `tags=${option.tags}&` : `tags=${option.tags}`;
+    }
+    if (option?.search) {
+      url += `search=${option.search}`;
+    }
+    return this.http.get(url, { withCredentials: true });
   }
 
 }
