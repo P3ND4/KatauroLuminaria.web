@@ -42,6 +42,63 @@
 
 }
 
+
+
+
+::ng-deep .ql-editor ol {
+
+    display: block;
+
+    list-style: revert !important;
+    list-style-type: decimal !important;
+    /* 1, 2, 3 */
+}
+
+
+::ng-deep .ql-editor li {
+    padding: 0px;
+    font-size: 20px;
+}
+
+::ng-deep .ql-editor ul {
+    display: block;
+    list-style: revert !important;
+    list-style-type: disc;
+    padding-left: 20px;
+    /* ● */
+    margin: 0px;
+}
+
+::ng-deep .ql-editor ul li::marker {
+    color: black;
+    content: "• ";
+    font-size: 20px;
+    font-weight: 700;
+}
+
+::ng-deep .ql-editor ol li {
+    counter-increment: item;
+
+}
+
+::ng-deep .ql-editor ol li::marker {
+    color: black;
+    content: counter(item) '. ';
+}
+
+
+
+
+::ng-deep .ql-editor blockquote {
+    color: #181D27;
+    font-weight: 600;
+    padding: 8px 0px 8px 20px;
+    border-left: 2px solid #007981;
+    font-size: 20px;
+    line-height: 30px;
+
+}
+
 .header-image img {
     object-fit: cover;
     width: 100%;
@@ -113,12 +170,13 @@ h1 {
     gap: 8px;
 }
 
-.date-n-name{
+.date-n-name {
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 12px;
 }
+
 .date-n-name p {
     font-size: 16px;
     line-height: 24px;
@@ -179,4 +237,62 @@ h1 {
     gap: 48px;
     max-width: 720px;
     width: 100%;
+}
+
+@media(max-width: 780px) {
+    h1 {
+        font-size: 36px;
+        line-height: 44px;
+    }
+
+    ::ng-deep h2 {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    ::ng-deep h3 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    ::ng-deep p {
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    ::ng-deep .ql-editor blockquote {
+
+        font-size: 18px;
+        line-height: 28px;
+
+    }
+
+    ::ng-deep .ql-editor li {
+        font-size: 18px;
+    }
+
+    .main {
+
+        padding-inline: 16px;
+        box-sizing: border-box;
+    }
+
+    .header {
+        margin-top: 60px;
+    }
+
+    ::ng-deep .image,
+    .header-image {
+        width: 100%;
+        height: 240px;
+        border-radius: 8px;
+    }
+
+    .blog-preview {
+        box-sizing: border-box;
+    }
+
+    ::ng-deep .ql-editor {
+        padding: 0px;
+    }
 }
