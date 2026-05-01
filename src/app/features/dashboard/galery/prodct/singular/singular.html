@@ -6,7 +6,13 @@
     }
     <div class="img-container">
         <div class="main-image">
-            @if (charged) {
+            @if (charged && selectedImage === -1) {
+
+            <model-viewer src="https://res.cloudinary.com/dmhadvchw/image/upload/v1777601462/quaternius_cc0-light-stand-1145_qcoflh.glb" ar
+                ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate
+                style="width: 100%; height: 100%; display: block;">
+            </model-viewer>
+            }@else if(charged){
             <img class="main-img" [src]="images[selectedImage]"
                 [alt]="currentProduct? getAlt(currentProduct.variants[currentVariant]): ''" />
             }
@@ -26,6 +32,11 @@
                 }
             </div>
             }
+            <div class="sec-images" (click)="selectImage(-1)">
+                <model-viewer src="https://res.cloudinary.com/dmhadvchw/image/upload/v1777601462/quaternius_cc0-light-stand-1145_qcoflh.glb"
+                    style="width: 100%; height: 100%; display: block;">
+                </model-viewer>
+            </div>
         </div>
     </div>
     <div class="detail-content">

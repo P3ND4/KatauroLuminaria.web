@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { Categories, Finish, Product, Variant } from '../../../../../shared/models/Products';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, CurrencyPipe, NgClass } from '@angular/common';
@@ -20,7 +20,8 @@ import { CustomCurrencyPipe } from '../../../../../shared/pipes/myCurrencyPipe';
   imports: [CustomCurrencyPipe, CommonModule, BoxLoader, Discount],
   providers: [CurrencyPipe],
   templateUrl: './singular.html',
-  styleUrl: './singular.css'
+  styleUrl: './singular.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],  // 👈 esto es lo que faltaba
 })
 export class Singular implements OnInit {
   currentProduct: Product | undefined;
