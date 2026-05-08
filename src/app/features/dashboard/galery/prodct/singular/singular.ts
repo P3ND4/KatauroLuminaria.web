@@ -91,6 +91,15 @@ export class Singular implements OnInit {
     })
   }
 
+  hasModel3D(): boolean {
+    const models = this.currentProduct?.variants[this.currentVariant]?.models3D;
+    return models !== undefined && models.length > 0;
+  }
+
+  get model3DUrl(): string | undefined {
+    return this.currentProduct?.variants[this.currentVariant]?.models3D?.[0]?.url;
+  }
+
   variantChange(i: number) {
     this.currentVariant = i
     this.images = this.currentProduct?.variants[this.currentVariant].images.map(x => x.link) ?? [];

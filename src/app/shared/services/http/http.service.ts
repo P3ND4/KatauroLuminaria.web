@@ -21,7 +21,7 @@ export class HttpService {
   ]
 
   constructor(private http: HttpClient) {
-    //  this.apiPath = 'http://localhost:3500';
+    this.apiPath = 'http://localhost:3500';
 
   }
   getFinishes() {
@@ -118,6 +118,14 @@ export class HttpService {
       url += `search=${option.search}`;
     }
     return this.http.get(url, { withCredentials: true });
+  }
+
+  recordBlogView(blogId: string, body: { userId?: string }) {
+    return this.http.post(`${this.apiPath}/blogs/${blogId}/view`, body, { withCredentials: true });
+  }
+
+  updateBlogMetrics(blogId: string, metrics: any) {
+    return this.http.patch(`${this.apiPath}/blogs/${blogId}/metrics`, metrics, { withCredentials: true });
   }
 
 }

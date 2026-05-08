@@ -67,4 +67,8 @@ export class AuthService {
     return this._currentUser.value !== null && this.userChecked;
   }
 
+  get currentUser(): User | null {
+    return this._currentUser.value;
+  }
+
 }

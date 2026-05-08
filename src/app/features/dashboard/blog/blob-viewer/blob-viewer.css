@@ -239,6 +239,14 @@ h1 {
     width: 100%;
 }
 
+.scroll-marker {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
 @media(max-width: 780px) {
     h1 {
         font-size: 36px;

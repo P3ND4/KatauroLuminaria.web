@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -7,6 +7,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { HttpService } from '../../../../shared/services/http/http.service';
 import { ErrorLogService } from '../../../../shared/services/errors/error.log.service';
 import { parseError } from '../../../../shared/services/errors/errorParser';
+import { BlogAnalyticsService } from '../../../../shared/services/blog-analytics.service';
 
 @Component({
   selector: 'app-blob-viewer',
@@ -14,16 +15,20 @@ import { parseError } from '../../../../shared/services/errors/errorParser';
   templateUrl: './blob-viewer.html',
   styleUrl: './blob-viewer.css',
 })
-export class BlobViewer implements OnInit {
+export class BlobViewer implements OnInit, OnDestroy {
   blog!: Blog;
 
   loading = true
 
-  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private http: HttpService, private errorServ: ErrorLogService) {
-  }
+  constructor(
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute,
+    private http: HttpService,
+    private errorServ: ErrorLogService,
+    private analytics: BlogAnalyticsService,
+  ) { }
   ngOnInit(): void {
     this.loadBlog();
-
   }
 
   loadBlog() {
@@ -36,6 +41,7 @@ export class BlobViewer implements OnInit {
             this.blog = val as Blog;
             console.log(this.blog)
             this.loading = false;
+            this.analytics.init(this.blog.id);
           },
           error: err => {
             this.errorServ.addError(parseError(err));
@@ -45,8 +51,6 @@ export class BlobViewer implements OnInit {
       )
     }
   }
-
-
 
   getContent() {
 
@@ -75,6 +79,10 @@ export class BlobViewer implements OnInit {
 
   sanitizeContent(content: string) {
     return this.sanitizer.bypassSecurityTrustHtml(content);
+  }
+
+  ngOnDestroy(): void {
+    this.analytics.destroy();
   }
 }
 
