@@ -1,21 +1,18 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
-import { Router, RouterOutlet, RouterLinkWithHref, ActivatedRoute, NavigationStart } from '@angular/router';
+import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Router, RouterOutlet, RouterLink, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { CartService } from '../../shared/services/cart/cart.service';
 import { ASSETS } from '../../shared/constants/image-library';
 import { User } from '../../shared/models/User';
-import { Categories } from '../../shared/models/Products';
 import { EditProfile } from './edit-profile/edit-profile';
 import { routeAnimations } from '../../shared/animations/routerAnimation';
 import { BoxLoader } from "../../shared/components/box-loader/box-loader";
-import { filter } from 'rxjs';
 import { ErrorLogService } from '../../shared/services/errors/error.log.service';
-import { ErrorBox } from "../../shared/components/error-box/error-box";
 import { parseError } from '../../shared/services/errors/errorParser';
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, CommonModule, EditProfile, RouterLinkWithHref, BoxLoader],// RouterLinkWithHref],
+  imports: [RouterOutlet, RouterLink, CommonModule, EditProfile, BoxLoader],
   animations: [routeAnimations],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'

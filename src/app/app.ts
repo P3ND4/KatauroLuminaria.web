@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CartService } from './shared/services/cart/cart.service';
 import { ErrorLogService } from './shared/services/errors/error.log.service';
 import { ErrorBox } from "./shared/components/error-box/error-box";
 

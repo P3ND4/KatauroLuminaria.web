@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Categories, Finish, Product, Variant } from '../../../../../shared/models/Products';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule, CurrencyPipe, NgClass } from '@angular/common';
+import { CommonModule, CurrencyPipe, NgClass, isPlatformBrowser } from '@angular/common';
 import { HttpService } from '../../../../../shared/services/http/http.service';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { CartService } from '../../../../../shared/services/cart/cart.service';
@@ -38,6 +38,7 @@ export class Singular implements OnInit {
   charged = false;
   loading = false;
   getAlt = getAlt;
+  platformId = inject(PLATFORM_ID);
 
 
 
@@ -47,8 +48,16 @@ export class Singular implements OnInit {
 
   }
   ngOnInit(): void {
+    this.loadModelViewer();
     this.queryParamsSubscription = this.route.paramMap.subscribe(() => this.chargeValues())
+  }
 
+  private loadModelViewer(): void {
+    if (!isPlatformBrowser(this.platformId) || document.querySelector('script[src*="model-viewer"]')) return;
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.src = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
+    document.head.appendChild(script);
   }
   chargeValues() {
     const id = this.route.snapshot.paramMap.get('id')
