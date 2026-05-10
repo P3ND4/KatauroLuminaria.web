@@ -60,7 +60,7 @@
                             <div class="region-code">
                                 <div class="drop" (click)="openDropdown = !openDropdown">
                                     <span>{{regionCodes[selectedRegionCode].country}}</span>
-                                    <img src="/assets/chevron-down.svg" />
+                                    <img [src]="ASSETS.icons.chevronDown" />
                                     <div class="dropdown-region" [ngClass]="{'open': openDropdown}">
                                         @for (code of regionCodes; track $index) {
                                         <div class="dropdown-item"
@@ -101,7 +101,7 @@
                             </label>
                             <div class="input-content">
                                 <!--
-                                    <img [ngClass]="{'open': provinceOpen}" src="/assets/chevron-down.svg" alt="">
+                                    <img [ngClass]="{'open': provinceOpen}" [src]="ASSETS.icons.chevronDown" alt="">
                                     -->
                                 <span> {{buyingForm.get('province')?.value}}</span>
                             </div>
@@ -118,7 +118,7 @@
                             <div class="input-content"
                                 (click)="munIsOpen = !munIsOpen; !munIsOpen? buyingForm.get('municipality')?.markAsTouched() : ''  "
                                 [ngClass]="{'error': !isValidForm('municipality')}">
-                                <img [ngClass]="{'open': munIsOpen}" src="/assets/chevron-down.svg" alt="">
+                                <img [ngClass]="{'open': munIsOpen}" [src]="ASSETS.icons.chevronDown" alt="">
                                 <span>{{this.buyingForm.get('municipality')?.value === ""? ' Introduce tu municipio':
                                     this.buyingForm.get('municipality')?.value }}</span>
                             </div>
@@ -205,17 +205,17 @@
                             <div class="prod-act">
                                 <div class="count">
                                     <button (click)="minus(item.id)">
-                                        <img [src]="isMobile()? '/assets/minus-mobile.svg' :'/assets/minus.svg'"
+                                        <img [src]="isMobile()? ASSETS.icons.minusMobile : ASSETS.icons.minus"
                                             alt="minus">
                                     </button>
                                     <span class="prod-count">{{selected[item.id] || 0}}</span>
                                     <button (click)="plus(item.id)" [disabled]="!canAdd(item.id)">
-                                        <img [src]="isMobile()? '/assets/plus-mobile.svg' :'/assets/plus.svg'"
+                                        <img [src]="isMobile()? ASSETS.icons.plusMobile : ASSETS.icons.plus"
                                             alt="plus">
                                     </button>
                                 </div>
                                 <div class="trash">
-                                    <img [src]="'assets/trash-2.svg'" alt="" (click)="chose(item.id)">
+                                    <img [src]="ASSETS.icons.trash2" alt="" (click)="chose(item.id)">
                                 </div>
 
                             </div>

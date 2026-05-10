@@ -16,6 +16,7 @@ import { parseError } from '../../../shared/services/errors/errorParser';
 import { Carousel } from '../../../shared/models/promotions';
 import { getAlt } from '../../../shared/utils/getAlt';
 import { optimizeUrlCloudy } from '../../../shared/utils/optimizeUrlCloudy';
+import { ASSETS } from '../../../shared/constants/image-library';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,7 @@ import { optimizeUrlCloudy } from '../../../shared/utils/optimizeUrlCloudy';
   styleUrl: './home.css'
 })
 export class Home implements OnInit, AfterViewInit {
+  readonly ASSETS = ASSETS;
   catEnum = Categories;
   correctLoaded = () => this.prodLoaded && this.carLoaded && this.randLoaded;
   user: User | undefined
@@ -38,9 +40,9 @@ export class Home implements OnInit, AfterViewInit {
 
   create3rdPan() {
     const images = [
-      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775273492/Artboard_1.jpg_wccoph.jpg'),
-      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_2.jpg_wt6ieb.jpg'),
-      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_3.jpg_tmeilp.jpg')]
+      optimizeUrlCloudy(ASSETS.cloudinary.carouselArtboard1),
+      optimizeUrlCloudy(ASSETS.cloudinary.carouselArtboard2),
+      optimizeUrlCloudy(ASSETS.cloudinary.carouselArtboard3)]
     const carousel: carouselDTO = {
       carousel: 2,
       banners: images.map(x => ({

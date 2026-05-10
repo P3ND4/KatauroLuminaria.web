@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Allura:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alex Brush:wght@400&display=swap');
+
 :root {
     --gray-25: #FDFDFD;
     --montser-font: 'Montserrat', sans-serif;
@@ -231,8 +232,8 @@ a {
     box-shadow: 0 1px 2px 0 rgba(10, 13, 18, 0.05);
 }
 
-.social-buttons label,
-.social-buttons span {
+.social-button label,
+.social-button span {
     color: var(--Gray-700, #414651);
 
     /* Text md/Semibold */

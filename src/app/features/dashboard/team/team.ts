@@ -5,6 +5,7 @@ import { FadeAndSlideIn } from '../../../shared/animations/FadeAndSlideIn';
 import { Corousel } from "../../../shared/components/corousel/corousel";
 import { carouselDTO } from '../../../shared/models/carouselDTO';
 import { optimizeUrlCloudy } from '../../../shared/utils/optimizeUrlCloudy';
+import { ASSETS } from '../../../shared/constants/image-library';
 
 @Component({
   selector: 'app-team',
@@ -14,12 +15,13 @@ import { optimizeUrlCloudy } from '../../../shared/utils/optimizeUrlCloudy';
   styleUrl: './team.css'
 })
 export class Team implements AfterViewInit {
+  readonly ASSETS = ASSETS;
   team: TeamMember[] = [];
   constructor() {
     for (let index = 0; index < 15; index++) {
       this.team.push(
         {
-          img: "/assets/Image.png",
+          img: ASSETS.content.imagePlaceholder,
           name: "Olivia Rhye",
           charge: "Fundador y directivo",
           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
@@ -31,13 +33,13 @@ export class Team implements AfterViewInit {
   carousel: carouselDTO = this.createCarousel();
 
 
-  teamImage = optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775019483/equipo-katauro.jpg_xug0xt.jpg');
+  teamImage = optimizeUrlCloudy(ASSETS.cloudinary.teamHero);
 
   createCarousel() {
     const images = [
-      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775273492/Artboard_1.jpg_wccoph.jpg'),
-      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_2.jpg_wt6ieb.jpg'),
-      optimizeUrlCloudy('https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_3.jpg_tmeilp.jpg')]
+      optimizeUrlCloudy(ASSETS.cloudinary.carouselArtboard1),
+      optimizeUrlCloudy(ASSETS.cloudinary.carouselArtboard2),
+      optimizeUrlCloudy(ASSETS.cloudinary.carouselArtboard3)]
     const car: carouselDTO = {
       carousel: 3,
       banners: images.map(x => ({

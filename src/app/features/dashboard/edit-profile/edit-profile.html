@@ -48,7 +48,7 @@
                         Correo electrónico*
                     </label>
                     <div class="input-content" [ngClass]="{'error': !isValidForm('email')}">
-                        <img src="/assets/mailGray.svg" />
+                        <img [src]="ASSETS.icons.mailGray" />
                         <input type="text" formControlName="email" placeholder="olivia@gmail.com">
                     </div>
                     @if(!isValidForm('email')){
@@ -65,7 +65,7 @@
                         <div class="region-code">
                             <div class="drop" (click)="openDropdown = !openDropdown">
                                 <span>{{regionCodes[selectedRegionCode].country}}</span>
-                                <img src="/assets/chevron-down.svg" />
+                                <img [src]="ASSETS.icons.chevronDown" />
                                 <div class="dropdown-region" [ngClass]="{'open': openDropdown}">
                                     @for (code of regionCodes; track $index) {
                                     <div class="dropdown-item"
@@ -91,7 +91,7 @@
                 <div class="drag-n-drop-cont" (click)="onFilesSelected($event)" (dragleave)="onDragLeave($event)"
                     (dragover)="onDragOver($event)" (drop)="onDrop($event)">
                     <div class="dnd-icon">
-                        <img src="assets/upload-cloud.svg" alt="">
+                        <img [src]="ASSETS.icons.uploadCloud" alt="">
                     </div>
                     <input type="file" #fileInput style="display: none;" accept=".JPG, .PNG,.SVG"
                         (change)="onFileChange($event)" id="">

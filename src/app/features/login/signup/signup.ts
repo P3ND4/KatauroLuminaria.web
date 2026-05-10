@@ -3,6 +3,7 @@ import { AfterViewInit, Component, inject, PLATFORM_ID } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '../../../shared/services/http/http.service';
+import { ASSETS } from '../../../shared/constants/image-library';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { passwordMatchValidator } from '../../../shared/validators/passwordMissMatch.validator';
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
@@ -16,6 +17,7 @@ import { parseError } from '../../../shared/services/errors/errorParser';
   styleUrl: './signup.css'
 })
 export class Signup implements AfterViewInit {
+  readonly ASSETS = ASSETS;
   visibility = [false, false]
   signUpForm: FormGroup;
   loading = false;

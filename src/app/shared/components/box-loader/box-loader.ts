@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ASSETS } from '../../constants/image-library';
 
 @Component({
   selector: 'app-box-loader',
@@ -7,5 +8,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './box-loader.css'
 })
 export class BoxLoader {
+  readonly ASSETS = ASSETS;
   @Input() message: string = "Cargando...";
 }

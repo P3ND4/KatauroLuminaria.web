@@ -3,6 +3,7 @@ import { Categories, Product, Variant } from '../../../shared/models/Products';
 import { CommonModule, CurrencyPipe, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from '../../../shared/services/http/http.service';
+import { ASSETS } from '../../../shared/constants/image-library';
 import { Subscription } from 'rxjs';
 import { FadeAndSlideIn } from '../../../shared/animations/FadeAndSlideIn';
 import { SkeletonLoader } from '../../../shared/components/skeleton-loader/skeleton-loader';
@@ -20,6 +21,7 @@ import { getAlt } from '../../../shared/utils/getAlt';
   styleUrl: './galery.css'
 })
 export class Galery implements OnInit, AfterViewInit {
+  readonly ASSETS = ASSETS;
   products: Product[] = []; // Aquí se almacenarán los productos filtrados
   categories = Categories
   selectedCategory: Categories | 'TODAS' = 'TODAS';

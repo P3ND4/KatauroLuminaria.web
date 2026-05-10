@@ -147,7 +147,7 @@
         @if (totalPages > 1) {
         <div class="pagination">
             <div class="move prev" (click)="goToPage(currentPage !== 1 ? currentPage - 1: 1 )">
-                <img src="/assets/arrow-left.svg" alt="">
+                <img [src]="ASSETS.icons.arrowLeft" alt="">
                 <label>Anterior</label>
             </div>
             <div class="pages">
@@ -170,7 +170,7 @@
             </div>
             <div class="move next" (click)="goToPage(currentPage !== totalPages ? currentPage + 1: totalPages )">
                 <label>Sigiente</label>
-                <img src="/assets/arrow-right.svg" alt="">
+                <img [src]="ASSETS.icons.arrowRight" alt="">
             </div>
         </div>
         }

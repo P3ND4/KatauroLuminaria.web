@@ -3,6 +3,7 @@ import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth/auth.service';
+import { ASSETS } from '../../../shared/constants/image-library';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
 import { parseError } from '../../../shared/services/errors/errorParser';
@@ -15,6 +16,7 @@ import { ErrorLogService } from '../../../shared/services/errors/error.log.servi
   styleUrl: './signin.css'
 })
 export class Signin {
+  readonly ASSETS = ASSETS;
   loginForm: FormGroup;
   visibility = false;
   loading = false;

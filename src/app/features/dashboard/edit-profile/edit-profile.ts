@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HttpService } from '../../../shared/services/http/http.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { User } from '../../../shared/models/User';
+import { ASSETS } from '../../../shared/constants/image-library';
 import { CommonModule } from '@angular/common';
 import { CloudinaryService } from '../../../shared/services/cloudinary/cloudinary.service';
 import { HttpEventType } from '@angular/common/http';
@@ -17,6 +18,7 @@ import { ErrorLogService } from '../../../shared/services/errors/error.log.servi
   styleUrl: './edit-profile.css'
 })
 export class EditProfile {
+  readonly ASSETS = ASSETS;
   loading = false;
   editProfileForm: FormGroup;
   currentUser: User | undefined;

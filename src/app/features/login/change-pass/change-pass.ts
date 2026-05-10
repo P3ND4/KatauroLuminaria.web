@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { passwordMatchValidator } from '../../../shared/validators/passwordMissMatch.validator';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ASSETS } from '../../../shared/constants/image-library';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
@@ -17,6 +18,7 @@ import { ErrorLogService } from '../../../shared/services/errors/error.log.servi
   styleUrl: './change-pass.css'
 })
 export class ChangePass {
+  readonly ASSETS = ASSETS;
   changePassForm: FormGroup;
   visibility = [false, false];
   email: string | undefined;

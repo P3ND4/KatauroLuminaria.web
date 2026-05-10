@@ -1,5 +1,6 @@
 import { Blog } from '../models/blog/blog.entity';
 import { BlogTags } from '../models/blog/tags.entity';
+import { ASSETS } from '../constants/image-library';
 
 const TAGS_LIBRARY = {
   diseño: { id: 'tag1', name: 'Diseño', color: '#FFFFFF', bgColor: '#178C94' },
@@ -24,7 +25,7 @@ export const MOCK_BLOGS: Blog[] = [
       {
         id: 'img1',
         blogId: '1',
-        link: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1775273492/Artboard_1.jpg_wccoph.jpg',
+        link: ASSETS.cloudinary.carouselArtboard1,
         position: 0
       }
     ],
@@ -53,7 +54,7 @@ export const MOCK_BLOGS: Blog[] = [
       {
         id: 'img2',
         blogId: '2',
-        link: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_2.jpg_wt6ieb.jpg',
+        link: ASSETS.cloudinary.carouselArtboard2,
         position: 0
       }
     ],
@@ -82,7 +83,7 @@ export const MOCK_BLOGS: Blog[] = [
       {
         id: 'img3',
         blogId: '3',
-        link: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_3.jpg_tmeilp.jpg',
+        link: ASSETS.cloudinary.carouselArtboard3,
         position: 0
       }
     ],
@@ -111,7 +112,7 @@ export const MOCK_BLOGS: Blog[] = [
       {
         id: 'img4',
         blogId: '4',
-        link: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1775273492/Artboard_1.jpg_wccoph.jpg',
+        link: ASSETS.cloudinary.carouselArtboard1,
         position: 0
       }
     ],
@@ -140,7 +141,7 @@ export const MOCK_BLOGS: Blog[] = [
       {
         id: 'img5',
         blogId: '5',
-        link: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_2.jpg_wt6ieb.jpg',
+        link: ASSETS.cloudinary.carouselArtboard2,
         position: 0
       }
     ],
@@ -169,7 +170,7 @@ export const MOCK_BLOGS: Blog[] = [
       {
         id: 'img6',
         blogId: '6',
-        link: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_3.jpg_tmeilp.jpg',
+        link: ASSETS.cloudinary.carouselArtboard3,
         position: 0
       }
     ],
@@ -198,7 +199,7 @@ export const MOCK_BLOGS: Blog[] = [
       {
         id: 'img7',
         blogId: '7',
-        link: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1775273492/Artboard_1.jpg_wccoph.jpg',
+        link: ASSETS.cloudinary.carouselArtboard1,
         position: 0
       }
     ],
@@ -222,7 +223,7 @@ export const MOCK_BLOGS: Blog[] = [
       {
         id: 'img8',
         blogId: '8',
-        link: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_2.jpg_wt6ieb.jpg',
+        link: ASSETS.cloudinary.carouselArtboard2,
         position: 0
       }
     ],
@@ -251,7 +252,7 @@ export const MOCK_BLOGS: Blog[] = [
       {
         id: 'img9',
         blogId: '9',
-        link: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_3.jpg_tmeilp.jpg',
+        link: ASSETS.cloudinary.carouselArtboard3,
         position: 0
       }
     ],

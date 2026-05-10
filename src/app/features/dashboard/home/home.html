@@ -28,22 +28,22 @@
             <ul class="luminarias-list">
                 <li style="position: relative;" (click)="navigateCat(catEnum.tableLumin)">
                     <div class="cat-gradient"></div>
-                    <img src="/assets/cat_image.png" alt="Lámpara de mesa">
+                    <img [src]="ASSETS.content.catImage" alt="Lámpara de mesa">
                     <p class="luminaria-title">LUMINARIAS DE MESA</p>
                 </li>
                 <li style="position: relative;" (click)="navigateCat(catEnum.wallLumin)">
                     <div class="cat-gradient"></div>
-                    <img src="/assets/cat_image1.png" alt="Lámpara de pared">
+                    <img [src]="ASSETS.content.catImage1" alt="Lámpara de pared">
                     <p class="luminaria-title">LUMINARIAS DE PARED</p>
                 </li>
                 <li style="position: relative;" (click)="navigateCat(catEnum.footLumin)">
                     <div class="cat-gradient"></div>
-                    <img src="/assets/cat_image2.png" alt="Lámpara de piso">
+                    <img [src]="ASSETS.content.catImage2" alt="Lámpara de piso">
                     <p class="luminaria-title">LUMINARIAS DE PIE</p>
                 </li>
                 <li style="position: relative;" (click)="navigateCat(catEnum.roofLumin)">
                     <div class="cat-gradient"></div>
-                    <img src="/assets/cat_image3.png" alt="Lámpara de techo">
+                    <img [src]="ASSETS.content.catImage3" alt="Lámpara de techo">
                     <p class="luminaria-title">LUMINARIAS DE TECHO</p>
                 </li>
             </ul>
@@ -161,7 +161,7 @@
         <div class="post-container">
             <div class="post">
                 <div class="post-img">
-                    <img src="/assets/Image.png" alt="">
+                    <img [src]="ASSETS.content.imagePlaceholder" alt="">
                 </div>
                 <div class="info-post">
                     <h4>19 Ene 2025</h4>
@@ -174,7 +174,7 @@
             </div>
             <div class="post row">
                 <div class="post-img">
-                    <img src="/assets/Image.png" alt="">
+                    <img [src]="ASSETS.content.imagePlaceholder" alt="">
                 </div>
                 <div class="info-post">
                     <h4>19 Ene 2025</h4>
@@ -186,7 +186,7 @@
             </div>
             <div class="post row">
                 <div class="post-img">
-                    <img src="/assets/Image.png" alt="">
+                    <img [src]="ASSETS.content.imagePlaceholder" alt="">
                 </div>
                 <div class="info-post">
                     <h4>19 Ene 2025</h4>

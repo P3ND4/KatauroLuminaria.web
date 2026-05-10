@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ASSETS } from '../../constants/image-library';
 
 @Component({
   selector: 'app-message-box',
@@ -7,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './message-box.css'
 })
 export class MessageBox {
+  readonly ASSETS = ASSETS;
   @Input() data: { msg: string, warn: string } | undefined
   @Output() acept = new EventEmitter<boolean>(false);
 

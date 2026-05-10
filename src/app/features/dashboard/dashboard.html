@@ -18,14 +18,14 @@
 
     <div class="navigation-bar">
       <div class="nav-links">
-        <img class="Katauro-logo" src="/assets/Katauro.svg" [routerLink]="'/dashboard/home'" />
+        <img class="Katauro-logo" [src]="ASSETS.illustrations.katauroLogo" [routerLink]="'/dashboard/home'" />
 
         <a [ngClass]="{'active': isActive('/dashboard/home')}" [routerLink]="'/dashboard/home'">Inicio</a>
         <a [ngClass]="{'active': isActive('/dashboard/team')}" [routerLink]="'/dashboard/team'">Nuestro
           equipo</a>
         <a [ngClass]="{'active': isActive('/dashboard/galery')}" [routerLink]="'/dashboard/galery'">Luminarias</a>
         <!--TODO: Implement blog link -->
-        <a [ngClass]="{'active': isActive('/dashboard/blog')}" [routerLink]="'/dashboard/blog'" >Blog</a>
+        <a [ngClass]="{'active': isActive('/dashboard/blog')}" [routerLink]="'/dashboard/blog'">Blog</a>
       </div>
       @if(!isLogged()){
 
@@ -42,7 +42,7 @@
           @if(cartService.currentProducts().length > 0){
           <label>{{cartService.currentProducts().length}}</label>
           }
-          <img src="/assets/shopping-bag.svg" />
+          <img [src]="ASSETS.icons.shoppingBag" />
         </a>
 
         <div class="clientPanel" [ngClass]="{'closed': !clientPanel, 'open': clientPanel}">
@@ -63,7 +63,7 @@
           </div>
           <div class="user-panel-data" id="logout" (click)="logout()">
             <div class="divider"></div>
-            <img src="/assets/log-out.svg" alt="">
+            <img [src]="ASSETS.icons.logOut" alt="">
             <label for="logout">Log out</label>
           </div>
         </div>
@@ -71,7 +71,7 @@
       }
 
 
-      <img class="menu-button" [src]="!menuIsOpen?'/assets/menu.svg':'/assets/menu_open.svg'" alt="menu"
+      <img class="menu-button" [src]="!menuIsOpen? ASSETS.icons.menu : ASSETS.icons.menuOpen" alt="menu"
         (click)="toggleMenu()">
 
 
@@ -103,9 +103,9 @@
           <p class="user-name">{{currentUser?.name}}</p>
           <p class="user-email">{{currentUser?.email}}</p>
         </div>
-        <img src="/assets/log-out.svg" style="cursor: pointer;" (click)="logout()" />
+        <img [src]="ASSETS.icons.logOut" style="cursor: pointer;" (click)="logout()" />
         <a class="button-chips" style="padding-inline: 10px;" [routerLink]="'/dashboard/cart'">
-          <img src="/assets/shopping-bag.svg" />
+          <img [src]="ASSETS.icons.shoppingBag" />
           @if(cartService.currentProducts().length > 0){
           <label>{{cartService.currentProducts().length}}</label>
           }
@@ -126,10 +126,11 @@
     <div class="footer-content">
       <div class="contact-wu">
 
-        <img style="display: block; width: 160px; height: 47px;" src="/assets/Katauro.svg" alt="Katauro Logo" />
+        <img style="display: block; width: 160px; height: 47px;" [src]="ASSETS.illustrations.katauroLogo"
+          alt="Katauro Logo" />
 
         <div class="ideas-cover">
-          <img class="idieas" src="/assets/Ideas_con_luz.svg" alt="Ideas_con_luz">
+          <img class="idieas" [src]="ASSETS.illustrations.ideasConLuz" alt="Ideas_con_luz">
         </div>
 
         <header class="contact-header">
@@ -151,7 +152,7 @@
 
       </div>
       <div class="shop-info">
-        <img class="map-pin" src="/assets/map-pin.svg" alt="Map-pin">
+        <img class="map-pin" [src]="ASSETS.icons.mapPin" alt="Map-pin">
         <header style="margin: 0;" class="shop-header">
           Tienda
         </header>
@@ -165,7 +166,7 @@
 
 
         <header style="margin-top: 40px; position: relative;" class="shop-header">
-          <img class="phone" src="/assets/phone.svg" alt="Phone">
+          <img class="phone" [src]="ASSETS.icons.phone" alt="Phone">
           Teléfono
         </header>
         <p style="margin-top: 8px;" class="footer-text-green shop-text">
@@ -177,7 +178,7 @@
 
       </div>
       <div class="factory-info">
-        <img class="map-pin" src="/assets/map-pin.svg" alt="map-pin">
+        <img class="map-pin" [src]="ASSETS.icons.mapPin" alt="map-pin">
         <header style="margin: 0;" class="factory-header">
           Fábrica
         </header>
@@ -191,7 +192,7 @@
         </p>
 
         <header style="margin-top: 40px; position: relative;" class="factory-header">
-          <img class="mail" src="/assets/mail.svg" alt="mail">
+          <img class="mail" [src]="ASSETS.icons.mail" alt="mail">
           Gmail
         </header>
         <p style="margin-top: 8px;" class="footer-text-green factory-text">
@@ -205,9 +206,9 @@
       <div class="social-media">
         <div class="divider"></div>
         <div class="social-links">
-          <img src="/assets/whatsapp.svg" alt="WhatsApp">
-          <img src="/assets/facebook.svg" alt="Facebook">
-          <img src="/assets/instagram.svg" alt="Instagram">
+          <img [src]="ASSETS.icons.whatsapp" alt="WhatsApp">
+          <img [src]="ASSETS.icons.facebook" alt="Facebook">
+          <img [src]="ASSETS.icons.instagram" alt="Instagram">
         </div>
 
         <a class="terms" style="text-decoration: none;" href="https://wa.me/1234567890" target="_blank">
@@ -217,14 +218,14 @@
         </a>
 
         <label class="footer-links copyright">
-          © 2025 Katauro. Todos los derechos reservados.
+          © {{ currentYear }} Katauro. Todos los derechos reservados.
         </label>
 
 
       </div>
 
     </div>
-    <img class="artboard" src="/assets/Artboard_11.svg" alt="Artboard_11">
+    <img class="artboard" [src]="ASSETS.illustrations.artboard11" alt="Artboard_11">
   </div>
 
 </div>

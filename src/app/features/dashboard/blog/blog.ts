@@ -3,6 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
+import { ASSETS } from '../../../shared/constants/image-library';
 import { parseError } from '../../../shared/services/errors/errorParser';
 import { Blog as BlogEntinty } from '../../../shared/models/blog/blog.entity';
 import { Router } from '@angular/router';
@@ -17,6 +18,7 @@ import { MOCK_BLOGS } from '../../../shared/mocks/blogs.mock';
   styleUrl: './blog.css'
 })
 export class Blog implements OnInit, AfterViewInit {
+  readonly ASSETS = ASSETS;
   blogs: BlogEntinty[] = [];
   recientBlogs: BlogEntinty[] = [];
   loading = false;

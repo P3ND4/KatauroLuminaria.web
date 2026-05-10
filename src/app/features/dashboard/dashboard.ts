@@ -3,6 +3,7 @@ import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, inject, 
 import { Router, RouterOutlet, RouterLinkWithHref, ActivatedRoute, NavigationStart } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { CartService } from '../../shared/services/cart/cart.service';
+import { ASSETS } from '../../shared/constants/image-library';
 import { User } from '../../shared/models/User';
 import { Categories } from '../../shared/models/Products';
 import { EditProfile } from './edit-profile/edit-profile';
@@ -20,6 +21,7 @@ import { parseError } from '../../shared/services/errors/errorParser';
   styleUrl: './dashboard.css'
 })
 export class Dashboard implements OnInit, AfterViewInit {
+  readonly ASSETS = ASSETS;
   router: Router;
   editIsOpen = false;
   menuIsOpen = false;
@@ -44,11 +46,11 @@ export class Dashboard implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-   
+
     this.loadUser();
   }
   ngAfterViewInit() {
-    
+
   }
 
 
@@ -80,7 +82,7 @@ export class Dashboard implements OnInit, AfterViewInit {
     if (isloged) this.loading = false
     return isloged;
   }
-
+  currentYear = new Date().getFullYear();
 
   plataformId = inject(PLATFORM_ID);
 

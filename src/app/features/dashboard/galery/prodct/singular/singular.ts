@@ -14,6 +14,7 @@ import { Discount } from "../../../../../shared/components/discount/discount";
 import { calculateDiscount } from '../../../../../shared/utils/calcDiscount';
 import { getAlt } from '../../../../../shared/utils/getAlt';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/myCurrencyPipe';
+import { ASSETS } from '../../../../../shared/constants/image-library';
 
 @Component({
   selector: 'app-singular',
@@ -24,6 +25,7 @@ import { CustomCurrencyPipe } from '../../../../../shared/pipes/myCurrencyPipe';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],  // 👈 esto es lo que faltaba
 })
 export class Singular implements OnInit {
+  readonly ASSETS = ASSETS;
   currentProduct: Product | undefined;
   prodId: string | undefined;
   queryParamsSubscription: Subscription | undefined;

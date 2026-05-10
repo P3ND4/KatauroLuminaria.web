@@ -27,14 +27,14 @@
                 </div>
                 <div class="input-container">
                     <label class="form-label">
-                        Apellido
+                        Apellido*
                     </label>
                     <div class="input-content" [ngClass]="{'error': !isValidForm('lastName')}">
-                        <input type=" text" formControlName="lastName" placeholder="Introduce tu nombre">
+                        <input type=" text" formControlName="lastName" placeholder="Introduce tu apellido">
                     </div>
                     @if (!isValidForm('lastName')) {
                     <div class="error-msg">
-                        Nombre requerido
+                        Apellido requerido
                     </div>
                     }
                 </div>
@@ -47,7 +47,7 @@
                         Correo electrónico*
                     </label>
                     <div class="input-content" [ngClass]="{'error': !isValidForm('email')}">
-                        <img src="/assets/mailGray.svg" />
+                        <img [src]="ASSETS.icons.mailGray" />
                         <input type="text" formControlName="email" placeholder="olivia@gmail.com">
                     </div>
                     @if(!isValidForm('email')){
@@ -58,14 +58,14 @@
                 </div>
                 <div class="input-container">
                     <label class="form-label">
-                        Teléfono
+                        Teléfono*
                     </label>
                     <div class="input-content">
 
                         <div class="region-code">
                             <div class="drop" (click)="openDropdown = !openDropdown">
                                 <span>{{regionCodes[selectedRegionCode].country}}</span>
-                                <img src="/assets/chevron-down.svg" />
+                                <img [src]="ASSETS.icons.chevronDown" />
                                 <div class="dropdown-region" [ngClass]="{'open': openDropdown}">
                                     @for (code of regionCodes; track $index) {
                                     <div class="dropdown-item"
@@ -96,7 +96,7 @@
                     <div class="input-content" [ngClass]="{'error': !isValidForm('password')}">
                         <input type="password" formControlName="password" placeholder="Crear una contraseña"
                             id="password">
-                        <img class="eye" [src]="visibility[0]? '/assets/eye-off.svg': '/assets/eye.svg'"
+                        <img class="eye" [src]="visibility[0]? ASSETS.icons.eyeOff : ASSETS.icons.eye"
                             (click)="toggleVisibility('password', 0)" />
                     </div>
                     @if (isValidForm('password')) {
@@ -115,7 +115,7 @@
                     <div class="input-content" [ngClass]="{'error': !isValidForm('password') || passMisMatch() }">
                         <input type="password" formControlName="confirmPassword" placeholder="Confirma la contraseña"
                             id="passConfirm">
-                        <img class="eye" [src]="visibility[1]? '/assets/eye-off.svg': '/assets/eye.svg'"
+                        <img class="eye" [src]="visibility[1]? ASSETS.icons.eyeOff : ASSETS.icons.eye"
                             (click)="toggleVisibility('passConfirm', 1)" />
                     </div>
                     @if(passMisMatch()){
@@ -134,7 +134,7 @@
                 </button>
 
                 <button class="social-button" style="width: 100%; margin-top: 16px;">
-                    <img src="/assets/Social-icon-google.svg" alt="Google Icon">
+                    <img [src]="ASSETS.icons.socialGoogle" alt="Google Icon">
                     <label>Regístrate con Google</label>
                 </button>
 

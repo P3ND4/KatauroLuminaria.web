@@ -3,6 +3,7 @@ import { CartService } from '../../../shared/services/cart/cart.service';
 import { Product, Variant } from '../../../shared/models/Products';
 import { CommonModule, CurrencyPipe, isPlatformBrowser } from '@angular/common';
 import { FormBuilder, FormGroup, MinLengthValidator, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ASSETS } from '../../../shared/constants/image-library';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
@@ -29,6 +30,7 @@ import { CustomCurrencyPipe } from '../../../shared/pipes/myCurrencyPipe';
   styleUrl: './cart.css'
 })
 export class Cart implements OnInit {
+  readonly ASSETS = ASSETS;
   products = signal<Variant[]>([]);
   buyingForm: FormGroup
   selected: { [key: string]: number } = {};

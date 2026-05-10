@@ -19,9 +19,9 @@ export class HttpService {
     Categories.tableLumin,
     Categories.wallLumin
   ]
-
+  
   constructor(private http: HttpClient) {
-    this.apiPath = 'http://localhost:3500';
+  //  this.apiPath = 'http://localhost:3500';
 
   }
   getFinishes() {

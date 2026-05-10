@@ -16,7 +16,7 @@ export default {
   {
     "renderMode": 0,
     "preload": [
-      "chunk-3JH2CDIB.js",
+      "chunk-2KFMIEL2.js",
       "chunk-R26PGJWO.js",
       "chunk-7QGPCMBS.js"
     ],
@@ -25,8 +25,9 @@ export default {
   {
     "renderMode": 0,
     "preload": [
-      "chunk-I77EZRFL.js",
-      "chunk-5KRDCTHW.js",
+      "chunk-CWPMWRKR.js",
+      "chunk-TPPFU5FF.js",
+      "chunk-PAQIFZXZ.js",
       "chunk-G6XDZR4B.js",
       "chunk-OXA7HUT6.js"
     ],
@@ -35,8 +36,9 @@ export default {
   {
     "renderMode": 2,
     "preload": [
-      "chunk-I2EERKMO.js",
-      "chunk-5KRDCTHW.js",
+      "chunk-RHY5A657.js",
+      "chunk-TPPFU5FF.js",
+      "chunk-PAQIFZXZ.js",
       "chunk-JFY52BG6.js"
     ],
     "route": "/dashboard/team"
@@ -44,7 +46,7 @@ export default {
   {
     "renderMode": 0,
     "preload": [
-      "chunk-HUGQFJP3.js",
+      "chunk-KZUULO75.js",
       "chunk-OXA7HUT6.js"
     ],
     "route": "/dashboard/blog"
@@ -59,7 +61,7 @@ export default {
   {
     "renderMode": 0,
     "preload": [
-      "chunk-SHEA46JM.js",
+      "chunk-3TX54ZPM.js",
       "chunk-7QGPCMBS.js",
       "chunk-G6XDZR4B.js",
       "chunk-JFY52BG6.js",
@@ -84,35 +86,40 @@ export default {
   {
     "renderMode": 0,
     "preload": [
-      "chunk-FP4KXVDL.js"
+      "chunk-ULKDH3MU.js",
+      "chunk-PAQIFZXZ.js"
     ],
     "route": "/login"
   },
   {
     "renderMode": 0,
     "preload": [
-      "chunk-FP4KXVDL.js"
+      "chunk-ULKDH3MU.js",
+      "chunk-PAQIFZXZ.js"
     ],
     "route": "/login/signin"
   },
   {
     "renderMode": 0,
     "preload": [
-      "chunk-FP4KXVDL.js"
+      "chunk-ULKDH3MU.js",
+      "chunk-PAQIFZXZ.js"
     ],
     "route": "/login/signup"
   },
   {
     "renderMode": 0,
     "preload": [
-      "chunk-FP4KXVDL.js"
+      "chunk-ULKDH3MU.js",
+      "chunk-PAQIFZXZ.js"
     ],
     "route": "/login/forgot-password"
   },
   {
     "renderMode": 0,
     "preload": [
-      "chunk-FP4KXVDL.js"
+      "chunk-ULKDH3MU.js",
+      "chunk-PAQIFZXZ.js"
     ],
     "route": "/login/change-pass"
   },
@@ -124,9 +131,9 @@ export default {
 ],
   entryPointToBrowserMapping: undefined,
   assets: {
-    'index.csr.html': {size: 17011, hash: '0034789f610eca52dfd29699e199a69f038b326d9ff1558dec23d0270a6e9cde', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 7988, hash: '8d2e5aceb48ce9b4b659c4c34ba4183aca8ebe85f7550b2663d469846e8a4b1f', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
-    'dashboard/team/index.html': {size: 53726, hash: 'abfd6dab711b9e107c7a5a6cefe3d74398c3ac3280e58fa42e4f98e5a809f685', text: () => import('./assets-chunks/dashboard_team_index_html.mjs').then(m => m.default)},
+    'index.csr.html': {size: 17062, hash: '468cc9ec1284cc84bcca6f41ea0756d4453dbfae176082bb04cedc9e64840be4', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 8039, hash: '4a84328b846f184e15c4964d41e782419af8b848508ba0247e9d89e8310a72c0', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'dashboard/team/index.html': {size: 53802, hash: '37c353887d88fbf29b97d7b09fc0fdff4409f80cfbcf63413b3188cfdedb7fa7', text: () => import('./assets-chunks/dashboard_team_index_html.mjs').then(m => m.default)},
     'styles-NWECMSAX.css': {size: 52098, hash: 'hmHTMM4VE/U', text: () => import('./assets-chunks/styles-NWECMSAX_css.mjs').then(m => m.default)}
   },
 };
