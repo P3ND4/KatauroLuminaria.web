@@ -47,6 +47,9 @@ export class Signin {
     if (emailForm?.valid) {
       this.router.navigate(['/login/forgot-password'], { queryParams: { email: emailForm?.value } });
     }
+    else {
+      this.errorServ.addError({ name: 'Email inválido', error: 'Por favor ingresa un email válido para recuperar tu contraseña' });
+    }
   }
 
   onSubmit() {

@@ -257,7 +257,7 @@ export class Cart implements OnInit {
   }
   openWhatsApp(id: string) {
     if (isPlatformBrowser(this.plataformId)) {
-      const phone = '5355801741';
+      const phone = '+5352080347';
       const text = encodeURIComponent('Hola, quiero escribirte para realizar el pago de la compra con id \n' + `  ${id}`);
       window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
     }
