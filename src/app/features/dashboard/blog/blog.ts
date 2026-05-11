@@ -5,6 +5,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
 import { ASSETS } from '../../../shared/constants/image-library';
 import { parseError } from '../../../shared/services/errors/errorParser';
+import { SeoService } from '../../../shared/services/seo/seo.service';
+
 import { Blog as BlogEntinty } from '../../../shared/models/blog/blog.entity';
 import { Router } from '@angular/router';
 import { SkeletonLoader } from '../../../shared/components/skeleton-loader/skeleton-loader';
@@ -34,8 +36,10 @@ export class Blog implements OnInit, AfterViewInit {
   private errorServ = inject(ErrorLogService);
   private router = inject(Router);
   private platformId = inject(PLATFORM_ID);
+  private seo = inject(SeoService);
 
   ngOnInit(): void {
+    this.seo.setPage('Blog', 'Descubre consejos, información y documentación sobre iluminación LED y diseño de luminarias en el blog de Katauro.');
     if (isPlatformBrowser(this.platformId)) {
       this.loadRecients();
       this.loadPages();

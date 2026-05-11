@@ -1,5 +1,15 @@
 {
   "routes": {
-    "/dashboard/team": {}
+    "/": {},
+    "/dashboard": {},
+    "/dashboard/blog": {},
+    "/dashboard/galery": {},
+    "/dashboard/home": {},
+    "/dashboard/team": {},
+    "/login": {},
+    "/login/change-pass": {},
+    "/login/forgot-password": {},
+    "/login/signin": {},
+    "/login/signup": {}
   }
 }

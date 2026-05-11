@@ -15,6 +15,7 @@ import { calculateDiscount } from '../../../../../shared/utils/calcDiscount';
 import { getAlt } from '../../../../../shared/utils/getAlt';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/myCurrencyPipe';
 import { ASSETS } from '../../../../../shared/constants/image-library';
+import { SeoService } from '../../../../../shared/services/seo/seo.service';
 
 @Component({
   selector: 'app-singular',
@@ -44,7 +45,7 @@ export class Singular implements OnInit {
 
   discounts = calculateDiscount;
   constructor(private route: ActivatedRoute, private http: HttpService, private cdr: ChangeDetectorRef, private userService: AuthService,
-    readonly cartService: CartService, private router: Router, private errorServ: ErrorLogService) {
+    readonly cartService: CartService, private router: Router, private errorServ: ErrorLogService, private seo: SeoService) {
 
   }
   ngOnInit(): void {
@@ -71,6 +72,23 @@ export class Singular implements OnInit {
           this.loadFinishes();
           if (selectedVariant) {
             this.currentVariant = this.currentProduct?.variants.findIndex(x => x.id === selectedVariant) ?? 0;
+          }
+          const prod = this.currentProduct!;
+          const variant = prod.variants[this.currentVariant];
+          this.seo.setPage(prod.name, prod.subtitle || prod.description || '', `${this.router.url}`);
+          this.seo.addBreadcrumbSchema([
+            { name: 'Inicio', url: 'https://katauro.com/dashboard/home' },
+            { name: prod.category.nombre, url: `https://katauro.com/dashboard/galery?category=${prod.category.nombre}` },
+            { name: prod.name, url: `https://katauro.com/dashboard/${prod.category.nombre}/${prod.id}` },
+          ]);
+          if (variant) {
+            this.seo.addProductSchema({
+              name: prod.name ?? '',
+              description: prod.description || prod.subtitle || '',
+              image: variant.image ?? '',
+              price: variant.price ?? 0,
+              sku: variant.id ?? '',
+            });
           }
           this.cdr.detectChanges();
           this.charged = true

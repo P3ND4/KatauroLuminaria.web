@@ -1,4 +1,4 @@
-<div class="detail-container">
+<main class="detail-container">
     @if(loading){
     <div class="loader-wrapper">
         <app-box-loader></app-box-loader>
@@ -49,7 +49,7 @@
         }
         @if(charged){
         <div class="details">
-            <h2>{{currentProduct?.name}}</h2>
+            <h1>{{currentProduct?.name}}</h1>
             <h4>{{currentProduct?.subtitle}}</h4>
             <p>{{currentProduct?.description}}</p>
             <div class="features">
@@ -146,4 +146,4 @@
             </div>
         </div>
     </div>
-</div>
+</main>

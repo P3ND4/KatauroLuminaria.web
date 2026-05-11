@@ -4,6 +4,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FadeAndSlideIn } from '../../../shared/animations/FadeAndSlideIn';
 import { Corousel } from "../../../shared/components/corousel/corousel";
 import { carouselDTO } from '../../../shared/models/carouselDTO';
+import { SeoService } from '../../../shared/services/seo/seo.service';
 import { optimizeUrlCloudy } from '../../../shared/utils/optimizeUrlCloudy';
 import { ASSETS } from '../../../shared/constants/image-library';
 
@@ -17,7 +18,9 @@ import { ASSETS } from '../../../shared/constants/image-library';
 export class Team implements AfterViewInit {
   readonly ASSETS = ASSETS;
   team: TeamMember[] = [];
+  private seo = inject(SeoService);
   constructor() {
+    this.seo.setPage('Nuestro equipo', 'Conoce al equipo multidisciplinario detrás de Katauro Luminarias, especializado en diseño y producción de luminarias desde 2013.');
     for (let index = 0; index < 15; index++) {
       this.team.push(
         {

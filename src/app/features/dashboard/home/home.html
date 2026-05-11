@@ -8,20 +8,22 @@
     <app-box-loader [message]="loadMsg"></app-box-loader>
 </div>
 }
-<div style="background-color: white;">
+<main style="background-color: white;">
     @if (!correctLoaded) {
     <div class="car-cont">
         <app-skeleton-loader class="sk" [type]="2" class="sk"></app-skeleton-loader>
     </div>
     }
     @else if(carousel1 && correctLoaded()) {
-    <app-corousel [data]="carousel1" />
+    <section aria-label="Carrusel principal">
+        <app-corousel [data]="carousel1" />
+    </section>
     }
     <div class="home-container">
 
-        <div class="luminarias">
+        <section class="luminarias" aria-label="Categorías de luminarias">
             <header class="header">
-                <h2>Conoce nuestras luminarias disponibles</h2>
+                <h1>Conoce nuestras luminarias disponibles</h1>
                 <p class="header-p">Aquí podrás encontrar nuestras lámparas de techo, mesa, pared y piso disponibles.
                 </p>
             </header>
@@ -48,7 +50,7 @@
                 </li>
             </ul>
 
-        </div>
+        </section>
         @if (correctLoaded()) {
         <app-corousel [data]="carousel2!"></app-corousel>
         }@else {
@@ -150,7 +152,7 @@
     </div>
 
 
-</div>
+</main>
 @defer (on viewport) {
 <app-corousel [data]="carousel3" />
 } @placeholder {

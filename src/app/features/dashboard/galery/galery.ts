@@ -4,6 +4,8 @@ import { CommonModule, CurrencyPipe, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { ASSETS } from '../../../shared/constants/image-library';
+import { SeoService } from '../../../shared/services/seo/seo.service';
+
 import { Subscription } from 'rxjs';
 import { FadeAndSlideIn } from '../../../shared/animations/FadeAndSlideIn';
 import { SkeletonLoader } from '../../../shared/components/skeleton-loader/skeleton-loader';
@@ -35,11 +37,11 @@ export class Galery implements OnInit, AfterViewInit {
 
 
   @ViewChildren('CatElementGalery') catElements!: QueryList<ElementRef>;
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpService, private errorServ: ErrorLogService) {
-
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpService, private errorServ: ErrorLogService, private seo: SeoService) {
   }
 
   ngOnInit(): void {
+    this.seo.setPage('Galería', 'Explora nuestra colección de luminarias LED de diseño: lámparas de mesa, pared, pie y techo. Calidad y estilo para tu hogar.');
     const cat = this.route.snapshot.paramMap.get('cat');
 
     this.queryParamsSubscription = this.route.queryParamMap.subscribe(() => {

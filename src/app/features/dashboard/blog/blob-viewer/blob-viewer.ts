@@ -8,6 +8,7 @@ import { HttpService } from '../../../../shared/services/http/http.service';
 import { ErrorLogService } from '../../../../shared/services/errors/error.log.service';
 import { parseError } from '../../../../shared/services/errors/errorParser';
 import { BlogAnalyticsService } from '../../../../shared/services/blog-analytics.service';
+import { SeoService } from '../../../../shared/services/seo/seo.service';
 
 @Component({
   selector: 'app-blob-viewer',
@@ -26,6 +27,7 @@ export class BlobViewer implements OnInit, OnDestroy {
     private http: HttpService,
     private errorServ: ErrorLogService,
     private analytics: BlogAnalyticsService,
+    private seo: SeoService,
   ) { }
   ngOnInit(): void {
     this.loadBlog();
@@ -41,6 +43,19 @@ export class BlobViewer implements OnInit, OnDestroy {
             this.blog = val as Blog;
             console.log(this.blog)
             this.loading = false;
+            const img = this.blog.images?.[0]?.link || '';
+            this.seo.setPage(this.blog.title, this.blog.introduction || '', `https://katauro.com/dashboard/blog/${this.blog.id}`);
+            this.seo.addBlogPostingSchema({
+              headline: this.blog.title,
+              description: this.blog.introduction || '',
+              image: img,
+              datePublished: this.blog.createdAt.toString(),
+            });
+            this.seo.addBreadcrumbSchema([
+              { name: 'Inicio', url: 'https://katauro.com/dashboard/home' },
+              { name: 'Blog', url: 'https://katauro.com/dashboard/blog' },
+              { name: this.blog.title, url: `https://katauro.com/dashboard/blog/${this.blog.id}` },
+            ]);
             this.analytics.init(this.blog.id);
           },
           error: err => {

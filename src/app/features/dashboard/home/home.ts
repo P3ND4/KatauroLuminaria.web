@@ -13,6 +13,8 @@ import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
 import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { parseError } from '../../../shared/services/errors/errorParser';
+import { SeoService } from '../../../shared/services/seo/seo.service';
+
 import { Carousel } from '../../../shared/models/promotions';
 import { getAlt } from '../../../shared/utils/getAlt';
 import { optimizeUrlCloudy } from '../../../shared/utils/optimizeUrlCloudy';
@@ -62,14 +64,14 @@ export class Home implements OnInit, AfterViewInit {
   loading = false;
   loadMsg = "Cargando..."
   altTExt = getAlt;
-  constructor(private httpService: HttpService, private cdr: ChangeDetectorRef, readonly router: Router, private cartService: CartService, private userService: AuthService, private errorServ: ErrorLogService) {
-
+  constructor(private httpService: HttpService, private cdr: ChangeDetectorRef, readonly router: Router, private cartService: CartService, private userService: AuthService, private errorServ: ErrorLogService, private seo: SeoService) {
   }
 
   randLoaded = false;
 
-
   ngOnInit(): void {
+    this.seo.setPage('Inicio', 'Katauro Luminarias — Iluminación LED moderna, decorativa y eficiente para hogares y negocios en Cuba.');
+    this.seo.addOrganizationSchema();
     this.userService.currentUser$.subscribe({
       next: val => this.user = val as User,
       error: err => console.log(err)
