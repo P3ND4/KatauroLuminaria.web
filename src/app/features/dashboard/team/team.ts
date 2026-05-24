@@ -21,17 +21,24 @@ export class Team implements AfterViewInit {
   private seo = inject(SeoService);
   constructor() {
     this.seo.setPage('Nuestro equipo', 'Conoce al equipo multidisciplinario detrás de Katauro Luminarias, especializado en diseño y producción de luminarias desde 2013.');
-    for (let index = 0; index < 15; index++) {
-      this.team.push(
-        {
-          img: ASSETS.content.imagePlaceholder,
-          name: "Olivia Rhye",
-          charge: "Fundador y directivo",
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
-        }
-      )
-
-    }
+    this.team = [
+      { img: ASSETS.cloudinary.teamMembers.angelFornaris, name: 'Ángel R. Fornaris', charge: 'Director General', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.rosaRodriguez, name: 'Rosa Y. Rodríguez Adán', charge: 'Directora Adjunta', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.gabrielaGarcia, name: 'Gabriela García Valdespino', charge: 'Dependienta', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.adisYilian, name: 'Adis Yilian Bravo Frion (Yilian)', charge: 'Especialista en Compras', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.giselleRuiz, name: 'Giselle de la Caridad Ruiz Fernández de Velasco', charge: 'Dependienta', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.davidBatista, name: 'David Batista Reyes', charge: 'Jefe de Brigada de Carpintería y Herrería', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.giselleRosell, name: 'Giselle Rosell Alonso', charge: 'Administradora General', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.porfirioMerino, name: 'Porfirio Merino Figueredo (Merino)', charge: 'Jefe de Brigada de Pantalla', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.marioMartin, name: 'Mario Martín Dueñas Aralla', charge: 'Operario de Herrería', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.alejandroTorres, name: 'Alejandro Torres Caballero', charge: 'Jefe de Producción', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.adrianFonseca, name: 'Adrián Fonseca Maceda', charge: 'Especialista en Herrería', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.juanFernando, name: 'Juan Fernando Infante Durán (El Profe)', charge: 'Asesor de Diseño', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.lourdesSoto, name: 'Lourdes Soto Bengochea', charge: 'Operaria en Pantalla', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.andresEmilio, name: 'Andrés Emilio Zabala Rivas (El tío)', charge: 'Operario en Acabado', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.yoandyNolazco, name: 'Yoandy Nolazco Cala', charge: 'Especialista en Acabado', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.joseLazaro, name: 'José Lázaro Aballí Rabasa (El Chino)', charge: 'Especialista en Mantenimiento', description: '' },
+    ];
   }
   carousel: carouselDTO = this.createCarousel();
 
