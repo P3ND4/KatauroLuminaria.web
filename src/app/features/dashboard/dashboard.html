@@ -122,7 +122,7 @@
   </div>
 
   @if(!isActive('/dashboard/home') && !isActive('/dashboard/team') && !isActive('/dashboard/galery')) {
-    <app-discover-more />
+  <app-discover-more />
   }
 
   <div class="footer">
@@ -210,16 +210,17 @@
       <div class="social-media">
         <div class="divider"></div>
         <div class="social-links">
-          <img [src]="ASSETS.icons.whatsapp" alt="WhatsApp">
-          <img [src]="ASSETS.icons.facebook" alt="Facebook">
-          <img [src]="ASSETS.icons.instagram" alt="Instagram">
+          <img style="cursor: pointer;" [src]="ASSETS.icons.whatsapp" alt="WhatsApp" (click)="openSocial('WhatsApp')">
+          <img style="cursor: pointer;" [src]="ASSETS.icons.facebook" alt="Facebook" (click)="openSocial('Facebook')">
+          <img style="cursor: pointer;" [src]="ASSETS.icons.instagram" alt="Instagram"
+            (click)="openSocial('Instagram')">
         </div>
 
-        <a class="terms" style="text-decoration: none;" href="https://wa.me/1234567890" target="_blank">
+        <!-- <a class="terms" style="text-decoration: none;" href="https://wa.me/1234567890" target="_blank">
           <label style="position: unset; left: auto;" class="footer-links terms">
             Términos y condiciones
           </label>
-        </a>
+        </a> -->
 
         <label class="footer-links copyright">
           © {{ currentYear }} Katauro. Todos los derechos reservados.

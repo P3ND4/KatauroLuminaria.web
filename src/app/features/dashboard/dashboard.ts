@@ -109,6 +109,24 @@ export class Dashboard implements OnInit, AfterViewInit {
     }
 
   }
+
+  openSocial(social: string) {
+    let url = '';
+    switch (social) {
+      case 'WhatsApp':
+        url = 'https://wa.me/+5352080347';
+        break;
+      case 'Facebook':
+        url = 'https://www.facebook.com/p/Katauro-Luminarias-100064229641413';
+        break;
+      case 'Instagram':
+        url = 'https://www.instagram.com/katauroluminarias?igsh=dWQxaTE1eXpqcnc=';
+        break;
+    }
+    if (isPlatformBrowser(this.plataformId)) {
+      window.open(url, '_blank');
+    }
+  }
   navigate(path: string) {
     // acá puedes setear dirección o animación antes de navegar
     const split = this.router.url.split(/[/?]/);
