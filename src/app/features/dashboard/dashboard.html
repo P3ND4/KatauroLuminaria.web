@@ -121,6 +121,9 @@
     <router-outlet #outlet="outlet"></router-outlet>
   </div>
 
+  @if(!isActive('/dashboard/home') && !isActive('/dashboard/team') && !isActive('/dashboard/galery')) {
+    <app-discover-more />
+  }
 
   <div class="footer">
     <div class="footer-content">

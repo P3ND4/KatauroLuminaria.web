@@ -49,10 +49,7 @@
             <label>Iniciar sesión</label>
         </button>
 
-        <button class="social-button" style="width: 100%; margin-top: 16px;">
-            <img [src]="ASSETS.icons.socialGoogle" alt="Google Icon">
-            <label>Iniciar sesión con Google</label>
-        </button>
+        <div id="google-btn" style="margin-top: 16px;"></div>
 
         <footer>
             <p>¿No tienes una cuenta? <a class="register" (click)="router.navigate(['/login/signup'])">Regístrate</a>

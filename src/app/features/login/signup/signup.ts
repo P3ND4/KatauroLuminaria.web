@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, inject, PLATFORM_ID } from '@angular/core';
+import { AfterViewInit, Component, inject, NgZone, PLATFORM_ID } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '../../../shared/services/http/http.service';
@@ -9,6 +9,7 @@ import { passwordMatchValidator } from '../../../shared/validators/passwordMissM
 import { BoxLoader } from "../../../shared/components/box-loader/box-loader";
 import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
 import { parseError } from '../../../shared/services/errors/errorParser';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-signup',
@@ -24,6 +25,7 @@ export class Signup implements AfterViewInit {
   selectedRegionCode = 2;
   openDropdown = false;
   plataformId = inject(PLATFORM_ID);
+  private ngZone = inject(NgZone);
   constructor(private fb: FormBuilder, public router: Router, private http: HttpService, private loginS: AuthService, private errorServ: ErrorLogService) {
     this.signUpForm = this.fb.group({
       name: ['', Validators.required],
@@ -41,8 +43,27 @@ export class Signup implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    if (isPlatformBrowser(this.plataformId) && (window as any).google) {
+      (window as any).google.accounts.id.initialize({
+        client_id: environment.googleClientId,
+        callback: (response: any) => this.ngZone.run(() => this.handleCredentialResponse(response)),
+      });
+      (window as any).google.accounts.id.renderButton(
+        document.getElementById('google-btn-signup'),
+        { theme: 'outline', size: 'large', width: '100%' }
+      );
+    }
+  }
 
-
+  handleCredentialResponse(response: any) {
+    this.loginS.googleSignIn(response.credential).subscribe({
+      next: () => {
+        this.router.navigate(['/dashboard/home']);
+      },
+      error: (err: any) => {
+        this.errorServ.addError(parseError(err));
+      }
+    });
   }
 
   onSubmit() {

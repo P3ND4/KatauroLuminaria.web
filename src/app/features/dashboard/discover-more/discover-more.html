@@ -1,0 +1,30 @@
+@if (products.length > 0 || !loaded) {
+<section class="discover-more" aria-label="Descubre más">
+    <header class="discover-header">
+        <h2>Descubre más</h2>
+        <button class="button-base" (click)="navigateToGalery()">
+            <span>
+                Ver todas las lámparas
+            </span>
+        </button>
+    </header>
+    <div class="discover-grid">
+        @for (product of products; track $index) {
+        @if (loaded) {
+        <div class="discover-card" (click)="navigateToProduct(product.category.nombre, product.id)">
+            <img [src]="product.variants[0].image" loading="lazy" [alt]="altText(product.variants[0])" />
+            <div class="discover-gradient"></div>
+            <div class="discover-info">
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.subtitle }}</p>
+            </div>
+        </div>
+        } @else {
+        <div class="discover-card">
+            <app-skeleton-loader [type]="1" class="sk"></app-skeleton-loader>
+        </div>
+        }
+        }
+    </div>
+</section>
+}

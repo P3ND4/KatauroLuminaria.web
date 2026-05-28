@@ -10,9 +10,10 @@ import { routeAnimations } from '../../shared/animations/routerAnimation';
 import { BoxLoader } from "../../shared/components/box-loader/box-loader";
 import { ErrorLogService } from '../../shared/services/errors/error.log.service';
 import { parseError } from '../../shared/services/errors/errorParser';
+import { DiscoverMoreComponent } from './discover-more/discover-more';
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, RouterLink, CommonModule, EditProfile, BoxLoader],
+  imports: [RouterOutlet, RouterLink, CommonModule, EditProfile, BoxLoader, DiscoverMoreComponent],
   animations: [routeAnimations],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'

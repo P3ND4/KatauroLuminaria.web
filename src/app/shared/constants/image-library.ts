@@ -66,6 +66,11 @@ export const ASSETS = {
     carouselArtboard2: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_2.jpg_wt6ieb.jpg',
     carouselArtboard3: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1775273493/Artboard_3.jpg_tmeilp.jpg',
 
+    categoryMesa: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1779934612/mesa_te0bud.jpg',
+    categoryPared: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1779934612/pared_wmupvl.jpg',
+    categoryPie: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1779934612/pie_iw5gb6.jpg',
+    categoryTecho: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1779934613/techo_gvwuzk.jpg',
+
     teamMembers: {
       angelFornaris: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1778533230/16-Angel_R._Fornaris-_Director_General.jpg_gnxhit.jpg',
       rosaRodriguez: 'https://res.cloudinary.com/dmhadvchw/image/upload/v1778533229/15-Rosa_Y._Rodriguez_Adan-_Directora_Adjunta.jpg_fultpj.jpg',

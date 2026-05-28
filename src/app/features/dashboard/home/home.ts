@@ -3,6 +3,7 @@ import { Corousel } from "../../../shared/components/corousel/corousel";
 import { carouselDTO } from '../../../shared/models/carouselDTO';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Categories, Product, Variant } from '../../../shared/models/Products';
+import { Blog as BlogEntity } from '../../../shared/models/blog/blog.entity';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { Router } from '@angular/router';
 import { CartService } from '../../../shared/services/cart/cart.service';
@@ -68,6 +69,7 @@ export class Home implements OnInit, AfterViewInit {
   }
 
   randLoaded = false;
+  recentBlogs: BlogEntity[] = [];
 
   ngOnInit(): void {
     this.seo.setPage('Inicio', 'Katauro Luminarias — Iluminación LED moderna, decorativa y eficiente para hogares y negocios en Cuba.');
@@ -110,6 +112,21 @@ export class Home implements OnInit, AfterViewInit {
     });
 
     this.loadData();
+    this.loadRecentBlogs();
+  }
+
+  loadRecentBlogs() {
+    this.httpService.getBlogs(1).subscribe({
+      next: (data: any) => {
+        let blogsData = Array.isArray(data.blogs) ? (data as { blogs: BlogEntity[], total: number }).blogs : [];
+        blogsData = blogsData.filter(blog => blog && blog.id);
+        this.recentBlogs = blogsData.slice(0, 3);
+        this.cdr.detectChanges();
+      },
+      error: (err: HttpErrorResponse) => {
+        this.errorServ.addError(parseError(err));
+      }
+    });
   }
 
   loadData() {
@@ -153,6 +170,9 @@ export class Home implements OnInit, AfterViewInit {
         category: cat
       }
     })
+  }
+  navigateToBlog(blogId: string) {
+    this.router.navigate(['dashboard/blog', blogId]);
   }
 
   toOwn(variant: Variant) {

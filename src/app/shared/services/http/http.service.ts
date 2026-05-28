@@ -19,9 +19,9 @@ export class HttpService {
     Categories.tableLumin,
     Categories.wallLumin
   ]
-  
+
   constructor(private http: HttpClient) {
-  //  this.apiPath = 'http://localhost:3500';
+    this.apiPath = 'http://localhost:3000';
 
   }
   getFinishes() {
@@ -39,6 +39,10 @@ export class HttpService {
 
   signIn(loginDto: LoginDto) {
     return this.http.post(`${this.apiPath}/auth/login`, loginDto, { withCredentials: true })
+  }
+
+  googleSignIn(credential: string) {
+    return this.http.post(`${this.apiPath}/auth/google`, { credential }, { withCredentials: true })
   }
 
   updateUser(createOrderDTO: UpdateUserDto, id: string) {

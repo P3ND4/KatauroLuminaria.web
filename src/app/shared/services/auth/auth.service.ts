@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../../models/User';
 import { HttpService } from '../http/http.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { ErrorLogService } from '../errors/error.log.service';
 import { parseError } from '../errors/errorParser';
 
@@ -26,6 +27,12 @@ export class AuthService {
   }
   logUserByCredentials(email: string, password: string) {
     return this.http.signIn({ email, password });
+  }
+
+  googleSignIn(credential: string): Observable<any> {
+    return this.http.googleSignIn(credential).pipe(
+      tap(() => this.refreshUser())
+    );
   }
 
   logOutUser() {
