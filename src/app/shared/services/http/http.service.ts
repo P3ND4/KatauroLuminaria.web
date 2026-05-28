@@ -21,7 +21,7 @@ export class HttpService {
   ]
 
   constructor(private http: HttpClient) {
-    this.apiPath = 'http://localhost:3000';
+    //this.apiPath = 'http://localhost:3000';
 
   }
   getFinishes() {
