@@ -16,7 +16,7 @@ export default {
   {
     "renderMode": 0,
     "preload": [
-      "chunk-6SV7IZPW.js",
+      "chunk-4AWIS2HD.js",
       "chunk-IZ4IFJTQ.js",
       "chunk-7QGPCMBS.js"
     ],
@@ -54,7 +54,7 @@ export default {
   {
     "renderMode": 0,
     "preload": [
-      "chunk-MITGBMZJ.js",
+      "chunk-LVT4XIAU.js",
       "chunk-BBPYHH2U.js"
     ],
     "route": "/dashboard/blog/*"
@@ -72,14 +72,14 @@ export default {
   {
     "renderMode": 0,
     "preload": [
-      "chunk-U5UNAUGV.js"
+      "chunk-K5VH2RCU.js"
     ],
     "route": "/dashboard/*"
   },
   {
     "renderMode": 0,
     "preload": [
-      "chunk-U5UNAUGV.js"
+      "chunk-K5VH2RCU.js"
     ],
     "route": "/dashboard/*/*"
   },
@@ -131,19 +131,19 @@ export default {
 ],
   entryPointToBrowserMapping: undefined,
   assets: {
-    'index.csr.html': {size: 9671, hash: '02f683a2a38c7c78c89785ce7c7882d1f931ee4164aec9825601f69b9a09f4c0', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 7736, hash: '9f577be234e55f03ff79467fb1649434d5bf3b9ff657768a35f66a91cadb5631', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
-    'login/index.html': {size: 13981, hash: '90395c39433ada81f92ca0a241ad1fb13b3b3b6c3501f9f7e7e93de21c5679e8', text: () => import('./assets-chunks/login_index_html.mjs').then(m => m.default)},
-    'login/change-pass/index.html': {size: 18246, hash: '25d06d205c62dc4b7b651ea99f10abbda46328432b3e001cc316d3e729c4646f', text: () => import('./assets-chunks/login_change-pass_index_html.mjs').then(m => m.default)},
-    'dashboard/galery/index.html': {size: 81627, hash: 'd5d092b23ebdf15db73a2756e8b0be049b8f5bddc91b7cc08943b74f62ab3e6f', text: () => import('./assets-chunks/dashboard_galery_index_html.mjs').then(m => m.default)},
-    'login/signin/index.html': {size: 19692, hash: '6276b57b0e429bf9cea5d7b946d71fe057a06882b61bf0b997bccbc1802e3e46', text: () => import('./assets-chunks/login_signin_index_html.mjs').then(m => m.default)},
-    'login/forgot-password/index.html': {size: 19547, hash: '82322118b16160001c9ad37db523495fa845d7b9c577c5cfa61e96960e578379', text: () => import('./assets-chunks/login_forgot-password_index_html.mjs').then(m => m.default)},
-    'dashboard/index.html': {size: 52310, hash: 'd8911ad4415f4ac980dec84d405b4b610c30b45583077c99f1d09b12240c93e2', text: () => import('./assets-chunks/dashboard_index_html.mjs').then(m => m.default)},
+    'index.csr.html': {size: 9671, hash: '0c655faf1ae36cc18be9038a8c7c3e8681ab35645966273d57f7e3cb8c5ec8e7', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 7736, hash: '7db48a51acf83dc35eae6ba883e65338cf3f2532c75b464a537a8a070d38276b', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'login/index.html': {size: 13981, hash: 'd94383b86b2965b0ad0eebe6d00024c0613f9921adecf8842a600b5127bf3260', text: () => import('./assets-chunks/login_index_html.mjs').then(m => m.default)},
+    'dashboard/index.html': {size: 54028, hash: '4800836107a12ffc9cec14752c5d4a5a235329651de6372faa2c5cfff52c5b0c', text: () => import('./assets-chunks/dashboard_index_html.mjs').then(m => m.default)},
+    'login/change-pass/index.html': {size: 18246, hash: '6845980cca04a146d54aa61031758fc1055375c25f8e062e65f960ff606df372', text: () => import('./assets-chunks/login_change-pass_index_html.mjs').then(m => m.default)},
+    'dashboard/team/index.html': {size: 46839, hash: 'e777657873224b60cbe55e6d686b940db3f0e5a481c5406d2ea13a18ff0f782b', text: () => import('./assets-chunks/dashboard_team_index_html.mjs').then(m => m.default)},
+    'login/signin/index.html': {size: 19689, hash: '78ae55b15e4b95afb9837d052d310182def23fdbad14c4fb2915d10d007343d0', text: () => import('./assets-chunks/login_signin_index_html.mjs').then(m => m.default)},
+    'login/forgot-password/index.html': {size: 19547, hash: '418d24cf3cdf19775591dc91c0a595a6c2c30d4b03191e5175335778baf71b08', text: () => import('./assets-chunks/login_forgot-password_index_html.mjs').then(m => m.default)},
+    'dashboard/blog/index.html': {size: 73660, hash: '784ffda5a2c1fd7286b88f45bdd50afdefb4cede8251c7ca0b10767de919d8c2', text: () => import('./assets-chunks/dashboard_blog_index_html.mjs').then(m => m.default)},
+    'login/signup/index.html': {size: 25835, hash: '3df71af8dfab68244982520f11d57fb6853054dfdb20b898f1ca86e01361d2ab', text: () => import('./assets-chunks/login_signup_index_html.mjs').then(m => m.default)},
+    'dashboard/home/index.html': {size: 147849, hash: 'ae20b8434c2dde1f961e6a41a5c0ad741415cc1f7e707d326c265f3e68a3fd1f', text: () => import('./assets-chunks/dashboard_home_index_html.mjs').then(m => m.default)},
     'index.html': {size: 267, hash: '7129b2fe28f2670f88d87412a68ee23ebaeeb36949e6449fbb297b5efcfd3f9f', text: () => import('./assets-chunks/index_html.mjs').then(m => m.default)},
-    'login/signup/index.html': {size: 25824, hash: 'c6c957b1f07f3330edbcad65e051c5be245461655371c9894cb55d6f789b1b67', text: () => import('./assets-chunks/login_signup_index_html.mjs').then(m => m.default)},
-    'dashboard/team/index.html': {size: 46841, hash: 'a782f6f655920f18b3673a3da5a14fb59425632f7752a9f2a58346958280e325', text: () => import('./assets-chunks/dashboard_team_index_html.mjs').then(m => m.default)},
-    'dashboard/home/index.html': {size: 159636, hash: 'cb3c24cfdbaa15a3573998595540f9bd1b50c809eec1f679347715a6f5830c2b', text: () => import('./assets-chunks/dashboard_home_index_html.mjs').then(m => m.default)},
-    'dashboard/blog/index.html': {size: 75926, hash: '5c12df34d945adcf7d6c4136b06c44da0f64e71f4d2ceb7d31415b2e78b4a945', text: () => import('./assets-chunks/dashboard_blog_index_html.mjs').then(m => m.default)},
+    'dashboard/galery/index.html': {size: 81627, hash: 'b30e51b4229abd6a548e173eae0df26a39b27f3704bd23b98850cedd7ae382c0', text: () => import('./assets-chunks/dashboard_galery_index_html.mjs').then(m => m.default)},
     'styles-4VIILCSB.css': {size: 31316, hash: '5oJbo+fa2jI', text: () => import('./assets-chunks/styles-4VIILCSB_css.mjs').then(m => m.default)}
   },
 };

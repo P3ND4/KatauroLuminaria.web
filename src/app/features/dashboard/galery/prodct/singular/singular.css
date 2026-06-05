@@ -1,4 +1,4 @@
-h2 {
+.details h1 {
     color: var(--Gray-700, #414651);
 
     font-family: var(--montser-font, 'Montserrat');
@@ -148,7 +148,7 @@ p {
     margin-bottom: 32px;
 }
 
-.details h2,
+.details h1,
 .details h4 {
     width: 100%;
     text-align: left;
@@ -436,7 +436,7 @@ p {
         min-width: 300px;
     }
 
-    .details h2 {
+    .details h1 {
         font-size: 30px;
         font-style: normal;
         font-weight: 600;

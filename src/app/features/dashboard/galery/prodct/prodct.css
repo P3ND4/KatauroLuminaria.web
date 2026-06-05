@@ -81,22 +81,30 @@ h3 {
 }
 
 .single-product-nav {
-    display: flex;
-    gap: 57.6px;
-    justify-content: center;
-    align-items: baseline;
-    overflow-inline: auto;
     position: relative;
     padding-bottom: 5px;
     box-sizing: border-box;
 }
 
+.product-scroll {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: baseline;
+    overflow-inline: auto;
+    padding-bottom: 10px;
+}
+
+.product-scroll::-webkit-scrollbar {
+    display: none;
+}
+
 .base-bar {
     position: absolute;
-    width: 100%;
+    left: 0;
+    right: 0;
     height: 0.5px;
     background-color: #717680;
-    ;
     bottom: 5px;
     border-radius: 3px;
 }
@@ -153,7 +161,7 @@ h3 {
         justify-content: left;
     }
 
-    .single-product-nav {
+    .product-scroll {
         justify-content: left;
     }
 
@@ -173,6 +181,10 @@ h3 {
 
     .header {
         gap: 12px;
+    }
+
+    .product-scroll{
+        gap: 16px;
     }
 
     .cat-content .button-chips label {

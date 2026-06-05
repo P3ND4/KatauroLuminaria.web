@@ -258,7 +258,11 @@ export class Cart implements OnInit {
   openWhatsApp(id: string) {
     if (isPlatformBrowser(this.plataformId)) {
       const phone = '+5352080347';
-      const text = encodeURIComponent('Hola, quiero escribirte para realizar el pago de la compra con id \n' + `  ${id}`);
+      const productList = this.cartService.currentProducts()
+        .filter(v => v.id in this.selected)
+        .map(v => `• ${v.genericProd?.name || 'Producto'}${this.selected[v.id] > 1 ? ` (x${this.selected[v.id]})` : ''}`)
+        .join('\n');
+      const text = encodeURIComponent(`Estoy interesado en comprar estos productos:\n${productList}\n\nID de pedido: ${id}`);
       window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
     }
   }

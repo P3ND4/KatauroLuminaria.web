@@ -106,8 +106,9 @@ export class Prodct implements OnInit, AfterViewInit {
     var ref: any | undefined
     if (elem) ref = elem.nativeElement;
     else return;
-    this.indicatorX = ref?.offsetLeft;
-    this.indicatorWidth = ref?.offsetWidth;
+    const scrollEl = ref.parentElement;
+    this.indicatorX = ref.offsetLeft - (scrollEl?.scrollLeft || 0);
+    this.indicatorWidth = ref.offsetWidth;
   }
 
   scrollToSelected() {
