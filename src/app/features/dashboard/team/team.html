@@ -45,27 +45,29 @@
 
     <div class="team-members">
         <div class="img-cont">
-            <img  [src]="teamImage" />
+            <img [src]="teamImage" />
         </div>
 
         <div class="team-list" @fadeAndSlideIn>
-            @for (member of team; track $index) {
-            @defer(on viewport){
-            <div class="member" @fadeAndSlideIn>
-                <div class="member-img">
-                    <img [src]="optimizeUrlCloudy(member.img)" alt="{{member.name}}">
+            <div class="members-container">
+                @for (member of team; track $index) {
+                @defer(on viewport){
+                <div class="member" @fadeAndSlideIn>
+                    <div class="member-img">
+                        <img [src]="optimizeUrlCloudy(member.img)" alt="{{member.name}}">
+                    </div>
+                    <div class="member-info">
+                        <h3>{{ member.name }}</h3>
+                        <h4>{{ member.charge }}</h4>
+                    </div>
                 </div>
-                <div class="member-info">
-                    <h3>{{ member.name }}</h3>
-                    <h4>{{ member.charge }}</h4>
+                }@placeholder {
+                <div class="loading">
+                    Cargando...
                 </div>
+                }
+                }
             </div>
-            }@placeholder {
-            <div class="loading">
-                Cargando...
-            </div>
-            }
-            }
         </div>
     </div>
 
