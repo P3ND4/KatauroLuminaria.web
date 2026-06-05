@@ -8,8 +8,8 @@
         <div class="main-image">
             @if (charged && selectedImage === -1 && hasModel3D()) {
 
-            <model-viewer [src]="model3DUrl" camera-controls auto-rotate
-                style="width: 100%; height: 100%; display: block;">
+            <model-viewer [src]="model3DUrl" camera-controls auto-rotate ar ar-modes="webxr scene-viewer quick-look"
+                ar-scale="auto" style="width: 100%; height: 100%; display: block;">
             </model-viewer>
             }@else if(charged){
             <img class="main-img" [src]="images[selectedImage]"
@@ -33,8 +33,7 @@
             }
             @if (hasModel3D()) {
             <div class="sec-images" (click)="selectImage(-1)">
-                <model-viewer [src]="model3DUrl" camera-controls auto-rotate ar ar-modes="webxr scene-viewer quick-look"
-                    ar-scale="auto" style="width: 100%; height: 100%; display: block;">
+                <model-viewer [src]="model3DUrl" style="width: 100%; height: 100%; display: block;">
                 </model-viewer>
             </div>
             }
