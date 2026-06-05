@@ -22,6 +22,26 @@ p {
     margin: 0px;
 }
 
+h1 {
+    color: var(--Brand-900, #175659);
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 60px;
+    /* 125% */
+    letter-spacing: -0.96px;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 32px;
+        /* 133.333% */
+    }
+}
+
 .button-base {
     display: flex;
     align-items: center;

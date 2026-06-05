@@ -53,7 +53,7 @@
             @defer(on viewport){
             <div class="member" @fadeAndSlideIn>
                 <div class="member-img">
-                    <img [src]="member.img" alt="{{member.name}}">
+                    <img [src]="optimizeUrlCloudy(member.img)" alt="{{member.name}}">
                 </div>
                 <div class="member-info">
                     <h3>{{ member.name }}</h3>

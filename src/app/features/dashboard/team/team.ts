@@ -42,7 +42,7 @@ export class Team implements AfterViewInit {
   }
   carousel: carouselDTO = this.createCarousel();
 
-
+  optimizeUrlCloudy = optimizeUrlCloudy;
   teamImage = optimizeUrlCloudy(ASSETS.cloudinary.teamHero);
 
   createCarousel() {

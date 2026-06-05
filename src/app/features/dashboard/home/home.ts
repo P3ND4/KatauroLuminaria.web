@@ -204,8 +204,11 @@ export class Home implements OnInit, AfterViewInit {
             this.loading = false;
           }
         }
-      )
+    )
+}
+    else {
+      this.router.navigate(['/login/signin']);
     }
-  }
+}
 
 }
