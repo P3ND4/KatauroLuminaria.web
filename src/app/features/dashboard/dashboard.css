@@ -103,8 +103,11 @@
 }
 
 .menu-button {
-  cursor: pointer;
   display: none;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .nav-links {
@@ -540,10 +543,10 @@
   }
 
   .menu-button {
-    display: initial;
+    display: flex;
   }
 
-  .user-info {
+  .desktop {
     display: none;
   }
 

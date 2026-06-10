@@ -35,7 +35,7 @@
       }@else {
 
       <div class="user-info">
-        <div class="user-button" (click)="clientPanel = true">
+        <div class="user-button desktop" (click)="clientPanel = true">
           <img [src]="currentUser?.image" alt="" class="user-image">
         </div>
         <a class="button-chips" style="padding-inline: 10px;" [routerLink]="'/dashboard/cart'">
@@ -44,6 +44,8 @@
           }
           <img [src]="ASSETS.icons.shoppingBag" />
         </a>
+        <img class="menu-button"[src]="!menuIsOpen? ASSETS.icons.menu : ASSETS.icons.menuOpen" alt="menu"
+          (click)="toggleMenu()">
 
         <div class="clientPanel" [ngClass]="{'closed': !clientPanel, 'open': clientPanel}">
           <div class="user-panel-data">
@@ -71,8 +73,6 @@
       }
 
 
-      <img class="menu-button" [src]="!menuIsOpen? ASSETS.icons.menu : ASSETS.icons.menuOpen" alt="menu"
-        (click)="toggleMenu()">
 
 
 
@@ -104,12 +104,6 @@
           <p class="user-email">{{currentUser?.email}}</p>
         </div>
         <img [src]="ASSETS.icons.logOut" style="cursor: pointer;" (click)="logout()" />
-        <a class="button-chips" style="padding-inline: 10px;" [routerLink]="'/dashboard/cart'">
-          <img [src]="ASSETS.icons.shoppingBag" />
-          @if(cartService.currentProducts().length > 0){
-          <label>{{cartService.currentProducts().length}}</label>
-          }
-        </a>
       </div>
       }
     </div>
