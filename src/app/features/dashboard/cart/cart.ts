@@ -209,7 +209,57 @@ export class Cart implements OnInit {
         next: val => {
           console.log(val);
           this.loading = false;
-          this.openWhatsApp((val as Order).id);
+          const order = val as Order;
+
+          const productLines = this.cartService.currentProducts()
+            .filter(v => v.id in this.selected)
+            .map(v => {
+              const count = this.selected[v.id];
+              const name = v.genericProd?.name || 'Producto';
+              const url = `https://katauro.com/dashboard/${encodeURIComponent(v.genericProd?.category?.nombre || '')}/${v.genericProd?.id}`;
+              return `  - ${name} x ${count} (${url})`;
+            })
+            .join('\n');
+
+          const fullName = `${this.buyingForm.get('name')?.value || ''} ${this.buyingForm.get('lastName')?.value || ''}`.trim();
+          const phone = this.buyingForm.get('phone')?.value
+            ? `${this.regionCodes[this.selectedRegionCode].code} ${this.buyingForm.get('phone')?.value}`
+            : '';
+          const email = this.buyingForm.get('email')?.value || '';
+          const city = this.buyingForm.get('municipality')?.value || '';
+          const province = this.buyingForm.get('province')?.value || '';
+          const subtotal = this.subTotalPrice().toFixed(2);
+          const delivery = this.deliveryPrice().toFixed(2);
+          const total = (this.subTotalPrice() + this.deliveryPrice()).toFixed(2);
+          const note = this.buyingForm.get('note')?.value || 'Ninguna';
+
+          const message = `Hola, equipo de Katauro.
+
+Me gustaría realizar el siguiente pedido:
+
+DATOS DEL CLIENTE
+• Nombre completo: ${fullName}
+• Teléfono: ${phone}
+• Correo electrónico: ${email}
+• Ciudad/Provincia: ${city}, ${province}
+
+DETALLES DEL PEDIDO
+• Producto(s):
+${productLines}
+
+RESUMEN DE COMPRA
+• Subtotal: ${subtotal} USD
+• Gasto de envío: ${delivery} USD
+• Total a pagar: ${total} USD
+
+OBSERVACIONES
+${note}
+
+Quedo atento(a) a la confirmación de disponibilidad, forma de pago y coordinación de la entrega.
+
+Muchas gracias.`;
+
+          this.openWhatsApp(order.id, message);
         },
         error: err => {
           console.log(err);
@@ -255,14 +305,12 @@ export class Cart implements OnInit {
   deliveryPrice(): number {
     return 0;
   }
-  openWhatsApp(id: string) {
+  openWhatsApp(id: string, messageText?: string) {
     if (isPlatformBrowser(this.plataformId)) {
       const phone = '+5352080347';
-      const productList = this.cartService.currentProducts()
-        .filter(v => v.id in this.selected)
-        .map(v => `• ${v.genericProd?.name || 'Producto'}${this.selected[v.id] > 1 ? ` (x${this.selected[v.id]})` : ''}`)
-        .join('\n');
-      const text = encodeURIComponent(`Estoy interesado en comprar estos productos:\n${productList}\n\nID de pedido: ${id}`);
+      const text = messageText
+        ? encodeURIComponent(messageText)
+        : encodeURIComponent(`Estoy interesado en comprar estos productos:\n\nID de pedido: ${id}`);
       window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
     }
   }
