@@ -73,16 +73,26 @@
                         }
                     </div>
                 </div>
-                <div class="variants">
-                    <h3>COLORES</h3>
-                    <div class="variant-list">
-                        @for (item of currentProduct?.variants; track $index) {
-                        <div class="color-container" (click)="variantChange($index)"
-                            [ngClass]="{'active': currentVariant === $index}">
-                            <img [src]="item.color!.image" [alt]="item.color!.name">
+                <div class="variants-n-3d">
+                    <div class="variants">
+                        <h3>COLORES</h3>
+                        <div class="variant-list">
+                            @for (item of currentProduct?.variants; track $index) {
+                            <div class="color-container" (click)="variantChange($index)"
+                                [ngClass]="{'active': currentVariant === $index}">
+                                <img [src]="item.color!.image" [alt]="item.color!.name">
+                            </div>
+                            }
                         </div>
-                        }
                     </div>
+                    @if (hasModel3D()) {
+                    <div class="download-3d">
+                        <button class="download-3d-btn" (click)="downloadModel3D()">
+                            <img [src]="ASSETS.icons.model3d" alt="Descargar" />
+                            <span>Descargar arch. 3D</span>
+                        </button>
+                    </div>
+                    }
                 </div>
             </div>
         </div>

@@ -27,6 +27,7 @@ export const ASSETS = {
     uploadCloud: '/assets/upload-cloud.svg',
     trash2: '/assets/trash-2.svg',
     loader: '/assets/loader.svg',
+    model3d: '/assets/deployed_code_update.svg',
   },
 
   illustrations: {

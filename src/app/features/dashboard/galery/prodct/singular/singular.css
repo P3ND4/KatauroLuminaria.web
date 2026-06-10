@@ -10,6 +10,12 @@
     letter-spacing: -0.96px;
 }
 
+.variants-n-3d {
+    display: flex;
+    width: 100%;
+    align-items: end;
+}
+
 .discount {
     position: absolute;
     z-index: 2;
@@ -308,7 +314,7 @@ p {
 .variants {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    flex: 1;
     gap: 8px;
 }
 
@@ -336,6 +342,39 @@ p {
 
 .color-container.active {
     border: 2px solid #178C94;
+}
+
+.download-3d {
+    display: flex;
+    background-color: #F0FEFF;
+    border-radius: 8px;
+    padding: 8px 13px;
+    height: 36px;
+     /*width: 200px;*/
+}
+
+.download-3d-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--Brand-600, #178C94);
+    font-family: var(--montser-font);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+.download-3d-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.download-3d-btn:hover {
+    opacity: 0.8;
 }
 
 .color-container img {

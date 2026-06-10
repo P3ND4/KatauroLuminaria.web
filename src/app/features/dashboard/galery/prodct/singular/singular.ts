@@ -129,6 +129,18 @@ export class Singular implements OnInit {
     return this.currentProduct?.variants[this.currentVariant]?.models3D?.[0]?.url;
   }
 
+  downloadModel3D(): void {
+    const url = this.model3DUrl;
+    if (!url) return;
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${this.currentProduct?.name || 'modelo'}.glb`;
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   variantChange(i: number) {
     this.currentVariant = i
     this.images = this.currentProduct?.variants[this.currentVariant].images.map(x => x.link) ?? [];
