@@ -16,6 +16,19 @@
     align-items: end;
 }
 
+
+
+
+.discount.agotado p {
+    color: #F0FEFF;
+    font-weight: 600;
+    background-color: #444444;
+    border-radius: 20px;
+    padding: 4px 16px;
+    margin: 0px;
+}
+
+
 .discount {
     position: absolute;
     z-index: 2;
@@ -350,7 +363,7 @@ p {
     border-radius: 8px;
     padding: 8px 13px;
     height: 36px;
-     /*width: 200px;*/
+    /*width: 200px;*/
 }
 
 .download-3d-btn {
@@ -433,6 +446,15 @@ p {
         aspect-ratio: initial;
         flex: initial;
     }
+
+
+    .discount {
+        position: absolute;
+        z-index: 2;
+        top: 32px;
+        right: 0px;
+    }
+
 
     .detail-container {
         gap: 36px;
@@ -543,4 +565,9 @@ p {
     .finish-details p {
         margin: 0px;
     }
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }

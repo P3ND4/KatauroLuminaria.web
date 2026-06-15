@@ -15,7 +15,7 @@
                 <h2 class="car-text">{{ban.name}}</h2>
                 <p class="card-info">{{ban.description}}</p>
                 @if(carouselType !=2){
-                <button class="button-chips" (click)="toOwn($index)">
+                <button class="button-chips" [disabled]="!isInStock($index)" (click)="toOwn($index)">
                     <span>Adquirir</span>
                 </button>
                 }

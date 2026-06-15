@@ -101,7 +101,7 @@
                         <div class="info-contet">
                             <p class="card-info">{{mostRated[0].subtitle}}</p>
                             <h2 class="car-text">{{mostRated[0].name}}</h2>
-                            <button class="button-chips"
+                            <button class="button-chips" [disabled]="mostRated[0].variants[0].stock <= 0"
                                 (click)="$event.stopPropagation();toOwn(mostRated[0].variants[0])">
                                 <label>Adquirir</label>
                             </button>
@@ -118,7 +118,7 @@
                         <div class="info-contet">
                             <p class="card-info">{{mostRated[1].subtitle}}</p>
                             <h2 class="car-text">{{mostRated[1].name}}</h2>
-                            <button class="button-chips"
+                            <button class="button-chips" [disabled]="mostRated[1].variants[0].stock <= 0"
                                 (click)="$event.stopPropagation();toOwn(mostRated[1].variants[0])">
                                 <label>Adquirir</label>
                             </button>
@@ -134,7 +134,7 @@
                         <div class="info-contet">
                             <p class="card-info">{{mostRated[2].subtitle}}</p>
                             <h2 class="car-text">{{mostRated[2].name}}</h2>
-                            <button class="button-chips"
+                            <button class="button-chips" [disabled]="mostRated[2].variants[0].stock <= 0"
                                 (click)="$event.stopPropagation(); toOwn(mostRated[2].variants[0])">
                                 <label>Adquirir</label>
                             </button>

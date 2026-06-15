@@ -32,6 +32,12 @@ export class Corousel implements OnInit, OnDestroy {
 
   constructor(private router: Router) { }
 
+  isInStock(slideIndex: number): boolean {
+    const banner = this.data.banners[slideIndex];
+    const variant = banner.product;
+    return variant ? variant.stock > 0 : false;
+  }
+
   startAutoplay(): void {
     this.autoSlideInterval = setInterval(() => this.nextSlide(), 4000); // Cambia de slide cada 4 segundos
   }

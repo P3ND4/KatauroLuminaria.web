@@ -988,4 +988,9 @@ h2 {
     }
 }
 
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 @media (max-width: 340px) {}

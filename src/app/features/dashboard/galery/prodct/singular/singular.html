@@ -46,6 +46,11 @@
                 [discount]="discounts(currentProduct? currentProduct.variants[currentVariant] : undefined)*100"></app-discount>
         </div>
         }
+        @else if (currentProduct? currentProduct.variants[currentVariant].stock < 1 : false) {
+            <div class="discount agotado">
+                <p>Agotado</p>
+            </div>
+        }
         @if(charged){
         <div class="details">
             <h1>{{currentProduct?.name}}</h1>
@@ -150,8 +155,10 @@
 
             </div>
             <div class="btn-section">
-                <button class="button-base" style="flex: 1;" (click)="toOwn()"> <label>ADQUIRIR</label></button>
-                <button class="button-chips" (click)="addToCart()"><img [src]="ASSETS.icons.shoppingBag" /></button>
+                <button class="button-base" [disabled]="currentProduct!.variants[currentVariant].stock <= 0"
+                    style="flex: 1;" (click)="toOwn()"> <label>ADQUIRIR</label></button>
+                <button class="button-chips" [disabled]="currentProduct!.variants[currentVariant].stock <= 0"
+                    (click)="addToCart()"><img [src]="ASSETS.icons.shoppingBag" /></button>
             </div>
         </div>
     </div>
