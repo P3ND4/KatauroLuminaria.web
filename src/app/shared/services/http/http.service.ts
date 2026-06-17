@@ -21,7 +21,7 @@ export class HttpService {
   ]
 
   constructor(private http: HttpClient) {
-    //this.apiPath = 'http://localhost:3000';
+    this.apiPath = 'http://localhost:3000';
 
   }
   getFinishes() {
@@ -130,6 +130,10 @@ export class HttpService {
 
   updateBlogMetrics(blogId: string, metrics: any) {
     return this.http.patch(`${this.apiPath}/blogs/${blogId}/metrics`, metrics, { withCredentials: true });
+  }
+
+  getDeliveryPrices() {
+    return this.http.get(`${this.apiPath}/delivery-prices`);
   }
 
 }

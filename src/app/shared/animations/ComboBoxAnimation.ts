@@ -15,7 +15,7 @@ export const DropdownAnimation =
         })),
         state('open', style({
           
-            height: '300px',
+            maxHeight: '300px',
             display: 'flex'
         })),
         transition('closed => open', [
@@ -39,7 +39,7 @@ export const DropdownAnimationAH =
             display: 'flex'
         })),
         transition('closed => open', [
-            style({ display: 'flex' , height: '500px'}),
+            style({ display: 'flex' , maxHeight: '500px'}),
             animate('500ms ease-out')
         ]),
         transition('open => closed', [

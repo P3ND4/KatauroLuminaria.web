@@ -50,10 +50,8 @@
 
 .dropdown-region.open {
     height: 400px;
-
     opacity: 1;
     padding: 14px;
-
 }
 
 
@@ -237,6 +235,21 @@ textarea {
     font-weight: 400;
     line-height: 20px;
     /* 142.857% */
+}
+
+.checkbox-container.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.checkbox-container.disabled .checkbox-circle span {
+    background: var(--Gray-200, #E9EAEB);
+    border: 1px solid var(--Gray-300, #D5D7DA);
+}
+
+.no-delivery-msg {
+    color: var(--Gray-500, #717680) !important;
+    font-style: italic;
 }
 
 .submit-container {

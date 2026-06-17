@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, inject, PLATFORM_ID, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject, PLATFORM_ID, signal, AfterViewInit } from '@angular/core';
 import { CartService } from '../../../shared/services/cart/cart.service';
 import { Product, Variant } from '../../../shared/models/Products';
 import { CommonModule, CurrencyPipe, isPlatformBrowser } from '@angular/common';
@@ -29,7 +29,7 @@ import { CustomCurrencyPipe } from '../../../shared/pipes/myCurrencyPipe';
   templateUrl: './cart.html',
   styleUrl: './cart.css'
 })
-export class Cart implements OnInit {
+export class Cart implements OnInit, AfterViewInit {
   readonly ASSETS = ASSETS;
   products = signal<Variant[]>([]);
   buyingForm: FormGroup
@@ -43,20 +43,22 @@ export class Cart implements OnInit {
   currentProvinceMun: string[] = []
   provinces = CUBA_PROVINCES;
   provincesArray: string[] = [];
+  deliveryPrices: any[] = [];
+  deliveryAvailable = false;
   loading = false;
   toDelete: string | undefined;
   discount = calculateDiscount;
   constructor(readonly cartService: CartService, private fb: FormBuilder, private http: HttpService,
     private route: ActivatedRoute, private cdr: ChangeDetectorRef, private authService: AuthService, private errorServ: ErrorLogService) {
-    this.provincesArray = Object.keys(CUBA_PROVINCES) as string[];
-    this.currentProvinceMun = this.provinces['La Habana']
+    this.provincesArray = [];
+    this.currentProvinceMun = []
     this.buyingForm = fb.group(
       {
         name: ["", [Validators.required]],
         lastName: ["", [Validators.required]],
         email: ["", [Validators.required, Validators.email]],
         phone: ["", [Validators.required, Validators.minLength(8)]],
-        province: ["La Habana"],
+        province: [""],
         municipality: [""],
         address: [""],
         note: ["", Validators.maxLength(200)]
@@ -64,12 +66,14 @@ export class Cart implements OnInit {
     )
 
   }
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.plataformId)) {
+      window.scrollTo(0, 0);
+    }
+  }
 
   ngOnInit(): void {
-    //this.products.set(this.cartService.currentProducts);
-    //this.loadCart();
-
-
+    this.loadDeliveryPrices();
 
     this.authService.currentUser$.subscribe(user => {
 
@@ -89,7 +93,50 @@ export class Cart implements OnInit {
     });
   }
 
+  loadDeliveryPrices(): void {
+    this.http.getDeliveryPrices().subscribe({
+      next: (val) => {
+        this.deliveryPrices = val as any[];
+        const activePrices = this.deliveryPrices.filter(dp => dp.active);
+
+        if (activePrices.length > 0) {
+          this.deliveryAvailable = true;
+          // Extraer provincias únicas de los precios de delivery
+          const uniqueProvinces = [...new Set(activePrices.map(dp => dp.province))];
+          this.provincesArray = uniqueProvinces;
+        } else {
+          this.deliveryAvailable = false;
+          this.provincesArray = [];
+          this.currentProvinceMun = [];
+          // Limpiar provincia y municipio si no hay delivery disponible
+          this.buyingForm.get('province')?.setValue('');
+          this.buyingForm.get('municipality')?.setValue('');
+          // Si estaba activado el delivery, desactivarlo
+          if (this.aditionalInfo) {
+            this.aditionalInfo = false;
+            this.toggleDelivery();
+          }
+        }
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error loading delivery prices:', err);
+        this.deliveryAvailable = false;
+        this.provincesArray = [];
+        this.currentProvinceMun = [];
+        this.errorServ.addError(parseError(err));
+      }
+    });
+  }
+
+  filterMunicipalities(province: string): void {
+    this.currentProvinceMun = this.deliveryPrices
+      .filter(dp => dp.active && dp.province.toLowerCase() === province.toLowerCase())
+      .map(dp => dp.municipality);
+  }
+
   toggleDelivery() {
+    if (!this.deliveryAvailable) return;
     this.aditionalInfo = !this.aditionalInfo;
     var province = this.buyingForm.get('province');
     var city = this.buyingForm.get('municipality');
@@ -115,7 +162,7 @@ export class Cart implements OnInit {
   selectProvince(name: string) {
     this.buyingForm.get('province')?.setValue(name);
     this.buyingForm.get('municipality')?.setValue("");
-    this.currentProvinceMun = this.provinces[name];
+    this.filterMunicipalities(name);
     this.provinceOpen = false;
     this.cdr.detectChanges();
   }
@@ -303,7 +350,20 @@ Muchas gracias.`;
   }
 
   deliveryPrice(): number {
-    return 0;
+    if (!this.aditionalInfo) return 0;
+
+    const province = this.buyingForm.get('province')?.value;
+    const municipality = this.buyingForm.get('municipality')?.value;
+
+    if (!province || !municipality) return 0;
+
+    const delivery = this.deliveryPrices.find(dp =>
+      dp.active &&
+      dp.province.toLowerCase() === province.toLowerCase() &&
+      dp.municipality.toLowerCase() === municipality.toLowerCase()
+    );
+
+    return delivery?.price || 0;
   }
   openWhatsApp(id: string, messageText?: string) {
     if (isPlatformBrowser(this.plataformId)) {

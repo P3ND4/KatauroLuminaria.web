@@ -80,15 +80,22 @@
                         }
                     </div>
                 </div>
-                <div class="checkbox-container" style="cursor: pointer;" (click)="toggleDelivery()">
+                <div class="checkbox-container" [class.disabled]="!deliveryAvailable"
+                    [style.cursor]="deliveryAvailable ? 'pointer' : 'not-allowed'"
+                    (click)="deliveryAvailable && toggleDelivery()">
                     <div class="checkbox-circle">
-                        <input type="checkbox" [checked]="aditionalInfo" id=" adit-inf" />
+                        <input type="checkbox" [checked]="aditionalInfo" [disabled]="!deliveryAvailable"
+                            id="adit-inf" />
                         <span></span>
                     </div>
                     <div>
-                        <label for="adit-inf" style="cursor: pointer;">Envío a domicilio</label>
-                        <p>El envío solo está disponible para la provincia de
-                            La Habana.</p>
+                        <label for="adit-inf" [style.cursor]="deliveryAvailable ? 'pointer' : 'not-allowed'">Envío a
+                            domicilio</label>
+                        @if(deliveryAvailable){
+                        <p>Selecciona tu provincia y municipio para ver el costo de envío.</p>
+                        } @else {
+                        <p class="no-delivery-msg">Envío a domicilio no disponible actualmente.</p>
+                        }
                     </div>
                 </div>
 
@@ -99,11 +106,11 @@
                             <label for="prov" class="form-label">
                                 Provincia
                             </label>
-                            <div class="input-content">
-                                <!--
-                                    <img [ngClass]="{'open': provinceOpen}" [src]="ASSETS.icons.chevronDown" alt="">
-                                    -->
-                                <span> {{buyingForm.get('province')?.value}}</span>
+                            <div class="input-content"
+                                (click)="provinceOpen = !provinceOpen; !provinceOpen? buyingForm.get('province')?.markAsTouched() : ''">
+                                <img [ngClass]="{'open': provinceOpen}" [src]="ASSETS.icons.chevronDown" alt="">
+                                <span> {{buyingForm.get('province')?.value != '' ? buyingForm.get('province')?.value:
+                                    'Seleccionar provincia'}}</span>
                             </div>
                             <div class="drop-down-menu" [@dropdownAnimation]="provinceOpen ? 'open': 'closed'">
                                 @for (province of provincesArray; track $index) {
@@ -210,8 +217,7 @@
                                     </button>
                                     <span class="prod-count">{{selected[item.id] || 0}}</span>
                                     <button (click)="plus(item.id)" [disabled]="!canAdd(item.id)">
-                                        <img [src]="isMobile()? ASSETS.icons.plusMobile : ASSETS.icons.plus"
-                                            alt="plus">
+                                        <img [src]="isMobile()? ASSETS.icons.plusMobile : ASSETS.icons.plus" alt="plus">
                                     </button>
                                 </div>
                                 <div class="trash">
