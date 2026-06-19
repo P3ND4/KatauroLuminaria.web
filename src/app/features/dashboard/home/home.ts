@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Corousel } from "../../../shared/components/corousel/corousel";
 import { carouselDTO } from '../../../shared/models/carouselDTO';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { Categories, Product, Variant } from '../../../shared/models/Products';
 import { Blog as BlogEntity } from '../../../shared/models/blog/blog.entity';
 import { HttpService } from '../../../shared/services/http/http.service';
@@ -18,12 +18,11 @@ import { SeoService } from '../../../shared/services/seo/seo.service';
 
 import { Carousel } from '../../../shared/models/promotions';
 import { getAlt } from '../../../shared/utils/getAlt';
-import { optimizeUrlCloudy } from '../../../shared/utils/optimizeUrlCloudy';
 import { ASSETS } from '../../../shared/constants/image-library';
 
 @Component({
   selector: 'app-home',
-  imports: [Corousel, CommonModule, SkeletonLoader, BoxLoader],
+  imports: [Corousel, CommonModule, NgOptimizedImage, SkeletonLoader, BoxLoader],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
@@ -43,9 +42,9 @@ export class Home implements OnInit, AfterViewInit {
 
   create3rdPan() {
     const images = [
-      optimizeUrlCloudy(ASSETS.cloudinary.carouselArtboard1),
-      optimizeUrlCloudy(ASSETS.cloudinary.carouselArtboard2),
-      optimizeUrlCloudy(ASSETS.cloudinary.carouselArtboard3)]
+      ASSETS.cloudinary.carouselArtboard1,
+      ASSETS.cloudinary.carouselArtboard2,
+      ASSETS.cloudinary.carouselArtboard3]
     const carousel: carouselDTO = {
       carousel: 2,
       banners: images.map(x => ({

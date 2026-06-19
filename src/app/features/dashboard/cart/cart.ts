@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, inject, PLATFORM_ID, signal, AfterViewInit } from '@angular/core';
 import { CartService } from '../../../shared/services/cart/cart.service';
 import { Product, Variant } from '../../../shared/models/Products';
-import { CommonModule, CurrencyPipe, isPlatformBrowser } from '@angular/common';
+import { CommonModule, CurrencyPipe, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { FormBuilder, FormGroup, MinLengthValidator, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ASSETS } from '../../../shared/constants/image-library';
 import { Subscription } from 'rxjs';
@@ -23,7 +23,7 @@ import { CustomCurrencyPipe } from '../../../shared/pipes/myCurrencyPipe';
 
 @Component({
   selector: 'app-cart',
-  imports: [CustomCurrencyPipe, ReactiveFormsModule, CommonModule, BoxLoader, MessageBox],
+  imports: [CustomCurrencyPipe, ReactiveFormsModule, CommonModule, NgOptimizedImage, BoxLoader, MessageBox],
   providers: [CurrencyPipe],
   animations: [DropdownAnimation, DropdownAnimationAH],
   templateUrl: './cart.html',

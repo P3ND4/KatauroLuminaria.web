@@ -16,8 +16,8 @@ export default {
   {
     "renderMode": 0,
     "preload": [
-      "chunk-5R6MYE6N.js",
-      "chunk-IZ4IFJTQ.js",
+      "chunk-YXWIZAPW.js",
+      "chunk-NKEDFCV4.js",
       "chunk-7QGPCMBS.js"
     ],
     "route": "/dashboard/cart"
@@ -25,101 +25,94 @@ export default {
   {
     "renderMode": 2,
     "preload": [
-      "chunk-MWOJRGQB.js",
-      "chunk-EZJOKXTM.js",
-      "chunk-PAQIFZXZ.js",
-      "chunk-BBPYHH2U.js"
+      "chunk-DLPLVEAC.js",
+      "chunk-LJXXP5MW.js",
+      "chunk-STSGNUXK.js"
     ],
     "route": "/dashboard/home"
   },
   {
     "renderMode": 2,
     "preload": [
-      "chunk-TLQPGEAC.js",
-      "chunk-EZJOKXTM.js",
-      "chunk-PAQIFZXZ.js",
+      "chunk-FBOWAQJJ.js",
+      "chunk-LJXXP5MW.js",
       "chunk-JFY52BG6.js",
-      "chunk-BBPYHH2U.js"
+      "chunk-STSGNUXK.js"
     ],
     "route": "/dashboard/team"
   },
   {
     "renderMode": 2,
     "preload": [
-      "chunk-ZA2JB6PM.js",
-      "chunk-BBPYHH2U.js"
+      "chunk-ZAL4NDMD.js",
+      "chunk-STSGNUXK.js"
     ],
     "route": "/dashboard/blog"
   },
   {
     "renderMode": 0,
     "preload": [
-      "chunk-NU6XHHZV.js",
-      "chunk-BBPYHH2U.js"
+      "chunk-2DX2PCS6.js",
+      "chunk-STSGNUXK.js"
     ],
     "route": "/dashboard/blog/*"
   },
   {
     "renderMode": 2,
     "preload": [
-      "chunk-ZNRLYJW5.js",
+      "chunk-BPL5ZEXH.js",
       "chunk-7QGPCMBS.js",
       "chunk-JFY52BG6.js",
-      "chunk-BBPYHH2U.js"
+      "chunk-STSGNUXK.js"
     ],
     "route": "/dashboard/galery"
   },
   {
     "renderMode": 0,
     "preload": [
-      "chunk-67CVSPFR.js"
+      "chunk-E7HNI23P.js"
     ],
     "route": "/dashboard/*"
   },
   {
     "renderMode": 0,
     "preload": [
-      "chunk-67CVSPFR.js"
+      "chunk-E7HNI23P.js"
     ],
     "route": "/dashboard/*/*"
   },
   {
     "renderMode": 2,
     "preload": [
-      "chunk-A5OB47L3.js",
-      "chunk-PAQIFZXZ.js"
+      "chunk-LT4ZRM23.js"
     ],
     "route": "/login"
   },
   {
     "renderMode": 2,
     "preload": [
-      "chunk-A5OB47L3.js",
-      "chunk-PAQIFZXZ.js"
+      "chunk-LT4ZRM23.js"
     ],
     "route": "/login/signin"
   },
   {
     "renderMode": 2,
     "preload": [
-      "chunk-A5OB47L3.js",
-      "chunk-PAQIFZXZ.js"
+      "chunk-LT4ZRM23.js"
     ],
     "route": "/login/signup"
   },
   {
     "renderMode": 2,
     "preload": [
-      "chunk-A5OB47L3.js",
-      "chunk-PAQIFZXZ.js"
+      "chunk-LT4ZRM23.js"
     ],
     "route": "/login/forgot-password"
   },
   {
     "renderMode": 2,
     "preload": [
-      "chunk-A5OB47L3.js",
-      "chunk-PAQIFZXZ.js"
+      "chunk-LT4ZRM23.js"
     ],
     "route": "/login/change-pass"
   },
@@ -131,19 +124,19 @@ export default {
 ],
   entryPointToBrowserMapping: undefined,
   assets: {
-    'index.csr.html': {size: 9671, hash: '39f6952b4c4f5db5bae6196ff7324686d05f1dd19d6a31b191a5aab0070a1a0d', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 7736, hash: 'ee7a7c69edff5eb4a3cbf995679a83381855bd315f4b5122bfac5cd7e8ba6681', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
-    'login/index.html': {size: 13981, hash: 'e08a5582624064429f22248f38f5699d904fcd472d0f61c0c01442acafa12034', text: () => import('./assets-chunks/login_index_html.mjs').then(m => m.default)},
-    'login/change-pass/index.html': {size: 18246, hash: 'c7d7cc9bea2aaf39cb2ee231dc9972eb1974995876f5682072449b96ab347465', text: () => import('./assets-chunks/login_change-pass_index_html.mjs').then(m => m.default)},
-    'dashboard/team/index.html': {size: 47354, hash: '0b07ea96ee9d36c2e85d02706d526d17b5bdc11a8dff734f4d6d7b72d01feaa4', text: () => import('./assets-chunks/dashboard_team_index_html.mjs').then(m => m.default)},
-    'login/signin/index.html': {size: 19692, hash: '21b253a8125914a2d8c047a203c972c1f93b9d38a3738cd3db7a0c1405741134', text: () => import('./assets-chunks/login_signin_index_html.mjs').then(m => m.default)},
-    'login/forgot-password/index.html': {size: 19547, hash: 'a2d584f6c249e08d74de7c78b3e90d0b30a63a2e682d47463022e3df9067a3ab', text: () => import('./assets-chunks/login_forgot-password_index_html.mjs').then(m => m.default)},
-    'dashboard/blog/index.html': {size: 76323, hash: '2366f144c61e4e61631279f9b9f3d91c8003cfb9de10c62cd00f0f69b69009b3', text: () => import('./assets-chunks/dashboard_blog_index_html.mjs').then(m => m.default)},
+    'index.csr.html': {size: 9920, hash: '4e752893a70cd8a8eeddfedd77516f7f39d4e2f9b16e80742aa14d8e976fb5dd', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 7985, hash: '27c42e3605cf3acdad88b96ee599604efe59dbcc0fc18b1d348a604f4424648c', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'login/index.html': {size: 14881, hash: '887036a7bcaafe784f180cf11bff31d75202e7880404b84b467cb074ca160684', text: () => import('./assets-chunks/login_index_html.mjs').then(m => m.default)},
+    'login/change-pass/index.html': {size: 19146, hash: '8d29b5626d33cbb640e18881c680e5ca7a4c98273a5dd4447e6effbdb7ac0d3d', text: () => import('./assets-chunks/login_change-pass_index_html.mjs').then(m => m.default)},
+    'dashboard/team/index.html': {size: 53209, hash: '5a13428b26d961eb2dcfa6236681bf33c0bf0819944d6a841d6d11830849521e', text: () => import('./assets-chunks/dashboard_team_index_html.mjs').then(m => m.default)},
+    'login/signin/index.html': {size: 20592, hash: 'a62374cf79abc06f74663ea7bfd6836a83d6229395b4b247a45d423e7b3fea58', text: () => import('./assets-chunks/login_signin_index_html.mjs').then(m => m.default)},
+    'login/forgot-password/index.html': {size: 20447, hash: 'fae4a24fc02c6822c2538038972d29ae1c5d673cb92468be46a000d99719752b', text: () => import('./assets-chunks/login_forgot-password_index_html.mjs').then(m => m.default)},
     'index.html': {size: 267, hash: '7129b2fe28f2670f88d87412a68ee23ebaeeb36949e6449fbb297b5efcfd3f9f', text: () => import('./assets-chunks/index_html.mjs').then(m => m.default)},
-    'dashboard/galery/index.html': {size: 85735, hash: '648bbbd2ef6a8768d326c66602b8e672398ed3bc0c75304417792a95e24b9be4', text: () => import('./assets-chunks/dashboard_galery_index_html.mjs').then(m => m.default)},
-    'dashboard/index.html': {size: 54749, hash: '1d5a83742ca81dbb5436722c7d954da5181ce84c609687ab1470c5c89284fb4f', text: () => import('./assets-chunks/dashboard_index_html.mjs').then(m => m.default)},
-    'login/signup/index.html': {size: 25824, hash: '837732b3a2e8391b1151aff5d03c3d258166b2703785897e2c229d60a280d13d', text: () => import('./assets-chunks/login_signup_index_html.mjs').then(m => m.default)},
-    'dashboard/home/index.html': {size: 134000, hash: 'c01a59a6a5ba0ff710326871df4883319997b29b813c447d3ac68cd177e90ee5', text: () => import('./assets-chunks/dashboard_home_index_html.mjs').then(m => m.default)},
-    'styles-4VIILCSB.css': {size: 31316, hash: '5oJbo+fa2jI', text: () => import('./assets-chunks/styles-4VIILCSB_css.mjs').then(m => m.default)}
+    'dashboard/index.html': {size: 59543, hash: '74ee201b266ece6df265d02d6a332f7971e7cab9f100542db2f1dd12870968e6', text: () => import('./assets-chunks/dashboard_index_html.mjs').then(m => m.default)},
+    'login/signup/index.html': {size: 26735, hash: '8ec579f2dacbd73d793b52f6b0939ff53d56ed05951e30966d6141315bb107b2', text: () => import('./assets-chunks/login_signup_index_html.mjs').then(m => m.default)},
+    'dashboard/galery/index.html': {size: 86286, hash: 'd6d946ace9e0f02fa59bbfaac2c67a76dbd61ea0004e72d120aab2f924818715', text: () => import('./assets-chunks/dashboard_galery_index_html.mjs').then(m => m.default)},
+    'dashboard/blog/index.html': {size: 86746, hash: '2c4dc2358a6b64438a5d1b149c6eeec9750f1e5ad4e05f89301d579e3aab70cd', text: () => import('./assets-chunks/dashboard_blog_index_html.mjs').then(m => m.default)},
+    'dashboard/home/index.html': {size: 156409, hash: '7f16cc208370e18bb10f7f77aa9f59ade8ffa1a7686cc2f719060e9bcbe0851e', text: () => import('./assets-chunks/dashboard_home_index_html.mjs').then(m => m.default)},
+    'styles-E5N65WQL.css': {size: 7084, hash: 'rV4JqxJn7cM', text: () => import('./assets-chunks/styles-E5N65WQL_css.mjs').then(m => m.default)}
   },
 };

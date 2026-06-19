@@ -12,7 +12,7 @@
         @for (product of products; track $index) {
         @if (loaded) {
         <div class="discover-card" (click)="navigateToProduct(product.category.nombre, product.id)">
-            <img [src]="product.variants[0].image" loading="lazy" [alt]="altText(product.variants[0])" />
+            <img [ngSrc]="(product.variants[0].image) || ''" width="300" height="300" [alt]="altText(product.variants[0])" />
             <div class="discover-gradient"></div>
             <div class="discover-info">
                 <h3>{{ product.name }}</h3>

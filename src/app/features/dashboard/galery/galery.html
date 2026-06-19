@@ -52,7 +52,7 @@
         @defer(on viewport){
         <div [class]="'product pos-' + $index" [ngClass]="{'small': products.length == 8}"
             (click)="navigateToProduct(product.category.nombre, product.id)">
-            <img [src]="product.variants[0].image" [alt]="getAlt(product.variants[0])">
+            <img [ngSrc]="(product.variants[0].image) || ''" width="300" height="300" [alt]="getAlt(product.variants[0])">
             <div class="gradient"></div>
             @if(discounts(product.variants[0]) > 0){
             <div class="discount">

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, inject, OnInit, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
 import { Categories, Product, Variant } from '../../../shared/models/Products';
-import { CommonModule, CurrencyPipe, isPlatformBrowser } from '@angular/common';
+import { CommonModule, CurrencyPipe, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { ASSETS } from '../../../shared/constants/image-library';
@@ -17,7 +17,7 @@ import { getAlt } from '../../../shared/utils/getAlt';
 
 @Component({
   selector: 'app-galery',
-  imports: [CommonModule, SkeletonLoader, Discount],
+  imports: [CommonModule, NgOptimizedImage, SkeletonLoader, Discount],
   animations: [FadeAndSlideIn],
   templateUrl: './galery.html',
   styleUrl: './galery.css'

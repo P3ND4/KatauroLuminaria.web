@@ -192,7 +192,7 @@
                     </div>
                     <div class="info-prod">
                         <div class="img" (click)="toggle(item.id)">
-                            <img [src]="item.image" />
+                            <img [ngSrc]="item.image || ''" width="86" height="86" />
                         </div>
                         <div class="prod-details">
 

@@ -1,16 +1,15 @@
 import { AfterViewInit, Component, inject, PLATFORM_ID } from '@angular/core';
 import { TeamMember } from '../../../shared/models/teamMember';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { FadeAndSlideIn } from '../../../shared/animations/FadeAndSlideIn';
 import { Corousel } from "../../../shared/components/corousel/corousel";
 import { carouselDTO } from '../../../shared/models/carouselDTO';
 import { SeoService } from '../../../shared/services/seo/seo.service';
-import { optimizeUrlCloudy } from '../../../shared/utils/optimizeUrlCloudy';
 import { ASSETS } from '../../../shared/constants/image-library';
 
 @Component({
   selector: 'app-team',
-  imports: [CommonModule, Corousel],
+  imports: [CommonModule, NgOptimizedImage, Corousel],
   templateUrl: './team.html',
   animations: [FadeAndSlideIn],
   styleUrl: './team.css'
@@ -42,14 +41,13 @@ export class Team implements AfterViewInit {
   }
   carousel: carouselDTO = this.createCarousel();
 
-  optimizeUrlCloudy = optimizeUrlCloudy;
-  teamImage = optimizeUrlCloudy(ASSETS.cloudinary.teamHero);
+  teamImage = ASSETS.cloudinary.teamHero;
 
   createCarousel() {
     const images = [
-      optimizeUrlCloudy(ASSETS.cloudinary.carouselArtboard1),
-      optimizeUrlCloudy(ASSETS.cloudinary.carouselArtboard2),
-      optimizeUrlCloudy(ASSETS.cloudinary.carouselArtboard3)]
+      ASSETS.cloudinary.carouselArtboard1,
+      ASSETS.cloudinary.carouselArtboard2,
+      ASSETS.cloudinary.carouselArtboard3]
     const car: carouselDTO = {
       carousel: 3,
       banners: images.map(x => ({

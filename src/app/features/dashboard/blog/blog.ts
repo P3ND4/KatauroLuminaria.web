@@ -1,21 +1,22 @@
 import { Component, OnInit, ChangeDetectorRef, inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorLogService } from '../../../shared/services/errors/error.log.service';
 import { ASSETS } from '../../../shared/constants/image-library';
 import { parseError } from '../../../shared/services/errors/errorParser';
 import { SeoService } from '../../../shared/services/seo/seo.service';
+import { forkJoin } from 'rxjs';
 
 import { Blog as BlogEntinty } from '../../../shared/models/blog/blog.entity';
 import { Router } from '@angular/router';
 import { SkeletonLoader } from '../../../shared/components/skeleton-loader/skeleton-loader';
-import { BoxLoader } from '../../../shared/components/box-loader/box-loader';
+
 import { MOCK_BLOGS } from '../../../shared/mocks/blogs.mock';
 
 @Component({
   selector: 'app-blog',
-  imports: [CommonModule, SkeletonLoader, BoxLoader],
+  imports: [CommonModule, NgOptimizedImage, SkeletonLoader],
   templateUrl: './blog.html',
   styleUrl: './blog.css'
 })
@@ -41,8 +42,7 @@ export class Blog implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.seo.setPage('Blog', 'Descubre consejos, información y documentación sobre iluminación LED y diseño de luminarias en el blog de Katauro.');
     if (isPlatformBrowser(this.platformId)) {
-      this.loadRecients();
-      this.loadPages();
+      this.loadBlogs();
     }
   }
   ngAfterViewInit(): void {
@@ -51,75 +51,80 @@ export class Blog implements OnInit, AfterViewInit {
     }
   }
 
+  loadBlogs(): void {
+    this.loading = true;
 
+    // En página 1, una sola petición trae todo
+    if (this.currentPage === 1) {
+      this.httpService.getBlogs(1).subscribe({
+        next: (data: any) => {
+          let blogsData = Array.isArray(data.blogs) ? (data as { blogs: BlogEntinty[], total: number }).blogs : [];
+          const total = data.total || 0;
+          blogsData = blogsData.filter((blog: BlogEntinty) => blog && blog.id);
 
-  loadRecients() {
-    this.httpService.getBlogs(1).subscribe({
-      next: (data: any) => {
-        let blogsData = Array.isArray(data.blogs) ? (data as { blogs: BlogEntinty[], total: number }).blogs : [];
-        blogsData = blogsData.filter(blog => blog && blog.id);
+          if (blogsData.length === 0) {
+            this.useMockData();
+          } else {
+            this.blogs = blogsData;
+            this.recientBlogs = blogsData.slice(0, 3);
+            this.totalPages = Math.ceil(total / this.itemsPerPage) || 1;
+            this.usingMockData = false;
+          }
 
-        // Si no hay datos, usar mock
-        if (blogsData.length === 0) {
+          this.blogsLoaded = true;
+          this.loading = false;
+          this.cdr.detectChanges();
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error('Error loading blogs:', err);
           this.useMockData();
-        } else {
-          this.recientBlogs = blogsData.slice(0, 3);
+          this.blogsLoaded = true;
+          this.loading = false;
+          this.cdr.detectChanges();
+        }
+      });
+      return;
+    }
 
-          this.usingMockData = false;
+    // En página > 1, cargar recientes (si no están cacheados) + grid actual
+    const requests: any[] = [this.httpService.getBlogs(this.currentPage)];
+    if (this.recientBlogs.length === 0) {
+      requests.push(this.httpService.getBlogs(1));
+    }
 
-          // Asegurar que siempre hay 9 blogs para una página
-          this.loadBlogs();
+    forkJoin(requests).subscribe({
+      next: (results: any[]) => {
+        const gridData = results[0] as { blogs: BlogEntinty[], total: number };
+        const recentsData = results[1] as { blogs: BlogEntinty[], total: number } | null;
+
+        // Procesar grid
+        let blogsData = Array.isArray(gridData.blogs) ? gridData.blogs : [];
+        const total = gridData.total || 0;
+        blogsData = blogsData.filter((blog: BlogEntinty) => blog && blog.id);
+
+        if (recentsData) {
+          let recents = Array.isArray(recentsData.blogs) ? recentsData.blogs : [];
+          recents = recents.filter((blog: BlogEntinty) => blog && blog.id);
+          this.recientBlogs = recents.slice(0, 3);
         }
 
-
-      },
-      error: (err: HttpErrorResponse) => {
-        console.error('Error loading blogs:', err);
-        // Usar mock data cuando hay error
-        this.useMockData();
-        this.blogsLoaded = true;
-        this.cdr.detectChanges();
-      }
-    });
-  }
-
-  loadPages() {
-    this.httpService.getBlogPages().subscribe({
-      next: val => {
-        this.totalPages = val as number
-      },
-      error: err => this.errorServ.addError(parseError(err))
-    })
-  }
-
-  loadBlogs(): void {
-    this.httpService.getBlogs(this.currentPage).subscribe({
-      next: (data: any) => {
-        let blogsData = Array.isArray(data.blogs) ? (data as { blogs: BlogEntinty[], total: number }).blogs : [];
-        blogsData = blogsData.filter(blog => blog && blog.id);
-
-        // Si no hay datos, usar mock
         if (blogsData.length === 0) {
           this.useMockData();
         } else {
           this.blogs = blogsData;
-          console.log(this.blogs)
+          this.totalPages = Math.ceil(total / this.itemsPerPage) || 1;
           this.usingMockData = false;
-
-          // Asegurar que siempre hay 9 blogs para una página
-          while (this.blogs.length < 9 && this.currentPage === 1) {
-            this.blogs.push({} as BlogEntinty);
-          }
         }
 
         this.blogsLoaded = true;
+        this.loading = false;
         this.cdr.detectChanges();
       },
       error: (err: HttpErrorResponse) => {
         console.error('Error loading blogs:', err);
-        // Usar mock data cuando hay error
         this.useMockData();
         this.blogsLoaded = true;
+        this.loading = false;
         this.cdr.detectChanges();
       }
     });
@@ -132,11 +137,6 @@ export class Blog implements OnInit, AfterViewInit {
 
     this.blogs = MOCK_BLOGS.slice(startIndex, endIndex);
     this.totalPages = Math.ceil(MOCK_BLOGS.length / this.itemsPerPage);
-
-    // Para la primera página, asegurar 9 items
-    while (this.blogs.length < 9 && this.currentPage === 1) {
-      this.blogs.push({} as BlogEntinty);
-    }
   }
 
   get featuredBlog(): BlogEntinty | undefined {

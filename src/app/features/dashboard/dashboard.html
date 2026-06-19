@@ -44,8 +44,6 @@
           }
           <img [src]="ASSETS.icons.shoppingBag" />
         </a>
-        <img class="menu-button"[src]="!menuIsOpen? ASSETS.icons.menu : ASSETS.icons.menuOpen" alt="menu"
-          (click)="toggleMenu()">
 
         <div class="clientPanel" [ngClass]="{'closed': !clientPanel, 'open': clientPanel}">
           <div class="user-panel-data">
@@ -72,9 +70,8 @@
       </div>
       }
 
-
-
-
+      <img class="menu-button" [src]="!menuIsOpen? ASSETS.icons.menu : ASSETS.icons.menuOpen" alt="menu"
+        (click)="toggleMenu()">
 
     </div>
     <div class="panelWrapper" (click)="menuIsOpen = false; clientPanel = false"

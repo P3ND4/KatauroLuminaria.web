@@ -1,0 +1,2 @@
+import './polyfills.server.mjs';
+function t(r){let e=r.error.error??"Error",o=r.error.message??"An unexpected error occurred.";return r.error&&r.status===0&&(e="Error de conexi\xF3n",o="No se pudo conectar con el servidor. Por favor, verifica tu conexi\xF3n a internet y recargue la p\xE1gina"),r.error&&r.status===401&&(e="No autorizado"),{name:e,error:o}}export{t as a};

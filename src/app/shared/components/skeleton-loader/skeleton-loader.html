@@ -1,4 +1,4 @@
-<div class="skeleton-main" [ngClass]="{'t2': type == 2, 't3': type == 3, 't4': type == 4}">
+<div class="skeleton-main" [ngClass]="{'t2': type == 2, 't3': type == 3, 't4': type == 4, 't5': type == 5, 't6': type == 6, 't7': type == 7}">
     @if (type == 1) {
 
     <div class="head-t1">
@@ -32,5 +32,39 @@
     <button style="width: 122px;" class="button-chips">
         <span>Ver oferta</span>
     </button>
+    }
+    @else if(type == 5) {
+    <!-- Blog Featured Skeleton -->
+    <div class="image-t5"></div>
+    <div class="content-t5">
+        <div class="date-t5"></div>
+        <div class="title-t5"></div>
+        <div class="desc-t5"></div>
+        <div class="desc2-t5"></div>
+        <div class="tags-t5">
+            <div class="tag-t5"></div>
+            <div class="tag-t5"></div>
+        </div>
+    </div>
+    }
+    @else if(type == 6) {
+    <!-- Blog Card/Secondary Skeleton -->
+    <div class="image-t6"></div>
+    <div class="content-t6">
+        <div class="date-t6"></div>
+        <div class="title-t6"></div>
+        <div class="desc-t6"></div>
+        <div class="tag-t6"></div>
+    </div>
+    }
+    @else if(type == 7) {
+    <!-- Blog Secondary Horizontal Skeleton -->
+    <div class="image-t7"></div>
+    <div class="content-t7">
+        <div class="title-t7"></div>
+        <div class="date-t7"></div>
+        <div class="desc-t7"></div>
+        <div class="tag-t7"></div>
+    </div>
     }
 </div>

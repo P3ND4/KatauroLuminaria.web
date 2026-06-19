@@ -6,6 +6,7 @@
     <div class="gradient"></div>
     }
     <div class="slides">
+        @if (data && data.banners) {
         @for (ban of data.banners; track ban; let i = $index) {
         @if (carouselType != 3) {
         <div class="info-container"
@@ -23,11 +24,16 @@
         </div>
         }
         <div class="slide" [ngClass]="{ 'visible': currentSlide === i }">
-            <img [src]="ban.image" />
+            @if (i === 0) {
+            <img [ngSrc]="ban.image" fill [loaderParams]="{isBanner: true}" priority />
+            } @else {
+            <img [ngSrc]="ban.image" fill [loaderParams]="{isBanner: true}" />
+            }
         </div>
         }
+        }
     </div>
-    @if(carouselType !=2){
+    @if(carouselType !=2 && data && data.banners){
 
     <div class="navegacion">
         @for(ban of data.banners; track ban; let i = $index){

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpService } from '../../../shared/services/http/http.service';
@@ -11,7 +11,7 @@ import { SkeletonLoader } from '../../../shared/components/skeleton-loader/skele
 
 @Component({
   selector: 'app-discover-more',
-  imports: [CommonModule, SkeletonLoader],
+  imports: [CommonModule, NgOptimizedImage, SkeletonLoader],
   templateUrl: './discover-more.html',
   styleUrl: './discover-more.css'
 })

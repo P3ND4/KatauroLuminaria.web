@@ -45,7 +45,8 @@
 
     <div class="team-members">
         <div class="img-cont">
-            <img [src]="teamImage" />
+            <img [ngSrc]="teamImage" width="600" height="400"
+                [loaderParams]="{skipResize: true, quality: 'q_auto:best'}" priority />
         </div>
 
         <div class="team-list" @fadeAndSlideIn>
@@ -54,7 +55,8 @@
                 @defer(on viewport){
                 <div class="member" @fadeAndSlideIn>
                     <div class="member-img">
-                        <img [src]="optimizeUrlCloudy(member.img)" alt="{{member.name}}">
+                        <img [ngSrc]="member.img" width="200" height="200"
+                            [loaderParams]="{quality: 'q_auto:best'}" alt="{{member.name}}">
                     </div>
                     <div class="member-info">
                         <h3>{{ member.name }}</h3>

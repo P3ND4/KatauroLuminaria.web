@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Blog } from '../../../../shared/models/blog/blog.entity';
 import { ActivatedRoute, Route, Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { SeoService } from '../../../../shared/services/seo/seo.service';
 
 @Component({
   selector: 'app-blob-viewer',
-  imports: [DatePipe],
+  imports: [DatePipe, NgOptimizedImage],
   templateUrl: './blob-viewer.html',
   styleUrl: './blob-viewer.css',
 })

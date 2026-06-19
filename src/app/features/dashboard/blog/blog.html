@@ -1,9 +1,3 @@
-@if (loading) {
-<div class="loader-wrapper">
-    <app-box-loader [message]="loadMsg"></app-box-loader>
-</div>
-}
-
 <div class="blog-container">
     <div class="blog-header">
         <h1 class="blog-title">Luz a tu estilo</h1>
@@ -27,7 +21,7 @@
                 <div class="blog-card-image-container featured-image-container">
 
                     @if (featuredBlog.images && featuredBlog.images.length > 0) {
-                    <img [src]="featuredBlog.images[0].link" [alt]="featuredBlog.title" class="featured-image" />
+                    <img [ngSrc]="featuredBlog.images[0].link" width="600" height="400" [alt]="featuredBlog.title" class="featured-image" priority />
                     } @else {
                     <div class="featured-image-placeholder"></div>
                     }
@@ -53,8 +47,8 @@
                 </div>
             </div>
             } @else {
-            <div class="featured-blog">
-                <app-skeleton-loader [type]="4" class="sk"></app-skeleton-loader>
+            <div class="blog-card">
+                <app-skeleton-loader [type]="5" class="sk"></app-skeleton-loader>
             </div>
             }
 
@@ -66,7 +60,7 @@
                     <div class="blog-card-image-container secondary-image-container">
 
                         @if (blog.images && blog.images.length > 0) {
-                        <img [src]="blog.images[0].link" [alt]="blog.title" class="secondary-image" />
+                        <img [ngSrc]="blog.images[0].link" width="300" height="200" [alt]="blog.title" class="secondary-image" />
                         } @else {
                         <div class="secondary-image-placeholder"></div>
                         }
@@ -90,8 +84,8 @@
                     </div>
                 </div>
                 } @else {
-                <div class="secondary-blog">
-                    <app-skeleton-loader [type]="4" class="sk"></app-skeleton-loader>
+                <div class="blog-card secondary-blog">
+                    <app-skeleton-loader [type]="7" class="sk"></app-skeleton-loader>
                 </div>
                 }
                 }
@@ -109,7 +103,7 @@
             <div class="blog-card" (click)="navigateToBlog(blog.id!)">
                 <div class="blog-card-image-container">
                     @if (blog.images && blog.images.length > 0) {
-                    <img [src]="blog.images[0].link" [alt]="blog.title" class="blog-card-image" />
+                    <img [ngSrc]="blog.images[0].link" width="300" height="200" [alt]="blog.title" class="blog-card-image" />
                     } @else {
                     <div class="blog-card-image-placeholder"></div>
                     }
@@ -137,7 +131,7 @@
             </div>
             } @else {
             <div class="blog-card">
-                <app-skeleton-loader [type]="1" class="sk"></app-skeleton-loader>
+                <app-skeleton-loader [type]="6" class="sk"></app-skeleton-loader>
             </div>
             }
             }
@@ -180,15 +174,15 @@
     <!-- Loading State -->
     <div class="featured-section">
         <div class="featured-grid">
-            <div class="featured-blog">
-                <app-skeleton-loader [type]="4" class="sk"></app-skeleton-loader>
+            <div class="blog-card">
+                <app-skeleton-loader [type]="5" class="sk"></app-skeleton-loader>
             </div>
             <div class="secondary-blogs">
-                <div class="secondary-blog">
-                    <app-skeleton-loader [type]="4" class="sk"></app-skeleton-loader>
+                <div class="blog-card secondary-blog">
+                    <app-skeleton-loader [type]="7" class="sk"></app-skeleton-loader>
                 </div>
-                <div class="secondary-blog">
-                    <app-skeleton-loader [type]="4" class="sk"></app-skeleton-loader>
+                <div class="blog-card secondary-blog">
+                    <app-skeleton-loader [type]="7" class="sk"></app-skeleton-loader>
                 </div>
             </div>
         </div>
@@ -198,7 +192,7 @@
         <div class="blogs-grid">
             @for (i of [0,1,2,3,4,5,6,7,8]; track $index) {
             <div class="blog-card">
-                <app-skeleton-loader [type]="1" class="sk"></app-skeleton-loader>
+                <app-skeleton-loader [type]="6" class="sk"></app-skeleton-loader>
             </div>
             }
         </div>

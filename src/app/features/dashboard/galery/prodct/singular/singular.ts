@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Categories, Finish, Product, Variant } from '../../../../../shared/models/Products';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule, CurrencyPipe, NgClass, isPlatformBrowser } from '@angular/common';
+import { CommonModule, CurrencyPipe, NgClass, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { HttpService } from '../../../../../shared/services/http/http.service';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { CartService } from '../../../../../shared/services/cart/cart.service';
@@ -19,7 +19,7 @@ import { SeoService } from '../../../../../shared/services/seo/seo.service';
 
 @Component({
   selector: 'app-singular',
-  imports: [CustomCurrencyPipe, CommonModule, BoxLoader, Discount],
+  imports: [CustomCurrencyPipe, CommonModule, NgOptimizedImage, BoxLoader, Discount],
   providers: [CurrencyPipe],
   templateUrl: './singular.html',
   styleUrl: './singular.css',

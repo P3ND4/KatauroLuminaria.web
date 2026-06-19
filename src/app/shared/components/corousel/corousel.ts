@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { Component, inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { carouselDTO } from '../../models/carouselDTO';
 import { Router } from '@angular/router';
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-corousel',
-  imports: [CommonModule],
+  imports: [CommonModule, NgOptimizedImage],
   templateUrl: './corousel.html',
   styleUrl: './corousel.css'
 })
@@ -79,15 +79,16 @@ export class Corousel implements OnInit, OnDestroy {
 
   handleSwipe() {
     const diff = this.startX - this.endX;
+    const len = this.data.banners.length;
 
     if (Math.abs(diff) < 50) return; // evita movimientos pequeños
 
     if (diff > 0) {
       // swipe izquierda 👉 siguiente
-      this.goToSlide((this.currentSlide + 1) % 3)
+      this.goToSlide((this.currentSlide + 1) % len)
     } else {
       // swipe derecha 👉 anterior
-      this.goToSlide(((this.currentSlide - 1) % 3 + 3) % 3)
+      this.goToSlide(((this.currentSlide - 1) % len + len) % len)
     }
   }
 
