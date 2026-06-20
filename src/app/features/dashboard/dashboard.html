@@ -27,14 +27,14 @@
         <!--TODO: Implement blog link -->
         <a [ngClass]="{'active': isActive('/dashboard/blog')}" [routerLink]="'/dashboard/blog'">Blog</a>
       </div>
-      @if(!isLogged()){
-
-      <a class="button-base login" id="log" [routerLink]="'/login/signin'">
-        <label for="log">Iniciar sesión</label>
-      </a>
-      }@else {
-
       <div class="user-info">
+        @if(!isLogged()){
+
+        <a class="button-base login" id="log" [routerLink]="'/login/signin'">
+          <label for="log">Iniciar sesión</label>
+        </a>
+        }@else {
+
         <div class="user-button desktop" (click)="clientPanel = true">
           <img [src]="currentUser?.image" alt="" class="user-image">
         </div>
@@ -67,11 +67,11 @@
             <label for="logout">Log out</label>
           </div>
         </div>
+        }
+        <img class="menu-button" [src]="!menuIsOpen? ASSETS.icons.menu : ASSETS.icons.menuOpen" alt="menu"
+          (click)="toggleMenu()">
       </div>
-      }
 
-      <img class="menu-button" [src]="!menuIsOpen? ASSETS.icons.menu : ASSETS.icons.menuOpen" alt="menu"
-        (click)="toggleMenu()">
 
     </div>
     <div class="panelWrapper" (click)="menuIsOpen = false; clientPanel = false"

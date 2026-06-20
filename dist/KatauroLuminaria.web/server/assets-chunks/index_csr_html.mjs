@@ -37,6 +37,6 @@ export default `<!doctype html>
 
 <body style="margin: 0px 0px;" ngcm="">
   <app-root style="height: 100svh; display: flex; width: 100%; flex-direction: column;"></app-root>
-<link rel="modulepreload" href="chunk-RUIOTPVE.js"><link rel="modulepreload" href="chunk-LWYJCYVY.js"><link rel="modulepreload" href="chunk-ZARZPTOK.js"><link rel="modulepreload" href="chunk-3NQKE5H3.js"><link rel="modulepreload" href="chunk-G6XDZR4B.js"><link rel="modulepreload" href="chunk-7ZVSO22Y.js"><link rel="modulepreload" href="chunk-HLVWYHCL.js"><link rel="modulepreload" href="chunk-GMBFTD43.js"><link rel="modulepreload" href="chunk-CLRZAZKY.js"><link rel="modulepreload" href="chunk-EDVPIZQZ.js"><script src="polyfills-5CFQRCPP.js" type="module"></script><script src="main-Q7ID4XDK.js" type="module"></script></body>
+<link rel="modulepreload" href="chunk-RUIOTPVE.js"><link rel="modulepreload" href="chunk-UCQOZCAH.js"><link rel="modulepreload" href="chunk-ZARZPTOK.js"><link rel="modulepreload" href="chunk-CLZHUFRY.js"><link rel="modulepreload" href="chunk-G6XDZR4B.js"><link rel="modulepreload" href="chunk-7ZVSO22Y.js"><link rel="modulepreload" href="chunk-HLVWYHCL.js"><link rel="modulepreload" href="chunk-GMBFTD43.js"><link rel="modulepreload" href="chunk-CLRZAZKY.js"><link rel="modulepreload" href="chunk-YQEI6YDG.js"><script src="polyfills-5CFQRCPP.js" type="module"></script><script src="main-346MOXQE.js" type="module"></script></body>
 
 </html>`;
