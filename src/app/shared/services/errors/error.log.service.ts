@@ -18,6 +18,6 @@ export class ErrorLogService {
         current.pop();
         this._errors.next(current);
       }
-    }, 30000)
+    }, 5000)
   }
 }

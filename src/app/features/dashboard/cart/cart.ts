@@ -385,8 +385,15 @@ Muchas gracias.`;
     this.cartService.deleteFromCart([id], this.currentUser!.id).subscribe({
       next: val => {
         this.loading = false;
-        this.cartService.currentProducts().splice(this.cartService.currentProducts().findIndex(x => x.id == id));
-
+        const index = this.cartService.currentProducts().findIndex(x => x.id == id);
+        if (index !== -1) {
+          this.cartService.currentProducts().splice(index, 1);
+        }
+        // Limpiar selección si el producto borrado estaba seleccionado
+        if (this.selected[id]) {
+          delete this.selected[id];
+        }
+        this.cdr.detectChanges();
       },
       error: err => {
         this.loading = false;

@@ -175,7 +175,7 @@ export class Dashboard implements OnInit, AfterViewInit {
       this.unlockScroll();
       this.loadUser();
     } else this.unlockScroll();
-
+    
   }
   lockScroll(): void {
     if (isPlatformBrowser(this.plataformId)) {

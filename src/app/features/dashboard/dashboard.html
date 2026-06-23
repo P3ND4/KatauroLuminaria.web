@@ -93,7 +93,7 @@
       @if (isLogged()) {
 
       <div class="user-info mobile">
-        <button class="user-button" (click)="toggleEdit()">
+        <button class="user-button" (click)="toggleEdit(); menuIsOpen = false;">
           <img [src]="currentUser?.image" alt="">
         </button>
         <div class="user-data">
