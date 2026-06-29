@@ -24,6 +24,7 @@ export class BlobViewer implements OnInit, OnDestroy {
   constructor(
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
+    private router: Router,
     private http: HttpService,
     private errorServ: ErrorLogService,
     private analytics: BlogAnalyticsService,
@@ -40,7 +41,17 @@ export class BlobViewer implements OnInit, OnDestroy {
       this.http.getBlog(currentBlg).subscribe(
         {
           next: val => {
+            if (!val) {
+              this.router.navigate(['/dashboard/blog']);
+              return;
+            }
             this.blog = val as Blog;
+
+            if (this.blog.draft || (this.blog.publishedDate && new Date(this.blog.publishedDate) > new Date())) {
+              this.router.navigate(['/dashboard/blog']);
+              return;
+            }
+
             console.log(this.blog)
             this.loading = false;
             const img = this.blog.images?.[0]?.link || '';
@@ -81,7 +92,9 @@ export class BlobViewer implements OnInit, OnDestroy {
     })) : [];
     console.log('Contenido de texto procesado:', this.blog.blogContent);
     const textContent: BlogContent[] = this.blog.blogContent.map((content) => ({
-      content: content.text,
+      content: content.text
+        .replace(/&nbsp;/g, ' ')
+        .replace(/\u00A0/g, ' '),
       position: content.position
     }));
 
