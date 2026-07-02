@@ -367,7 +367,7 @@ Muchas gracias.`;
   }
   openWhatsApp(id: string, messageText?: string) {
     if (isPlatformBrowser(this.plataformId)) {
-      const phone = '+5352080347';
+      const phone = '+5353789828';
       const text = messageText
         ? encodeURIComponent(messageText)
         : encodeURIComponent(`Estoy interesado en comprar estos productos:\n\nID de pedido: ${id}`);

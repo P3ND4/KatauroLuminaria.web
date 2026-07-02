@@ -136,9 +136,10 @@
         </p>
         <div class="contact-info">
           <div class="input-content">
-            <input type="text" placeholder="Escríbenos un mensaje">
+            <input type="text" placeholder="Escríbenos un mensaje" [(ngModel)]="contactMessage"
+              (keyup.enter)="sendContact()">
           </div>
-          <button style="height: 44px; width: 88px;;" class="button-base contact-button">
+          <button style="height: 44px; width: 88px;;" class="button-base contact-button" (click)="sendContact()">
             <label>Enviar</label>
           </button>
         </div>
@@ -168,7 +169,7 @@
           Todos los días de 9 am a 6 pm.
         </p>
         <p style="margin-top: 20px;" class="footer-text-black">
-          +53 53799828
+          +53 53789828
         </p>
 
       </div>
@@ -183,7 +184,7 @@
         </p>
 
         <p style="margin-top: 20px;" class="footer-text-black">
-          100 Smith Street Collingwood VIC 3066 AU
+          Pedroso no. 102. Esquina Calle Nueva. Cerro. La Habana. Cuba.
         </p>
 
         <header style="margin-top: 40px; position: relative;" class="factory-header">
@@ -194,7 +195,7 @@
           Escríbenos tus dudas e inquietudes.
         </p>
         <p style="margin-top: 20px;" class="footer-text-black">
-          hi&#64;untitledui.com
+          luminarias@katauro.com
         </p>
       </div>
 

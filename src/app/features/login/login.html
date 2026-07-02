@@ -1,19 +1,20 @@
 <div class="main-login">
     <div class="login-section" [ngClass]="{'register': isRegister()}">
         <header>
-            <img [src]="ASSETS.illustrations.katauroLogo" alt="" style="cursor: pointer;" (click)="router.navigate(['/'])">
+            <img [src]="ASSETS.illustrations.katauroLogo" alt="" style="cursor: pointer;"
+                (click)="router.navigate(['/'])">
         </header>
-        
-        
+
+
         <div>
             <router-outlet></router-outlet>
         </div>
-        
+
         <footer class="log-footer">
             <p>Katauro Luminarias</p>
             <div style="display: flex; gap: 8px;">
                 <img [src]="ASSETS.icons.mailGray" alt="">
-                <a class="mail" href="mailto:katauro.luminarias@gmail.com">katauro.luminarias@gmail.com</a>
+                <a class="mail" href="mailto:luminarias@katauro.com">luminarias@katauro.com</a>
             </div>
         </footer>
 

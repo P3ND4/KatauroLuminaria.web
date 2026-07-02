@@ -1,6 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Router, RouterOutlet, RouterLink, ActivatedRoute } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { CartService } from '../../shared/services/cart/cart.service';
 import { ASSETS } from '../../shared/constants/image-library';
@@ -13,7 +14,7 @@ import { parseError } from '../../shared/services/errors/errorParser';
 import { DiscoverMoreComponent } from './discover-more/discover-more';
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, RouterLink, CommonModule, EditProfile, BoxLoader, DiscoverMoreComponent],
+  imports: [RouterOutlet, RouterLink, CommonModule, FormsModule, EditProfile, BoxLoader, DiscoverMoreComponent],
   animations: [routeAnimations],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
@@ -81,6 +82,27 @@ export class Dashboard implements OnInit, AfterViewInit {
     return isloged;
   }
   currentYear = new Date().getFullYear();
+  contactMessage = '';
+
+  sendContact(): void {
+    if (!this.contactMessage.trim()) {
+      this.errorServ.addError({
+        name: 'Mensaje vacío',
+        error: 'Por favor escribe un mensaje antes de enviar.'
+      });
+      return;
+    }
+
+    const subject = encodeURIComponent('Mensaje de contacto desde Katauro Luminarias');
+    const body = encodeURIComponent(this.contactMessage.trim());
+    const mailtoLink = `mailto:luminarias@katauro.com?subject=${subject}&body=${body}`;
+
+    if (isPlatformBrowser(this.plataformId)) {
+      window.location.href = mailtoLink;
+    }
+
+    this.contactMessage = '';
+  }
 
   plataformId = inject(PLATFORM_ID);
 
@@ -114,7 +136,7 @@ export class Dashboard implements OnInit, AfterViewInit {
     let url = '';
     switch (social) {
       case 'WhatsApp':
-        url = 'https://wa.me/+5352080347';
+        url = 'https://wa.me/+5353789828';
         break;
       case 'Facebook':
         url = 'https://www.facebook.com/p/Katauro-Luminarias-100064229641413';
