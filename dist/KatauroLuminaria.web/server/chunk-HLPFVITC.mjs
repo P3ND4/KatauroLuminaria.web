@@ -1,0 +1,2 @@
+import './polyfills.server.mjs';
+import{h as o}from"./chunk-25TB2X5K.mjs";import{$a as c,Ta as n}from"./chunk-6TSVXTOU.mjs";var p=class i{constructor(r){this.currencyPipe=r}transform(r,e="USD",s="symbol",m="1.2-2",u="en-US"){let t=this.currencyPipe.transform(r,e,s,m,u);return t?t.replace("$","$ "):null}static \u0275fac=function(e){return new(e||i)(n(o,16))};static \u0275pipe=c({name:"customCurrency",type:i,pure:!0})};export{p as a};
