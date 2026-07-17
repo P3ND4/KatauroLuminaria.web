@@ -35,7 +35,7 @@ export class Team implements AfterViewInit {
       { img: ASSETS.cloudinary.teamMembers.juanFernando, name: 'Juan F. Infante Durán (El Profe)', charge: 'Asesor de Diseño', description: '' },
       { img: ASSETS.cloudinary.teamMembers.lourdesSoto, name: 'Lourdes Soto Bengochea', charge: 'Operaria en Pantalla', description: '' },
       { img: ASSETS.cloudinary.teamMembers.andresEmilio, name: 'Andrés Emilio Zabala Rivas (El tío)', charge: 'Operario en Acabado', description: '' },
-      { img: ASSETS.cloudinary.teamMembers.yoandyNolazco, name: 'Yoandy Nolazco Cala', charge: 'Especialista en Acabado', description: '' },
+      { img: ASSETS.cloudinary.teamMembers.yoandyNolazco, name: 'Yoandris Nolazco Cala', charge: 'Especialista en Acabado', description: '' },
       { img: ASSETS.cloudinary.teamMembers.joseLazaro, name: 'José Lázaro Aballí Rabasa (El Chino)', charge: 'Especialista en Mantenimiento', description: '' },
     ];
   }
